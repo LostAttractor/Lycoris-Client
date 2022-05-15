@@ -790,8 +790,11 @@ public class LycorisClient {
             UserInfo userInfo = gson.fromJson(responsePacket.Data, UserInfo.class);
             Username = userInfo.UserName;
             Rank = userInfo.Rank;
-            UID = userInfo.ID;
-
+//            UID = userInfo.ID;
+//            Username = "GSCSDSUN";
+//            Rank = "Beta";
+//            UID = "123";
+//
 
             verifyed = true;
 

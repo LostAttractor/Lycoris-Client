@@ -7,6 +7,7 @@ import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.client.shader.Shader;
 import net.minecraft.client.shader.ShaderGroup;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Timer;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import rbq.wtf.lycoris.client.wrapper.Wrapper;
@@ -37,8 +38,9 @@ public class BlurUtil {
     private static void setShaderConfigs(float intensity, float blurWidth, float blurHeight) {
 
         try {
-            Field field = ObfuscationReflectionHelper.findField(ShaderGroup.class,"listShaders");
-//            Field field = ReflectionHelper.findField(ShaderGroup.class, new String[]{"listShaders", "field_148031_d"});
+//            Field field = ObfuscationReflectionHelper.findField(ShaderGroup.class,"field_148031_d");
+//            Field field = ReflectionHelper.findField(ShaderGroup.class, new String[]{"field_148031_d", "listShaders"});
+            Field field = ReflectionHelper.findField(ShaderGroup.class, new String[]{"listShaders", "field_148031_d"});
             field.setAccessible(true);
             ((List<Shader>) field.get(blurShader)).get(0).getShaderManager().getShaderUniform("Radius").set(intensity);
             ((List<Shader>) field.get(blurShader)).get(1).getShaderManager().getShaderUniform("Radius").set(intensity);
@@ -51,6 +53,11 @@ public class BlurUtil {
     }
 
     public static void blurAll(float intensity) {
+        Field field = ReflectionHelper.findField(Minecraft.class, new String[]{"timer", "field_71428_T"});
+        field.setAccessible(true);
+        Field field2 = ReflectionHelper.findField(Timer.class, new String[]{"renderPartialTicks", "field_194147_b"});
+        field2.setAccessible(true);
+
         ScaledResolution scale = new ScaledResolution(mc);
         float factor = scale.getScaleFactor();
         int factor2 = scale.getScaledWidth();
@@ -64,7 +71,11 @@ public class BlurUtil {
 
         setShaderConfigs(intensity, 0, 1);
         buffer.bindFramebuffer(true);
-        blurShader.render(Wrapper.getTimer(Minecraft.getMinecraft()).renderPartialTicks);
+        try {
+            blurShader.render(field2.getFloat(field.get(Minecraft.getMinecraft())));
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
         mc.getFramebuffer().bindFramebuffer(true);
     }

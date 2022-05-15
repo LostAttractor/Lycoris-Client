@@ -10,6 +10,7 @@ import rbq.wtf.lycoris.client.event.api.EventTarget;
 import rbq.wtf.lycoris.client.event.events.EventClientTick;
 import rbq.wtf.lycoris.client.module.Module;
 import rbq.wtf.lycoris.client.module.ModuleCategory;
+import rbq.wtf.lycoris.client.utils.TimeHelper;
 import rbq.wtf.lycoris.client.utils.Utils;
 import rbq.wtf.lycoris.client.utils.ValidUtils;
 import rbq.wtf.lycoris.client.value.BooleanValue;
@@ -33,6 +34,8 @@ public class RageBot extends Module {
     public NumberValue pitch;
     public NumberValue range;
     public NumberValue FOV;
+    public TimeHelper attacktimer = new TimeHelper();
+    public static NumberValue cps = new NumberValue("CPS", 10.0, 1.0, 20.0, 1.0);
 
     public static Minecraft mc = Minecraft.getMinecraft();
     public RageBot() {
@@ -47,6 +50,7 @@ public class RageBot extends Module {
         pitch = new NumberValue("Pitch", 15.0D, 0D, 50D,1D,this);
         range = new NumberValue("Range", 4.7D, 0.1D, 50D,1D,this);
         FOV = new NumberValue("FOV", 90D, 1D, 180D,1D,this);
+        this.addNumberValue(cps);
         this.addModeValue(priority);
         this.addBooleanValue(onclick);
         this.addBooleanValue(walls);
@@ -95,13 +99,19 @@ public class RageBot extends Module {
             if(!(object instanceof EntityLivingBase)) continue;
             EntityLivingBase entity = (EntityLivingBase) object;
             if(!check(entity)) continue;
-            try {
-                Class clazz = Class.forName("com.trychen.clay.core.weapon.player.ShootHelper");
-                Method cs = clazz.getMethod("cs",float.class,float.class);
-                cs.invoke(null , getPitchChangeToEntity(entity),getYawChangeToEntity(entity));
-            } catch (Exception e) {
-                //e.printStackTrace();
+            float aps = cps.getValue();
+            if (attacktimer.isDelayComplete(aps)) {
+                try {
+                    Class<?> clazz = Class.forName("com.trychen.clay.core.weapon.player.ShootHelper");
+                    Method cs = clazz.getMethod("mt",float.class,float.class);
+                    cs.setAccessible(true);
+                    cs.invoke(null , getPitchChangeToEntity(entity),getYawChangeToEntity(entity));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                attacktimer.reset();
             }
+
 
         }
     }

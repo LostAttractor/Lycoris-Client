@@ -41,7 +41,7 @@ public class ModuleManager {
 
         modules.add(new Fly());
         modules.add(new KeepSprint());
-
+        modules.add(new FreeCam());
 
         modules.add(new Speed());
         modules.add(new NoFall());
