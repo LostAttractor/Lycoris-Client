@@ -15,11 +15,13 @@ public class Module {
     private ArrayList<NumberValue> NumberValues;
     private ArrayList<ModeValue> ModeValues;
     private ArrayList<ColorValue> ColorValues;
+    private ArrayList<TextValue> TextValues;
     public Module(String Name, ModuleCategory Category, int Key) {
         this.BooleanValues = new ArrayList<BooleanValue>();
         this.NumberValues = new ArrayList<NumberValue>();
         this.ModeValues = new ArrayList<ModeValue>();
         this.ColorValues = new ArrayList<ColorValue>();
+        this.TextValues = new ArrayList<TextValue>();
         this.Category = Category;
         this.Name = Name;
         this.State = false;
@@ -41,6 +43,7 @@ public class Module {
         Values.addAll(ModeValues);
         Values.addAll(NumberValues);
         Values.addAll(ColorValues);
+        Values.addAll(TextValues);
         return Values;
     }
 
@@ -56,6 +59,10 @@ public class Module {
 
     public ArrayList<NumberValue> getNumberValues() {
         return NumberValues;
+    }
+
+    public ArrayList<TextValue> getTextValues() {
+        return TextValues;
     }
 
     public ArrayList<ColorValue> getColorValues() {return ColorValues;}
@@ -75,6 +82,11 @@ public class Module {
     public void addColorValue(ColorValue value) {
         value.setModule(this);
         this.ColorValues.add(value);
+    }
+
+    public void addTextValue(TextValue value) {
+        value.setModule(this);
+        this.TextValues.add(value);
     }
     public boolean isState() {
         return State;

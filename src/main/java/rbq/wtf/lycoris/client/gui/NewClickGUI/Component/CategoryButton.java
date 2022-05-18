@@ -35,6 +35,7 @@ public class CategoryButton extends Component{
             NewClickGUI.currentModule = null;
             NewClickGUI.moduleWheel = 0;
             NewClickGUI.valueWheel = 0;
+            NewClickGUI.currentActiveTextValue = null;
         }
     }
 

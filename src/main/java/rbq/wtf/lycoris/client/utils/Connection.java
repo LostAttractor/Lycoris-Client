@@ -6,6 +6,7 @@ import rbq.wtf.lycoris.client.LycorisClient;
 import rbq.wtf.lycoris.client.event.EventHandler;
 import rbq.wtf.lycoris.client.event.api.EventManager;
 import rbq.wtf.lycoris.client.event.events.EventPacket;
+import rbq.wtf.lycoris.client.utils.Render.ChatUtils;
 import rbq.wtf.lycoris.client.wrapper.Wrapper;
 
 public class Connection extends ChannelDuplexHandler {
@@ -44,6 +45,7 @@ public class Connection extends ChannelDuplexHandler {
         EventPacket event = new EventPacket(packet,Side.OUT);
         EventManager.call(event);
         if (event.isCancelled()) return;
+//
         super.write(ctx, packet, promise);
     }
 }

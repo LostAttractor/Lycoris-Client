@@ -53,6 +53,7 @@ public class ColorValue extends Value<Color>{
 
     public void setValue(Color value) {
         awtvalue=value;
+        this.value = value.getRGB();
     }
     public void setState(Color value) {
         awtvalue=value;
@@ -101,7 +102,6 @@ public class ColorValue extends Value<Color>{
 
 
     public Color getValueR(float offset) {
-
         if(rainbow) {
             final float[] hsb = new float[3];
             Color.RGBtoHSB(awtvalue.getRed(),awtvalue.getGreen(),awtvalue.getBlue(),hsb);
@@ -176,7 +176,6 @@ public class ColorValue extends Value<Color>{
         hsbValues[0] = hue;
         hsbValues[1] = saturation;
         hsbValues[2] = brightness;
-
         return hsbValues;
     }
 }

@@ -99,7 +99,7 @@ public class TpAura extends Module {
                     Vec3 topFrom = new Vec3(this.mc.player.posX, this.mc.player.posY, this.mc.player.posZ);
                     Vec3 to = new Vec3(T.posX, T.posY, T.posZ);
 
-                    path = computePath(topFrom, to);
+                                            path = computePath(topFrom, to);
                     test[i] = path;
                     for (Vec3 pathElm : path) {
                         this.mc.getConnection().getNetworkManager().sendPacket(new CPacketPlayer.Position(pathElm.getX(), pathElm.getY(), pathElm.getZ(), true));

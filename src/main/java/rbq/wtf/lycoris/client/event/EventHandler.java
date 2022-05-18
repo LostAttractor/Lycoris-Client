@@ -47,10 +47,10 @@ public class EventHandler {
         if (!Keyboard.getEventKeyState()) {
             return;
         }
-        //if (!typed) {
-        //    typed = true;
-        //    return;
-        //}
+//        if (!typed) {
+//            typed = true;
+//            return;
+//        }
 
         EventManager.call(new EventKey(Keyboard.getEventKey()));
 

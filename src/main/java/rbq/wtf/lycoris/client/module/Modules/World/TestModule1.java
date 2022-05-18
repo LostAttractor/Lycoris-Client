@@ -8,7 +8,7 @@ public class TestModule1 extends Module {
     public static ModeValue mode;
 
     public TestModule1() {
-        super("TestModule1", ModuleCategory.World,0);
+        super("测试模块 测试字体渲染", ModuleCategory.World,0);
         mode = new ModeValue("Mode", new String[]{"Base", "ArmorColor", "NameColor"}, 0, 2);
         this.addModeValue(mode);
     }

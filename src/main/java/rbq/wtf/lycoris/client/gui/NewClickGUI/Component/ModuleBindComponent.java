@@ -24,17 +24,26 @@ public class ModuleBindComponent extends Component{
 
     @Override
     public void render() {
-        if (NewClickGUI.currentBindModule != null) {
-            FontLoaders.default18.drawStringWithShadow("Bind to" ,
-                    x,
-                    y,
-                    -1);
+        if (NewClickGUI.currentActiveTextValue != null){
+            if (NewClickGUI.currentActiveTextValue == this) {
+                FontLoaders.default18.drawStringWithShadow("Bind to" ,
+                        x,
+                        y,
+                        -1);
+            } else {
+                FontLoaders.default18.drawStringWithShadow("Bind:" + Keyboard.getKeyName(module.getKey()),
+                        x,
+                        y,
+                        -1);
+            }
         } else {
             FontLoaders.default18.drawStringWithShadow("Bind:" + Keyboard.getKeyName(module.getKey()),
                     x,
                     y,
                     -1);
         }
+
+
     }
 
     @Override
@@ -46,12 +55,22 @@ public class ModuleBindComponent extends Component{
                 mouseX,
                 mouseY)) {
             if (Mouse.isButtonDown(0)) {
-                if (NewClickGUI.currentBindModule == null) {
-                    NewClickGUI.currentBindModule = module;
-                } else {
-                    NewClickGUI.currentBindModule = null;
+                NewClickGUI.currentActiveTextValue = this;
+            } else if (Mouse.isButtonDown(3)) {
+                module.setKey(0);
+            }
+        } else {
+            if (NewClickGUI.currentActiveTextValue != null) {
+                if (NewClickGUI.currentActiveTextValue == this){
+                    NewClickGUI.currentActiveTextValue = null;
                 }
             }
         }
+    }
+
+    @Override
+    public void keyTyped(char typedChar, int keyCode) {
+        this.module.setKey(keyCode);
+        NewClickGUI.currentActiveTextValue = null;
     }
 }

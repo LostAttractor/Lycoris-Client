@@ -19,6 +19,7 @@ public class ChatUtils{	// TODO Rewrite to LogManager
 	
 	public static void message(Object message)
 	{
+		System.out.println(message);
 		component(new TextComponentTranslation("\u00a78" + "Lycoris" + "\u00a77 " + message));
 	}
 	

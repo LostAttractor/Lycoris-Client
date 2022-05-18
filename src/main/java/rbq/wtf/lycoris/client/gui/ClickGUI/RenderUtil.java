@@ -35,6 +35,11 @@ public enum RenderUtil {
 	public static Minecraft mc = Minecraft.getMinecraft();
 	public static float delta;
 
+
+	public static void drawGradientRect(float x, float y, float x1, float y1, int topColor, int bottomColor) {
+		R2DUtils.drawGradientRect(x,y,x1,y1,topColor,bottomColor);
+	}
+
 	public static void enableSmoothLine(float width) {
 		glDisable((int) 3008);
 		glEnable((int) 3042);

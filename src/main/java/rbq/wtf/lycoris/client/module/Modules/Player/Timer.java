@@ -15,13 +15,19 @@ public class Timer extends Module {
     public static BooleanValue Eexspeed;
     public Timer(){
         super("Timer", ModuleCategory.Player,0);
-        speed = new NumberValue("Speed", 1.0f, 0.1f, 3.0f, 1.0f);
-        Exspeed = new NumberValue("ExSpeed", 1.0f, 0.0f, 15.0f, 1.0f);
+        speed = new NumberValue("Speed", 1.0f, 0.1f, 3.0f, 0.01f);
+        Exspeed = new NumberValue("ExSpeed", 1.0f, 0.0f, 15.0f, 0.01f);
         Eexspeed = new BooleanValue("use EX",false);
         this.addBooleanValue(Eexspeed);
         this.addNumberValue(speed);
         this.addNumberValue(Exspeed);
     }
+
+    @Override
+    public void onDisable() {
+        Wrapper.setTickLength(Minecraft.getMinecraft(),1);
+    }
+
     @EventTarget
     public void onUpdate(EventPlayerTick e){
         float expandvalue;
@@ -32,4 +38,5 @@ public class Timer extends Module {
         }
         Wrapper.setTickLength(Minecraft.getMinecraft(),speed.getValue()+expandvalue);
     }
+
 }

@@ -26,12 +26,12 @@ public class BooleanValueComponent extends Component{
     }
     @Override
     public void render() {
-        RenderUtil.startGlScissor((int) (NewClickGUI.startX), (int) (NewClickGUI.startY + 50.0F),445, (int)277);
+//        RenderUtil.startGlScissor((int) (NewClickGUI.startX), (int) (NewClickGUI.startY + 50.0F),445, (int)277);
         FontLoaders.default20.drawString(Value.getName(),
                 x,
                 y,
                 new Color(255,255,255).getRGB());
-        RenderUtil.stopGlScissor();
+//        RenderUtil.stopGlScissor();
         if (Value.getValue()) {
             //Draw Switch Background
             /*Render Glow*/

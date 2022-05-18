@@ -66,6 +66,7 @@ public class ModuleButtonList extends Component{
                         NewClickGUI.currentModule = module;
                         NewClickGUI.valueWheel = 0;
                         NewClickGUI.valueComponentList.clear();
+                        NewClickGUI.currentActiveTextValue = null;
                         for (Value<?> value: module.getValues()) {
                             if (value instanceof BooleanValue) {
                                 NewClickGUI.valueComponentList.add(new BooleanValueComponent((BooleanValue) value));
@@ -78,6 +79,9 @@ public class ModuleButtonList extends Component{
                             }
                             if (value instanceof ColorValue) {
                                 NewClickGUI.valueComponentList.add(new ColorValueComponent((ColorValue) value));
+                            }
+                            if (value instanceof TextValue) {
+                                NewClickGUI.valueComponentList.add(new TextValueComponent((TextValue) value));
                             }
                         }
                         NewClickGUI.valueComponentList.add(new ModuleBindComponent(module));

@@ -26,6 +26,7 @@ public class NewClickGUI extends GuiScreen {
     public static ModuleCategory currentModuleType;
     public static Module currentModule;
     public static Module currentBindModule;
+    public static Component currentActiveTextValue;
     public static float moduleWheel = 0.0F;
     public static float valueWheel = 0.0F;
     public static float startX = 100;
@@ -101,7 +102,8 @@ public class NewClickGUI extends GuiScreen {
         }
 
         //DrawModules
-        RenderUtil.startGlScissor((int) (startX ), (int) (startY + 50.0F),445, (int)277);
+        RenderUtil.startGlScissor((int) (NewClickGUI.startX), (int) (NewClickGUI.startY + 50.0F),445, (int)277);
+
         float moduleY = startY + 45;
         for (ModuleButtonList list: moduleButtonList) {
             if (list.category == currentModuleType) {
@@ -181,13 +183,24 @@ public class NewClickGUI extends GuiScreen {
     }
 
     @Override
+    protected void mouseReleased(int mouseX, int mouseY, int state) {
+        if (this.isHovered(startX + 110, startY + 35.0F, startX + 440.0F, startY + 330.0F, mouseX, mouseY)){
+            float valueY = startY + 50;
+            if (currentModule != null) {
+                for ( Component component : valueComponentList) {
+                    component.mouseReleased(state);
+                    valueY+=component.getHeight();
+                }
+
+            }
+        }
+    }
+
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         super.keyTyped(typedChar, keyCode);
-        if (currentBindModule == null) {
-            return;
-        } else {
-            currentBindModule.setKey(keyCode);
-            currentBindModule = null;
+        if (currentActiveTextValue != null) {
+            currentActiveTextValue.keyTyped(typedChar,keyCode);
         }
     }
 

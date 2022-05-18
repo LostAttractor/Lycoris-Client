@@ -42,6 +42,7 @@ public class ModuleManager {
         modules.add(new Fly());
         modules.add(new KeepSprint());
         modules.add(new FreeCam());
+        modules.add(new FarPlay());
 
         modules.add(new Speed());
         modules.add(new NoFall());
@@ -49,6 +50,8 @@ public class ModuleManager {
 
         modules.add(new ChestStealer());
         modules.add(new Timer());
+
+//        modules.add(new TestModule1());
         for (Module m : modules) {
             System.out.println(m.Name);
         }

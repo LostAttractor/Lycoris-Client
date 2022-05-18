@@ -39,4 +39,7 @@ public class Component {
     public boolean isHovered(float x, float y, float x2, float y2, int mouseX, int mouseY) {
         return (float) mouseX >= x && (float) mouseX <= x2 && (float) mouseY >= y && (float) mouseY <= y2;
     }
+    public void mouseReleased(int mouseButton){
+
+    }
 }

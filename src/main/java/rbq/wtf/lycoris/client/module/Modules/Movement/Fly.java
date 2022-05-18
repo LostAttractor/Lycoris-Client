@@ -44,7 +44,7 @@ public class Fly extends Module {
         this.addBooleanValue(endStop);
         this.timer = new Timer();
         this.kickTimer = new Timer();
-
+    
     }
 
     @EventTarget

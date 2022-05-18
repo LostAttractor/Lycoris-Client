@@ -60,9 +60,9 @@ public class Wrapper {
 
     public static void setTickLength(final Minecraft mc, float tickLength) {
         try {
-            Field fTimer = mc.getClass().getDeclaredField(isNotObfuscated() ? "field_71428_T" : "timer");
+            Field fTimer = mc.getClass().getDeclaredField(isNotObfuscated() ? "timer" : "field_71428_T");
             fTimer.setAccessible(true);
-            Field fTickLength = Timer.class.getDeclaredField(isNotObfuscated() ? "field_194149_e" : "tickLength");
+            Field fTickLength = Timer.class.getDeclaredField(isNotObfuscated() ? "tickLength" : "field_194149_e");
             fTickLength.setAccessible(true);
             fTickLength.setFloat(fTimer.get(mc),50.0f / tickLength);
             fTickLength.setAccessible(false);
@@ -274,7 +274,7 @@ public class Wrapper {
         }
     }
     public static boolean isNotObfuscated() {
-        try { return Minecraft.class.getDeclaredField("instance") != null;
+        try { return Minecraft.class.getDeclaredField("ingameGUI") != null;
         } catch (Exception ex) { return false; }
     }
 
