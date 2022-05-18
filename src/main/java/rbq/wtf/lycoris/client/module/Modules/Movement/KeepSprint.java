@@ -11,14 +11,7 @@ public class KeepSprint extends Module {
     public KeepSprint() {
         super("KeepSprint",ModuleCategory.Movement,0);
     }
-    @Override
-    public void onEnable(){
-        Minecraft.getMinecraft().player.sendChatMessage("Enable");
-    }
-    @Override
-    public void onDisable(){
-        Minecraft.getMinecraft().player.sendChatMessage("Disable");
-    }
+
     @EventTarget
     public void onUpdate(EventPlayerTick eventPlayerTick) {
         if(!Minecraft.getMinecraft().player.isSprinting()) Minecraft.getMinecraft().player.setSprinting(true);
