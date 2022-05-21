@@ -36,7 +36,7 @@ public class ModuleManager {
         modules.add(new KillAura());
         modules.add(new Reach());
         modules.add(new Criticals());
-
+        modules.add(new InfiniteAmmo());
         modules.add(new Scaffold());
 
         modules.add(new Fly());

@@ -30,7 +30,7 @@ public class HUD extends Module {
         this.addBooleanValue(arrayList);
         rainbowSpeed = new NumberValue("RainbowSpeed",100.0F,0.0F,2000.0F,0.1F);
         this.addNumberValue(rainbowSpeed);
-        colorValue = new ColorValue("Theme Color",new Color(198, 139, 255));
+        colorValue = new ColorValue("Theme Color",new Color(255, 139, 214));
         this.addColorValue(colorValue);
         hudText = new TextValue("HUD Title","Dimples.Love",this);
         this.addTextValue(hudText);

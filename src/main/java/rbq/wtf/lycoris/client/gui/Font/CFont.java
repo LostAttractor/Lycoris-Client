@@ -12,9 +12,13 @@ import org.lwjgl.opengl.GL11;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CFont {
-    private final float imgSize = 512.0f;
+    private float imgSize = 512.0f;
     protected CharData[] charData = new CharData[256];
     protected Font font;
     protected boolean antiAlias;
@@ -22,12 +26,20 @@ public class CFont {
     protected int fontHeight = -1;
     protected int charOffset = 0;
     protected DynamicTexture tex;
-
-    public CFont(Font font, boolean antiAlias, boolean fractionalMetrics) {
+    private boolean hasDone;
+    private boolean unicode;
+    protected HashMap<Character, Character> charmap = new HashMap();
+    public CFont(Font font, boolean antiAlias, boolean fractionalMetrics, boolean unicode) {
         this.font = font;
         this.antiAlias = antiAlias;
         this.fractionalMetrics = fractionalMetrics;
+        this.unicode = unicode;
+        if (unicode) {
+            this.imgSize = 4096;
+            this.charData = new CharData[62976 + 256];
+        }
         this.tex = this.setupTexture(font, antiAlias, fractionalMetrics, this.charData);
+
     }
 
     protected DynamicTexture setupTexture(Font font, boolean antiAlias, boolean fractionalMetrics, CharData[] chars) {
@@ -42,48 +54,102 @@ public class CFont {
     }
 
     protected BufferedImage generateFontImage(Font font, boolean antiAlias, boolean fractionalMetrics, CharData[] chars) {
-        int imgSize = 512;
-        BufferedImage bufferedImage = new BufferedImage(imgSize, imgSize, 2);
-        Graphics2D g = (Graphics2D)bufferedImage.getGraphics();
+        int imgSize = (int) this.imgSize;
+        BufferedImage bufferedImage = new BufferedImage(imgSize, imgSize, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = (Graphics2D) bufferedImage.getGraphics();
         g.setFont(font);
         g.setColor(new Color(255, 255, 255, 0));
         g.fillRect(0, 0, imgSize, imgSize);
         g.setColor(Color.WHITE);
-        g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, fractionalMetrics ? RenderingHints.VALUE_FRACTIONALMETRICS_ON : RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
-        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, antiAlias ? RenderingHints.VALUE_TEXT_ANTIALIAS_ON : RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, antiAlias ? RenderingHints.VALUE_ANTIALIAS_ON : RenderingHints.VALUE_ANTIALIAS_OFF);
+        g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
+                fractionalMetrics ? RenderingHints.VALUE_FRACTIONALMETRICS_ON
+                        : RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                antiAlias ? RenderingHints.VALUE_TEXT_ANTIALIAS_ON : RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                antiAlias ? RenderingHints.VALUE_ANTIALIAS_ON : RenderingHints.VALUE_ANTIALIAS_OFF);
         FontMetrics fontMetrics = g.getFontMetrics();
         int charHeight = 0;
         int positionX = 0;
         int positionY = 1;
-        int i = 0;
-        while (i < chars.length) {
-            char ch = (char)i;
+
+        for (int i = 0; i < 256; i++) {
+            char ch = (char) i;
+
             CharData charData = new CharData();
             Rectangle2D dimensions = fontMetrics.getStringBounds(String.valueOf(ch), g);
-            charData.width = dimensions.getBounds().width + 8;
+            charData.width = (dimensions.getBounds().width + 8);
             charData.height = dimensions.getBounds().height;
+
             if (positionX + charData.width >= imgSize) {
                 positionX = 0;
                 positionY += charHeight;
                 charHeight = 0;
             }
+
             if (charData.height > charHeight) {
                 charHeight = charData.height;
             }
+
             charData.storedX = positionX;
             charData.storedY = positionY;
+
             if (charData.height > this.fontHeight) {
                 this.fontHeight = charData.height;
             }
+
             chars[i] = charData;
             g.drawString(String.valueOf(ch), positionX + 2, positionY + fontMetrics.getAscent());
             positionX += charData.width;
-            ++i;
+        }
+        if (this.unicode && !hasDone) {
+            char[] chinesechar = findCharactersInUnicodeBlock(Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS);
+            System.out.println(chinesechar.length);
+            for (int i = 256; i < 255 + chinesechar.length; i++) {
+
+                char ch = (char) i;
+                charmap.put(chinesechar[i - 256], (char) (i - 256));
+
+                CharData charData = new CharData();
+                Rectangle2D dimensions = fontMetrics.getStringBounds(String.valueOf(chinesechar[i - 256]), g);
+                charData.width = (dimensions.getBounds().width + 8);
+                charData.height = dimensions.getBounds().height;
+
+                if (positionX + charData.width >= imgSize) {
+                    positionX = 0;
+                    positionY += charHeight;
+                    charHeight = 0;
+                }
+
+                if (charData.height > charHeight) {
+                    charHeight = charData.height;
+                }
+
+                charData.storedX = positionX;
+                charData.storedY = positionY;
+
+                if (charData.height > this.fontHeight) {
+                    this.fontHeight = charData.height;
+                }
+
+
+                chars[i] = charData;
+                g.drawString(String.valueOf(chinesechar[i - 256]), positionX + 2, positionY + fontMetrics.getAscent());
+                positionX += charData.width;
+            }
+            hasDone = true;
         }
         return bufferedImage;
     }
-
+    private char[] findCharactersInUnicodeBlock(final Character.UnicodeBlock block) {
+        final ArrayList<Character> chars = new ArrayList<Character>();
+        for (int codePoint = Character.MIN_CODE_POINT; codePoint <= Character.MAX_CODE_POINT; codePoint++) {
+            if (block == Character.UnicodeBlock.of(codePoint)) {
+                chars.add((char) codePoint);
+            }
+        }
+        return chars.toString().toCharArray();
+    }
     public void drawChar(CharData[] chars, char c, float x, float y) throws ArrayIndexOutOfBoundsException {
         try {
             this.drawQuad(x, y, chars[c].width, chars[c].height, chars[c].storedX, chars[c].storedY, chars[c].width, chars[c].height);
