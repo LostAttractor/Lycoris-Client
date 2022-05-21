@@ -28,7 +28,7 @@ jobs:
       with:
         java-version: '8'
         distribution: 'temurin'
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
-      with:
-        arguments: build
+    - name: Grant execute permission for gradlew  #更改脚本权限
+      run: chmod +x gradlew
+    - name: Build with Gradle  #开始打包 -x test 跳过测试
+      run: ./gradlew bootWar -x test

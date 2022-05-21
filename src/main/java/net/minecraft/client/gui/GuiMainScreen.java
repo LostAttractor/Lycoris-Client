@@ -66,7 +66,7 @@ public class GuiMainScreen extends GuiScreen{
 
     @Override
     public void initGui() {
-        JOptionPane.showConfirmDialog(null,"ClickGUIInit","DXPSL", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showConfirmDialog(null,"ClickGUIInit1","DXPSL", JOptionPane.PLAIN_MESSAGE);
         super.initGui();
 
     }
