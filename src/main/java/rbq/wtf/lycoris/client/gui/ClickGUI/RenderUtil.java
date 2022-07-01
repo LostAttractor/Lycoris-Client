@@ -14,58 +14,23 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
-
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11.GL_BLEND;
 
 public enum RenderUtil {
 	INSTANCE;
 
 	public static Minecraft mc = Minecraft.getMinecraft();
 	public static float delta;
-
-
-	public static void drawGradientRect(float x, float y, float x1, float y1, int topColor, int bottomColor) {
-		R2DUtils.drawGradientRect(x,y,x1,y1,topColor,bottomColor);
-	}
-
-	public static void enableSmoothLine(float width) {
-		glDisable((int) 3008);
-		glEnable((int) 3042);
-		GL11.glBlendFunc((int) 770, (int) 771);
-		glDisable((int) 3553);
-		glDisable((int) 2929);
-		GL11.glDepthMask((boolean) false);
-		glEnable((int) 2884);
-		glEnable((int) 2848);
-		GL11.glHint((int) 3154, (int) 4354);
-		GL11.glHint((int) 3155, (int) 4354);
-		GL11.glLineWidth((float) width);
-	}
-
-	public static void disableSmoothLine() {
-		glEnable((int) 3553);
-		glEnable((int) 2929);
-		glDisable((int) 3042);
-		glEnable((int) 3008);
-		GL11.glDepthMask((boolean) true);
-		GL11.glCullFace((int) 1029);
-		glDisable((int) 2848);
-		GL11.glHint((int) 3154, (int) 4352);
-		GL11.glHint((int) 3155, (int) 4352);
-	}
-
 
 	public static int width() {
 		return (new ScaledResolution(Minecraft.getMinecraft())).getScaledWidth();
@@ -147,7 +112,6 @@ public enum RenderUtil {
 		GL11.glDisable(3042);
 		GlStateManager.enableTexture2D();
 		GlStateManager.disableBlend();
-		GlStateManager.resetColor();
 	}
 	public static void enableGL3D(float lineWidth) {
 		GL11.glDisable(3008);
@@ -223,58 +187,60 @@ public enum RenderUtil {
 	}
 
 	public static void drawFilledCircle(double x, double y, double r, int c, int id) {
-		final boolean blend = glIsEnabled(GL_BLEND);
-		final boolean texture = glIsEnabled(GL_TEXTURE_2D);
-		if(!blend) glEnable(GL_BLEND);
-		if(texture) glDisable(GL_TEXTURE_2D);
-		float f = (float) (c >> 24 & 0xff) / 255F;
-		float f1 = (float) (c >> 16 & 0xff) / 255F;
-		float f2 = (float) (c >> 8 & 0xff) / 255F;
-		float f3 = (float) (c & 0xff) / 255F;
-
-//		glEnable(GL_POINT_SMOOTH);
-		glColor4f(f1, f2, f3, f);
-		glBegin(GL_POLYGON);
+		float f = (float) (c >> 24 & 255) / 255.0F;
+		float f1 = (float) (c >> 16 & 255) / 255.0F;
+		float f2 = (float) (c >> 8 & 255) / 255.0F;
+		float f3 = (float) (c & 255) / 255.0F;
+		GL11.glEnable(3042);
+		GL11.glDisable(3553);
+		GL11.glColor4f(f1, f2, f3, f);
+		GL11.glBegin(9);
+		int i;
+		double x2;
+		double y2;
 		if (id == 1) {
-			glVertex2d(x, y);
-			for (int i = 0; i <= 90; i++) {
-				double x2 = Math.sin((i * 3.141526D / 180)) * r;
-				double y2 = Math.cos((i * 3.141526D / 180)) * r;
-				glVertex2d(x - x2, y - y2);
+			GL11.glVertex2d(x, y);
+
+			for (i = 0; i <= 90; ++i) {
+				x2 = Math.sin((double) i * 3.141526D / 180.0D) * r;
+				y2 = Math.cos((double) i * 3.141526D / 180.0D) * r;
+				GL11.glVertex2d(x - x2, y - y2);
 			}
 		} else if (id == 2) {
-			glVertex2d(x, y);
-			for (int i = 90; i <= 180; i++) {
-				double x2 = Math.sin((i * 3.141526D / 180)) * r;
-				double y2 = Math.cos((i * 3.141526D / 180)) * r;
-				glVertex2d(x - x2, y - y2);
+			GL11.glVertex2d(x, y);
+
+			for (i = 90; i <= 180; ++i) {
+				x2 = Math.sin((double) i * 3.141526D / 180.0D) * r;
+				y2 = Math.cos((double) i * 3.141526D / 180.0D) * r;
+				GL11.glVertex2d(x - x2, y - y2);
 			}
 		} else if (id == 3) {
-			glVertex2d(x, y);
-			for (int i = 270; i <= 360; i++) {
-				double x2 = Math.sin((i * 3.141526D / 180)) * r;
-				double y2 = Math.cos((i * 3.141526D / 180)) * r;
-				glVertex2d(x - x2, y - y2);
+			GL11.glVertex2d(x, y);
+
+			for (i = 270; i <= 360; ++i) {
+				x2 = Math.sin((double) i * 3.141526D / 180.0D) * r;
+				y2 = Math.cos((double) i * 3.141526D / 180.0D) * r;
+				GL11.glVertex2d(x - x2, y - y2);
 			}
 		} else if (id == 4) {
-			glVertex2d(x, y);
-			for (int i = 180; i <= 270; i++) {
-				double x2 = Math.sin((i * 3.141526D / 180)) * r;
-				double y2 = Math.cos((i * 3.141526D / 180)) * r;
-				glVertex2d(x - x2, y - y2);
+			GL11.glVertex2d(x, y);
+
+			for (i = 180; i <= 270; ++i) {
+				x2 = Math.sin((double) i * 3.141526D / 180.0D) * r;
+				y2 = Math.cos((double) i * 3.141526D / 180.0D) * r;
+				GL11.glVertex2d(x - x2, y - y2);
 			}
 		} else {
-			for (int i = 0; i <= 360; i++) {
-				double x2 = Math.sin((i * 3.141526D / 180)) * r;
-				double y2 = Math.cos((i * 3.141526D / 180)) * r;
-				glVertex2f((float) (x - x2), (float) (y - y2));
+			for (i = 0; i <= 360; ++i) {
+				x2 = Math.sin((double) i * 3.141526D / 180.0D) * r;
+				y2 = Math.cos((double) i * 3.141526D / 180.0D) * r;
+				GL11.glVertex2f((float) (x - x2), (float) (y - y2));
 			}
 		}
-		glEnd();
-//		glDisable(GL_POINT_SMOOTH);
-		if(!blend) glDisable(GL_BLEND);
-		if(texture) glEnable(GL_TEXTURE_2D);
-		GlStateManager.resetColor();
+
+		GL11.glEnd();
+		GL11.glEnable(3553);
+		GL11.glDisable(3042);
 	}
 
 	public static void drawFullCircle(int cx, int cy, double r, int segments, float lineWidth, int part, int c) {
@@ -419,7 +385,7 @@ public enum RenderUtil {
 
 	public static void drawPlayerHead(String playerName, int x, int y, int width, int height) {
 		Minecraft.getMinecraft();
-		Iterator var6 = Minecraft.getMinecraft().world.getLoadedEntityList().iterator();
+		Iterator var6 = Minecraft.getMinecraft().theWorld.getLoadedEntityList().iterator();
 
 		while (var6.hasNext()) {
 			Object player = var6.next();
@@ -477,6 +443,7 @@ public enum RenderUtil {
 			reader.close();
 		} catch (IOException var4) {
 			var4.printStackTrace();
+			System.exit(-1);
 		}
 
 		return shaderSource.toString();
@@ -534,7 +501,7 @@ public enum RenderUtil {
 				&& mc.displayHeight / (scaleFactor + 1) >= 240) {
 			++scaleFactor;
 		}
-		GL11.glPushMatrix();
+
 		GL11.glScissor(x * scaleFactor, mc.displayHeight - (y + height) * scaleFactor, width * scaleFactor,
 				height * scaleFactor);
 	}
@@ -631,8 +598,6 @@ public enum RenderUtil {
 		GlStateManager.disableBlend();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 	}
-
-
 
 	public void drawCircle(int x, int y, float radius, int color) {
 		float alpha = (float) (color >> 24 & 255) / 255.0F;
@@ -758,7 +723,7 @@ public enum RenderUtil {
 
 	public static void drawOutlinedBoundingBox(AxisAlignedBB aa) {
 		Tessellator tessellator = Tessellator.getInstance();
-//		WorldRenderer worldRenderer = tessellator.get
+		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
 
 		tessellator.draw();
 
@@ -933,7 +898,7 @@ public enum RenderUtil {
 
 	public static void drawBoundingBox(AxisAlignedBB aa) {
 		Tessellator tessellator = Tessellator.getInstance();
-//		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
 		tessellator.draw();
 	}
 
@@ -1080,19 +1045,6 @@ public enum RenderUtil {
 		GL11.glPopMatrix();
 	}
 
-	public static void startGlScissor(int x, int y, int width, int height) {
-		int scaleFactor = new ScaledResolution(mc).getScaleFactor();
-		GL11.glPushMatrix();
-		glEnable((int) 3089);
-		GL11.glScissor((int) (x * scaleFactor), (int) (RenderUtil.mc.displayHeight - (y + height) * scaleFactor),
-				(int) (width * scaleFactor), (int) ((height + 14) * scaleFactor));
-	}
-
-	public static void stopGlScissor() {
-		glDisable((int) 3089);
-		GL11.glPopMatrix();
-	}
-
 	private static void glColor(Color color) {
 		GL11.glColor4f((float) color.getRed() / 255.0F, (float) color.getGreen() / 255.0F,
 				(float) color.getBlue() / 255.0F, (float) color.getAlpha() / 255.0F);
@@ -1100,7 +1052,7 @@ public enum RenderUtil {
 
 	public static void drawFilledBox(AxisAlignedBB mask) {
 		Tessellator tessellator = Tessellator.getInstance();
-//		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
 		tessellator.draw();
 	}
 
@@ -1141,7 +1093,7 @@ public enum RenderUtil {
 		float var13 = (float) (color >> 8 & 255) / 255.0F;
 		float var14 = (float) (color & 255) / 255.0F;
 		Tessellator var15 = Tessellator.getInstance();
-//		WorldRenderer var16 = var15.getWorldRenderer();
+		WorldRenderer var16 = var15.getWorldRenderer();
 		GlStateManager.enableBlend();
 		GlStateManager.disableTexture2D();
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
@@ -1188,7 +1140,7 @@ public enum RenderUtil {
 		}
 
 		Tessellator var9 = Tessellator.getInstance();
-//		WorldRenderer var10 = var9.getWorldRenderer();
+		WorldRenderer var10 = var9.getWorldRenderer();
 		GlStateManager.enableBlend();
 		GlStateManager.disableTexture2D();
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
@@ -1288,7 +1240,7 @@ public enum RenderUtil {
 		float var7 = (float) (color >> 8 & 255) / 255.0F;
 		float var8 = (float) (color & 255) / 255.0F;
 		Tessellator tessellator = Tessellator.getInstance();
-//		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
 		GlStateManager.enableBlend();
 		GlStateManager.disableTexture2D();
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
@@ -1348,7 +1300,7 @@ public enum RenderUtil {
 		float f1 = (float) (color >> 8 & 255) / 255.0F;
 		float f2 = (float) (color & 255) / 255.0F;
 		Tessellator tessellator = Tessellator.getInstance();
-//		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+		WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 		GlStateManager.enableBlend();
 		GlStateManager.disableTexture2D();
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
@@ -1395,7 +1347,7 @@ public enum RenderUtil {
 		RenderManager var11 = Minecraft.getMinecraft().getRenderManager();
 		var11.setPlayerViewY(180.0F);
 		var11.setRenderShadow(false);
-//		var11.renderEntityWithPosYaw(p_147046_5_, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
+		var11.renderEntityWithPosYaw(p_147046_5_, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
 		var11.setRenderShadow(true);
 		p_147046_5_.renderYawOffset = var6;
 		p_147046_5_.rotationYaw = var7;

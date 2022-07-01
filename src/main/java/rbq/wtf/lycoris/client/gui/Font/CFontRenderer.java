@@ -27,8 +27,8 @@ public class CFontRenderer extends CFont {
 	protected DynamicTexture texItalicBold;
 	protected Font font;
 
-	public CFontRenderer(Font font, boolean antiAlias, boolean fractionalMetrics, boolean unicode) {
-		super(font, antiAlias, fractionalMetrics,unicode);
+	public CFontRenderer(Font font, boolean antiAlias, boolean fractionalMetrics) {
+		super(font, antiAlias, fractionalMetrics);
 		this.font=font;
 		this.setupMinecraftColorcodes();
 		this.setupBoldItalicIDs();

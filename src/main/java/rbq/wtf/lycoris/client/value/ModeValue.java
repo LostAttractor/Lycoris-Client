@@ -23,9 +23,7 @@ public class ModeValue extends Value<String>{
         this.selectionAmount = Amount;
         this.module = m;
     }
-    public boolean isCurrentMode(String modeValue) {
-        return getCurrentSelectionName().equals(modeValue);
-    }
+
     @Override
     public void setName(String name) {
         this.name = name;

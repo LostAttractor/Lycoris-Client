@@ -4,6 +4,5 @@ public enum ModuleCategory {
     Combat,
     Movement,
     Render,
-    Player,
     World
 }
