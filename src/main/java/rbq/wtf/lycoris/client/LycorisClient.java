@@ -1,8 +1,6 @@
 package rbq.wtf.lycoris.client;
 
-import org.luaj.vm2.Globals;
-import org.luaj.vm2.LuaValue;
-import org.luaj.vm2.lib.jse.JsePlatform;
+
 import rbq.wtf.lycoris.agent.LycorisAgent;
 import rbq.wtf.lycoris.client.event.api.EventManager;
 import rbq.wtf.lycoris.client.event.api.EventTarget;
@@ -26,9 +24,6 @@ public class LycorisClient {
     public static LycorisClient instance;
     public LycorisClient() {
         instance = this;
-        LycorisAgent.retransformclass(new InstrumentationImpl(),new MainTransformer(), OBFMap.getString("net.minecraft.client.Minecraft"));
-        LycorisAgent.retransformclass(new InstrumentationImpl(),new MainTransformer(), OBFMap.getString("net.minecraft.client.settings.KeyBinding"));
-        LycorisAgent.retransformclass(new InstrumentationImpl(),new MainTransformer(),OBFMap.getString("net.minecraft.client.gui.GuiIngame"));
         moduleManager = new ModuleManager();
         clickGUI = new ClickGui();
         EventManager.register(this);

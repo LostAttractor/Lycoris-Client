@@ -53,7 +53,7 @@ public class MainTransformer implements ClassTransformer, Opcodes {
             classNode.methods.forEach(m ->
                     transformer.accept(classNode, m)
             );
-           System.out.println("正在转换 -> " + classNode.name);
+            System.out.println("正在转换 -> " + classNode.name);
             System.out.println("具体转换 -> " + classReader.getClassName());
             classNode.accept(classWriter);
         } catch (Throwable e){
@@ -98,18 +98,10 @@ public class MainTransformer implements ClassTransformer, Opcodes {
         }
     }
 
-	public byte[] transform(String name, byte[] classByte) {
-        System.out.println(name);
+    public byte[] transform(String name, byte[] classByte) {
+
         try {
-            if(name.contains(OBFMap.getString("net.minecraft.client.Minecraft"))){
-                return transformMethods(classByte, MinecraftTransformer::transform);
-            }
-            if(name.contains(OBFMap.getString("net.minecraft.client.settings.KeyBinding"))){
-                return transformMethods(classByte, KeyBindingTransformer::transform);
-            }
-            if(name.contains(OBFMap.getString("net.minecraft.client.gui.GuiIngame"))){
-                return transformMethods(classByte, GuiIngameTransformer::transform);
-            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
