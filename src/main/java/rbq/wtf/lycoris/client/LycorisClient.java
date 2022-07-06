@@ -2,15 +2,15 @@ package rbq.wtf.lycoris.client;
 
 
 import rbq.wtf.lycoris.agent.LycorisAgent;
+import rbq.wtf.lycoris.agent.instrument.impl.InstrumentationImpl;
 import rbq.wtf.lycoris.client.event.api.EventManager;
 import rbq.wtf.lycoris.client.event.api.EventTarget;
 import rbq.wtf.lycoris.client.event.events.EventKey;
-import rbq.wtf.lycoris.client.gui.ClickGUI.ClickGui;
+import rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI;
 import rbq.wtf.lycoris.client.manager.ModuleManager;
 import rbq.wtf.lycoris.client.module.Module;
-import rbq.wtf.lycoris.client.transformer.MainTransformer;
-import rbq.wtf.lycoris.agent.instrument.impl.InstrumentationImpl;
-import rbq.wtf.lycoris.client.transformer.OBFMap;
+import rbq.wtf.lycoris.client.transformer.TransformManager;
+import rbq.wtf.lycoris.client.wrapper.Wrapper;
 
 
 public class LycorisClient {
@@ -18,21 +18,29 @@ public class LycorisClient {
     public static boolean debug = false;
     public static boolean isVanilla = true;
 
+
     public static String game_version = "1.8.9";
     public ModuleManager moduleManager;
-    public ClickGui clickGUI;
+    public ClickGUI clickGUI;
     public static LycorisClient instance;
     public LycorisClient() {
+        System.out.println("[Lycoris Client] Init Client");
         instance = this;
         moduleManager = new ModuleManager();
-        clickGUI = new ClickGui();
+        clickGUI = new ClickGUI();
+        System.out.println("[Lycoris Client] Init Wrapper");
+        Wrapper.initWrapper();
+        System.out.println("[Lycoris Client] Do TransFormer");
+        InstrumentationImpl.init();
+        TransformManager.init();
+        TransformManager.doTransform();
         EventManager.register(this);
     }
     public ModuleManager getModuleManager() {
         return moduleManager;
     }
 
-    public ClickGui getClickGUI() {
+    public ClickGUI getClickGUI() {
         return clickGUI;
     }
 

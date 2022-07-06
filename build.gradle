@@ -39,6 +39,11 @@ minecraft {
 }
 
 dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.4'
+    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+    testCompileOnly 'org.projectlombok:lombok:1.18.4'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.4'
+
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"

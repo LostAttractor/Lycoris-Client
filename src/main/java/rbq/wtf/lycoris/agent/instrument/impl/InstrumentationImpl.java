@@ -12,10 +12,9 @@ import rbq.wtf.lycoris.agent.instrument.Instrumentation;
 //javah -d .\ -classpath .\ InstrumentationImpl
 public class InstrumentationImpl implements Instrumentation
 {
-    static {
-
-        System.load("E:\\Lycoris Client\\Lycoris Native Loader\\x64\\Release\\Lycoris Native Loader.dll");
-        // System.load("C:\\Users\\Nplus\\source\\repos\\nextAgentV4\\x64\\Debug\\nextAgentV4.dll");
+    public static void init(){
+        System.out.println("InitNaive");
+        System.load("D:\\work\\Lycoris Client\\Lycoris-Client\\Lycoris Native Loader\\x64\\Release\\Lycoris Native Loader.dll");
     }
 
     @Override
@@ -30,7 +29,7 @@ public class InstrumentationImpl implements Instrumentation
     public native void retransformClasses(Class<?>[] classes);
 
     @Override
-    public native Class<?>[] getLoadedClasses(ClassLoader classLoader);
+        public native Class<?>[] getLoadedClasses(ClassLoader classLoader);
 
     @Override
     public void addTransformer(final ClassTransformer classTransformer) {

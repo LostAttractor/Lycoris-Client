@@ -1,5 +1,6 @@
 package rbq.wtf.lycoris.client.transformer.transformers;
 
+import net.minecraft.client.settings.KeyBinding;
 import rbq.wtf.lycoris.agent.asm.ClassReader;
 import rbq.wtf.lycoris.agent.asm.ClassWriter;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
@@ -12,7 +13,7 @@ import rbq.wtf.lycoris.client.transformer.ClassTransformer;
 public class KeyBindingTransformer extends ClassTransformer {
     @Override
     public Class<?> getTargetClass() {
-        return null;
+        return KeyBinding.class;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package rbq.wtf.lycoris.client.module.Modules.Render;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import rbq.wtf.lycoris.client.LycorisClient;

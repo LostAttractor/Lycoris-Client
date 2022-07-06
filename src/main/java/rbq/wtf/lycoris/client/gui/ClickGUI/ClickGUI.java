@@ -20,7 +20,7 @@ import rbq.wtf.lycoris.client.value.NumberValue;
 import rbq.wtf.lycoris.client.value.Value;
 
 
-public class ClickGui extends GuiScreen{
+public class ClickGUI extends GuiScreen{
 
 	public static ModuleCategory currentModuleType;
 	public static Module currentModule;
@@ -77,7 +77,7 @@ public class ClickGui extends GuiScreen{
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
 		if (mc.currentScreen != null)
-			if (!(mc.currentScreen instanceof ClickGui)) {
+			if (!(mc.currentScreen instanceof ClickGUI)) {
 				lastOutro = outro;
 				if (outro < 1.7) {
 					outro += 0.1f;
@@ -92,7 +92,7 @@ public class ClickGui extends GuiScreen{
 				}
 			}
 		if (mc.currentScreen != null)
-			if ((mc.currentScreen != null) && !(mc.currentScreen instanceof ClickGui))
+			if ((mc.currentScreen != null) && !(mc.currentScreen instanceof ClickGUI))
 				return;
 		lastPercent = percent;
 		lastPercent2 = percent2;

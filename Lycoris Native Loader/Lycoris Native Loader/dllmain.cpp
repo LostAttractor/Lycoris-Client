@@ -1,5 +1,4 @@
-﻿#include "rbq_wtf_lycoris_agent_instrument_impl_InstrumentationImpl.h"
-#include "windows.h"
+﻿#include "windows.h"
 #include "main.h"
 #include "jni.h"
 #include "jvmti.h"
@@ -34,7 +33,7 @@ static string* names = NULL;
 
 
 void Jvmtiinit() {
-	cout << "[LycorisAgent] Setting up JVMTI!" << endl;
+	cout << "[Lycoris Agent] Setting up JVMTI!" << endl;
 	int error;
 	jvmti->CreateRawMonitor("vmtrace_lock", &vmtrace_lock);
 	jvmti->GetTime(&start_time);
@@ -53,12 +52,12 @@ void Jvmtiinit() {
 	capabilities.can_redefine_classes = 1;
 	error = jvmti->AddCapabilities(&capabilities);
 	if (Env->ExceptionOccurred()) {
-		cout << "[LycorisAgent] JVMTI Setup Failed!" << endl;
+		cout << "[Lycoris Agent] JVMTI Setup Failed!" << endl;
 		Env->ExceptionDescribe();
 		return;
 	}
 
-	cout << "[LycorisAgent] JVMTI was set!" << endl;
+	cout << "[Lycoris Agent] JVMTI was set!" << endl;
 }
 
 DWORD WINAPI MainThread(CONST LPVOID lpParam)
@@ -70,7 +69,7 @@ DWORD WINAPI MainThread(CONST LPVOID lpParam)
 	if (!jvmDll)
 	{
 		DWORD lastError = GetLastError();
-		MessageBoxA(NULL, "Error: 0x00000001", "nextAgentDebug", MB_OK | MB_ICONERROR);
+		MessageBoxA(NULL, "Error: 0x00000001", "Lycoris Loader", MB_OK | MB_ICONERROR);
 		//OutputLastError(lastError);
 		ExitThread(0);
 	}
@@ -80,7 +79,7 @@ DWORD WINAPI MainThread(CONST LPVOID lpParam)
 	if (!getJvmsVoidPtr)
 	{
 		DWORD lastError = GetLastError();
-		MessageBoxA(NULL, "Error: 0x00000002", "nextAgentDebug", MB_OK | MB_ICONERROR);
+		MessageBoxA(NULL, "Error: 0x00000002", "Lycoris Loader", MB_OK | MB_ICONERROR);
 		ExitThread(0);
 	}
 
@@ -93,7 +92,7 @@ DWORD WINAPI MainThread(CONST LPVOID lpParam)
 	jni_GetCreatedJavaVMs(buffer, nVMs, &nVMs);
 	if (nVMs == 0)
 	{
-		MessageBoxA(NULL, "Error: NoJVMsFound", "nextAgentDebug", MB_OK | MB_ICONERROR);
+		MessageBoxA(NULL, "Error: NoJVMsFound", "Lycoris Loader", MB_OK | MB_ICONERROR);
 		ExitThread(0);
 	}
 
@@ -108,7 +107,7 @@ DWORD WINAPI MainThread(CONST LPVOID lpParam)
 			jvm->GetEnv((void**)(&Env), JNI_VERSION_1_8);
 			if (!Env)
 			{
-				MessageBoxA(NULL, "Error: NoJniEnv", "nextAgentDebug", MB_OK | MB_ICONERROR);
+				MessageBoxA(NULL, "Error: NoJniEnv", "Lycoris Loader", MB_OK | MB_ICONERROR);
 				jvm->DetachCurrentThread();
 				break;
 			}
@@ -118,13 +117,12 @@ DWORD WINAPI MainThread(CONST LPVOID lpParam)
 
 			if (!jvmti)
 			{
-				MessageBoxA(NULL, "Error: NoJvmtiEnv", "nextAgentDebug", MB_OK | MB_ICONERROR);
+				MessageBoxA(NULL, "Error: NoJvmtiEnv", "Lycoris Loader", MB_OK | MB_ICONERROR);
 				jvm->DetachCurrentThread();
 				break;
 			}
 
 			Jvmtiinit();
-
 
 
 			jvm->DetachCurrentThread();
@@ -166,6 +164,25 @@ jobjectArray asClassArray(JNIEnv* env, jclass* buf, int len) {
 	return array;
 }
 
+jclass findClass(JNIEnv* env, jvmtiEnv* jvmti, const char* name) {
+	jclass* loadedClasses;
+	jint loadedClassesCount = 0;
+	jvmti->GetLoadedClasses(&loadedClassesCount, &loadedClasses);
+
+	jclass findClass = NULL;
+	for (jint i = 0; i < loadedClassesCount; i++)
+	{
+		char* signature;
+		jvmti->GetClassSignature(loadedClasses[i], &signature, NULL);
+		if (!strcmp(signature, name))
+		{
+			findClass = loadedClasses[i];
+			return findClass;
+		}
+	}
+	return NULL;
+}
+
 void JNICALL classTransformerHook
 (
 	jvmtiEnv* jvmti,
@@ -178,105 +195,55 @@ void JNICALL classTransformerHook
 	jint* new_data_len,
 	unsigned char** new_data
 ) {
-	//cout << "Event Trigged" << endl;
-	if (name == NULL)
+
+	jvmti->Allocate(data_len, new_data);
+	jclass transformerClass = findClass(env,jvmti,"Lrbq/wtf/lycoris/client/transformer/TransformManager;");
+	jmethodID transfrom = env->GetStaticMethodID(transformerClass, "onTransform", "(Ljava/lang/Class;[B)[B");
+	jclass clazzt = class_being_redefined;
+	jbyteArray classdata = asByteArray(env, data, data_len);
+	jbyteArray transformedData = env->NewByteArray(0);
+	//cout << "0" << endl;
+	if (!class_being_redefined) {
+		*new_data_len = data_len;
+		memcpy(*new_data, data, data_len);
 		return;
-	//cout << "a" << endl;
-	if (!loaded) {
-		jvmti->Allocate(data_len, new_data);
+	}
+	if (!clazzt || !classdata || !transformerClass || !transfrom) {
+		//cout << "Unknown transform" << endl;
 		*new_data_len = data_len;
 		memcpy(*new_data, data, data_len);
-		//cout << "b" << endl;
+		return;
 	}
-
-	else {
-		//cout << "c" << endl;
-		const jclass stringCls = env->FindClass("java/lang/String");
-		const jmethodID startsWith = env->GetMethodID(stringCls, "startsWith", "(Ljava/lang/String;)Z");
-		const jstring javaClassName = env->NewStringUTF(name),
-			javaIndexName = env->NewStringUTF(names[index].c_str());
-		//cout << "d" << endl;
-		if (!env->CallBooleanMethod(javaIndexName, startsWith, javaClassName)) {
-			jvmti->Allocate(data_len, new_data);
-			*new_data_len = data_len;
-			memcpy(*new_data, data, data_len);
-			return;
-		}
-		Env = env;
-		//cout << "e" << endl;
-		jvmti->Allocate(data_len, new_data);
+	transformedData = (jbyteArray)env->CallStaticObjectMethod(transformerClass, transfrom, clazzt, classdata);
+	if (!transformedData) {
+		//cout << "Unknown transform" << endl;
 		*new_data_len = data_len;
 		memcpy(*new_data, data, data_len);
-		//cout << "aa" << endl;
-		reflections = Env->FindClass("rbq/wtf/lycoris/agent/utils/Reflections");
-		//cout << "bb" << endl;
-		nativeAccesses = Env->FindClass("rbq/wtf/lycoris/agent/Access");
-		//	cout << "cc" << endl;
-		getMethod = Env->GetStaticMethodID(reflections, "getMethod", "(Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/reflect/Method;");
-		//cout << "dd" << endl;
-		invokeMethod = Env->GetStaticMethodID(reflections, "invokeMethod", "(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;");
-		//cout << "ee" << endl;
-
-
-		//cout << "f" << endl;
-		const jobject method = env->CallStaticObjectMethod(reflections, getMethod, nativeAccesses, env->NewStringUTF("transformClass"));
-		//cout << "f1" << endl;
-		const jclass arrayCls = env->FindClass("java/lang/reflect/Array");
-		//cout << "f2" << endl;
-		const jclass object = env->FindClass("java/lang/Object");
-		//cout << "f3" << endl;
-		const jmethodID newInstance = env->GetStaticMethodID(arrayCls, "newInstance", "(Ljava/lang/Class;I)Ljava/lang/Object;");
-		//cout << "f4" << endl;
-		const jobjectArray newArray = (jobjectArray)env->CallStaticObjectMethod(arrayCls, newInstance, object, (jint)5);
-		//cout << "f5" << endl;
-		const jbyteArray plainBytes = asByteArray(env, *new_data, *new_data_len);
-		//cout << "f6" << endl;
-		const jbyteArray byteArray = env->NewByteArray(0);
-		//cout << "f7" << endl;
-		env->SetObjectArrayElement(newArray, 0, loader);
-		//cout << "f8" << endl;
-		env->SetObjectArrayElement(newArray, 1, env->NewStringUTF(name));
-		//cout << "f9" << endl;
-		env->SetObjectArrayElement(newArray, 2, class_being_redefined);
-		//cout << "f10" << endl;
-		env->SetObjectArrayElement(newArray, 3, protection_domain);
-		//cout << "f11" << endl;
-		env->SetObjectArrayElement(newArray, 4, plainBytes);
-
-		//cout << "g" << endl;
-		const jbyteArray newByteArray = (jbyteArray)env->CallStaticObjectMethod(reflections, invokeMethod, method, NULL, newArray);
-		unsigned char* newChars = asUnsignedCharArray(env, newByteArray);
-		const jint newLength = (jint)env->GetArrayLength(newByteArray);
-		//cout << "h" << endl;
-		jvmti->Allocate(newLength, new_data);
-		*new_data_len = newLength;
-		memcpy(*new_data, newChars, newLength);
-		//cout << "i" << endl;
-		index++;
-		jvmtiClassDefinition def = jvmtiClassDefinition();
-		redefine(jvmti, &def);
-		//cout << "j" << endl;
-		cout << "[LycorisAgent] Transformed class: " << name << endl;
+		return;
 	}
+	unsigned char* newChars = asUnsignedCharArray(env, transformedData);
+	const jint newLength = (jint)env->GetArrayLength(transformedData);
+	jvmti->Allocate(newLength, new_data);
+	*new_data_len = newLength;
+	memcpy(*new_data, newChars, newLength);
 }
-extern "C" __declspec(dllexport)  jobjectArray JNICALL Java_rbq_wtf_lycoris_agent_instrument_impl_InstrumentationImpl_getAllLoadedClasses(JNIEnv* env, jobject instrumentationInstance) {
+
+
+extern "C" __declspec(dllexport) jobjectArray Java_rbq_wtf_lycoris_agent_instrument_impl_InstrumentationImpl_getAllLoadedClasses(JNIEnv* env) {
+	//cout << "getAllLoadedClasses trigger" << endl;
+	JNIEnv* jnienv = env;
+	jint err = 0;
 	jclass* jvmClasses;
 	jint classCount;
 
-	if (!jvmti)
-	{
-		env->GetJavaVM(&jvm);
-		jvm->GetEnv((void**)&jvmti, JVMTI_VERSION_1_0);
-	}
-	const jint err = jvmti->GetLoadedClasses(&classCount, &jvmClasses);
+	err = (jint)jvmti->GetLoadedClasses(&classCount, &jvmClasses);
 	if (err) {
-		cout << "Unable to get loaded classes at runtime!" << endl;
-		return asClassArray(env, jvmClasses, classCount);
+
+		return asClassArray(jnienv, jvmClasses, classCount);
 	}
 
-	return asClassArray(env, jvmClasses, classCount);
+	return asClassArray(jnienv, jvmClasses, classCount);
 }
-
 extern "C" __declspec(dllexport)  jobjectArray JNICALL Java_rbq_wtf_lycoris_agent_instrument_impl_InstrumentationImpl_getLoadedClasses(JNIEnv* env, jobject instrumentationInstance, jobject classLoader) {
 	jclass* jvmClasses;
 	jint classCount;
@@ -329,7 +296,7 @@ extern "C" __declspec(dllexport)  void JNICALL Java_rbq_wtf_lycoris_agent_instru
 		names[index] = env->GetStringUTFChars((jstring)env->CallObjectMethod((jstring)env->CallObjectMethod(jvmClasses[index], getName), stringReplace, dotString, slashString), JNI_FALSE);
 	}
 	//cout << "[LycorisAgent] Lycoris Agent Loaded! Version 1.0.0" << endl;
-	cout << "[LycorisAgent] Retransforming " << "classes.. Count: " << size << endl;
+	cout << "[Lycoris Agent] Retransforming " << "classes.. Count: " << size << endl;
 
 	//cout << "[Agent] Retransforming " << size << " classes.." << endl;
 
@@ -354,7 +321,7 @@ extern "C" __declspec(dllexport)  void JNICALL Java_rbq_wtf_lycoris_agent_instru
 	//cout << "9" << endl;
 	//jvmti->SetEventNotificationMode(JVMTI_DISABLE, JVMTI_EVENT_CLASS_FILE_LOAD_HOOK, NULL);
 	//cout << "10" << endl;
-	cout << "[LycorisAgent] Retransformed " << size << " classes." << endl;
+	cout << "[Lycoris Agent] Retransformed " << size << " classes." << endl;
 	//cout << "[Agent] Retransformed " << size << " classes." << endl;
 }
 
