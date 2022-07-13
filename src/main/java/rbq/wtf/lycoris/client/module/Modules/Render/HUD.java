@@ -42,7 +42,7 @@ public class HUD extends Module {
     @EventTarget
     public void onRender2D(EventRender2D e){
         if (waterMark.getValue()){
-            FontLoaders.default25.drawStringWithShadow("ZhangMingJunSense.LGBT",
+            FontLoaders.default25.drawStringWithShadow("Dimples.love",
                     5,
                     5,
                     new Color(0,200,100).getRGB());

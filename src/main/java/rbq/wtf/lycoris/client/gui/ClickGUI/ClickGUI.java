@@ -1,409 +1,203 @@
 package rbq.wtf.lycoris.client.gui.ClickGUI;
 
-import java.awt.Color;
-import java.io.IOException;
-
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiYesNoCallback;
-import net.minecraft.client.renderer.chunk.RenderChunk;
-import net.minecraft.util.ResourceLocation;
-
 
 import org.lwjgl.input.Mouse;
-import rbq.wtf.lycoris.client.LycorisClient;
+
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
+import rbq.wtf.lycoris.client.gui.ClickGUI.Component.*;
+import rbq.wtf.lycoris.client.gui.ClickGUI.Component.Component;
 import rbq.wtf.lycoris.client.module.Module;
 import rbq.wtf.lycoris.client.module.ModuleCategory;
-import rbq.wtf.lycoris.client.value.BooleanValue;
-import rbq.wtf.lycoris.client.value.ModeValue;
-import rbq.wtf.lycoris.client.value.NumberValue;
-import rbq.wtf.lycoris.client.value.Value;
+
+import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
 
 
-public class ClickGUI extends GuiScreen{
+public class ClickGUI extends GuiScreen {
+    public static ModuleCategory currentModuleType;
+    public static Module currentModule;
+    public static Module currentBindModule;
+    public static Component currentActiveTextValue;
+    public static float moduleWheel = 0.0F;
+    public static float valueWheel = 0.0F;
+    public static float startX = 100;
+    public static float startY = 100;
+    public float moveX = 0.0F;
+    public float moveY = 0.0F;
+    public ArrayList<CategoryButton> categoryButtonList = new ArrayList<CategoryButton>();
+    public ArrayList<ModuleButtonList> moduleButtonList = new ArrayList<ModuleButtonList>();
+    public static ArrayList<Component> valueComponentList = new ArrayList<Component>();
+    public ClickGUI() {
+        currentModuleType = ModuleCategory.Combat;
+        for (ModuleCategory c : ModuleCategory.values()){
+            categoryButtonList.add(new CategoryButton(c));
+            moduleButtonList.add(new ModuleButtonList(c));
+        }
+    }
 
-	public static ModuleCategory currentModuleType;
-	public static Module currentModule;
-	public static float startX;
-	public static float startY;
-	public int moduleStart = 0;
-	public int valueStart = 0;
-	boolean previousmouse = true;
-	boolean mouse;
-	public Opacity opacity = new Opacity(0);
-	public int opacityx = 255;
-	public float moveX = 0.0F;
-	public float moveY = 0.0F;
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        super.drawScreen(mouseX, mouseY, partialTicks);
 
-	public float lastPercent;
-	public float percent;
-	public float percent2;
-	public float lastPercent2;
+        if (this.isHovered(startX, startY - 10.0F, startX + 400.0F, startY + 15.0F, mouseX, mouseY)
+                && Mouse.isButtonDown(0)) {
+            if (this.moveX == 0.0F && this.moveY == 0.0F) {
+                this.moveX = (float) mouseX - startX;
+                this.moveY = (float) mouseY - startY;
+            } else {
+                startX = (float) mouseX - this.moveX;
+                startY = (float) mouseY - this.moveY;
+            }
 
-	public float outro;
-	public float lastOutro;
+        } else if (this.moveX != 0.0F || this.moveY != 0.0F) {
+            this.moveX = 0.0F;
+            this.moveY = 0.0F;
+        }
 
-	public int mouseWheel;
+        //draw bg
+        RenderUtil.drawFastRoundedRect( startX - 1 , startY - 1 , startX + 445 + 1,
+                startY + 327 + 1,5,new Color( 15, 15, 15,33).getRGB());
+        RenderUtil.drawFastRoundedRect( startX - 1.5f , startY - 1.5f , startX + 445 + 1.5f,
+                startY + 327 + 1.5f,5,new Color( 15, 15, 15,31).getRGB());
+        RenderUtil.drawFastRoundedRect( startX - 2 , startY - 2 , startX + 445 + 2,
+                startY + 327 + 2,5,new Color( 15, 15, 15,29).getRGB());
+        RenderUtil.drawFastRoundedRect( startX , startY , startX + 445,
+                startY + 327,5,new Color( 15, 15, 15).getRGB());
+        RenderUtil.drawHLine(startX,startY + 35,startX + 445,startY + 35,4,
+                new Color(69,78,238).getRGB());
+        RenderUtil.drawHLine(startX + 110,startY + 35,startX + 110,startY + 327,4,
+                new Color(69,78,238).getRGB());
+        RenderUtil.drawHLine(startX + 107,startY + 36,startX + 107,startY + 327,4,
+                new Color(38, 38, 38).getRGB());
+        RenderUtil.drawHLine(startX + 107,startY + 37,startX + 107,startY + 220,2,
+                new Color(87, 87, 87).getRGB());
+        //DrawClientName
+        FontLoaders.default15.drawStringWithShadow("L",
+                startX + 403 ,
+                startY + 317 ,
+                new Color(96,78,238).getRGB());
+        FontLoaders.default15.drawStringWithShadow("ycoris 2.0",
+                startX + 403 + FontLoaders.default15.getStringWidth("L"),
+                startY + 317 ,
+                new Color(255,255,255).getRGB());
+        //DrawCategory
+        float categoryX = 0;
+        for (CategoryButton c: categoryButtonList) {
+            c.updateComponent(
+                    startX + 14 + categoryX,
+                    startY + 14,
+                    mouseX,
+                    mouseY
+            );
+            categoryX = categoryX + c.getHeight() + 15;
+        }
 
-	public int mouseX;
-	public int mouseY;
+        //DrawModules
+        RenderUtil.startGlScissor((int) (ClickGUI.startX), (int) (ClickGUI.startY + 50.0F),445, (int)277);
 
+        float moduleY = startY + 45;
+        for (ModuleButtonList list: moduleButtonList) {
+            if (list.category == currentModuleType) {
+                list.updateComponent(startX + 13,
+                        startY + 45 + moduleWheel,
+                        mouseX,
+                        mouseY
+                );
+            }
+            moduleY = mouseY + list.getHeight();
+        }
 
-	static {
-		currentModuleType = ModuleCategory.Combat;
-		currentModule = LycorisClient.instance.getModuleManager().getModulesInType(currentModuleType).size() != 0
-				? LycorisClient.instance.getModuleManager().getModulesInType(currentModuleType).get(0)
-				: null;
-		startX = 100.0F;
-		startY = 100.0F;
-	}
+        //Modules Mouse Wheel
+        int mouseWheel = Mouse.getDWheel();
+        if (this.isHovered(startX + 1.0F, startY + 40.0F, startX + 100.0F, startY + 327.0F, mouseX, mouseY)) {
+            if (mouseWheel < 0  && moduleY + moduleWheel - startY - 70 >= 260) {
+                moduleWheel = moduleWheel - 7;
+            }
+            if (mouseWheel > 0 && moduleWheel != 0) {
+                moduleWheel = moduleWheel + 7;
+            }
+        }
 
-	@Override
-	protected void mouseReleased(int mouseX, int mouseY, int state) {
+        //DrawValues
+        float valueY = startY + 45;
+        for (Component component : valueComponentList){
+            component.updateComponent(
+                    startX + 120,
+                    valueWheel + valueY,
+                    mouseX,
+                    mouseY
+            );
+            valueY+=component.getHeight();
+        }
+        RenderUtil.stopGlScissor();
+        if (this.isHovered(startX + 110, startY + 35.0F, startX + 440.0F, startY + 330.0F, mouseX, mouseY)){
+            if (mouseWheel < 0  && valueY + valueWheel - startY > 325) {
+                valueWheel = valueWheel - 7;
+            }
 
-	}
-
-	@Override
-	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-		super.keyTyped(typedChar, keyCode);
-	}
-
-	@Override
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-	}
-
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		
-		this.mouseX = mouseX;
-		this.mouseY = mouseY;
-		if (mc.currentScreen != null)
-			if (!(mc.currentScreen instanceof ClickGUI)) {
-				lastOutro = outro;
-				if (outro < 1.7) {
-					outro += 0.1f;
-
-					outro += ((1.7 - outro) / (3f)) - 0.001;
-				}
-				if (outro > 1.7) {
-					outro = 1.7f;
-				}
-				if (outro < 1) {
-					outro = 1;
-				}
-			}
-		if (mc.currentScreen != null)
-			if ((mc.currentScreen != null) && !(mc.currentScreen instanceof ClickGUI))
-				return;
-		lastPercent = percent;
-		lastPercent2 = percent2;
-		if (percent > .98) {
-			percent += ((.98 - percent) / (1.45f)) - 0.001;
-		}
-		if (percent <= .98) {
-			if (percent2 < 1) {
-				percent2 += ((1 - percent2) / (2.8f)) + 0.002;
-			}
-		}
-		if (this.isHovered(startX, startY - 25.0F, startX + 400.0F, startY + 25.0F, mouseX, mouseY)
-				&& Mouse.isButtonDown(0)) {
-			if (this.moveX == 0.0F && this.moveY == 0.0F) {
-				this.moveX = (float) mouseX - startX;
-				this.moveY = (float) mouseY - startY;
-			} else {
-				startX = (float) mouseX - this.moveX;
-				startY = (float) mouseY - this.moveY;
-			}
-
-			this.previousmouse = true;
-		} else if (this.moveX != 0.0F || this.moveY != 0.0F) {
-			this.moveX = 0.0F;
-			this.moveY = 0.0F;
-		}
-
-		this.opacity.interpolate((float) this.opacityx);
-		//绘制主窗口
-		RenderUtil.drawFastRoundedRect(startX, startY, startX + 80.0F, startY + 320.0F,4,
-				(new Color(40, 40, 40, (int) this.opacity.getOpacity())).getRGB());
-		RenderUtil.drawRect(startX + 56.0F, startY, startX + 80.0F, startY + 320.0F,
-				(new Color(40, 40, 40, (int) this.opacity.getOpacity())).getRGB());
-		RenderUtil.drawRect(startX + 80.0F, startY, startX + 220.0F, startY + 320.0F,
-				(new Color(31, 31, 31, (int) this.opacity.getOpacity())).getRGB());
-		RenderUtil.drawRect(startX + 220.0F, startY, startX + 224.0F, startY + 320.0F,
-				(new Color(40, 40, 40, (int) this.opacity.getOpacity())).getRGB());
-		RenderUtil.drawFastRoundedRect(startX + 220.0F, startY, startX + 440.0F, startY + 320.0F,4,
-				(new Color(40, 40, 40, (int) this.opacity.getOpacity())).getRGB());
-		//绘制分类
-		int m;
-		for (m = 0; m < ModuleCategory.values().length; ++m) {
-			ModuleCategory[] mY = ModuleCategory.values();
-			if (mY[m] != currentModuleType) {
-				FontLoaders.default18.drawCenteredString(mY[m].toString(),
-						(startX + 40.0F),
-						(startY + 30.0F + (float) (m * 40)),
-						new Color(255, 255, 255).getRGB());
-
-
-			} else {
-				FontLoaders.default18.drawCenteredString(mY[m].toString(),
-						(startX + 40.0F),
-						(startY + 30.0F + (float) (m * 40)),
-						new Color(101,81,255).getRGB());
-			}
-
-			try {
-				if (this.isCategoryHovered(startX + 15.0F, startY + 15.0F + (float) (m * 40), startX + 45.0F,
-						startY + 45.0F + (float) (m * 40), mouseX, mouseY) && Mouse.isButtonDown(0)) {
-					currentModuleType = mY[m];
-					currentModule = LycorisClient.instance.getModuleManager().getModulesInType(currentModuleType).size() != 0
-							? (Module) LycorisClient.instance.getModuleManager().getModulesInType(currentModuleType).get(0)
-							: null;
-					this.moduleStart = 0;
-				}
-			} catch (Exception var23) {
-				System.err.println(var23);
-			}
-		}
-
-		mouseWheel = Mouse.getDWheel();
-		if (this.isCategoryHovered(startX + 60.0F, startY, startX + 200.0F, startY + 320.0F, mouseX, mouseY)) {
-			if (mouseWheel < 0 && this.moduleStart < LycorisClient.instance.getModuleManager().getModulesInType(currentModuleType).size() - 1) {
-				++this.moduleStart;
-			}
-
-			if (mouseWheel > 0 && this.moduleStart > 0) {
-				--this.moduleStart;
-			}
-		}
-
-		if (this.isCategoryHovered(startX + 200.0F, startY, startX + 420.0F, startY + 320.0F, mouseX, mouseY)) {
-			if (mouseWheel < 0 && this.valueStart < currentModule.getValues().size() - 1) {
-				++this.valueStart;
-			}
-
-			if (mouseWheel > 0 && this.valueStart > 0) {
-				--this.valueStart;
-			}
-		}
-
-		FontLoaders.default18.drawString(
-				currentModuleType.toString(),
-				startX + 90.0F, startY + 15.0F, (new Color(248, 248, 248)).getRGB());
-		if (currentModule != null) {
-			float valueY = startY + 30.0F;
-			//绘制模块
-			int i;
-			for (i = 0; i < LycorisClient.instance.getModuleManager().getModulesInType(currentModuleType).size(); ++i) {
-				Module value = (Module) LycorisClient.instance.getModuleManager().getModulesInType(currentModuleType).get(i);
-				if (valueY > startY + 300.0F) {
-					break;
-				}
-				//绘制模块按钮
-				if (i >= this.moduleStart) {
-					RenderUtil.drawRect(startX + 95.0F, valueY, startX + 205.0F, valueY + 2.0F,
-							(new Color(40, 40, 40, (int) this.opacity.getOpacity())).getRGB());
-					FontLoaders.default18.drawString(value.getName(), startX + 110.0F, valueY + 10.0F,
-							(new Color(248, 248, 248, (int) this.opacity.getOpacity())).getRGB());
-					if (!value.isState()) {
-						RenderUtil.drawFilledCircle((double) (startX + 95.0F), (double) (valueY + 13.0F), 2.0D,
-								(new Color(255, 0, 0, (int) this.opacity.getOpacity())).getRGB(), 5);
-					} else {
-						RenderUtil.drawFilledCircle((double) (startX + 95.0F), (double) (valueY + 13.0F), 2.0D,
-								(new Color(0, 255, 0, (int) this.opacity.getOpacity())).getRGB(), 5);
-					}
-					if(value == currentModule)
-					{
-						FontLoaders.default18.drawStringWithShadow("->",  (startX + 66.0F + 120.0f), (valueY + 10.0F), -1);
-					}
-					else if(!value.getValues().isEmpty())
-					{
-						FontLoaders.default18.drawStringWithShadow("+",  (startX + 70.0F + 120.0f), (valueY + 10.0F), -1);
-					}
-					 
-					if (this.isSettingsButtonHovered(startX + 110.0F, valueY,
-							startX + 140.0F + (float) FontLoaders.default20.getStringWidth(value.getName()),
-							valueY + 8.0F + 10, mouseX, mouseY)) {
-						if (!this.previousmouse && Mouse.isButtonDown(0)) {
-							if (value.isState()) {
-								value.setState(false);
-							} else {
-								value.setState(true);
-							}
-
-							this.previousmouse = true;
-						}
-
-						if (!this.previousmouse && Mouse.isButtonDown(1)) {
-							this.previousmouse = true;
-						}
-					}
-
-					if (!Mouse.isButtonDown(0)) {
-						this.previousmouse = false;
-					}
-
-					if (this.isSettingsButtonHovered(startX + 90.0F, valueY,
-							startX + 100.0F + (float) FontLoaders.default20.getStringWidth(value.getName()),
-							valueY + 8.0F + 10, mouseX, mouseY)
-							&& Mouse.isButtonDown(1)) {
-						if(!value.getValues().isEmpty())
-						{
-						currentModule = value;
-						this.valueStart = 0;
-						}
-					}
-
-					valueY += 25.0F;
-				}
-			}
-			//绘制配置组件
-			valueY = startY + 40.0F;
-			FontLoaders.default18.drawStringWithShadow(currentModule.getName(),
-					startX + 232.0F, startY + 15.0f,-1 );
-			for (i = 0; i < currentModule.getValues().size() && valueY <= startY + 300.0F; ++i) {
-				if (i >= this.valueStart) {
-					Value value = (Value) currentModule.getValues().get(i);
-					float x;
-					if (value instanceof NumberValue) {
-						x = startX + 340.0F;
-						double current = (double) (80.0F
-								* (((Number) value.getValue()).floatValue()
-								- ((NumberValue) value).getMin())
-								/ (((NumberValue) value).getMax()
-								- ((NumberValue) value).getMin()));
-						RenderUtil.drawRect(x-2.0F , valueY + 15.0F, (float) ((double) x + 85.0D), valueY + 17.0F,
-								(new Color(50, 50, 50, (int) this.opacity.getOpacity())).getRGB());
-						RenderUtil.drawRect(x-2.0F , valueY + 15.0F, (float) ((double) x + current + 6.5D), valueY + 17.0F,
-								(new Color(61, 141, 255, (int) this.opacity.getOpacity())).getRGB());
-						RenderUtil.drawRect((float) ((double) x + current + 2.0D), valueY + 13F,
-								(float) ((double) x + current + 7.0D), valueY + 5.0F +13F,
-								(new Color(61, 141, 255, (int) this.opacity.getOpacity())).getRGB());
-						FontLoaders.default20.drawStringWithShadow(value.getName() + ": " + value.getValue(),
-								startX + 230.0F, valueY, -1);
-						if (!Mouse.isButtonDown(0)) {
-							this.previousmouse = false;
-						}
-
-						if (this.isButtonHovered(x, valueY - 2.0F - 13F, x + 120.0F, valueY + 7.0F + 13F, mouseX, mouseY)
-								&& Mouse.isButtonDown(0)) {
-							if (!this.previousmouse && Mouse.isButtonDown(0)) {
-								current = ((NumberValue) value).getMin();
-								double max = ((NumberValue) value).getMax();
-								double inc = ((NumberValue) value).getIncrease();
-								double valAbs = (double) mouseX - ((double) x + 1.0D);
-								double perc = valAbs / 68.0D;
-								perc = Math.min(Math.max(0.0D, perc), 1.0D);
-								double valRel = (max - current) * perc;
-								double val = current + valRel;
-								val = (double) Math.round(val * (1.0D / inc)) / (1.0D / inc);
-								((NumberValue) value).setValue((float) val);
-							}
-
-							if (!Mouse.isButtonDown(0)) {
-								this.previousmouse = false;
-							}
-						}
-
-						valueY += 20.0F;
-					}
-
-					if (value instanceof BooleanValue) {
-						x = startX + 340.0F;
-
-						RenderUtil.drawRect(x + 56.0F, valueY, x + 76.0F, valueY + 1.0F,
-								(new Color(255, 255, 255, (int) this.opacity.getOpacity())).getRGB());
-						RenderUtil.drawRect(x + 56.0F, valueY + 8.0F, x + 76.0F, valueY + 9.0F,
-								(new Color(255, 255, 255, (int) this.opacity.getOpacity())).getRGB());
-						RenderUtil.drawRect(x + 56.0F, valueY, x + 57.0F, valueY + 9.0F,
-								(new Color(255, 255, 255, (int) this.opacity.getOpacity())).getRGB());
-						RenderUtil.drawRect(x + 77.0F, valueY, x + 76.0F, valueY + 9.0F,
-								(new Color(255, 255, 255, (int) this.opacity.getOpacity())).getRGB());
-						FontLoaders.default18.drawStringWithShadow(value.getName(), startX + 230.0F, valueY, -1);
-						if (((Boolean) value.getValue())) {
-							RenderUtil.drawRect(x + 67.0F, valueY + 2.0F, x + 75.0F, valueY + 7.0F,
-									(new Color(61, 141, 255, (int) this.opacity.getOpacity())).getRGB());
-						} else {
-							RenderUtil.drawRect(x + 58.0F, valueY + 2.0F, x + 65.0F, valueY + 7.0F,
-									(new Color(150, 150, 150, (int) this.opacity.getOpacity())).getRGB());
-						}
-						if (this.isCheckBoxHovered(x + 56.0F, valueY, x + 76.0F, valueY + 9.0F, mouseX, mouseY)) {
-							if (!this.previousmouse && Mouse.isButtonDown(0)) {
-								this.previousmouse = true;
-								this.mouse = true;
-							}
-
-							if (this.mouse) {
-								value.setValue(!(boolean)value.getValue());
-								this.mouse = false;
-							}
-						}
-
-						if (!Mouse.isButtonDown(0)) {
-							this.previousmouse = false;
-						}
-
-						valueY += 20.0F;
-					}
-
-					if (value instanceof ModeValue) {
-						x = startX + 340.0F;
-						RenderUtil.drawRect(x - 5.0F, valueY - 5.0F, x + 90.0F, valueY + 15.0F,
-								(new Color(56, 56, 56, (int) this.opacity.getOpacity())).getRGB());
-						RenderUtil.drawBorderRect((double) (x - 5.0F), (double) (valueY - 5.0F), (double) (x + 90.0F),
-								(double) (valueY + 15.0F),
-								(new Color(101, 81, 255, (int) this.opacity.getOpacity())).getRGB(), 2.0D);
-						FontLoaders.default18.drawStringWithShadow(value.getName(), startX + 230.0F, valueY + 2, -1);
-
-						FontLoaders.default18
-								.drawStringWithShadow(((ModeValue)value).getCurrentSelectionName(),
-										x + 44.0F
-												- (float) (FontLoaders.default18
-														.getStringWidth(((ModeValue)value).getCurrentSelectionName()) / 2),
-										valueY+2, -1);
-						if (this.isStringHovered(x, valueY - 5.0F, x + 100.0F, valueY + 15.0F, mouseX, mouseY)) {
-							if (Mouse.isButtonDown(0) && !this.previousmouse) {
-								((ModeValue) value).incrementSelection();
-								this.previousmouse = true;
-							}
-
-							if (!Mouse.isButtonDown(0)) {
-								this.previousmouse = false;
-							}
-						}
-
-						valueY += 25.0F;
-					}
-				}
-			}
-		}
-	}
+            if (mouseWheel > 0 && valueWheel != 0) {
+                valueWheel = valueWheel + 7;
+            }
+        }
 
 
 
-	public boolean isStringHovered(float f, float y, float g, float y2, int mouseX, int mouseY) {
-		return (float) mouseX >= f && (float) mouseX <= g && (float) mouseY >= y && (float) mouseY <= y2;
-	}
 
-	public boolean isSettingsButtonHovered(float x, float y, float x2, float y2, int mouseX, int mouseY) {
-		return (float) mouseX >= x && (float) mouseX <= x2 && (float) mouseY >= y && (float) mouseY <= y2;
-	}
+    }
 
-	public boolean isButtonHovered(float f, float y, float g, float y2, int mouseX, int mouseY) {
-		return (float) mouseX >= f && (float) mouseX <= g && (float) mouseY >= y && (float) mouseY <= y2;
-	}
+    @Override
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+        super.mouseClicked(mouseX, mouseY, mouseButton);
+        System.out.println(mouseX);
+        System.out.println(mouseY);
+        System.out.println(mouseX - startX);
+        System.out.println(mouseY - startY);
+        //Module Click
+        if (this.isHovered(startX + 1.0F, startY + 40.0F, startX + 100.0F, startY + 327.0F, mouseX, mouseY)){
+            for (ModuleButtonList list: moduleButtonList) {
+                if (list.category == currentModuleType) {
+                    list.mouseClicked(mouseX, mouseY, mouseButton);
+                }
+            }
+        }
+        //Value Click
+        if (this.isHovered(startX + 110, startY + 35.0F, startX + 440.0F, startY + 330.0F, mouseX, mouseY)){
+            float valueY = startY + 50;
+            if (currentModule != null) {
+                for ( Component component : valueComponentList) {
+                    component.mouseClicked(mouseX,mouseY,mouseButton);
+                    valueY+=component.getHeight();
+                }
 
-	public boolean isCheckBoxHovered(float f, float y, float g, float y2, int mouseX, int mouseY) {
-		return (float) mouseX >= f && (float) mouseX <= g && (float) mouseY >= y && (float) mouseY <= y2;
-	}
+            }
+        }
+    }
 
-	public boolean isCategoryHovered(float x, float y, float x2, float y2, int mouseX, int mouseY) {
-		return (float) mouseX >= x && (float) mouseX <= x2 && (float) mouseY >= y && (float) mouseY <= y2;
-	}
+    @Override
+    protected void mouseReleased(int mouseX, int mouseY, int state) {
+        if (this.isHovered(startX + 110, startY + 35.0F, startX + 440.0F, startY + 330.0F, mouseX, mouseY)){
+            float valueY = startY + 50;
+            if (currentModule != null) {
+                for ( Component component : valueComponentList) {
+                    component.mouseReleased(state);
+                    valueY+=component.getHeight();
+                }
 
-	public boolean isHovered(float x, float y, float x2, float y2, int mouseX, int mouseY) {
-		return (float) mouseX >= x && (float) mouseX <= x2 && (float) mouseY >= y && (float) mouseY <= y2;
-	}
+            }
+        }
+    }
 
-	public void onGuiClosed() {
-		this.opacity.setOpacity(0.0F);
-	}
+    @Override
+    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+        super.keyTyped(typedChar, keyCode);
+        if (currentActiveTextValue != null) {
+            currentActiveTextValue.keyTyped(typedChar,keyCode);
+        }
+    }
+
+    public boolean isHovered(float x, float y, float x2, float y2, int mouseX, int mouseY) {
+        return (float) mouseX >= x && (float) mouseX <= x2 && (float) mouseY >= y && (float) mouseY <= y2;
+    }
 }

@@ -6,7 +6,8 @@
  */
 package  rbq.wtf.lycoris.client.gui.Font;
 
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import org.lwjgl.opengl.GL11;
@@ -26,8 +27,8 @@ public class CFontRenderer extends CFont {
 	protected DynamicTexture texItalicBold;
 	protected Font font;
 
-	public CFontRenderer(Font font, boolean antiAlias, boolean fractionalMetrics) {
-		super(font, antiAlias, fractionalMetrics);
+	public CFontRenderer(Font font, boolean antiAlias, boolean fractionalMetrics, boolean unicode) {
+		super(font, antiAlias, fractionalMetrics,unicode);
 		this.font=font;
 		this.setupMinecraftColorcodes();
 		this.setupBoldItalicIDs();

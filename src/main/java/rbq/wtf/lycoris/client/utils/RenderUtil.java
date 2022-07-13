@@ -16,42 +16,28 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.Gui;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.GlStateManager;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.Tessellator;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.WorldRenderer;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.culling.Frustum;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.shader.Framebuffer;
-import net.minecraft.client.shader.ShaderGroup;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ResourceLocation;
 
 import static org.lwjgl.opengl.GL11.*;
 
 public class RenderUtil {
+
+    private static Minecraft mc = Minecraft.getMinecraft();
     private static final List<Integer> csBuffer;
     private static final Consumer<Integer> ENABLE_CLIENT_STATE;
     private static int lastScale;
     private static int lastScaleWidth;
     private static int lastScaleHeight;
-    private static ResourceLocation shader = new ResourceLocation("shaders/post/blur.json");
 
     private static final Consumer<Integer> DISABLE_CLIENT_STATE;
-    private static ShaderGroup blurShader;
-    private static Minecraft mc = Minecraft.getMinecraft();
-    private static Framebuffer buffer;
 
     public static float delta;
-    private static Frustum frustrum;
     static {
         csBuffer = new ArrayList<Integer>();
         ENABLE_CLIENT_STATE = GL11::glEnableClientState;
@@ -145,21 +131,7 @@ public class RenderUtil {
         glDisable(GL_BLEND);
     }
 
-    public static void drawCustomImage(final int x, final int y, final int width, final int height,
-                                       final ResourceLocation image) {
-        final ScaledResolution scaledResolution = new ScaledResolution(Minecraft.getMinecraft());
-        glDisable(2929);
-        glEnable(3042);
-        GL11.glDepthMask(false);
-        OpenGlHelper.glBlendFunc(770, 771, 1, 0);
-        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(image);
-        Gui.drawModalRectWithCustomSizedTexture(x, y, 0.0f, 0.0f, width, height, (float) width, (float) height);
-        GL11.glDepthMask(true);
-        glDisable(3042);
-        glEnable(2929);
-        Gui.drawRect(0, 0, 0, 0, 0);
-    }
+
 
     public static void color(int color, float alpha) {
         float red = (color >> 16 & 0xFF) / 255.0F;
@@ -348,20 +320,7 @@ public class RenderUtil {
         return color3;
     }
 
-    public static void drawImage(final ResourceLocation image, final int x, final int y, final int width,
-                                 final int height) {
-        final ScaledResolution scaledResolution = new ScaledResolution(Minecraft.getMinecraft());
-        glDisable(2929);
-        glEnable(3042);
-        GL11.glDepthMask(false);
-        OpenGlHelper.glBlendFunc(770, 771, 1, 0);
-        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(image);
-        Gui.drawModalRectWithCustomSizedTexture(x, y, 0.0f, 0.0f, width, height, (float) width, (float) height);
-        GL11.glDepthMask(true);
-        glDisable(3042);
-        glEnable(2929);
-    }
+
 
     public static void setupRender(final boolean start) {
         if (start) {
@@ -681,15 +640,15 @@ public class RenderUtil {
     public static void doGlScissor(int x, int y, int width, int height) {
         Minecraft mc = Minecraft.getMinecraft();
         int scaleFactor = 1;
-        int k = mc.gameSettings.guiScale;
+        int k = mc.getGameSettings().getGuiScale();
         if (k == 0) {
             k = 1000;
         }
-        while (scaleFactor < k && mc.displayWidth / (scaleFactor + 1) >= 320
-                && mc.displayHeight / (scaleFactor + 1) >= 240) {
+        while (scaleFactor < k && mc.getDisplayHeight() / (scaleFactor + 1) >= 320
+                && mc.getDisplayWidth() / (scaleFactor + 1) >= 240) {
             ++scaleFactor;
         }
-        GL11.glScissor((int) (x * scaleFactor), (int) (mc.displayHeight - (y + height) * scaleFactor),
+        GL11.glScissor((int) (x * scaleFactor), (int) (mc.getDisplayHeight() - (y + height) * scaleFactor),
                 (int) (width * scaleFactor), (int) (height * scaleFactor));
 
     }
@@ -763,15 +722,7 @@ public class RenderUtil {
         GL11.glScalef((float) 2.0f, (float) 2.0f, (float) 2.0f);
     }
 
-    public static boolean isInViewFrustrum(AxisAlignedBB bb) {
-        Entity current = Minecraft.getMinecraft().getRenderViewEntity();
-        frustrum.setPosition(current.posX, current.posY, current.posZ);
-        return frustrum.isBoundingBoxInFrustum(bb);
-    }
 
-    public static boolean isInViewFrustrum(Entity entity) {
-        return RenderUtil.isInViewFrustrum(entity.getEntityBoundingBox()) || entity.ignoreFrustumCheck;
-    }
 
     public static void drawHollowBox(float x, float y, float x1, float y1, float thickness, int color) {
         RenderUtil.drawHorizontalLine(x, y, x1, thickness, color);
@@ -813,19 +764,6 @@ public class RenderUtil {
         glDisable(2848);
         GlStateManager.disableBlend();
         GlStateManager.enableTexture2D();
-    }
-
-    public static void initFboAndShader(double d, int categoryY, int i, int j, float f) {
-        try {
-
-            blurShader = new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), shader);
-            blurShader.createBindFramebuffers(mc.displayWidth, mc.displayHeight);
-            buffer = new Framebuffer(mc.displayWidth, mc.displayHeight, true);
-            buffer.setFramebufferColor(0.0F, 0.0F, 0.0F, 0.0F);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public static Color rainbow(long time, float count, float fade) {
@@ -1031,45 +969,6 @@ public class RenderUtil {
         GL11.glPopMatrix();
     }
 
-    public static void drawEntityOnScreen(int p_147046_0_, int p_147046_1_, int p_147046_2_, float p_147046_3_,
-                                          float p_147046_4_, EntityLivingBase p_147046_5_) {
-        GlStateManager.enableColorMaterial();
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(p_147046_0_, p_147046_1_, 40.0f);
-        GlStateManager.scale(-p_147046_2_, p_147046_2_, p_147046_2_);
-        GlStateManager.rotate(180.0f, 0.0f, 0.0f, 1.0f);
-        float var6 = p_147046_5_.renderYawOffset;
-        float var7 = p_147046_5_.rotationYaw;
-        float var8 = p_147046_5_.rotationPitch;
-        float var9 = p_147046_5_.prevRotationYawHead;
-        float var10 = p_147046_5_.rotationYawHead;
-        GlStateManager.rotate(135.0f, 0.0f, 1.0f, 0.0f);
-        RenderHelper.enableStandardItemLighting();
-        GlStateManager.rotate(-135.0f, 0.0f, 1.0f, 0.0f);
-        GlStateManager.rotate((-(float) Math.atan(p_147046_4_ / 40.0f)) * 20.0f, 1.0f, 0.0f, 0.0f);
-        p_147046_5_.renderYawOffset = (float) Math.atan(p_147046_3_ / 40.0f) * -14.0f;
-        p_147046_5_.rotationYaw = (float) Math.atan(p_147046_3_ / 40.0f) * -14.0f;
-        p_147046_5_.rotationPitch = (-(float) Math.atan(p_147046_4_ / 40.0f)) * 15.0f;
-        p_147046_5_.rotationYawHead = p_147046_5_.rotationYaw;
-        p_147046_5_.prevRotationYawHead = p_147046_5_.rotationYaw;
-        GlStateManager.translate(0.0f, 0.0f, 0.0f);
-        RenderManager var11 = Minecraft.getMinecraft().getRenderManager();
-        var11.setPlayerViewY(180.0f);
-        var11.setRenderShadow(false);
-        var11.renderEntityWithPosYaw(p_147046_5_, 0.0, 0.0, 0.0, 0.0f, 1.0f);
-        var11.setRenderShadow(true);
-        p_147046_5_.renderYawOffset = var6;
-        p_147046_5_.rotationYaw = var7;
-        p_147046_5_.rotationPitch = var8;
-        p_147046_5_.prevRotationYawHead = var9;
-        p_147046_5_.rotationYawHead = var10;
-        GlStateManager.popMatrix();
-        RenderHelper.disableStandardItemLighting();
-        GlStateManager.disableRescaleNormal();
-        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-        GlStateManager.disableTexture2D();
-        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-    }
 
     public static void enableSmoothLine(float width) {
         glDisable((int) 3008);
@@ -1165,7 +1064,7 @@ public class RenderUtil {
         int scaleFactor = new ScaledResolution(mc).getScaleFactor();
         GL11.glPushMatrix();
         glEnable((int) 3089);
-        GL11.glScissor((int) (x * scaleFactor), (int) (RenderUtil.mc.displayHeight - (y + height) * scaleFactor),
+        GL11.glScissor((int) (x * scaleFactor), (int) (RenderUtil.mc.getDisplayHeight() - (y + height) * scaleFactor),
                 (int) (width * scaleFactor), (int) ((height += 14) * scaleFactor));
     }
 

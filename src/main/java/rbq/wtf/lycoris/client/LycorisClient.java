@@ -1,7 +1,7 @@
 package rbq.wtf.lycoris.client;
 
 
-import rbq.wtf.lycoris.agent.LycorisAgent;
+
 import rbq.wtf.lycoris.agent.instrument.impl.InstrumentationImpl;
 import rbq.wtf.lycoris.client.event.api.EventManager;
 import rbq.wtf.lycoris.client.event.api.EventTarget;
@@ -11,6 +11,7 @@ import rbq.wtf.lycoris.client.manager.ModuleManager;
 import rbq.wtf.lycoris.client.module.Module;
 import rbq.wtf.lycoris.client.transformer.TransformManager;
 import rbq.wtf.lycoris.client.wrapper.Wrapper;
+
 
 
 public class LycorisClient {
@@ -23,13 +24,15 @@ public class LycorisClient {
     public ModuleManager moduleManager;
     public ClickGUI clickGUI;
     public static LycorisClient instance;
-    public LycorisClient() {
+    public LycorisClient(){
+        debug = true;
         System.out.println("[Lycoris Client] Init Client");
         instance = this;
         moduleManager = new ModuleManager();
         clickGUI = new ClickGUI();
         System.out.println("[Lycoris Client] Init Wrapper");
         Wrapper.initWrapper();
+
         System.out.println("[Lycoris Client] Do TransFormer");
         InstrumentationImpl.init();
         TransformManager.init();

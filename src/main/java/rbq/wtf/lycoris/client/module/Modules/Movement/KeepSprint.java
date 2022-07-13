@@ -13,10 +13,10 @@ public class KeepSprint extends Module {
     }
     @Override
     public void onEnable(){
-        Minecraft.getMinecraft().thePlayer.sendChatMessage("Enable");
+
     }
     @Override
     public void onDisable(){
-        Minecraft.getMinecraft().thePlayer.sendChatMessage("Disable");
+
     }
 }

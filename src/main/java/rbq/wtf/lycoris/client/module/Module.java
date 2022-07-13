@@ -2,10 +2,7 @@ package rbq.wtf.lycoris.client.module;
 
 
 import rbq.wtf.lycoris.client.event.api.EventManager;
-import rbq.wtf.lycoris.client.value.BooleanValue;
-import rbq.wtf.lycoris.client.value.ModeValue;
-import rbq.wtf.lycoris.client.value.NumberValue;
-import rbq.wtf.lycoris.client.value.Value;
+import rbq.wtf.lycoris.client.value.*;
 
 import java.util.ArrayList;
 
@@ -17,10 +14,14 @@ public class Module {
     private ArrayList<BooleanValue> BooleanValues;
     private ArrayList<NumberValue> NumberValues;
     private ArrayList<ModeValue> ModeValues;
+    private ArrayList<ColorValue> ColorValues;
+    private ArrayList<TextValue> TextValues;
     public Module(String Name, ModuleCategory Category, int Key) {
-        this.BooleanValues = new ArrayList();
-        this.NumberValues = new ArrayList();
-        this.ModeValues = new ArrayList();
+        this.BooleanValues = new ArrayList<BooleanValue>();
+        this.NumberValues = new ArrayList<NumberValue>();
+        this.ModeValues = new ArrayList<ModeValue>();
+        this.ColorValues = new ArrayList<ColorValue>();
+        this.TextValues = new ArrayList<TextValue>();
         this.Category = Category;
         this.Name = Name;
         this.State = false;
@@ -41,8 +42,11 @@ public class Module {
         Values.addAll(BooleanValues);
         Values.addAll(ModeValues);
         Values.addAll(NumberValues);
+        Values.addAll(ColorValues);
+        Values.addAll(TextValues);
         return Values;
     }
+
 
 
 
@@ -58,6 +62,12 @@ public class Module {
         return NumberValues;
     }
 
+    public ArrayList<TextValue> getTextValues() {
+        return TextValues;
+    }
+
+    public ArrayList<ColorValue> getColorValues() {return ColorValues;}
+
     public void addNumberValue(NumberValue value) {
         value.setModule(this);
         this.NumberValues.add(value);
@@ -69,6 +79,15 @@ public class Module {
     public void addBooleanValue(BooleanValue value) {
         value.setModule(this);
         this.BooleanValues.add(value);
+    }
+    public void addColorValue(ColorValue value) {
+        value.setModule(this);
+        this.ColorValues.add(value);
+    }
+
+    public void addTextValue(TextValue value) {
+        value.setModule(this);
+        this.TextValues.add(value);
     }
     public boolean isState() {
         return State;
