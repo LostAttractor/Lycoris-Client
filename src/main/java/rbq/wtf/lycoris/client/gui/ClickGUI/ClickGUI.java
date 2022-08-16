@@ -1,21 +1,22 @@
 package rbq.wtf.lycoris.client.gui.ClickGUI;
 
-import net.minecraft.client.gui.GuiScreen;
 
 import org.lwjgl.input.Mouse;
 
+import rbq.wtf.lycoris.client.gui.ClickGUI.Utils.RenderUtil;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.gui.ClickGUI.Component.*;
 import rbq.wtf.lycoris.client.gui.ClickGUI.Component.Component;
 import rbq.wtf.lycoris.client.module.Module;
 import rbq.wtf.lycoris.client.module.ModuleCategory;
+import rbq.wtf.lycoris.client.wrapper.wrappers.impl.GuiScreenImpl;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class ClickGUI extends GuiScreen {
+public class ClickGUI extends GuiScreenImpl {
     public static ModuleCategory currentModuleType;
     public static Module currentModule;
     public static Module currentBindModule;
@@ -39,7 +40,6 @@ public class ClickGUI extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        super.drawScreen(mouseX, mouseY, partialTicks);
 
         if (this.isHovered(startX, startY - 10.0F, startX + 400.0F, startY + 15.0F, mouseX, mouseY)
                 && Mouse.isButtonDown(0)) {
@@ -148,7 +148,7 @@ public class ClickGUI extends GuiScreen {
     }
 
     @Override
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+    public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         System.out.println(mouseX);
         System.out.println(mouseY);
@@ -176,7 +176,7 @@ public class ClickGUI extends GuiScreen {
     }
 
     @Override
-    protected void mouseReleased(int mouseX, int mouseY, int state) {
+    public void mouseReleased(int mouseX, int mouseY, int state) {
         if (this.isHovered(startX + 110, startY + 35.0F, startX + 440.0F, startY + 330.0F, mouseX, mouseY)){
             float valueY = startY + 50;
             if (currentModule != null) {
@@ -190,11 +190,12 @@ public class ClickGUI extends GuiScreen {
     }
 
     @Override
-    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+    public boolean keyTyped(char typedChar, int keyCode){
         super.keyTyped(typedChar, keyCode);
         if (currentActiveTextValue != null) {
             currentActiveTextValue.keyTyped(typedChar,keyCode);
         }
+        return true;
     }
 
     public boolean isHovered(float x, float y, float x2, float y2, int mouseX, int mouseY) {

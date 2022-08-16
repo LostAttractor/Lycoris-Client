@@ -11,7 +11,7 @@ import rbq.wtf.lycoris.client.manager.ModuleManager;
 import rbq.wtf.lycoris.client.module.Module;
 import rbq.wtf.lycoris.client.transformer.TransformManager;
 import rbq.wtf.lycoris.client.wrapper.Wrapper;
-
+import rbq.wtf.lycoris.client.wrapper.bridge.BridgeUtil;
 
 
 public class LycorisClient {
@@ -25,20 +25,22 @@ public class LycorisClient {
     public ClickGUI clickGUI;
     public static LycorisClient instance;
     public LycorisClient(){
-        debug = true;
+        debug = false;
+
         System.out.println("[Lycoris Client] Init Client");
         instance = this;
         moduleManager = new ModuleManager();
         clickGUI = new ClickGUI();
         System.out.println("[Lycoris Client] Init Wrapper");
         Wrapper.initWrapper();
-
+        BridgeUtil.init();
         System.out.println("[Lycoris Client] Do TransFormer");
         InstrumentationImpl.init();
         TransformManager.init();
         TransformManager.doTransform();
         EventManager.register(this);
     }
+
     public ModuleManager getModuleManager() {
         return moduleManager;
     }
@@ -46,10 +48,10 @@ public class LycorisClient {
     public ClickGUI getClickGUI() {
         return clickGUI;
     }
-
     @EventTarget
     public void EventKeyPress(EventKey e) {
         for(Module module : this.moduleManager.getModules()){
+            System.out.println("Key" + e.getKey());
             if(module.getKey() == e.getKey()){
                 module.toggle();
             }

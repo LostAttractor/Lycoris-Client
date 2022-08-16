@@ -1,8 +1,6 @@
 package rbq.wtf.lycoris.client.module.Modules.Movement;
 
-import net.minecraft.client.Minecraft;
-import rbq.wtf.lycoris.client.event.api.EventTarget;
-import rbq.wtf.lycoris.client.event.events.EventTick;
+
 import rbq.wtf.lycoris.client.module.Module;
 import rbq.wtf.lycoris.client.module.ModuleCategory;
 

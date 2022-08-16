@@ -1,8 +1,6 @@
 package rbq.wtf.lycoris.client.module.Modules.Render;
 
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import rbq.wtf.lycoris.client.LycorisClient;
 import rbq.wtf.lycoris.client.event.api.EventTarget;
 import rbq.wtf.lycoris.client.event.events.EventRender2D;
@@ -12,6 +10,8 @@ import rbq.wtf.lycoris.client.module.ModuleCategory;
 import rbq.wtf.lycoris.client.value.BooleanValue;
 import rbq.wtf.lycoris.client.value.ModeValue;
 import rbq.wtf.lycoris.client.value.NumberValue;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -41,6 +41,7 @@ public class HUD extends Module {
 
     @EventTarget
     public void onRender2D(EventRender2D e){
+        ScaledResolution sc = new ScaledResolution(Minecraft.getMinecraft());
         if (waterMark.getValue()){
             FontLoaders.default25.drawStringWithShadow("Dimples.love",
                     5,
@@ -56,9 +57,8 @@ public class HUD extends Module {
             sorted.sort(Comparator.comparingInt(mm -> -(FontLoaders.default16.getStringWidth(mm.getName()))));
             float posY = 0;
             for (Module m : sorted) {
-//                System.out.println(e.getScaledResolution().getScaledHeight());
                 FontLoaders.default20.drawStringWithShadow(m.getName(),
-                        e.getScaledResolution().getScaledWidth() - FontLoaders.default20.getStringWidth(m.getName()) - 5 ,
+                        sc.getScaledWidth() - FontLoaders.default20.getStringWidth(m.getName()) - 5 ,
                         posY + 5,
                         new Color(0,200,100).getRGB()
                 );

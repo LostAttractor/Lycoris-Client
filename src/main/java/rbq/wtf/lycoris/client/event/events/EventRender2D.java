@@ -1,13 +1,16 @@
 package rbq.wtf.lycoris.client.event.events;
 
-import net.minecraft.client.gui.ScaledResolution;
+
 import rbq.wtf.lycoris.client.event.api.EventManager;
 import rbq.wtf.lycoris.client.event.api.events.Event;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution;
 
 public class EventRender2D implements Event {
-    ScaledResolution scaledResolution;
+
     float partialTicks;
-    public EventRender2D(ScaledResolution scaledResolution,float partialTicks) {
+    ScaledResolution scaledResolution;
+    public EventRender2D(ScaledResolution scaledResolution,float partialTicks)
+    {
         this.scaledResolution = scaledResolution;
         this.partialTicks = partialTicks;
         EventManager.call(this);

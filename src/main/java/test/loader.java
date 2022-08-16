@@ -10,10 +10,7 @@ public class loader {
 
     public loader() {
         System.out.println("Print");
-        new Thread(() -> {
-            JOptionPane.showConfirmDialog(null,"Wait");
-            new LycorisClient();
-        }).start();
+        new LycorisClient();
     }
 
 }

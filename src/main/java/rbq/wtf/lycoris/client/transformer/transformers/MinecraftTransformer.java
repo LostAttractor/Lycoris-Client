@@ -1,21 +1,23 @@
 package rbq.wtf.lycoris.client.transformer.transformers;
 
-import net.minecraft.client.Minecraft;
+
 import rbq.wtf.lycoris.agent.asm.ClassReader;
 import rbq.wtf.lycoris.agent.asm.ClassWriter;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
 import rbq.wtf.lycoris.agent.asm.Type;
 import rbq.wtf.lycoris.agent.asm.tree.*;
 import rbq.wtf.lycoris.client.event.api.EventManager;
+import rbq.wtf.lycoris.client.event.api.events.Event;
 import rbq.wtf.lycoris.client.event.events.EventLoop;
 import rbq.wtf.lycoris.client.event.events.EventTick;
 import rbq.wtf.lycoris.client.transformer.ClassTransformer;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 
 
 public class MinecraftTransformer extends ClassTransformer {
     @Override
     public Class<?> getTargetClass() {
-        return Minecraft.class;
+        return Minecraft.MinecraftClass;
     }
 
     @Override
@@ -24,21 +26,21 @@ public class MinecraftTransformer extends ClassTransformer {
         ClassNode classNode = new ClassNode();
         cr.accept(classNode,0);
         for (MethodNode method: classNode.methods){
-            if (method.name.equalsIgnoreCase("runTick")){
+            if (method.name.equalsIgnoreCase(Minecraft.runTick.getName())){
                 InsnList insnList = new InsnList();
                 insnList.add(new TypeInsnNode(Opcodes.NEW,Type.getInternalName(EventTick.class)));
                 insnList.add(new InsnNode(Opcodes.DUP));
                 insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(EventTick.class),"<init>","()V",false));
-                insnList.add(new MethodInsnNode(Opcodes.INVOKESTATIC,Type.getInternalName(EventManager.class),"call","(Lrbq/wtf/lycoris/client/event/api/events/Event;)Lrbq/wtf/lycoris/client/event/api/events/Event;", false));
+                insnList.add(new MethodInsnNode(Opcodes.INVOKESTATIC,Type.getInternalName(EventManager.class),"call","(L"+Type.getInternalName(Event.class)+";)L"+Type.getInternalName(Event.class)+";", false));
                 insnList.add(new InsnNode(Opcodes.POP));
                 method.instructions.insert(insnList);
             }
-            if (method.name.equalsIgnoreCase("runGameLoop")){
+            if (method.name.equalsIgnoreCase(Minecraft.runGameLoop.getName())){
                 InsnList insnList = new InsnList();
                 insnList.add(new TypeInsnNode(Opcodes.NEW,Type.getInternalName(EventLoop.class)));
                 insnList.add(new InsnNode(Opcodes.DUP));
                 insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(EventLoop.class),"<init>","()V",false));
-                insnList.add(new MethodInsnNode(Opcodes.INVOKESTATIC,Type.getInternalName(EventManager.class),"call","(Lrbq/wtf/lycoris/client/event/api/events/Event;)Lrbq/wtf/lycoris/client/event/api/events/Event;", false));
+                insnList.add(new MethodInsnNode(Opcodes.INVOKESTATIC,Type.getInternalName(EventManager.class),"call","(L"+Type.getInternalName(Event.class)+";)L"+Type.getInternalName(Event.class)+";", false));
                 insnList.add(new InsnNode(Opcodes.POP));
                 method.instructions.insert(insnList);
             }

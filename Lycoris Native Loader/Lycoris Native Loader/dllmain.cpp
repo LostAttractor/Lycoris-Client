@@ -48,8 +48,6 @@ void Jvmtiinit() {
 	capabilities.can_generate_all_class_hook_events = 1;
 	capabilities.can_retransform_any_class = 1;
 	capabilities.can_retransform_classes = 1;
-	capabilities.can_redefine_any_class = 1;
-	capabilities.can_redefine_classes = 1;
 	error = jvmti->AddCapabilities(&capabilities);
 	if (Env->ExceptionOccurred()) {
 		cout << "[Lycoris Agent] JVMTI Setup Failed!" << endl;
@@ -182,7 +180,7 @@ jclass findClass(JNIEnv* env, jvmtiEnv* jvmti, const char* name) {
 	}
 	return NULL;
 }
-
+jclass clazztigger;
 void JNICALL classTransformerHook
 (
 	jvmtiEnv* jvmti,
@@ -202,6 +200,7 @@ void JNICALL classTransformerHook
 	jclass clazzt = class_being_redefined;
 	jbyteArray classdata = asByteArray(env, data, data_len);
 	jbyteArray transformedData = env->NewByteArray(0);
+	clazztigger = clazzt;
 	//cout << "0" << endl;
 	if (!class_being_redefined) {
 		*new_data_len = data_len;
@@ -221,6 +220,7 @@ void JNICALL classTransformerHook
 		memcpy(*new_data, data, data_len);
 		return;
 	}
+
 	unsigned char* newChars = asUnsignedCharArray(env, transformedData);
 	const jint newLength = (jint)env->GetArrayLength(transformedData);
 	jvmti->Allocate(newLength, new_data);
@@ -261,7 +261,7 @@ extern "C" __declspec(dllexport)  jobjectArray JNICALL Java_rbq_wtf_lycoris_agen
 	return asClassArray(env, jvmClasses, classCount);
 }
 
-extern "C" __declspec(dllexport)  void JNICALL Java_rbq_wtf_lycoris_agent_instrument_impl_InstrumentationImpl_retransformClasses(JNIEnv* env, jobject instrumentationInstance, jobjectArray classes) {
+extern "C" __declspec(dllexport)  jint JNICALL Java_rbq_wtf_lycoris_agent_instrument_impl_InstrumentationImpl_retransformClasses(JNIEnv* env, jobject instrumentationInstance, jobjectArray classes) {
 	//initializeJvmti();
 	if (!jvmti)
 	{
@@ -274,8 +274,6 @@ extern "C" __declspec(dllexport)  void JNICALL Java_rbq_wtf_lycoris_agent_instru
 	capabilities.can_generate_all_class_hook_events = 1;
 	capabilities.can_retransform_any_class = 1;
 	capabilities.can_retransform_classes = 1;
-	capabilities.can_redefine_any_class = 1;
-	capabilities.can_redefine_classes = 1;
 	i =jvmti->AddCapabilities(&capabilities);
 
 
@@ -314,6 +312,10 @@ extern "C" __declspec(dllexport)  void JNICALL Java_rbq_wtf_lycoris_agent_instru
 	//cout << "6" << endl;
 	
 	i = jvmti->RetransformClasses(size, jvmClasses);
+	char* sig;
+	jvmti->GetClassSignature(clazztigger, &sig, NULL);
+	cout << "Class " << sig << " Error" << i;
+	//MessageBoxA(NULL, "Error: " + i, "Lycoris Loader", MB_OK | MB_ICONERROR);
 	//cout << "error" << i  << endl;
 	index = 0;
 	//cout << "8" << endl;
@@ -322,6 +324,7 @@ extern "C" __declspec(dllexport)  void JNICALL Java_rbq_wtf_lycoris_agent_instru
 	//jvmti->SetEventNotificationMode(JVMTI_DISABLE, JVMTI_EVENT_CLASS_FILE_LOAD_HOOK, NULL);
 	//cout << "10" << endl;
 	cout << "[Lycoris Agent] Retransformed " << size << " classes." << endl;
+	return i;
 	//cout << "[Agent] Retransformed " << size << " classes." << endl;
 }
 
@@ -331,6 +334,9 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved) {
 	switch (dwReason)
 	{
 	case DLL_PROCESS_ATTACH:
+		HANDLE hdlWrite = GetStdHandle(STD_OUTPUT_HANDLE);
+		freopen("CONOUT$", "w+t", stdout);
+		freopen("CONIN$", "r+t", stdin);
 		CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)&MainThread, NULL, 0, NULL);
 		break;
 	}

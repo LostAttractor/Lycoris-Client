@@ -7,9 +7,6 @@ import rbq.wtf.lycoris.agent.instrument.ClassTransformer;
 import rbq.wtf.lycoris.agent.instrument.Instrumentation;
 
 
-//javah -d .\ -classpath .\ InstrumentationImpl
-//javah -d .\ -classpath .\ pub\nextsense\gc\nextagent\instrument\impl\InstrumentationImpl
-//javah -d .\ -classpath .\ InstrumentationImpl
 public class InstrumentationImpl implements Instrumentation
 {
     public static void init(){
@@ -26,7 +23,7 @@ public class InstrumentationImpl implements Instrumentation
     public native Class<?>[] getAllLoadedClasses();
 
     @Override
-    public native void retransformClasses(Class<?>[] classes);
+    public native int retransformClasses(Class<?>[] classes);
 
     @Override
         public native Class<?>[] getLoadedClasses(ClassLoader classLoader);

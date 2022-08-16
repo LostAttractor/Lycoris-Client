@@ -6,8 +6,8 @@
  */
 package  rbq.wtf.lycoris.client.gui.Font;
 
-import net.minecraft.client.renderer.texture.DynamicTexture;
 import org.lwjgl.opengl.GL11;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.DynamicTexture;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
