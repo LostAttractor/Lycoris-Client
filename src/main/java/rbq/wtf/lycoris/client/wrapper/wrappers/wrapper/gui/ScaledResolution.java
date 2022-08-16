@@ -10,19 +10,19 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 
 import java.lang.reflect.Field;
 
-@WrapperClass(mcpName = "net.minecraft.client.gui.ScaledResolution",targetMap = MapEnum.Srg1_8_9)
+@WrapperClass(mcpName = "net.minecraft.client.gui.ScaledResolution",targetMap = MapEnum.MDK189)
 public class ScaledResolution extends IWrapper {
-    @WrapClass(mcpName = "net.minecraft.client.gui.ScaledResolution",targetMap = MapEnum.Srg1_8_9)
+    @WrapClass(mcpName = "net.minecraft.client.gui.ScaledResolution",targetMap = MapEnum.MDK189)
     public static Class ScaledResolution;
-    @WrapField(mcpName = "scaledWidthD",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "scaledWidthD",targetMap = MapEnum.MDK189)
     public static Field scaledWidthD;
-    @WrapField(mcpName = "scaledHeightD",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "scaledHeightD",targetMap = MapEnum.MDK189)
     public static Field scaledHeightD;
-    @WrapField(mcpName = "scaledWidth",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "scaledWidth",targetMap = MapEnum.MDK189)
     public static Field scaledWidth;
-    @WrapField(mcpName = "scaledHeight",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "scaledHeight",targetMap = MapEnum.MDK189)
     public static Field scaledHeight;
-    @WrapField(mcpName = "scaleFactor",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "scaleFactor",targetMap = MapEnum.MDK189)
     public static Field scaleFactor;
 
     public ScaledResolution(Object obj) {

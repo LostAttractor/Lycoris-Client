@@ -10,11 +10,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 public class Tessellator extends IWrapper {
-    @WrapMethod(mcpName = "getInstance",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "getInstance",targetMap = MapEnum.MDK189)
     public static Method getInstance;
-    @WrapField(mcpName = "worldRenderer",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "worldRenderer",targetMap = MapEnum.MDK189)
     public static Field worldRenderer;
-    @WrapMethod(mcpName = "draw",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "draw",targetMap = MapEnum.MDK189)
     public static Method draw;
 
     public Tessellator(Object obj) {

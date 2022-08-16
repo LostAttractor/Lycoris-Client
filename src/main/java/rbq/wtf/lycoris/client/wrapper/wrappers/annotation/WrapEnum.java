@@ -1,5 +1,6 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.annotation;
 
+import rbq.wtf.lycoris.client.wrapper.MapEnum;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.repeat.WrapEnums;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.repeat.WrapFields;
 
@@ -14,6 +15,6 @@ import java.lang.annotation.*;
  */
 public @interface WrapEnum {
     String mcpName();
-    String targetMap();
+    MapEnum targetMap();
     String customSrgName() default "none";
 }

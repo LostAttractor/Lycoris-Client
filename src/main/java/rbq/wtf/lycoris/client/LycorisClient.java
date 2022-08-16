@@ -19,7 +19,6 @@ public class LycorisClient {
     public static boolean debug = false;
     public static boolean isVanilla = true;
 
-
     public static String game_version = "1.8.9";
     public ModuleManager moduleManager;
     public ClickGUI clickGUI;

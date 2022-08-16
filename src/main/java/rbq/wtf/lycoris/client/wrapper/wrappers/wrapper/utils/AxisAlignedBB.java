@@ -10,35 +10,35 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-@WrapperClass(mcpName = "net.minecraft.util.AxisAlignedBB",targetMap = MapEnum.Srg1_8_9)
+@WrapperClass(mcpName = "net.minecraft.util.AxisAlignedBB",targetMap = MapEnum.MDK189)
 public class AxisAlignedBB extends IWrapper {
-    @WrapField(mcpName = "minX",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "minX",targetMap = MapEnum.MDK189)
     public static Field minX;
-    @WrapField(mcpName = "minY",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "minY",targetMap = MapEnum.MDK189)
     public static Field minY;
-    @WrapField(mcpName = "minZ",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "minZ",targetMap = MapEnum.MDK189)
     public static Field minZ;
-    @WrapField(mcpName = "maxX",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "maxX",targetMap = MapEnum.MDK189)
     public static Field maxX;
-    @WrapField(mcpName = "maxY",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "maxY",targetMap = MapEnum.MDK189)
     public static Field maxY;
-    @WrapField(mcpName = "maxZ",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "maxZ",targetMap = MapEnum.MDK189)
     public static Field maxZ;
-    @WrapClass(mcpName = "net.minecraft.util.AxisAlignedBB",targetMap = MapEnum.Srg1_8_9)
+    @WrapClass(mcpName = "net.minecraft.util.AxisAlignedBB",targetMap = MapEnum.MDK189)
     public static Class AxisAlignedBBClass;
-    @WrapMethod(mcpName = "offset",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "offset",targetMap = MapEnum.MDK189)
     public static Method offset_3d;
-    @WrapConstructor(targetMap = MapEnum.Srg1_8_9 , signature = {double.class,double.class,double.class,double.class,double.class,double.class})
+    @WrapConstructor(targetMap = MapEnum.MDK189, signature = {double.class,double.class,double.class,double.class,double.class,double.class})
     public static Constructor AxisAlignedBB_Constructor_DDDDDD;
-    @WrapConstructor(targetMap = MapEnum.Srg1_8_9,signature = {BlockPos.class,BlockPos.class})
+    @WrapConstructor(targetMap = MapEnum.MDK189,signature = {BlockPos.class,BlockPos.class})
     public static Constructor AxisAlignedBB_Constructor_BlockPos;
-    @WrapMethod(mcpName = "expand",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "expand",targetMap = MapEnum.MDK189)
     public static Method expand;
-    @WrapMethod(mcpName = "addCoord",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "addCoord",targetMap = MapEnum.MDK189)
     public static Method addCoord;
-    @WrapMethod(mcpName = "calculateIntercept",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "calculateIntercept",targetMap = MapEnum.MDK189)
     public static Method calculateIntercept;
-    @WrapMethod(mcpName = "isVecInside",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "isVecInside",targetMap = MapEnum.MDK189)
     public static Method isVecInside;
     public AxisAlignedBB(double x1, double y1, double z1, double x2, double y2, double z2)
     {

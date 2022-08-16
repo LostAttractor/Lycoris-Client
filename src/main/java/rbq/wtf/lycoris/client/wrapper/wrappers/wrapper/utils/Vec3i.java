@@ -13,17 +13,17 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 
-@WrapperClass(mcpName = "net.minecraft.util.Vec3i",targetMap = MapEnum.Srg1_8_9)
+@WrapperClass(mcpName = "net.minecraft.util.Vec3i",targetMap = MapEnum.MDK189)
 public class Vec3i extends IWrapper {
-    @WrapField(mcpName = "x",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "x",targetMap = MapEnum.MDK189)
     public static Field x;
-    @WrapField(mcpName = "y",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "y",targetMap = MapEnum.MDK189)
     public static Field y;
-    @WrapField(mcpName = "z",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "z",targetMap = MapEnum.MDK189)
     public static Field z;
-    @WrapConstructor(targetMap = MapEnum.Srg1_8_9,signature = {double.class,double.class,double.class})
+    @WrapConstructor(targetMap = MapEnum.MDK189,signature = {double.class,double.class,double.class})
     public static Constructor Vec3i_DDD;
-    @WrapMethod(mcpName = "distanceSq",targetMap = MapEnum.Srg1_12_2,signature = "(DDD)D")
+    @WrapMethod(mcpName = "distanceSq",targetMap = MapEnum.MDK1122,signature = "(DDD)D")
     public static Method distanceSq;
 
     public Vec3i(Object obj) {
