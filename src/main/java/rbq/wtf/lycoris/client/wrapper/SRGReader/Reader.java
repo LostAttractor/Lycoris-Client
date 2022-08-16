@@ -1,23 +1,17 @@
 package rbq.wtf.lycoris.client.wrapper.SRGReader;
 
 
-import rbq.wtf.lycoris.agent.LycorisAgent;
-import rbq.wtf.lycoris.client.LycorisClient;
-import rbq.wtf.lycoris.client.utils.Logger;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MapNode;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MethodNode;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.NodeType;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.Signature;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.utils.StringStream;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
-
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 public class Reader {
-    private String map;
+    private final String map;
     private List<MapNode> mapNodes;
     private List<Class> loadedClasses = new ArrayList<Class>();
     public Reader(String MCP2SrgMap){
@@ -32,12 +26,10 @@ public class Reader {
                 if (strings.length != 0){
                     if (getNodeType(strings[0]) == NodeType.Method){
                         if (strings.length == 5){
-
                             Signature sig = genSignature(strings[4]);
                             mapNodes.add(new MethodNode(getNodeType(strings[0]),strings[1],strings[3], sig,strings[4],strings[2]));
                         }
                     }else {
-
                         if (strings.length == 3){
                             mapNodes.add(new MapNode(getNodeType(strings[0]),strings[1],strings[2]));
                         }

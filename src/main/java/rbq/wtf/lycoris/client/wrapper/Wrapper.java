@@ -2,8 +2,6 @@ package rbq.wtf.lycoris.client.wrapper;
 
 import rbq.wtf.lycoris.client.LycorisClient;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
-import rbq.wtf.lycoris.client.utils.Logger;
-import rbq.wtf.lycoris.client.utils.WebUtils;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.Reader;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MapNode;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MethodNode;
@@ -25,40 +23,43 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.click.ClickEv
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.click.ClickEventAction;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.text.IChatComponent;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Wrapper {
 
-    public static String env;
+    public static MapEnum MapEnv;
     private static Reader reader;
     private static final List<Class<? extends IWrapper>> wrappers = new ArrayList<Class<? extends IWrapper>>();
-    public static void initWrapper(){
-        try
-        {
-            env = MapEnum.Srg1_8_9;
-            String map = readFiles("D:\\work\\Lycoris Client\\Lycoris-Client\\map\\189Notch.srg");
-            reader = new Reader(map);
-            reader.preRead();
-            loadWrapper();
-            //ReflectLoading.loadingProgress.setString("Loading Wrapper");
+    public static void initWrapper() {
+        MapEnv = MapEnum.MDK189;
+        Path path = Paths.get("").toAbsolutePath().getParent().resolve("maps/" + MapEnv.toString() + ".srg");
+        String map = readFileByPath(path);
+        reader = new Reader(map);
+        reader.preRead();
+        loadWrapper();
+        //ReflectLoading.loadingProgress.setString("Loading Wrapper");
+        try {
             applyMap();
-        }  catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static String readFiles(String str) {
+    public static String readFileByPath(Path path) {
         try
         {
-            InputStream stream = Files.newInputStream(new File(str).toPath());
+            InputStream stream = Files.newInputStream(path);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             byte[] buffer = new byte[512000];
 
@@ -162,7 +163,7 @@ public class Wrapper {
         }
     }
     private static void applyConstructor(WrapperClass wrapperClass,Class<? extends IWrapper> wrapper){
-        if (wrapperClass.targetMap().equals(env)){
+        if (wrapperClass.targetMap() == MapEnv){
             for (Field declaredField : wrapper.getDeclaredFields()) {
                 try{
                     for (Annotation annotation : declaredField.getDeclaredAnnotations()) {
@@ -182,7 +183,7 @@ public class Wrapper {
         }
     }
     private static void applyConstructor(WrapperClass wrapperClass, WrapConstructor wrapConstructor,Field declaredField) throws NoSuchFieldException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException {
-        if (wrapConstructor.targetMap().equals(env)){
+        if (wrapConstructor.targetMap() == MapEnv){
             if (Modifier.isStatic(declaredField.getModifiers())){
                 List<Class<?>> classes = new ArrayList<Class<?>>();
                 for (Class<?> aClass : wrapConstructor.signature()) {
@@ -190,14 +191,14 @@ public class Wrapper {
                         for (Annotation declaredAnnotation : aClass.getDeclaredAnnotations()) {
                             if (declaredAnnotation instanceof WrapperClasses){
                                 for (WrapperClass target : ((WrapperClasses) declaredAnnotation).value()) {
-                                    if (target.targetMap().equals(env)){
+                                    if (target.targetMap() == MapEnv){
                                         MapNode mapNode = readClass(target.mcpName());
                                         classes.add(reflectClassByMap(mapNode));
                                     }
                                 }
                             }else if (declaredAnnotation instanceof WrapperClass){
                                 WrapperClass target = (WrapperClass) declaredAnnotation;
-                                if (target.targetMap().equals(env)){
+                                if (target.targetMap() == MapEnv){
                                     MapNode mapNode = readClass(target.mcpName());
                                     classes.add(reflectClassByMap(mapNode));
                                 }
@@ -220,7 +221,7 @@ public class Wrapper {
         }
     }
     private static void applyClass(WrapperClass wrapperClass, Class<? extends IWrapper> wrapper) throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException, NoSuchMethodException {
-        if (wrapperClass.targetMap().equals(env)){
+        if (wrapperClass.targetMap() == MapEnv){
             for (Field declaredField : wrapper.getDeclaredFields()) {
                 try{
                     for (Annotation annotation : declaredField.getDeclaredAnnotations()) {
@@ -269,8 +270,9 @@ public class Wrapper {
             }
         }
     }
-    private static void applyEnum(WrapperClass wrapperClass, WrapEnum wrapEnum,Field declaredField) throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
-        if (wrapEnum.targetMap().equals(env)){
+    private static void applyEnum(WrapperClass wrapperClass, WrapEnum
+            wrapEnum,Field declaredField) throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+        if (wrapEnum.targetMap() == MapEnv){
             if (Modifier.isStatic(declaredField.getModifiers())){
                 //ReadMap
                 MapNode mapNode = readField(wrapperClass.mcpName(), wrapEnum.mcpName());
@@ -316,7 +318,7 @@ public class Wrapper {
     }
 
     private static void applyObject(WrapperClass wrapperClass,WrapObject wrapObject,Field declaredField) throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
-        if (wrapObject.targetMap().equals(env)){
+        if (wrapObject.targetMap() == MapEnv){
             if (Modifier.isStatic(declaredField.getModifiers())){
                 //ReadMap
                 MapNode mapNode = readField(wrapperClass.mcpName(), wrapObject.mcpName());
@@ -334,7 +336,7 @@ public class Wrapper {
         }
     }
     private static void applyField(WrapperClass wrapperClass,WrapField wrapField,Field declaredField) throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
-        if (wrapField.targetMap().equals(env)){
+        if (wrapField.targetMap() == MapEnv){
             if (Modifier.isStatic(declaredField.getModifiers())){
                 //ReadMap
                 MapNode mapNode = readField(wrapperClass.mcpName(), wrapField.mcpName());
@@ -352,7 +354,7 @@ public class Wrapper {
         }
     }
     private static void applyClass(WrapperClass wrapperClass, WrapClass wrapClass, Field declaredField) throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
-        if (wrapClass.targetMap().equals(env)){
+        if (wrapClass.targetMap() == MapEnv){
             if (Modifier.isStatic(declaredField.getModifiers())){
                 //ReadMap
                 MapNode mapNode = readClass(wrapClass.mcpName());
@@ -366,7 +368,7 @@ public class Wrapper {
         }
     }
     private static void applyMethod(WrapperClass wrapperClass,WrapMethod wrapMethod,Field declaredField) throws NoSuchFieldException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException {
-        if (wrapMethod.targetMap().equals(env)){
+        if (wrapMethod.targetMap() == MapEnv){
             if (Modifier.isStatic(declaredField.getModifiers())){
                 String costumSig = null;
                 if (!wrapMethod.signature().equals("none")){

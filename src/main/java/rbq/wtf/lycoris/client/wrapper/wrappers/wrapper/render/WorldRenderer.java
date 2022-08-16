@@ -9,23 +9,23 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 
 import java.lang.reflect.Method;
 
-@WrapperClass(mcpName = "net.minecraft.client.renderer.WorldRenderer",targetMap = MapEnum.Srg1_8_9)
+@WrapperClass(mcpName = "net.minecraft.client.renderer.WorldRenderer",targetMap = MapEnum.MDK189)
 public class WorldRenderer extends IWrapper {
-    @WrapClass(mcpName = "net.minecraft.client.renderer.WorldRenderer",targetMap = MapEnum.Srg1_8_9)
+    @WrapClass(mcpName = "net.minecraft.client.renderer.WorldRenderer",targetMap = MapEnum.MDK189)
     public static Class WorldRendererClass;
-    @WrapMethod(mcpName = "begin",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "begin",targetMap = MapEnum.MDK189)
     public static Method begin;
-    @WrapMethod(mcpName = "pos",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "pos",targetMap = MapEnum.MDK189)
     public static Method pos;
-    @WrapMethod(mcpName = "endVertex",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "endVertex",targetMap = MapEnum.MDK189)
     public static Method endVertex;
-    @WrapMethod(mcpName = "color",targetMap = MapEnum.Srg1_8_9,signature = "(FFFF)Lnet/minecraft/client/renderer/WorldRenderer;")
+    @WrapMethod(mcpName = "color",targetMap = MapEnum.MDK189,signature = "(FFFF)Lnet/minecraft/client/renderer/WorldRenderer;")
     public static Method color_4f;
-    @WrapMethod(mcpName = "color",targetMap = MapEnum.Srg1_8_9,signature = "(IIII)Lnet/minecraft/client/renderer/WorldRenderer;")
+    @WrapMethod(mcpName = "color",targetMap = MapEnum.MDK189,signature = "(IIII)Lnet/minecraft/client/renderer/WorldRenderer;")
     public static Method color_4I;
-    @WrapMethod(mcpName = "putColorMultiplier",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "putColorMultiplier",targetMap = MapEnum.MDK189)
     public static Method putColorMultiplier;
-    @WrapMethod(mcpName = "tex",targetMap =MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "tex",targetMap =MapEnum.MDK189)
     public static Method tex;
 
     public WorldRenderer(Object obj) {

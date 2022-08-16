@@ -7,13 +7,13 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapperClass;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 
 import java.lang.reflect.Method;
-@WrapperClass(mcpName = "net.minecraft.client.gui.GuiIngame",targetMap = MapEnum.Srg1_8_9)
+@WrapperClass(mcpName = "net.minecraft.client.gui.GuiIngame",targetMap = MapEnum.MDK189)
 public class GuiIngame extends IWrapper {
-    @WrapClass(mcpName = "net.minecraft.client.gui.GuiIngame",targetMap = MapEnum.Srg1_8_9)
+    @WrapClass(mcpName = "net.minecraft.client.gui.GuiIngame",targetMap = MapEnum.MDK189)
     public static Class<?> GuiIngameClass;
     public GuiIngame(Object obj) {
         super(obj);
     }
-    @WrapMethod(mcpName = "renderTooltip",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "renderTooltip",targetMap = MapEnum.MDK189)
     public static Method renderTooltip;
 }

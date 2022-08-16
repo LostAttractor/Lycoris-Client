@@ -11,41 +11,41 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.Entity;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
-@WrapperClass(mcpName = "net.minecraft.util.BlockPos",targetMap = MapEnum.Srg1_8_9)
+@WrapperClass(mcpName = "net.minecraft.util.BlockPos",targetMap = MapEnum.MDK189)
 public class BlockPos extends Vec3i {
-    @WrapClass(mcpName = "net.minecraft.util.BlockPos",targetMap = MapEnum.Srg1_8_9)
+    @WrapClass(mcpName = "net.minecraft.util.BlockPos",targetMap = MapEnum.MDK189)
     public static Class BlockPosClass;
-    @WrapConstructor(targetMap = MapEnum.Srg1_8_9,signature = {double.class,double.class,double.class})
+    @WrapConstructor(targetMap = MapEnum.MDK189,signature = {double.class,double.class,double.class})
     public static Constructor BlockPos_DDD;
-    @WrapConstructor(targetMap = MapEnum.Srg1_8_9,signature = {Entity.class})
+    @WrapConstructor(targetMap = MapEnum.MDK189,signature = {Entity.class})
     public static Constructor BlockPos_Entity;
-    @WrapConstructor(targetMap = MapEnum.Srg1_8_9,signature = {Vec3.class})
+    @WrapConstructor(targetMap = MapEnum.MDK189,signature = {Vec3.class})
     public static Constructor BlockPos_Vec;
-    @WrapMethod(mcpName = "offset",targetMap = MapEnum.Srg1_8_9,signature = "(Lnet/minecraft/util/EnumFacing;)Lnet/minecraft/util/BlockPos;")
+    @WrapMethod(mcpName = "offset",targetMap = MapEnum.MDK189,signature = "(Lnet/minecraft/util/EnumFacing;)Lnet/minecraft/util/BlockPos;")
     public static Method offset;
-    @WrapMethod(mcpName = "offset",targetMap = MapEnum.Srg1_8_9,signature = "(Lnet/minecraft/util/EnumFacing;I)Lnet/minecraft/util/BlockPos;")
+    @WrapMethod(mcpName = "offset",targetMap = MapEnum.MDK189,signature = "(Lnet/minecraft/util/EnumFacing;I)Lnet/minecraft/util/BlockPos;")
     public static Method offset_I;
-    @WrapMethod(mcpName = "down",targetMap = MapEnum.Srg1_8_9,signature = "()Lnet/minecraft/util/BlockPos;")
+    @WrapMethod(mcpName = "down",targetMap = MapEnum.MDK189,signature = "()Lnet/minecraft/util/BlockPos;")
     public static Method down;
-    @WrapMethod(mcpName = "up",targetMap = MapEnum.Srg1_8_9,signature = "()Lnet/minecraft/util/BlockPos;")
+    @WrapMethod(mcpName = "up",targetMap = MapEnum.MDK189,signature = "()Lnet/minecraft/util/BlockPos;")
     public static Method up;
-    @WrapMethod(mcpName = "south",targetMap = MapEnum.Srg1_8_9,signature = "(I)Lnet/minecraft/util/BlockPos;")
+    @WrapMethod(mcpName = "south",targetMap = MapEnum.MDK189,signature = "(I)Lnet/minecraft/util/BlockPos;")
     public static Method south_I;
-    @WrapMethod(mcpName = "south",targetMap = MapEnum.Srg1_8_9,signature = "()Lnet/minecraft/util/BlockPos;")
+    @WrapMethod(mcpName = "south",targetMap = MapEnum.MDK189,signature = "()Lnet/minecraft/util/BlockPos;")
     public static Method south;
-    @WrapMethod(mcpName = "north",targetMap = MapEnum.Srg1_8_9,signature = "()Lnet/minecraft/util/BlockPos;")
+    @WrapMethod(mcpName = "north",targetMap = MapEnum.MDK189,signature = "()Lnet/minecraft/util/BlockPos;")
     public static Method north;
-    @WrapMethod(mcpName = "east",targetMap = MapEnum.Srg1_8_9,signature = "()Lnet/minecraft/util/BlockPos;")
+    @WrapMethod(mcpName = "east",targetMap = MapEnum.MDK189,signature = "()Lnet/minecraft/util/BlockPos;")
     public static Method east;
-    @WrapMethod(mcpName = "west",targetMap = MapEnum.Srg1_8_9,signature = "()Lnet/minecraft/util/BlockPos;")
+    @WrapMethod(mcpName = "west",targetMap = MapEnum.MDK189,signature = "()Lnet/minecraft/util/BlockPos;")
     public static Method west;
-    @WrapMethod(mcpName = "down",targetMap = MapEnum.Srg1_8_9,signature = "(I)Lnet/minecraft/util/BlockPos;")
+    @WrapMethod(mcpName = "down",targetMap = MapEnum.MDK189,signature = "(I)Lnet/minecraft/util/BlockPos;")
     public static Method down_I;
-    @WrapMethod(mcpName = "north",targetMap = MapEnum.Srg1_8_9,signature = "(I)Lnet/minecraft/util/BlockPos;")
+    @WrapMethod(mcpName = "north",targetMap = MapEnum.MDK189,signature = "(I)Lnet/minecraft/util/BlockPos;")
     public static Method north_I;
-    @WrapMethod(mcpName = "west",targetMap = MapEnum.Srg1_8_9,signature = "(I)Lnet/minecraft/util/BlockPos;")
+    @WrapMethod(mcpName = "west",targetMap = MapEnum.MDK189,signature = "(I)Lnet/minecraft/util/BlockPos;")
     public static Method west_I;
-    @WrapMethod(mcpName = "add",targetMap = MapEnum.Srg1_8_9,signature = "(III)Lnet/minecraft/util/BlockPos;")
+    @WrapMethod(mcpName = "add",targetMap = MapEnum.MDK189,signature = "(III)Lnet/minecraft/util/BlockPos;")
     public static Method add_III;
 
     public static BlockPos ORIGIN;

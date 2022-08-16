@@ -8,11 +8,11 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 
 import java.lang.reflect.Field;
 
-@WrapperClass(mcpName = "net.minecraft.event.ClickEvent",targetMap = MapEnum.Srg1_8_9)
+@WrapperClass(mcpName = "net.minecraft.event.ClickEvent",targetMap = MapEnum.MDK189)
 public class ClickEvent extends IWrapper {
-    @WrapField(mcpName = "action",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "action",targetMap = MapEnum.MDK189)
     public static Field action;
-    @WrapField(mcpName = "value",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "value",targetMap = MapEnum.MDK189)
     public static Field value;
     public ClickEvent(Object obj) {
         super(obj);

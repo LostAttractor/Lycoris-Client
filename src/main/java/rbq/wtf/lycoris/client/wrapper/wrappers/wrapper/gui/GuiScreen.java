@@ -13,33 +13,33 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.text.IChatComponent
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-@WrapperClass(mcpName = "net.minecraft.client.gui.GuiScreen",targetMap = MapEnum.Srg1_8_9)
+@WrapperClass(mcpName = "net.minecraft.client.gui.GuiScreen",targetMap = MapEnum.MDK189)
 public class GuiScreen extends Gui {
-    @WrapClass(mcpName = "net.minecraft.client.gui.GuiScreen",targetMap = MapEnum.Srg1_8_9)
+    @WrapClass(mcpName = "net.minecraft.client.gui.GuiScreen",targetMap = MapEnum.MDK189)
     public static Class GuiScreenClass;
-    @WrapMethod(mcpName = "drawScreen",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "drawScreen",targetMap = MapEnum.MDK189)
     public static Method drawScreen;
-    @WrapMethod(mcpName = "initGui",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "initGui",targetMap = MapEnum.MDK189)
     public static Method initGui;
-    @WrapMethod(mcpName = "onGuiClosed",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "onGuiClosed",targetMap = MapEnum.MDK189)
     public static Method onGuiClosed;
-    @WrapField(mcpName = "mc",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "mc",targetMap = MapEnum.MDK189)
     public static Field mc;
-    @WrapField(mcpName = "width",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "width",targetMap = MapEnum.MDK189)
     public static Field width;
-    @WrapField(mcpName = "height",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "height",targetMap = MapEnum.MDK189)
     public static Field height;
-    @WrapMethod(mcpName = "keyTyped",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "keyTyped",targetMap = MapEnum.MDK189)
     public static Method keyTyped;
-    @WrapMethod(mcpName = "sendChatMessage",targetMap = MapEnum.Srg1_8_9, signature = "(Ljava/lang/String;Z)V")
+    @WrapMethod(mcpName = "sendChatMessage",targetMap = MapEnum.MDK189, signature = "(Ljava/lang/String;Z)V")
     public static Method sendChatMessage_SZ_V;
-    @WrapMethod(mcpName = "handleComponentHover",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "handleComponentHover",targetMap = MapEnum.MDK189)
     public static Method handleComponentHover;
-    @WrapMethod(mcpName = "updateScreen",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "updateScreen",targetMap = MapEnum.MDK189)
     public static Method updateScreen;
-    @WrapMethod(mcpName = "mouseClicked",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "mouseClicked",targetMap = MapEnum.MDK189)
     public static Method mouseClicked;
-    @WrapMethod(mcpName = "mouseReleased",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "mouseReleased",targetMap = MapEnum.MDK189)
     public static Method mouseReleased;
     public GuiScreen(Object obj) {
         super(obj);

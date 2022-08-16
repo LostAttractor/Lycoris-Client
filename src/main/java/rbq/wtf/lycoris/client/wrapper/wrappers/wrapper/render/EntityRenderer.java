@@ -11,23 +11,23 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.Entity;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-@WrapperClass(mcpName = "net.minecraft.client.renderer.EntityRenderer",targetMap = MapEnum.Srg1_8_9)
+@WrapperClass(mcpName = "net.minecraft.client.renderer.EntityRenderer",targetMap = MapEnum.MDK189)
 public class EntityRenderer extends IWrapper {
-    @WrapClass(mcpName = "net.minecraft.client.renderer.EntityRenderer",targetMap = MapEnum.Srg1_8_9)
+    @WrapClass(mcpName = "net.minecraft.client.renderer.EntityRenderer",targetMap = MapEnum.MDK189)
     public static Class EntityRendererClass;
-    @WrapMethod(mcpName = "renderWorldPass",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "renderWorldPass",targetMap = MapEnum.MDK189)
     public static Method renderWorldPass;
-    @WrapMethod(mcpName = "getMouseOver",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "getMouseOver",targetMap = MapEnum.MDK189)
     public static Method getMouseOver;
-    @WrapField(mcpName = "pointedEntity",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "pointedEntity",targetMap = MapEnum.MDK189)
     public static Field pointedEntity;
-    @WrapMethod(mcpName = "disableLightmap",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "disableLightmap",targetMap = MapEnum.MDK189)
     public static Method disableLightmap;
-    @WrapMethod(mcpName = "enableLightmap",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "enableLightmap",targetMap = MapEnum.MDK189)
     public static Method enableLightmap;
-    @WrapMethod(mcpName = "setupCameraTransform",targetMap = MapEnum.Srg1_8_9)
+    @WrapMethod(mcpName = "setupCameraTransform",targetMap = MapEnum.MDK189)
     public static Method setupCameraTransform;
-    @WrapField(mcpName = "mc",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "mc",targetMap = MapEnum.MDK189)
     public static Field mc;
     public EntityRenderer(Object obj) {
         super(obj);

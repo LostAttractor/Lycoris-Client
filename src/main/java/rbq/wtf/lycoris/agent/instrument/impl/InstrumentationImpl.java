@@ -6,12 +6,15 @@ import rbq.wtf.lycoris.agent.Access;
 import rbq.wtf.lycoris.agent.instrument.ClassTransformer;
 import rbq.wtf.lycoris.agent.instrument.Instrumentation;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 public class InstrumentationImpl implements Instrumentation
 {
     public static void init(){
         System.out.println("InitNaive");
-        System.load("D:\\work\\Lycoris Client\\Lycoris-Client\\Lycoris Native Loader\\x64\\Release\\Lycoris Native Loader.dll");
+        System.load(Paths.get("").toAbsolutePath().getParent().resolve("Lycoris-Native-Loader/x64/Release/Lycoris-Native-Loader.dll").toString());
     }
 
     @Override

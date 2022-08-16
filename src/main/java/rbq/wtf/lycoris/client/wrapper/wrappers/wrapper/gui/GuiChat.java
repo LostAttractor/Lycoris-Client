@@ -7,13 +7,13 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapperClass;
 
 import java.lang.reflect.Field;
 
-@WrapperClass(mcpName = "net.minecraft.client.gui.GuiChat",targetMap = MapEnum.Srg1_8_9)
+@WrapperClass(mcpName = "net.minecraft.client.gui.GuiChat",targetMap = MapEnum.MDK189)
 public class GuiChat extends GuiScreen{
-    @WrapClass(mcpName = "net.minecraft.client.gui.GuiChat",targetMap = MapEnum.Srg1_8_9)
+    @WrapClass(mcpName = "net.minecraft.client.gui.GuiChat",targetMap = MapEnum.MDK189)
     public static Class GuiChatClass;
-    @WrapField(mcpName = "inputField",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "inputField",targetMap = MapEnum.MDK189)
     public static Field inputField;
-    @WrapField(mcpName = "sentHistoryCursor",targetMap = MapEnum.Srg1_8_9)
+    @WrapField(mcpName = "sentHistoryCursor",targetMap = MapEnum.MDK189)
     public static Field sentHistoryCursor;
     public GuiChat(Object obj) {
         super(obj);
