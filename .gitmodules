@@ -1,0 +1,3 @@
+[submodule "Lycoris-Native-Loader"]
+	path = Lycoris-Native-Loader
+	url = https://github.com/LostAttractor/Lycoris-Native-Loader.git

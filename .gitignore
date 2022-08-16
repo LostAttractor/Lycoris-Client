@@ -1,9 +1,5 @@
 # 项目排除路径
-/.gradle/
-/build/
-/build/classes/java/main/
-/Lycoris Native Loader/x64/
-/Lycoris Native Loader/Lycoris Native Loader/x64/
-/Lycoris Native Loader/.vs/
-/Lycoris Native Loader/.idea/
-/debug/
+.gradle
+build
+debug
+.idea
