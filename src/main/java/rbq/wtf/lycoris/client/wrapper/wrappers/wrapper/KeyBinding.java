@@ -9,15 +9,15 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.utils.ReflectUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-@WrapperClass(mcpName = "net.minecraft.client.settings.KeyBinding",targetMap = MapEnum.MDK189)
+@WrapperClass(mcpName = "net.minecraft.client.settings.KeyBinding",targetMap = MapEnum.VANILLA189)
 public class KeyBinding extends IWrapper{
-    @WrapClass(mcpName = "net.minecraft.client.settings.KeyBinding",targetMap = MapEnum.MDK189)
+    @WrapClass(mcpName = "net.minecraft.client.settings.KeyBinding",targetMap = MapEnum.VANILLA189)
     public static Class KeyBindingClass;
-    @WrapField(mcpName = "pressed",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "pressed",targetMap = MapEnum.VANILLA189)
     public static Field pressed;
-    @WrapMethod(mcpName = "onTick",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "onTick",targetMap = MapEnum.VANILLA189)
     public static Method onTick;
-    @WrapField(mcpName = "keyCode",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyCode",targetMap = MapEnum.VANILLA189)
     public static Field keyCode;
 
     public KeyBinding(Object obj) {

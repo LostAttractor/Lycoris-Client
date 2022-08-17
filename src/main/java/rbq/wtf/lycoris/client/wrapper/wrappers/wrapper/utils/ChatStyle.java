@@ -10,13 +10,13 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.click.ClickEv
 
 import java.lang.reflect.Method;
 
-@WrapperClass(mcpName = "net.minecraft.util.ChatStyle",targetMap = MapEnum.MDK189)
+@WrapperClass(mcpName = "net.minecraft.util.ChatStyle",targetMap = MapEnum.VANILLA189)
 public class ChatStyle extends IWrapper {
-    @WrapMethod(mcpName = "getChatHoverEvent",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getChatHoverEvent",targetMap = MapEnum.VANILLA189)
     public static Method getChatHoverEvent;
-    @WrapMethod(mcpName = "getChatClickEvent",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getChatClickEvent",targetMap = MapEnum.VANILLA189)
     public static Method getChatClickEvent;
-    @WrapMethod(mcpName = "getInsertion",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getInsertion",targetMap = MapEnum.VANILLA189)
     public static Method getInsertion;
     public ChatStyle(Object obj) {
         super(obj);

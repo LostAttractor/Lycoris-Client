@@ -9,56 +9,56 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-@WrapperClass(mcpName = "net.minecraft.client.gui.GuiTextField",targetMap = MapEnum.MDK189)
-@WrapperClass(mcpName = "net.minecraft.client.gui.GuiTextField",targetMap = MapEnum.MDK1122)
+@WrapperClass(mcpName = "net.minecraft.client.gui.GuiTextField",targetMap = MapEnum.VANILLA189)
+@WrapperClass(mcpName = "net.minecraft.client.gui.GuiTextField",targetMap = MapEnum.VANILLA1122)
 public class GuiTextField extends Gui{
-    @WrapClass(mcpName = "net.minecraft.client.gui.GuiTextField",targetMap = MapEnum.MDK189)
-    @WrapClass(mcpName = "net.minecraft.client.gui.GuiTextField",targetMap = MapEnum.MDK1122)
+    @WrapClass(mcpName = "net.minecraft.client.gui.GuiTextField",targetMap = MapEnum.VANILLA189)
+    @WrapClass(mcpName = "net.minecraft.client.gui.GuiTextField",targetMap = MapEnum.VANILLA1122)
     public static Class GuiTextFieldClass;
-    @WrapField(mcpName = "text",targetMap = MapEnum.MDK189)
-    @WrapField(mcpName = "text",targetMap = MapEnum.MDK1122)
+    @WrapField(mcpName = "text",targetMap = MapEnum.VANILLA189)
+    @WrapField(mcpName = "text",targetMap = MapEnum.VANILLA1122)
     public static Field text;
-    @WrapConstructor(targetMap = MapEnum.MDK189,signature = {int.class,FontRenderer.class,int.class,int.class,int.class,int.class})
-    @WrapConstructor(targetMap = MapEnum.MDK1122,signature = {int.class,FontRenderer.class,int.class,int.class,int.class,int.class})
+    @WrapConstructor(targetMap = MapEnum.VANILLA189,signature = {int.class,FontRenderer.class,int.class,int.class,int.class,int.class})
+    @WrapConstructor(targetMap = MapEnum.VANILLA1122,signature = {int.class,FontRenderer.class,int.class,int.class,int.class,int.class})
     public static Constructor GuiTextField_I_FontRenderer_IIII;
-    @WrapField(mcpName = "maxStringLength",targetMap = MapEnum.MDK189)
-    @WrapField(mcpName = "maxStringLength",targetMap = MapEnum.MDK1122)
+    @WrapField(mcpName = "maxStringLength",targetMap = MapEnum.VANILLA189)
+    @WrapField(mcpName = "maxStringLength",targetMap = MapEnum.VANILLA1122)
     public static Field maxStringLength;
-    @WrapField(mcpName = "enableBackgroundDrawing",targetMap = MapEnum.MDK189)
-    @WrapField(mcpName = "enableBackgroundDrawing",targetMap = MapEnum.MDK1122)
+    @WrapField(mcpName = "enableBackgroundDrawing",targetMap = MapEnum.VANILLA189)
+    @WrapField(mcpName = "enableBackgroundDrawing",targetMap = MapEnum.VANILLA1122)
     public static Field enableBackgroundDrawing;
-    @WrapMethod(mcpName ="setFocused",targetMap = MapEnum.MDK189)
-    @WrapMethod(mcpName ="setFocused",targetMap = MapEnum.MDK1122)
+    @WrapMethod(mcpName ="setFocused",targetMap = MapEnum.VANILLA189)
+    @WrapMethod(mcpName ="setFocused",targetMap = MapEnum.VANILLA1122)
     public static Method setFocused;
-    @WrapField(mcpName = "canLoseFocus",targetMap = MapEnum.MDK189)
-    @WrapField(mcpName = "canLoseFocus",targetMap = MapEnum.MDK1122)
+    @WrapField(mcpName = "canLoseFocus",targetMap = MapEnum.VANILLA189)
+    @WrapField(mcpName = "canLoseFocus",targetMap = MapEnum.VANILLA1122)
     public static Field canLoseFocus;
-    @WrapMethod(mcpName = "drawTextBox",targetMap = MapEnum.MDK189)
-    @WrapMethod(mcpName = "drawTextBox",targetMap = MapEnum.MDK1122)
+    @WrapMethod(mcpName = "drawTextBox",targetMap = MapEnum.VANILLA189)
+    @WrapMethod(mcpName = "drawTextBox",targetMap = MapEnum.VANILLA1122)
     public static Method drawTextBox;
-    @WrapMethod(mcpName = "func_146197_a",targetMap = MapEnum.MDK189)
-    @WrapMethod(mcpName = "getNthWordFromPosWS",targetMap = MapEnum.MDK1122)
+    @WrapMethod(mcpName = "func_146197_a",targetMap = MapEnum.VANILLA189)
+    @WrapMethod(mcpName = "getNthWordFromPosWS",targetMap = MapEnum.VANILLA1122)
     public static Method func_146197_a;
-    @WrapMethod(mcpName = "deleteFromCursor",targetMap = MapEnum.MDK189)
-    @WrapMethod(mcpName = "deleteFromCursor",targetMap = MapEnum.MDK1122)
+    @WrapMethod(mcpName = "deleteFromCursor",targetMap = MapEnum.VANILLA189)
+    @WrapMethod(mcpName = "deleteFromCursor",targetMap = MapEnum.VANILLA1122)
     public static Method deleteFromCursor;
-    @WrapField(mcpName = "cursorPosition",targetMap = MapEnum.MDK189)
-    @WrapField(mcpName = "cursorPosition",targetMap = MapEnum.MDK1122)
+    @WrapField(mcpName = "cursorPosition",targetMap = MapEnum.VANILLA189)
+    @WrapField(mcpName = "cursorPosition",targetMap = MapEnum.VANILLA1122)
     public static Field cursorPosition;
-    @WrapMethod(mcpName = "writeText",targetMap = MapEnum.MDK189)
-    @WrapMethod(mcpName = "writeText",targetMap = MapEnum.MDK1122)
+    @WrapMethod(mcpName = "writeText",targetMap = MapEnum.VANILLA189)
+    @WrapMethod(mcpName = "writeText",targetMap = MapEnum.VANILLA1122)
     public static Method writeText;
-    @WrapMethod(mcpName = "setText",targetMap = MapEnum.MDK189)
-    @WrapMethod(mcpName = "setText",targetMap = MapEnum.MDK1122)
+    @WrapMethod(mcpName = "setText",targetMap = MapEnum.VANILLA189)
+    @WrapMethod(mcpName = "setText",targetMap = MapEnum.VANILLA1122)
     public static Method setText;
-    @WrapMethod(mcpName = "textboxKeyTyped",targetMap = MapEnum.MDK189)
-    @WrapMethod(mcpName = "textboxKeyTyped",targetMap = MapEnum.MDK1122)
+    @WrapMethod(mcpName = "textboxKeyTyped",targetMap = MapEnum.VANILLA189)
+    @WrapMethod(mcpName = "textboxKeyTyped",targetMap = MapEnum.VANILLA1122)
     public static Method textboxKeyTyped;
-    @WrapMethod(mcpName = "updateCursorCounter",targetMap = MapEnum.MDK189)
-    @WrapMethod(mcpName = "updateCursorCounter",targetMap = MapEnum.MDK1122)
+    @WrapMethod(mcpName = "updateCursorCounter",targetMap = MapEnum.VANILLA189)
+    @WrapMethod(mcpName = "updateCursorCounter",targetMap = MapEnum.VANILLA1122)
     public static Method updateCursorCounter;
-    @WrapMethod(mcpName = "mouseClicked",targetMap = MapEnum.MDK189)
-    @WrapMethod(mcpName = "mouseClicked",targetMap = MapEnum.MDK1122)
+    @WrapMethod(mcpName = "mouseClicked",targetMap = MapEnum.VANILLA189)
+    @WrapMethod(mcpName = "mouseClicked",targetMap = MapEnum.VANILLA1122)
     public static Method mouseClicked;
     public GuiTextField(Object obj) {
         super(obj);

@@ -10,153 +10,153 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.utils.ReflectUtil;
 import java.lang.reflect.Method;
 import java.nio.FloatBuffer;
 
-@WrapperClass(mcpName = "net.minecraft.client.renderer.GlStateManager",targetMap = MapEnum.MDK189)
+@WrapperClass(mcpName = "net.minecraft.client.renderer.GlStateManager",targetMap = MapEnum.VANILLA189)
 public class GlStateManager{
-    @WrapClass(mcpName = "net.minecraft.client.renderer.GlStateManager", targetMap = MapEnum.MDK189)
+    @WrapClass(mcpName = "net.minecraft.client.renderer.GlStateManager", targetMap = MapEnum.VANILLA189)
     public static Class GlStateManagerClass;
-    @WrapMethod(mcpName = "alphaFunc", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "alphaFunc", targetMap = MapEnum.VANILLA189)
     public static Method alphaFunc;
-    @WrapMethod(mcpName = "bindTexture", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "bindTexture", targetMap = MapEnum.VANILLA189)
     public static Method bindTexture;
-    @WrapMethod(mcpName = "blendFunc", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "blendFunc", targetMap = MapEnum.VANILLA189)
     public static Method blendFunc;
-    @WrapMethod(mcpName = "callList", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "callList", targetMap = MapEnum.VANILLA189)
     public static Method callList;
-    @WrapMethod(mcpName = "clear", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "clear", targetMap = MapEnum.VANILLA189)
     public static Method clear;
-    @WrapMethod(mcpName = "clearColor", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "clearColor", targetMap = MapEnum.VANILLA189)
     public static Method clearColor;
-    @WrapMethod(mcpName = "clearDepth", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "clearDepth", targetMap = MapEnum.VANILLA189)
     public static Method clearDepth;
-    @WrapMethod(mcpName = "color", targetMap = MapEnum.MDK189, signature = "(FFF)V")
+    @WrapMethod(mcpName = "color", targetMap = MapEnum.VANILLA189, signature = "(FFF)V")
     public static Method color_FFF;
-    @WrapMethod(mcpName = "color", targetMap = MapEnum.MDK189, signature = "(FFFF)V")
+    @WrapMethod(mcpName = "color", targetMap = MapEnum.VANILLA189, signature = "(FFFF)V")
     public static Method color_FFFF;
-    @WrapMethod(mcpName = "colorLogicOp", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "colorLogicOp", targetMap = MapEnum.VANILLA189)
     public static Method colorLogicOp;
-    @WrapMethod(mcpName = "colorMask", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "colorMask", targetMap = MapEnum.VANILLA189)
     public static Method colorMask;
-    @WrapMethod(mcpName = "colorMaterial", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "colorMaterial", targetMap = MapEnum.VANILLA189)
     public static Method colorMaterial;
-    @WrapMethod(mcpName = "cullFace", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "cullFace", targetMap = MapEnum.VANILLA189)
     public static Method cullFace;
-    @WrapMethod(mcpName = "deleteTexture", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "deleteTexture", targetMap = MapEnum.VANILLA189)
     public static Method deleteTexture;
-    @WrapMethod(mcpName = "depthFunc", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "depthFunc", targetMap = MapEnum.VANILLA189)
     public static Method depthFunc;
-    @WrapMethod(mcpName = "depthMask", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "depthMask", targetMap = MapEnum.VANILLA189)
     public static Method depthMask;
-    @WrapMethod(mcpName = "disableAlpha", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "disableAlpha", targetMap = MapEnum.VANILLA189)
     public static Method disableAlpha;
-    @WrapMethod(mcpName = "disableBlend", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "disableBlend", targetMap = MapEnum.VANILLA189)
     public static Method disableBlend;
-    @WrapMethod(mcpName = "disableColorLogic", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "disableColorLogic", targetMap = MapEnum.VANILLA189)
     public static Method disableColorLogic;
-    @WrapMethod(mcpName = "disableColorMaterial", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "disableColorMaterial", targetMap = MapEnum.VANILLA189)
     public static Method disableColorMaterial;
-    @WrapMethod(mcpName = "disableCull", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "disableCull", targetMap = MapEnum.VANILLA189)
     public static Method disableCull;
-    @WrapMethod(mcpName = "disableDepth", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "disableDepth", targetMap = MapEnum.VANILLA189)
     public static Method disableDepth;
-    @WrapMethod(mcpName = "disableFog", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "disableFog", targetMap = MapEnum.VANILLA189)
     public static Method disableFog;
-    @WrapMethod(mcpName = "disableLight", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "disableLight", targetMap = MapEnum.VANILLA189)
     public static Method disableLight;
-    @WrapMethod(mcpName = "disableLighting", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "disableLighting", targetMap = MapEnum.VANILLA189)
     public static Method disableLighting;
-    @WrapMethod(mcpName = "disableNormalize", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "disableNormalize", targetMap = MapEnum.VANILLA189)
     public static Method disableNormalize;
-    @WrapMethod(mcpName = "disablePolygonOffset", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "disablePolygonOffset", targetMap = MapEnum.VANILLA189)
     public static Method disablePolygonOffset;
-    @WrapMethod(mcpName = "disableRescaleNormal", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "disableRescaleNormal", targetMap = MapEnum.VANILLA189)
     public static Method disableRescaleNormal;
-    @WrapMethod(mcpName = "disableTexGenCoord", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "disableTexGenCoord", targetMap = MapEnum.VANILLA189)
     public static Method disableTexGenCoord;
-    @WrapMethod(mcpName = "disableTexture2D", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "disableTexture2D", targetMap = MapEnum.VANILLA189)
     public static Method disableTexture2D;
-    @WrapMethod(mcpName = "doPolygonOffset", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "doPolygonOffset", targetMap = MapEnum.VANILLA189)
     public static Method doPolygonOffset;
-    @WrapMethod(mcpName = "enableAlpha", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "enableAlpha", targetMap = MapEnum.VANILLA189)
     public static Method enableAlpha;
-    @WrapMethod(mcpName = "enableBlend", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "enableBlend", targetMap = MapEnum.VANILLA189)
     public static Method enableBlend;
-    @WrapMethod(mcpName = "enableColorLogic", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "enableColorLogic", targetMap = MapEnum.VANILLA189)
     public static Method enableColorLogic;
-    @WrapMethod(mcpName = "enableColorMaterial", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "enableColorMaterial", targetMap = MapEnum.VANILLA189)
     public static Method enableColorMaterial;
-    @WrapMethod(mcpName = "enableCull", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "enableCull", targetMap = MapEnum.VANILLA189)
     public static Method enableCull;
-    @WrapMethod(mcpName = "enableDepth", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "enableDepth", targetMap = MapEnum.VANILLA189)
     public static Method enableDepth;
-    @WrapMethod(mcpName = "enableFog", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "enableFog", targetMap = MapEnum.VANILLA189)
     public static Method enableFog;
-    @WrapMethod(mcpName = "enableLight", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "enableLight", targetMap = MapEnum.VANILLA189)
     public static Method enableLight;
-    @WrapMethod(mcpName = "enableLighting", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "enableLighting", targetMap = MapEnum.VANILLA189)
     public static Method enableLighting;
-    @WrapMethod(mcpName = "enableNormalize", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "enableNormalize", targetMap = MapEnum.VANILLA189)
     public static Method enableNormalize;
-    @WrapMethod(mcpName = "enablePolygonOffset", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "enablePolygonOffset", targetMap = MapEnum.VANILLA189)
     public static Method enablePolygonOffset;
-    @WrapMethod(mcpName = "enableRescaleNormal", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "enableRescaleNormal", targetMap = MapEnum.VANILLA189)
     public static Method enableRescaleNormal;
-    @WrapMethod(mcpName = "enableTexGenCoord", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "enableTexGenCoord", targetMap = MapEnum.VANILLA189)
     public static Method enableTexGenCoord;
-    @WrapMethod(mcpName = "enableTexture2D", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "enableTexture2D", targetMap = MapEnum.VANILLA189)
     public static Method enableTexture2D;
-    @WrapMethod(mcpName = "generateTexture", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "generateTexture", targetMap = MapEnum.VANILLA189)
     public static Method generateTexture;
-    @WrapMethod(mcpName = "getFloat", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getFloat", targetMap = MapEnum.VANILLA189)
     public static Method getFloat;
-    @WrapMethod(mcpName = "loadIdentity", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "loadIdentity", targetMap = MapEnum.VANILLA189)
     public static Method loadIdentity;
-    @WrapMethod(mcpName = "matrixMode", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "matrixMode", targetMap = MapEnum.VANILLA189)
     public static Method matrixMode;
-    @WrapMethod(mcpName = "multMatrix", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "multMatrix", targetMap = MapEnum.VANILLA189)
     public static Method multMatrix;
-    @WrapMethod(mcpName = "ortho", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "ortho", targetMap = MapEnum.VANILLA189)
     public static Method ortho;
-    @WrapMethod(mcpName = "popAttrib", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "popAttrib", targetMap = MapEnum.VANILLA189)
     public static Method popAttrib;
-    @WrapMethod(mcpName = "popMatrix", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "popMatrix", targetMap = MapEnum.VANILLA189)
     public static Method popMatrix;
-    @WrapMethod(mcpName = "pushAttrib", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "pushAttrib", targetMap = MapEnum.VANILLA189)
     public static Method pushAttrib;
-    @WrapMethod(mcpName = "pushMatrix", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "pushMatrix", targetMap = MapEnum.VANILLA189)
     public static Method pushMatrix;
-    @WrapMethod(mcpName = "resetColor", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "resetColor", targetMap = MapEnum.VANILLA189)
     public static Method resetColor;
-    @WrapMethod(mcpName = "rotate", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "rotate", targetMap = MapEnum.VANILLA189)
     public static Method rotate;
-    @WrapMethod(mcpName = "scale", targetMap = MapEnum.MDK189, signature = "(DDD)V")
+    @WrapMethod(mcpName = "scale", targetMap = MapEnum.VANILLA189, signature = "(DDD)V")
     public static Method scale_DDD;
-    @WrapMethod(mcpName = "scale", targetMap = MapEnum.MDK189, signature = "(FFF)V")
+    @WrapMethod(mcpName = "scale", targetMap = MapEnum.VANILLA189, signature = "(FFF)V")
     public static Method scale_FFF;
-    @WrapMethod(mcpName = "setActiveTexture", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "setActiveTexture", targetMap = MapEnum.VANILLA189)
     public static Method setActiveTexture;
-    @WrapMethod(mcpName = "setFog", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "setFog", targetMap = MapEnum.VANILLA189)
     public static Method setFog;
-    @WrapMethod(mcpName = "setFogDensity", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "setFogDensity", targetMap = MapEnum.VANILLA189)
     public static Method setFogDensity;
-    @WrapMethod(mcpName = "setFogEnd", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "setFogEnd", targetMap = MapEnum.VANILLA189)
     public static Method setFogEnd;
-    @WrapMethod(mcpName = "setFogStart", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "setFogStart", targetMap = MapEnum.VANILLA189)
     public static Method setFogStart;
-    @WrapMethod(mcpName = "shadeModel", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "shadeModel", targetMap = MapEnum.VANILLA189)
     public static Method shadeModel;
-    @WrapMethod(mcpName = "texGen", targetMap = MapEnum.MDK189, signature = "(Lnet/minecraft/client/renderer/GlStateManager$TexGen;ILjava/nio/FloatBuffer;)V")
+    @WrapMethod(mcpName = "texGen", targetMap = MapEnum.VANILLA189, signature = "(Lnet/minecraft/client/renderer/GlStateManager$TexGen;ILjava/nio/FloatBuffer;)V")
     public static Method texGen_NJ;
-    @WrapMethod(mcpName = "texGen", targetMap = MapEnum.MDK189, signature = "(Lnet/minecraft/client/renderer/GlStateManager$TexGen;I)V")
+    @WrapMethod(mcpName = "texGen", targetMap = MapEnum.VANILLA189, signature = "(Lnet/minecraft/client/renderer/GlStateManager$TexGen;I)V")
     public static Method texGen_NI;
-    @WrapMethod(mcpName = "texGenCoord", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "texGenCoord", targetMap = MapEnum.VANILLA189)
     public static Method texGenCoord;
-    @WrapMethod(mcpName = "translate", targetMap = MapEnum.MDK189, signature = "(FFF)V")
+    @WrapMethod(mcpName = "translate", targetMap = MapEnum.VANILLA189, signature = "(FFF)V")
     public static Method translate_FFF;
-    @WrapMethod(mcpName = "translate", targetMap = MapEnum.MDK189, signature = "(DDD)V")
+    @WrapMethod(mcpName = "translate", targetMap = MapEnum.VANILLA189, signature = "(DDD)V")
     public static Method translate_DDD;
-    @WrapMethod(mcpName = "tryBlendFuncSeparate", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "tryBlendFuncSeparate", targetMap = MapEnum.VANILLA189)
     public static Method tryBlendFuncSeparate;
-    @WrapMethod(mcpName = "viewport", targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "viewport", targetMap = MapEnum.VANILLA189)
     public static Method viewport;
     public static Method glTexEnvi;
     public static void glTexEnvi(int glTextureEnv, int glTextureEnvMode, int glModulate) {

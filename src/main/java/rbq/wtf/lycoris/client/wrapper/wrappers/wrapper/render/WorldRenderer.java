@@ -9,23 +9,23 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 
 import java.lang.reflect.Method;
 
-@WrapperClass(mcpName = "net.minecraft.client.renderer.WorldRenderer",targetMap = MapEnum.MDK189)
+@WrapperClass(mcpName = "net.minecraft.client.renderer.WorldRenderer",targetMap = MapEnum.VANILLA189)
 public class WorldRenderer extends IWrapper {
-    @WrapClass(mcpName = "net.minecraft.client.renderer.WorldRenderer",targetMap = MapEnum.MDK189)
+    @WrapClass(mcpName = "net.minecraft.client.renderer.WorldRenderer",targetMap = MapEnum.VANILLA189)
     public static Class WorldRendererClass;
-    @WrapMethod(mcpName = "begin",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "begin",targetMap = MapEnum.VANILLA189)
     public static Method begin;
-    @WrapMethod(mcpName = "pos",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "pos",targetMap = MapEnum.VANILLA189)
     public static Method pos;
-    @WrapMethod(mcpName = "endVertex",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "endVertex",targetMap = MapEnum.VANILLA189)
     public static Method endVertex;
-    @WrapMethod(mcpName = "color",targetMap = MapEnum.MDK189,signature = "(FFFF)Lnet/minecraft/client/renderer/WorldRenderer;")
+    @WrapMethod(mcpName = "color",targetMap = MapEnum.VANILLA189,signature = "(FFFF)Lnet/minecraft/client/renderer/WorldRenderer;")
     public static Method color_4f;
-    @WrapMethod(mcpName = "color",targetMap = MapEnum.MDK189,signature = "(IIII)Lnet/minecraft/client/renderer/WorldRenderer;")
+    @WrapMethod(mcpName = "color",targetMap = MapEnum.VANILLA189,signature = "(IIII)Lnet/minecraft/client/renderer/WorldRenderer;")
     public static Method color_4I;
-    @WrapMethod(mcpName = "putColorMultiplier",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "putColorMultiplier",targetMap = MapEnum.VANILLA189)
     public static Method putColorMultiplier;
-    @WrapMethod(mcpName = "tex",targetMap =MapEnum.MDK189)
+    @WrapMethod(mcpName = "tex",targetMap =MapEnum.VANILLA189)
     public static Method tex;
 
     public WorldRenderer(Object obj) {

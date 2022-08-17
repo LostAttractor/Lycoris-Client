@@ -7,9 +7,9 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.utils.ReflectUtil;
 
 import java.awt.image.BufferedImage;
 
-@WrapperClass(mcpName = "net.minecraft.client.renderer.texture.DynamicTexture",targetMap = MapEnum.MDK189)
+@WrapperClass(mcpName = "net.minecraft.client.renderer.texture.DynamicTexture",targetMap = MapEnum.VANILLA189)
 public class DynamicTexture extends AbstractTexture {
-    @WrapClass(mcpName = "net.minecraft.client.renderer.texture.DynamicTexture",targetMap = MapEnum.MDK189)
+    @WrapClass(mcpName = "net.minecraft.client.renderer.texture.DynamicTexture",targetMap = MapEnum.VANILLA189)
     public static Class DynamicTextureClass;
 
     public DynamicTexture(Object obj) {

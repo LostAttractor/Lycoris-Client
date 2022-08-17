@@ -15,17 +15,13 @@ import rbq.wtf.lycoris.client.wrapper.bridge.BridgeUtil;
 
 
 public class LycorisClient {
-
-    public static boolean debug = false;
+    public static boolean useMapObf = false; //是否使用混淆后的名称，在MDK环境下需设为false
     public static boolean isVanilla = true;
-
     public static String game_version = "1.8.9";
     public ModuleManager moduleManager;
     public ClickGUI clickGUI;
     public static LycorisClient instance;
     public LycorisClient(){
-        debug = false;
-
         System.out.println("[Lycoris Client] Init Client");
         instance = this;
         moduleManager = new ModuleManager();
@@ -35,8 +31,10 @@ public class LycorisClient {
         BridgeUtil.init();
         System.out.println("[Lycoris Client] Do TransFormer");
         InstrumentationImpl.init();
+        System.out.println("[Lycoris Client] Initialized Native");
         TransformManager.init();
         TransformManager.doTransform();
+        System.out.println("[Lycoris Client] Initialized TransFormer");
         EventManager.register(this);
     }
 

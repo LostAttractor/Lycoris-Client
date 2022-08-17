@@ -10,11 +10,11 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 
 import java.lang.reflect.Method;
 
-@WrapperClass(mcpName = "net.minecraft.client.renderer.OpenGlHelper",targetMap = MapEnum.MDK189)
+@WrapperClass(mcpName = "net.minecraft.client.renderer.OpenGlHelper",targetMap = MapEnum.VANILLA189)
 public class OpenGlHelper extends IWrapper {
-    @WrapClass(mcpName = "net.minecraft.client.renderer.OpenGlHelper",targetMap = MapEnum.MDK189)
+    @WrapClass(mcpName = "net.minecraft.client.renderer.OpenGlHelper",targetMap = MapEnum.VANILLA189)
     public static Class OpenGlHelperClass;
-    @WrapMethod(mcpName = "glBlendFunc", targetMap = MapEnum.MDK189,signature = "(IIII)V")
+    @WrapMethod(mcpName = "glBlendFunc", targetMap = MapEnum.VANILLA189,signature = "(IIII)V")
     public static Method glBlendFunc;
 
     public OpenGlHelper(Object obj) {

@@ -9,13 +9,13 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.ChatStyle;
 
 import java.lang.reflect.Method;
 
-@WrapperClass(mcpName = "net.minecraft.util.IChatComponent",targetMap = MapEnum.MDK189)
+@WrapperClass(mcpName = "net.minecraft.util.IChatComponent",targetMap = MapEnum.VANILLA189)
 public class IChatComponent extends IWrapper {
-    @WrapMethod(mcpName = "getUnformattedText",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getUnformattedText",targetMap = MapEnum.VANILLA189)
     public static Method getUnformattedText;
-    @WrapMethod(mcpName = "getFormattedText",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getFormattedText",targetMap = MapEnum.VANILLA189)
     public static Method getFormattedText;
-    @WrapMethod(mcpName = "getChatStyle",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getChatStyle",targetMap = MapEnum.VANILLA189)
     public static Method getChatStyle;
     public IChatComponent(Object obj) {
         super(obj);

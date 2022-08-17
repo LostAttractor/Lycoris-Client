@@ -9,31 +9,31 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-@WrapperClass(mcpName = "net.minecraft.util.Vec3",targetMap = MapEnum.MDK189)
+@WrapperClass(mcpName = "net.minecraft.util.Vec3",targetMap = MapEnum.VANILLA189)
 public class Vec3 extends IWrapper {
-    @WrapClass(mcpName = "net.minecraft.util.Vec3",targetMap = MapEnum.MDK189)
+    @WrapClass(mcpName = "net.minecraft.util.Vec3",targetMap = MapEnum.VANILLA189)
     public static Class Vec3Class;
-    @WrapConstructor(targetMap = MapEnum.MDK189,signature = {double.class,double.class,double.class})
+    @WrapConstructor(targetMap = MapEnum.VANILLA189,signature = {double.class,double.class,double.class})
     public static Constructor Vec3_DDD;
-    @WrapConstructor(targetMap = MapEnum.MDK189,signature = {Vec3i.class})
+    @WrapConstructor(targetMap = MapEnum.VANILLA189,signature = {Vec3i.class})
     public static Constructor Vec3_Vec3i;
-    @WrapMethod(mcpName = "addVector",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "addVector",targetMap = MapEnum.VANILLA189)
     public static Method addVector;
-    @WrapField(mcpName = "xCoord",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "xCoord",targetMap = MapEnum.VANILLA189)
     public static Field xCoord;
-    @WrapField(mcpName = "yCoord",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "yCoord",targetMap = MapEnum.VANILLA189)
     public static Field yCoord;
-    @WrapField(mcpName = "zCoord",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "zCoord",targetMap = MapEnum.VANILLA189)
     public static Field zCoord;
-    @WrapMethod(mcpName = "add",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "add",targetMap = MapEnum.VANILLA189)
     public static Method add;
-    @WrapMethod(mcpName = "squareDistanceTo",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "squareDistanceTo",targetMap = MapEnum.VANILLA189)
     public static Method squareDistanceTo;
-    @WrapMethod(mcpName = "distanceTo",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "distanceTo",targetMap = MapEnum.VANILLA189)
     public static Method distanceTo;
-    @WrapMethod(mcpName = "subtract",targetMap = MapEnum.MDK189,signature = "(Lnet/minecraft/util/Vec3;)Lnet/minecraft/util/Vec3;")
+    @WrapMethod(mcpName = "subtract",targetMap = MapEnum.VANILLA189,signature = "(Lnet/minecraft/util/Vec3;)Lnet/minecraft/util/Vec3;")
     public static Method subtract_Vec;
-    @WrapMethod(mcpName = "lengthVector",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "lengthVector",targetMap = MapEnum.VANILLA189)
     public static Method lengthVector;
     public Vec3(Object obj) {
         super(obj);

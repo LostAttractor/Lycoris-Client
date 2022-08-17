@@ -13,7 +13,7 @@ import java.util.List;
 public class Reader {
     private final String map;
     private List<MapNode> mapNodes;
-    private List<Class> loadedClasses = new ArrayList<Class>();
+    private List<Class<?>> loadedClasses = new ArrayList<>();
     public Reader(String MCP2SrgMap){
         this.map = MCP2SrgMap;
     }
@@ -41,7 +41,7 @@ public class Reader {
         }
         return mapNodes;
     }
-    public Class getClassNative(String name){
+    public Class<?> getClassNative(String name) {
         try {
             return Reader.class.getClassLoader().loadClass(name);
         } catch (ClassNotFoundException e) {
@@ -54,25 +54,29 @@ public class Reader {
         Class<?> ret = void.class;
         boolean readClassName = false;
         boolean readArg = true;
-        String className = "";
+        StringBuilder className = new StringBuilder();
         StringStream ss = new StringStream(sig);
         while (ss.available()){
             String t = ss.read();
             if (readArg){
                 if (readClassName){
                     if (!t.equals(";")){
-                        className += t;
-                    }else {
+                        className.append(t);
+                    } else {
                         try {
                             readClassName = false;
-                            Class<?> target = Class.forName(className.replace("/","."));
+                            Class<?> target = Class.forName(className.toString().replace("/","."));
                             arg.add(target);
-                        } catch (Exception e){
-                            e.printStackTrace();
+                        } catch (ClassNotFoundException e){
+                            if(className.toString().contains("net/minecraft/server")) {
+                                System.out.println("Failed to find a Server Class:" + className + ", Ignored");
+                            } else {
+                                System.out.println("Failed to find Class:" + className);
+                                e.printStackTrace();
+                            }
                         }
                     }
-                }else
-                if (t.equals("(")){
+                }else if (t.equals("(")){
 
                 }else if (t.equals("Z")){
                     arg.add(boolean.class);
@@ -92,17 +96,26 @@ public class Reader {
                     arg.add(double.class);
                 }else if (t.equals("L")){
                     readClassName = true;
-                    className = "";
+                    className = new StringBuilder();
                 }else if (t.equals(")")){
                     readArg = false;
                 }
-            }else {
+              } else {
                 if (readClassName){
                     if (!t.equals(";")){
-                        className += t;
+                        className.append(t);
                     }else {
-                        readClassName = false;
-                        ret = (Class.forName(className.replace("/",".")));
+                        try {
+                            readClassName = false;
+                            ret = (Class.forName(className.toString().replace("/", ".")));
+                        } catch (ClassNotFoundException e){
+                            if(className.toString().contains("net/minecraft/server")) {
+                                System.out.println("Failed to find a Server Class:" + className + ", Ignored");
+                            } else {
+                                System.out.println("Failed to find Class:" + className);
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }else if (t.equals("Z")){
                     ret = (boolean.class);
@@ -122,7 +135,7 @@ public class Reader {
                     ret = (double.class);
                 }else if (t.equals("L")){
                     readClassName = true;
-                    className = "";
+                    className = new StringBuilder();
                 }else if (t.equals("V")){
                     ret = void.class;
                 }

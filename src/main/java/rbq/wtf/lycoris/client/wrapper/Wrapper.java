@@ -42,7 +42,7 @@ public class Wrapper {
     private static Reader reader;
     private static final List<Class<? extends IWrapper>> wrappers = new ArrayList<Class<? extends IWrapper>>();
     public static void initWrapper() {
-        MapEnv = MapEnum.MDK189;
+        MapEnv = MapEnum.VANILLA189;
         Path path = Paths.get("").toAbsolutePath().getParent().resolve("maps/" + MapEnv.toString() + ".srg");
         String map = readFileByPath(path);
         reader = new Reader(map);
@@ -276,13 +276,13 @@ public class Wrapper {
             if (Modifier.isStatic(declaredField.getModifiers())){
                 //ReadMap
                 MapNode mapNode = readField(wrapperClass.mcpName(), wrapEnum.mcpName());
-                String customSrg = wrapEnum.customSrgName();
-                if (!customSrg.equals("none")){
+                if (!wrapEnum.customSrgName().equals("none")){
                     MapNode clazz = readClass(wrapperClass.mcpName());
-                    mapNode = new MapNode(NodeType.Field,"",clazz.getSrg().replace(".","/")+customSrg);
+                    if (clazz != null)
+                        mapNode = new MapNode(NodeType.Field,"",clazz.getSrg().replace(".","/")+wrapEnum.customSrgName());
                 }
-                System.out.println(wrapperClass.mcpName()+" "+wrapEnum.mcpName()+" -> "+mapNode.getSrg());
                 if (mapNode != null){
+                    System.out.println(wrapperClass.mcpName()+" "+wrapEnum.mcpName()+" -> "+mapNode.getSrg());
                     declaredField.setAccessible(true);
                     System.out.println("Enum null: "  + (reflectEnumByMap(mapNode) == null));
                     System.out.println(mapNode.getMcp() + " " + mapNode.getSrg());
@@ -371,31 +371,31 @@ public class Wrapper {
         if (wrapMethod.targetMap() == MapEnv){
             if (Modifier.isStatic(declaredField.getModifiers())){
                 String costumSig = null;
-                if (!wrapMethod.signature().equals("none")){
+                if (!wrapMethod.signature().equals("none")) {
                     costumSig = wrapMethod.signature();
                 }
                 MapNode mapNode = readMethod(wrapperClass.mcpName(),wrapMethod.mcpName(),costumSig);
-                if (mapNode.getSrg() == null ){
-                    System.out.println("null" + " " +  wrapperClass.mcpName()+" "+wrapMethod.mcpName());
-                }
-                System.out.println(wrapperClass.mcpName()+" "+wrapMethod.mcpName()+" -> "+mapNode.getSrg());
-                if (mapNode != null){
-                    declaredField.setAccessible(true);
-                    declaredField.set(null,reflectMethodByMap(mapNode));
+                if (mapNode != null) {
+                    if (mapNode.getSrg() == null) {
+                        System.out.println("null" + " " +  wrapperClass.mcpName()+" "+wrapMethod.mcpName());
+                    }
+                    try {
+                        declaredField.setAccessible(true);
+                        declaredField.set(null,reflectMethodByMap(mapNode));
+                        System.out.println(wrapperClass.mcpName()+" "+wrapMethod.mcpName()+" -> "+mapNode.getSrg());
+                    } catch (Exception e){
+                        System.out.println("[Failed]" + wrapperClass.mcpName()+" "+wrapMethod.mcpName()+" -> "+mapNode.getSrg());
+                        e.printStackTrace();
+                    }
                 }
             }
         }
     }
     private static Field reflectFieldByMap(MapNode mapNode) throws ClassNotFoundException, NoSuchFieldException {
-        String srg;
-        if (LycorisClient.debug) {
-            srg = mapNode.getMcp();
-        } else {
-            srg = mapNode.getSrg();
-        }
+        String srg = LycorisClient.useMapObf ? mapNode.getSrg() : mapNode.getMcp();
         String field = srg.split("/")[srg.split("/").length - 1];
         String clazz = srg.replace("/",".").replace("."+field,"");
-        Class c = reader.getClassNative(clazz);
+        Class<?> c = reader.getClassNative(clazz);
         for (Field cField : c.getFields()) {
             if (cField.getName().equals(field)){
                 cField.setAccessible(true);
@@ -410,26 +410,16 @@ public class Wrapper {
         }
         throw new NullPointerException("Can't wrap "+mapNode.getMcp()+" -> "+c.getCanonicalName()+"."+field+"]");
     }
-    private static Class reflectClassByMap(MapNode mapNode) throws ClassNotFoundException, NoSuchFieldException {
-        String srg;
-        if (LycorisClient.debug) {
-            srg = mapNode.getMcp();
-        } else {
-            srg = mapNode.getSrg();
-        }
+    private static Class<?> reflectClassByMap(MapNode mapNode) throws ClassNotFoundException, NoSuchFieldException {
+        String srg = LycorisClient.useMapObf ? mapNode.getSrg() : mapNode.getMcp();
         String clazz = srg.replace("/",".");
-        Class c = reader.getClassNative(clazz);
+        Class<?> c = reader.getClassNative(clazz);
         return c;
     }
     private static Method reflectMethodByMap(MapNode mapNode) throws ClassNotFoundException, NoSuchFieldException, NoSuchMethodException {
         Method m;
         if (mapNode instanceof MethodNode){
-            String srg;
-            if (LycorisClient.debug) {
-                srg = mapNode.getMcp();
-            } else {
-                srg = mapNode.getSrg();
-            }
+            String srg = LycorisClient.useMapObf ? mapNode.getSrg() : mapNode.getMcp();
             String method = srg.split("/")[srg.split("/").length - 1];
             String clazz = srg.replace("/",".").replace("."+method,"");
             for (Class<?> arg : ((MethodNode) mapNode).getSignature().getArgs()) {
@@ -437,7 +427,7 @@ public class Wrapper {
                     System.out.println(mapNode.getSrg()+" arg is null");
                 }
             }
-            Class c = reader.getClassNative(clazz);
+            Class<?> c = reader.getClassNative(clazz);
             m = c.getDeclaredMethod(method,((MethodNode) mapNode).getSignature().getArgs());
             m.setAccessible(true);
         }else {

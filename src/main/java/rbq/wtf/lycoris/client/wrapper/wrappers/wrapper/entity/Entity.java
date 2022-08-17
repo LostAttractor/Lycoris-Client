@@ -13,115 +13,115 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.Vec3;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-@WrapperClass(mcpName = "net.minecraft.entity.Entity",targetMap = MapEnum.MDK189)
+@WrapperClass(mcpName = "net.minecraft.entity.Entity",targetMap = MapEnum.VANILLA189)
 public class Entity extends IWrapper {
-    @WrapField(mcpName = "rotationYaw",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "rotationYaw",targetMap = MapEnum.VANILLA189)
     public static Field rotationYaw;
-    @WrapField(mcpName = "rotationPitch",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "rotationPitch",targetMap = MapEnum.VANILLA189)
     public static Field rotationPitch;
-    @WrapMethod(mcpName = "onUpdate",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "onUpdate",targetMap = MapEnum.VANILLA189)
     public static Method onUpdate;
-    @WrapField(mcpName = "ticksExisted",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "ticksExisted",targetMap = MapEnum.VANILLA189)
     public static Field ticksExisted;
-    @WrapMethod(mcpName = "playSound",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "playSound",targetMap = MapEnum.VANILLA189)
     public static Method playSound;
-    @WrapField(mcpName = "posX",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "posX",targetMap = MapEnum.VANILLA189)
     public static Field posX;
-    @WrapField(mcpName = "posY",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "posY",targetMap = MapEnum.VANILLA189)
     public static Field posY;
-    @WrapField(mcpName = "posZ",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "posZ",targetMap = MapEnum.VANILLA189)
     public static Field posZ;
-    @WrapField(mcpName = "lastTickPosX",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "lastTickPosX",targetMap = MapEnum.VANILLA189)
     public static Field lastTickPosX;
-    @WrapField(mcpName = "lastTickPosY",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "lastTickPosY",targetMap = MapEnum.VANILLA189)
     public static Field lastTickPosY;
-    @WrapField(mcpName = "lastTickPosZ",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "lastTickPosZ",targetMap = MapEnum.VANILLA189)
     public static Field lastTickPosZ;
-    @WrapField(mcpName = "boundingBox",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "boundingBox",targetMap = MapEnum.VANILLA189)
     public static Field boundingBox;
-    @WrapClass(mcpName = "net.minecraft.entity.Entity",targetMap = MapEnum.MDK189)
+    @WrapClass(mcpName = "net.minecraft.entity.Entity",targetMap = MapEnum.VANILLA189)
     public static Class EntityClass;
-    @WrapField(mcpName = "onGround",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "onGround",targetMap = MapEnum.VANILLA189)
     public static Field onGround;
-    @WrapMethod(mcpName = "getDisplayName",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getDisplayName",targetMap = MapEnum.VANILLA189)
     public static Method getDisplayName;
-    @WrapField(mcpName = "isDead",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "isDead",targetMap = MapEnum.VANILLA189)
     public static Field isDead;
-    @WrapMethod(mcpName = "getName",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getName",targetMap = MapEnum.VANILLA189)
     public static Method getName;
-    @WrapMethod(mcpName = "getDistanceToEntity",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getDistanceToEntity",targetMap = MapEnum.VANILLA189)
     public static Method getDistanceToEntity;
-    @WrapMethod(mcpName = "getDistance",targetMap = MapEnum.MDK189,signature = "(DDD)D")
+    @WrapMethod(mcpName = "getDistance",targetMap = MapEnum.VANILLA189,signature = "(DDD)D")
     public static Method getDistance_DDD;
-    @WrapField(mcpName = "motionX",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "motionX",targetMap = MapEnum.VANILLA189)
     public static Field motionX;
-    @WrapField(mcpName = "motionY",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "motionY",targetMap = MapEnum.VANILLA189)
     public static Field motionY;
-    @WrapField(mcpName = "motionZ",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "motionZ",targetMap = MapEnum.VANILLA189)
     public static Field motionZ;
-    @WrapMethod(mcpName = "isSprinting",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "isSprinting",targetMap = MapEnum.VANILLA189)
     public static Method isSprinting;
-    @WrapField(mcpName = "prevPosX",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "prevPosX",targetMap = MapEnum.VANILLA189)
     public static Field prevPosX;
-    @WrapField(mcpName = "prevPosY",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "prevPosY",targetMap = MapEnum.VANILLA189)
     public static Field prevPosY;
-    @WrapField(mcpName = "prevPosZ",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "prevPosZ",targetMap = MapEnum.VANILLA189)
     public static Field prevPosZ;
-    @WrapField(mcpName = "height",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "height",targetMap = MapEnum.VANILLA189)
     public static Field height;
-    @WrapMethod(mcpName = "getEyeHeight",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getEyeHeight",targetMap = MapEnum.VANILLA189)
     public static Method getEyeHeight;
-    @WrapMethod(mcpName = "moveEntity",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "moveEntity",targetMap = MapEnum.VANILLA189)
     public static Method moveEntity;
-    @WrapMethod(mcpName = "isRiding",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "isRiding",targetMap = MapEnum.VANILLA189)
     public static Method isRiding;
-    @WrapField(mcpName = "stepHeight",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "stepHeight",targetMap = MapEnum.VANILLA189)
     public static Field stepHeight;
-    @WrapField(mcpName = "isCollidedVertically",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "isCollidedVertically",targetMap = MapEnum.VANILLA189)
     public static Field isCollidedVertically;
-    @WrapMethod(mcpName = "canBeCollidedWith",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "canBeCollidedWith",targetMap = MapEnum.VANILLA189)
     public static Method canBeCollidedWith;
-    @WrapMethod(mcpName = "setPositionAndRotation",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "setPositionAndRotation",targetMap = MapEnum.VANILLA189)
     public static Method setPositionAndRotation;
-    @WrapField(mcpName = "width",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "width",targetMap = MapEnum.VANILLA189)
     public static Field width;
-    @WrapField(mcpName = "isInWeb",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "isInWeb",targetMap = MapEnum.VANILLA189)
     public static Field isInWeb;
-    @WrapField(mcpName = "fallDistance",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "fallDistance",targetMap = MapEnum.VANILLA189)
     public static Field fallDistance;
-    @WrapMethod(mcpName = "getHorizontalFacing",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getHorizontalFacing",targetMap = MapEnum.VANILLA189)
     public static Method getHorizontalFacing;
-    @WrapMethod(mcpName = "setPosition",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "setPosition",targetMap = MapEnum.VANILLA189)
     public static Method setPosition;
-    @WrapMethod(mcpName = "setPositionAndUpdate",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "setPositionAndUpdate",targetMap = MapEnum.VANILLA189)
     public static Method setPositionAndUpdate;
-    @WrapField(mcpName = "worldObj",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "worldObj",targetMap = MapEnum.VANILLA189)
     public static Field worldObj;
-    @WrapMethod(mcpName = "copyDataFromOld",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "copyDataFromOld",targetMap = MapEnum.VANILLA189)
     public static Method copyDataFromOld;
-    @WrapMethod(mcpName = "copyLocationAndAnglesFrom",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "copyLocationAndAnglesFrom",targetMap = MapEnum.VANILLA189)
     public static Method copyLocationAndAnglesFrom;
-    @WrapMethod(mcpName = "rayTrace",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "rayTrace",targetMap = MapEnum.VANILLA189)
     public static Method rayTrace;
-    @WrapMethod(mcpName = "getPositionEyes",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getPositionEyes",targetMap = MapEnum.VANILLA189)
     public static Method getPositionEyes;
-    @WrapMethod(mcpName = "getLook",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getLook",targetMap = MapEnum.VANILLA189)
     public static Method getLook;
-    @WrapMethod(mcpName = "getCollisionBorderSize",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getCollisionBorderSize",targetMap = MapEnum.VANILLA189)
     public static Method getCollisionBorderSize;
-    @WrapField(mcpName = "ridingEntity",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "ridingEntity",targetMap = MapEnum.VANILLA189)
     public static Field ridingEntity;
-    @WrapMethod(mcpName = "getDistanceSqToEntity",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getDistanceSqToEntity",targetMap = MapEnum.VANILLA189)
     public static Method getDistanceSqToEntity;
-    @WrapMethod(mcpName = "getDistanceSq",targetMap = MapEnum.MDK189,signature = "(DDD)D")
+    @WrapMethod(mcpName = "getDistanceSq",targetMap = MapEnum.VANILLA189,signature = "(DDD)D")
     public static Method getDistanceSq_D;
-    @WrapMethod(mcpName = "isInvisible",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "isInvisible",targetMap = MapEnum.VANILLA189)
     public static Method isInvisible;
-    @WrapMethod(mcpName = "isSneaking",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "isSneaking",targetMap = MapEnum.VANILLA189)
     public static Method isSneaking;
-    @WrapField(mcpName = "isCollidedHorizontally",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "isCollidedHorizontally",targetMap = MapEnum.VANILLA189)
     public static Field isCollidedHorizontally;
-    @WrapMethod(mcpName = "getEntityBoundingBox",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "getEntityBoundingBox",targetMap = MapEnum.VANILLA189)
     public static Method getEntityBoundingBox;
     public Entity(Object obj) {
         super(obj);

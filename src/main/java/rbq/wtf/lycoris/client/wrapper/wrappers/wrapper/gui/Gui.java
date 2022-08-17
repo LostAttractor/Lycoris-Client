@@ -8,12 +8,12 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 
 import java.lang.reflect.Method;
 
-@WrapperClass(mcpName = "net.minecraft.client.gui.Gui",targetMap = MapEnum.MDK189)
+@WrapperClass(mcpName = "net.minecraft.client.gui.Gui",targetMap = MapEnum.VANILLA189)
 
 public class Gui extends IWrapper {
-    @WrapMethod(mcpName = "drawModalRectWithCustomSizedTexture",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "drawModalRectWithCustomSizedTexture",targetMap = MapEnum.VANILLA189)
     public static Method drawModalRectWithCustomSizedTexture;
-    @WrapMethod(mcpName = "drawRect",targetMap = MapEnum.MDK189)
+    @WrapMethod(mcpName = "drawRect",targetMap = MapEnum.VANILLA189)
     public static Method drawRect;
     public Gui(Object obj) {
         super(obj);

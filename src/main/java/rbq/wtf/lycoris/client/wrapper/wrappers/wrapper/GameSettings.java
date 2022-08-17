@@ -7,65 +7,65 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.utils.ReflectUtil;
 
 import java.lang.reflect.Field;
 
-@WrapperClass(mcpName = "net.minecraft.client.settings.GameSettings",targetMap = MapEnum.MDK189)
+@WrapperClass(mcpName = "net.minecraft.client.settings.GameSettings",targetMap = MapEnum.VANILLA189)
 public class GameSettings extends IWrapper {
-    @WrapField(mcpName = "keyBindForward",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindForward",targetMap = MapEnum.VANILLA189)
     public static Field keyBindForward;
-    @WrapField(mcpName = "keyBindLeft",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindLeft",targetMap = MapEnum.VANILLA189)
     public static Field keyBindLeft;
-    @WrapField(mcpName = "keyBindBack",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindBack",targetMap = MapEnum.VANILLA189)
     public static Field keyBindBack;
-    @WrapField(mcpName = "keyBindRight",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindRight",targetMap = MapEnum.VANILLA189)
     public static Field keyBindRight;
-    @WrapField(mcpName = "keyBindJump",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindJump",targetMap = MapEnum.VANILLA189)
     public static Field keyBindJump;
-    @WrapField(mcpName = "keyBindSneak",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindSneak",targetMap = MapEnum.VANILLA189)
     public static Field keyBindSneak;
-    @WrapField(mcpName = "keyBindSprint",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindSprint",targetMap = MapEnum.VANILLA189)
     public static Field keyBindSprint;
-    @WrapField(mcpName = "keyBindInventory",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindInventory",targetMap = MapEnum.VANILLA189)
     public static Field keyBindInventory;
-    @WrapField(mcpName = "keyBindUseItem",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindUseItem",targetMap = MapEnum.VANILLA189)
     public static Field keyBindUseItem;
-    @WrapField(mcpName = "keyBindDrop",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindDrop",targetMap = MapEnum.VANILLA189)
     public static Field keyBindDrop;
-    @WrapField(mcpName = "keyBindAttack",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindAttack",targetMap = MapEnum.VANILLA189)
     public static Field keyBindAttack;
-    @WrapField(mcpName = "keyBindPickBlock",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindPickBlock",targetMap = MapEnum.VANILLA189)
     public static Field keyBindPickBlock;
-    @WrapField(mcpName = "keyBindChat",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindChat",targetMap = MapEnum.VANILLA189)
     public static Field keyBindChat;
-    @WrapField(mcpName = "keyBindPlayerList",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindPlayerList",targetMap = MapEnum.VANILLA189)
     public static Field keyBindPlayerList;
-    @WrapField(mcpName = "keyBindCommand",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindCommand",targetMap = MapEnum.VANILLA189)
     public static Field keyBindCommand;
-    @WrapField(mcpName = "keyBindScreenshot",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindScreenshot",targetMap = MapEnum.VANILLA189)
     public static Field keyBindScreenshot;
-    @WrapField(mcpName = "keyBindTogglePerspective",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindTogglePerspective",targetMap = MapEnum.VANILLA189)
     public static Field keyBindTogglePerspective;
-    @WrapField(mcpName = "keyBindSmoothCamera",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindSmoothCamera",targetMap = MapEnum.VANILLA189)
     public static Field keyBindSmoothCamera;
-    @WrapField(mcpName = "keyBindFullscreen",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindFullscreen",targetMap = MapEnum.VANILLA189)
     public static Field keyBindFullscreen;
-    @WrapField(mcpName = "keyBindSpectatorOutlines",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindSpectatorOutlines",targetMap = MapEnum.VANILLA189)
     public static Field keyBindSpectatorOutlines;
-    @WrapField(mcpName = "keyBindsHotbar",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindsHotbar",targetMap = MapEnum.VANILLA189)
     public static Field keyBindsHotbar;
-    @WrapField(mcpName = "keyBindings",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "keyBindings",targetMap = MapEnum.VANILLA189)
     public static Field keyBindings;
-    @WrapField(mcpName = "mouseSensitivity",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "mouseSensitivity",targetMap = MapEnum.VANILLA189)
     public static Field mouseSensitivity;
-    @WrapField(mcpName = "gammaSetting",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "gammaSetting",targetMap = MapEnum.VANILLA189)
     public static Field gammaSetting;
-    @WrapField(mcpName = "chatLinks",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "chatLinks",targetMap = MapEnum.VANILLA189)
     public static Field chatLinks;
-    @WrapField(mcpName = "forceUnicodeFont",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "forceUnicodeFont",targetMap = MapEnum.VANILLA189)
     public static Field forceUnicodeFont;
-    @WrapField(mcpName = "viewBobbing",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "viewBobbing",targetMap = MapEnum.VANILLA189)
     public static Field viewBobbing;
-    @WrapField(mcpName = "thirdPersonView",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "thirdPersonView",targetMap = MapEnum.VANILLA189)
     public static Field thirdPersonView;
-    @WrapField(mcpName = "guiScale",targetMap = MapEnum.MDK189)
+    @WrapField(mcpName = "guiScale",targetMap = MapEnum.VANILLA189)
     public static Field guiScale;
     public GameSettings(Object obj) {
         super(obj);

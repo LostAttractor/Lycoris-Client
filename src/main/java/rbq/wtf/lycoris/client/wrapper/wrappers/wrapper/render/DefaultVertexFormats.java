@@ -6,13 +6,13 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapObject;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapperClass;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 
-@WrapperClass(mcpName = "net.minecraft.client.renderer.vertex.DefaultVertexFormats",targetMap = MapEnum.MDK189)
+@WrapperClass(mcpName = "net.minecraft.client.renderer.vertex.DefaultVertexFormats",targetMap = MapEnum.VANILLA189)
 public class DefaultVertexFormats extends IWrapper {
-    @WrapObject(mcpName = "POSITION_TEX_COLOR",targetMap = MapEnum.MDK189)
+    @WrapObject(mcpName = "POSITION_TEX_COLOR",targetMap = MapEnum.VANILLA189)
     public static Object POSITION_TEX_COLOR;
-    @WrapObject(mcpName = "POSITION",targetMap = MapEnum.MDK189)
+    @WrapObject(mcpName = "POSITION",targetMap = MapEnum.VANILLA189)
     public static Object POSITION;
-    @WrapObject(mcpName = "POSITION_COLOR",targetMap = MapEnum.MDK189)
+    @WrapObject(mcpName = "POSITION_COLOR",targetMap = MapEnum.VANILLA189)
     public static Object POSITION_COLOR;
     public DefaultVertexFormats(Object obj) {
         super(obj);
