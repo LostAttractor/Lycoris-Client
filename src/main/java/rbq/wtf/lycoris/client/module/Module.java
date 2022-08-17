@@ -3,6 +3,7 @@ package rbq.wtf.lycoris.client.module;
 
 import rbq.wtf.lycoris.client.event.api.EventManager;
 import rbq.wtf.lycoris.client.value.*;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,8 @@ public class Module {
     private ArrayList<ModeValue> ModeValues;
     private ArrayList<ColorValue> ColorValues;
     private ArrayList<TextValue> TextValues;
+
+    protected Minecraft mc = Minecraft.getMinecraft();
 
     public Module(String Name, ModuleCategory Category, int Key) {
         this.BooleanValues = new ArrayList<BooleanValue>();

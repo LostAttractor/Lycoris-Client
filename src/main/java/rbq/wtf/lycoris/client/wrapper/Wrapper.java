@@ -8,20 +8,15 @@ import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MethodNode;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.NodeType;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.repeat.*;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.GameSettings;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.KeyBinding;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.Entity;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.*;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.AbstractTexture;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.DynamicTexture;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.*;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.*;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.HoverEvent;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.click.ClickEvent;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.click.ClickEventAction;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.text.IChatComponent;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.*;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.click.*;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.text.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -42,7 +37,8 @@ public class Wrapper {
     public static boolean useMapObf;
     private static Reader reader;
 
-    public static void initWrapper() {
+    public static void init() {
+        Logger.log("Start Initialize Wrapper","Wrapper");
         MapEnv = MapEnum.VANILLA189;
         useMapObf = false; //是否使用混淆后的名称，在MDK环境下需设为false
         Path path = Paths.get("").toAbsolutePath().getParent().resolve("maps/" + MapEnv.toString() + ".srg");
@@ -53,8 +49,10 @@ public class Wrapper {
         //ReflectLoading.loadingProgress.setString("Loading Wrapper");
         try {
             applyMap();
+            Logger.log("Wrapper Initialized Successful", "Wrapper");
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.log("Wrapper Initialized Failed", "Wrapper");
         }
     }
 
@@ -84,6 +82,7 @@ public class Wrapper {
         classes.add(GameSettings.class);
         //entity
         classes.add(Entity.class);
+        classes.add(EntityPlayerSP.class);
         //gui
         classes.add(Gui.class);
         classes.add(ScaledResolution.class);
@@ -123,7 +122,6 @@ public class Wrapper {
             }
         }
     }
-
 
     public static List<Class<? extends IWrapper>> getWrappers() {
         return wrappers;

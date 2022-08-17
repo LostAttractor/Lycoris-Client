@@ -6,6 +6,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapField;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapMethod;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapperClass;
 import rbq.wtf.lycoris.client.wrapper.wrappers.utils.ReflectUtil;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayerSP;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.GuiScreen;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution;
 
@@ -101,6 +102,10 @@ public class Minecraft extends IWrapper {
 
     public static Minecraft getMinecraft() {
         return new Minecraft(ReflectUtil.getField(theMinecraft, null));
+    }
+
+    public EntityPlayerSP getPlayer() {
+        return new EntityPlayerSP(getField(thePlayer));
     }
 
     public void addScheduledTask(Object o) {

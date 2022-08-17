@@ -31,22 +31,15 @@ public class LycorisClient {
     public LycorisClient() {
         instance = this;
         Logger.log("Start Initialize Client");
+        Wrapper.init();
+        BridgeUtil.init();
+        InstrumentationImpl.init();
+        TransformManager.init();
+        EventManager.register(this);
         moduleManager = new ModuleManager();
         configManager = new ConfigManager();
         commandManager = new CommandManager();
         clickGUI = new ClickGUI();
-        Logger.log("Start Initialize Wrapper");
-        Wrapper.initWrapper();
-        BridgeUtil.init();
-        Logger.log("Wrapper Initialized Successful");
-        Logger.log("Start Initialize Native");
-        InstrumentationImpl.init();
-        Logger.log("Native Initialized Successful");
-        Logger.log("Start Initialize Transforms");
-        TransformManager.init();
-        TransformManager.doTransform();
-        Logger.log("Transforms Initialized Successful");
-        EventManager.register(this);
         Logger.log("Client Initialized Successful");
     }
 
@@ -61,7 +54,7 @@ public class LycorisClient {
     @EventTarget
     public void EventKeyPress(EventKey e) {
         for (Module module : this.moduleManager.getModules()) {
-            System.out.println("Key" + e.getKey());
+//            Logger.log("Key Pressed: " + e.getKey(), "Key");
             if (module.getKey() == e.getKey()) {
                 module.toggle();
             }

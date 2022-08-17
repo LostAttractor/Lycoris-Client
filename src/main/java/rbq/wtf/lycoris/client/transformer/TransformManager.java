@@ -2,6 +2,7 @@ package rbq.wtf.lycoris.client.transformer;
 
 import rbq.wtf.lycoris.agent.LycorisAgent;
 import rbq.wtf.lycoris.agent.instrument.impl.InstrumentationImpl;
+import rbq.wtf.lycoris.client.transformer.transformers.EntityPlayerSPTransformer;
 import rbq.wtf.lycoris.client.transformer.transformers.GuiIngameTransformer;
 import rbq.wtf.lycoris.client.transformer.transformers.KeyBindingTransformer;
 import rbq.wtf.lycoris.client.transformer.transformers.MinecraftTransformer;
@@ -20,16 +21,20 @@ public class TransformManager {
     public static List<ClassTransformer> transformers = new ArrayList<ClassTransformer>();
 
     public static void init() {
+        Logger.log("Start Initialize Transforms", "Transformer");
         transformers.add(new GuiIngameTransformer());
         transformers.add(new KeyBindingTransformer());
         transformers.add(new MinecraftTransformer());
+        transformers.add(new EntityPlayerSPTransformer());
+        doTransform();
+        Logger.log("Transforms Initialized Successful", "Transformer");
     }
 
     public static void doTransform() {
         for (ClassTransformer classTransformer : transformers) {
             Logger.log("Start Transformer " + classTransformer.getTargetClass().getCanonicalName(), "Transformer");
             int error = LycorisAgent.retransformclass(new InstrumentationImpl(), classTransformer.getTargetClass());
-            Logger.log("Transform Class " + classTransformer.getTargetClass().getCanonicalName() + " " + JVMTIError.parse(error), "Transformer");
+            Logger.log("Transformed Class " + classTransformer.getTargetClass().getCanonicalName() + " " + JVMTIError.parse(error), "Transformer");
         }
     }
 
@@ -43,11 +48,10 @@ public class TransformManager {
             return null;
         }
         byte[] class_bytes = null;
-        Logger.log("Do Transformer " + clazz.getCanonicalName(), "Transformer");
         for (ClassTransformer transformer : transformers) {
             if (transformer.getTargetClass().equals(clazz)) {
                 class_bytes = transformer.transform(original_class_bytes);
-                Logger.log("Transform " + clazz.getCanonicalName() + " Successful", "Transformer");
+                // Logger.log("Transform " + clazz.getCanonicalName() + " Successful", "Transformer");
             }
         }
         if (class_bytes == null) {
