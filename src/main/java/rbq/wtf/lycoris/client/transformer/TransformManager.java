@@ -12,6 +12,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,23 +53,20 @@ public class TransformManager {
             return original_class_bytes;
         }
 //        if (LycorisClient.debug) {{
-            writeFileByBytes(class_bytes,"D:\\work\\Lycoris Client\\Lycoris-Client\\debug",
-                    clazz.getCanonicalName().replaceAll("/",".")+".class");
+            writeFileByBytes(class_bytes, Paths.get("").toAbsolutePath().getParent().resolve("debug"), clazz.getCanonicalName().replaceAll("/",".")+".class");
 //        }}
         return class_bytes;
     }
 
-
-    public static void writeFileByBytes(byte[] bytes, String filePath, String fileName) {
+    public static void writeFileByBytes(byte[] bytes, Path path, String name) {
         BufferedOutputStream bos = null;
         FileOutputStream fos = null;
-        File file = null;
+        File dir = path.toFile();
+        if (!dir.exists() && dir.isDirectory()) {// 判断文件目录是否存在
+            dir.mkdirs();
+        }
+        File file = path.resolve(name).toFile();
         try {
-            File dir = new File(filePath);
-            if (!dir.exists() && dir.isDirectory()) {// 判断文件目录是否存在
-                dir.mkdirs();
-            }
-            file = new File(filePath + "\\" + fileName);
             fos = new FileOutputStream(file);
             bos = new BufferedOutputStream(fos);
             bos.write(bytes);
