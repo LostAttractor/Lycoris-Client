@@ -11,5 +11,6 @@ import java.lang.annotation.*;
 @Repeatable(WrapConstructors.class)
 public @interface WrapConstructor {
     MapEnum targetMap();
+
     Class<?>[] signature() default {};
 }

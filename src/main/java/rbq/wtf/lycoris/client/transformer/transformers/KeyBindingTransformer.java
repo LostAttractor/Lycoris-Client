@@ -20,17 +20,17 @@ public class KeyBindingTransformer extends ClassTransformer {
     public byte[] transform(byte[] bytes) {
         ClassReader cr = new ClassReader(bytes);
         ClassNode classNode = new ClassNode();
-        cr.accept(classNode,0);
-        for (MethodNode method: classNode.methods){
+        cr.accept(classNode, 0);
+        for (MethodNode method : classNode.methods) {
             if (method.name.equals(KeyBinding.onTick.getName()) && method.desc.equalsIgnoreCase("(I)V")) {
                 InsnList insns = new InsnList();
                 insns.add(new TypeInsnNode(Opcodes.NEW, Type.getInternalName(EventKey.class)));
-                insns.add(new VarInsnNode(Opcodes.ILOAD,0));
+                insns.add(new VarInsnNode(Opcodes.ILOAD, 0));
                 insns.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(EventKey.class), "<init>", "(I)V", false));
                 method.instructions.insert(insns);
             }
         }
-        ClassWriter cw = new ClassWriter(cr,ClassWriter.COMPUTE_MAXS + ClassWriter.COMPUTE_FRAMES);
+        ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS + ClassWriter.COMPUTE_FRAMES);
         classNode.accept(cw);
         return cw.toByteArray();
     }

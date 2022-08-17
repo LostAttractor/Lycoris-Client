@@ -1,6 +1,5 @@
 package rbq.wtf.lycoris.client.module.Modules.Render;
 
-import rbq.wtf.lycoris.client.LycorisClient;
 import rbq.wtf.lycoris.client.detector.MargeleAntiCheatDetector;
 import rbq.wtf.lycoris.client.module.Module;
 import rbq.wtf.lycoris.client.module.ModuleCategory;
@@ -19,24 +18,25 @@ public class ClickGUI extends Module {
     private static BooleanValue waterMark;
     private static BooleanValue arrayList;
     private static ModeValue rainbowMode;
-    public ClickGUI (){
-        super("ClickGUI", ModuleCategory.Render,210);
-        rainbowMode = new ModeValue("Rainbow Mode",new String[]{"Rainbow", "Astolfo", "Static","StaticRainbow"}, 0, 3);
+
+    public ClickGUI() {
+        super("ClickGUI", ModuleCategory.Render, 210);
+        rainbowMode = new ModeValue("Rainbow Mode", new String[]{"Rainbow", "Astolfo", "Static", "StaticRainbow"}, 0, 3);
         this.addModeValue(rainbowMode);
-        waterMark = new BooleanValue("WaterMark",true,this);
+        waterMark = new BooleanValue("WaterMark", true, this);
         this.addBooleanValue(waterMark);
-        arrayList = new BooleanValue("ArrayList",true,this);
+        arrayList = new BooleanValue("ArrayList", true, this);
         this.addBooleanValue(arrayList);
     }
 
     @Override
     public void onEnable() {
-        if (MargeleAntiCheatDetector.getHyGui() != null){
+        if (MargeleAntiCheatDetector.getHyGui() != null) {
             Class<?> hyGui = MargeleAntiCheatDetector.getHyGui();
             try {
-                Constructor<?> constructor = hyGui.getConstructor(int.class,MargeleAntiCheatDetector.getGuiTab());
+                Constructor<?> constructor = hyGui.getConstructor(int.class, MargeleAntiCheatDetector.getGuiTab());
                 constructor.setAccessible(true);
-                Object gui = constructor.newInstance(0,MargeleAntiCheatDetector.getHyTab());
+                Object gui = constructor.newInstance(0, MargeleAntiCheatDetector.getHyTab());
                 Minecraft.getMinecraft().displayGuiScreenBypass(new IGuiScreen(gui));
             } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
                      InvocationTargetException e) {
@@ -45,8 +45,8 @@ public class ClickGUI extends Module {
             return;
         }
         GuiScreen guiScreenWrapper = Minecraft.getMinecraft().getCurrentScreen();
-        if (Objects.isNull(guiScreenWrapper.getWrapObject())){
-                Minecraft.getMinecraft().displayGuiScreenBypass(BridgeUtil.createGuiScreen(new rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI()));
+        if (Objects.isNull(guiScreenWrapper.getWrapObject())) {
+            Minecraft.getMinecraft().displayGuiScreenBypass(BridgeUtil.createGuiScreen(new rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI()));
         }
         this.toggle();
     }

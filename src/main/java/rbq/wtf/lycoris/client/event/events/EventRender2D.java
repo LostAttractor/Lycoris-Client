@@ -9,8 +9,8 @@ public class EventRender2D implements Event {
 
     float partialTicks;
     ScaledResolution scaledResolution;
-    public EventRender2D(ScaledResolution scaledResolution,float partialTicks)
-    {
+
+    public EventRender2D(ScaledResolution scaledResolution, float partialTicks) {
         this.scaledResolution = scaledResolution;
         this.partialTicks = partialTicks;
         EventManager.call(this);

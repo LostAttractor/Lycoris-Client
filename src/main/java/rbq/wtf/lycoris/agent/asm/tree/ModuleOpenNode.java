@@ -38,43 +38,45 @@ import java.util.List;
  */
 public class ModuleOpenNode {
 
-  /** The internal name of the opened package. */
-  public String packaze;
+    /**
+     * The internal name of the opened package.
+     */
+    public String packaze;
 
-  /**
-   * The access flag of the opened package, valid values are among {@code ACC_SYNTHETIC} and {@code
-   * ACC_MANDATED}.
-   */
-  public int access;
+    /**
+     * The access flag of the opened package, valid values are among {@code ACC_SYNTHETIC} and {@code
+     * ACC_MANDATED}.
+     */
+    public int access;
 
-  /**
-   * The fully qualified names (using dots) of the modules that can use deep reflection to the
-   * classes of the open package, or <tt>null</tt>.
-   */
-  public List<String> modules;
+    /**
+     * The fully qualified names (using dots) of the modules that can use deep reflection to the
+     * classes of the open package, or <tt>null</tt>.
+     */
+    public List<String> modules;
 
-  /**
-   * Constructs a new {@link ModuleOpenNode}.
-   *
-   * @param packaze the internal name of the opened package.
-   * @param access the access flag of the opened package, valid values are among {@code
-   *     ACC_SYNTHETIC} and {@code ACC_MANDATED}.
-   * @param modules the fully qualified names (using dots) of the modules that can use deep
-   *     reflection to the classes of the open package, or <tt>null</tt>.
-   */
-  public ModuleOpenNode(final String packaze, final int access, final List<String> modules) {
-    this.packaze = packaze;
-    this.access = access;
-    this.modules = modules;
-  }
+    /**
+     * Constructs a new {@link ModuleOpenNode}.
+     *
+     * @param packaze the internal name of the opened package.
+     * @param access  the access flag of the opened package, valid values are among {@code
+     *                ACC_SYNTHETIC} and {@code ACC_MANDATED}.
+     * @param modules the fully qualified names (using dots) of the modules that can use deep
+     *                reflection to the classes of the open package, or <tt>null</tt>.
+     */
+    public ModuleOpenNode(final String packaze, final int access, final List<String> modules) {
+        this.packaze = packaze;
+        this.access = access;
+        this.modules = modules;
+    }
 
-  /**
-   * Makes the given module visitor visit this opened package.
-   *
-   * @param moduleVisitor a module visitor.
-   */
-  public void accept(final ModuleVisitor moduleVisitor) {
-    moduleVisitor.visitOpen(
-        packaze, access, modules == null ? null : modules.toArray(new String[modules.size()]));
-  }
+    /**
+     * Makes the given module visitor visit this opened package.
+     *
+     * @param moduleVisitor a module visitor.
+     */
+    public void accept(final ModuleVisitor moduleVisitor) {
+        moduleVisitor.visitOpen(
+                packaze, access, modules == null ? null : modules.toArray(new String[modules.size()]));
+    }
 }

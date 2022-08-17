@@ -11,5 +11,6 @@ import java.lang.annotation.*;
 @Repeatable(WrapperClasses.class)
 public @interface WrapperClass {
     String mcpName();
+
     MapEnum targetMap();
 }

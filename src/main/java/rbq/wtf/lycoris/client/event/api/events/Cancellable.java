@@ -1,4 +1,4 @@
-package  rbq.wtf.lycoris.client.event.api.events;
+package rbq.wtf.lycoris.client.event.api.events;
 
 /**
  * Simple interface which should be implemented in events that can be cancelled.
@@ -18,8 +18,7 @@ public interface Cancellable {
     /**
      * Sets the cancelled state of the event.
      *
-     * @param state
-     *         Whether the event should be cancelled or not.
+     * @param state Whether the event should be cancelled or not.
      */
     void setCancelled(boolean state);
 

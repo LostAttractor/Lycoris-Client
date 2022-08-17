@@ -37,34 +37,36 @@ import rbq.wtf.lycoris.agent.asm.Opcodes;
  */
 public class ParameterNode {
 
-  /** The parameter's name. */
-  public String name;
+    /**
+     * The parameter's name.
+     */
+    public String name;
 
-  /**
-   * The parameter's access flags (see {@link Opcodes}). Valid values are
-   * <tt>ACC_FINAL</tt>, <tt>ACC_SYNTHETIC</tt> and <tt>ACC_MANDATED</tt>.
-   */
-  public int access;
+    /**
+     * The parameter's access flags (see {@link Opcodes}). Valid values are
+     * <tt>ACC_FINAL</tt>, <tt>ACC_SYNTHETIC</tt> and <tt>ACC_MANDATED</tt>.
+     */
+    public int access;
 
-  /**
-   * Constructs a new {@link ParameterNode}.
-   *
-   * @param access The parameter's access flags. Valid values are <tt>ACC_FINAL</tt>,
-   *     <tt>ACC_SYNTHETIC</tt> or/and <tt>ACC_MANDATED</tt> (see {@link
-   *     Opcodes}).
-   * @param name the parameter's name.
-   */
-  public ParameterNode(final String name, final int access) {
-    this.name = name;
-    this.access = access;
-  }
+    /**
+     * Constructs a new {@link ParameterNode}.
+     *
+     * @param access The parameter's access flags. Valid values are <tt>ACC_FINAL</tt>,
+     *               <tt>ACC_SYNTHETIC</tt> or/and <tt>ACC_MANDATED</tt> (see {@link
+     *               Opcodes}).
+     * @param name   the parameter's name.
+     */
+    public ParameterNode(final String name, final int access) {
+        this.name = name;
+        this.access = access;
+    }
 
-  /**
-   * Makes the given visitor visit this parameter declaration.
-   *
-   * @param methodVisitor a method visitor.
-   */
-  public void accept(final MethodVisitor methodVisitor) {
-    methodVisitor.visitParameter(name, access);
-  }
+    /**
+     * Makes the given visitor visit this parameter declaration.
+     *
+     * @param methodVisitor a method visitor.
+     */
+    public void accept(final MethodVisitor methodVisitor) {
+        methodVisitor.visitParameter(name, access);
+    }
 }

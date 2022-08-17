@@ -6,14 +6,16 @@ import java.util.Objects;
 
 public class IWrapper {
     private Object object;
-    public IWrapper(Object obj){
+
+    public IWrapper(Object obj) {
         this.object = obj;
     }
 
     public Object getWrapObject() {
         return object;
     }
-    public Object getField(Field f){
+
+    public Object getField(Field f) {
         try {
             return f.get(getWrapObject());
         } catch (Exception e) {
@@ -21,25 +23,29 @@ public class IWrapper {
         }
         return null;
     }
-    public void setField(Field f,Object v){
+
+    public void setField(Field f, Object v) {
         try {
-            f.set(getWrapObject(),v);
+            f.set(getWrapObject(), v);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public Object invoke(Method m, Object... args){
+
+    public Object invoke(Method m, Object... args) {
         try {
-            return m.invoke(getWrapObject(),args);
+            return m.invoke(getWrapObject(), args);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-    public boolean isNull(){
+
+    public boolean isNull() {
         return Objects.isNull(object);
     }
-    public boolean equals(IWrapper wrapper){
-        return Objects.equals(object,wrapper.object);
+
+    public boolean equals(IWrapper wrapper) {
+        return Objects.equals(object, wrapper.object);
     }
 }

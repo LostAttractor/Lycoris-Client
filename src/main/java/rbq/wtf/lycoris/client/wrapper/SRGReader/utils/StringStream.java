@@ -3,15 +3,18 @@ package rbq.wtf.lycoris.client.wrapper.SRGReader.utils;
 public class StringStream {
     private String buf;
     private int count = 0;
-    public StringStream(String s){
+
+    public StringStream(String s) {
         buf = s;
     }
-    public String read(){
+
+    public String read() {
         String r = String.valueOf(buf.charAt(count));
-        count ++;
+        count++;
         return r;
     }
-    public boolean available(){
+
+    public boolean available() {
         return count + 1 != buf.length();
     }
 }

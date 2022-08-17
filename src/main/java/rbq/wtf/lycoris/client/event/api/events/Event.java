@@ -1,4 +1,4 @@
-package  rbq.wtf.lycoris.client.event.api.events;
+package rbq.wtf.lycoris.client.event.api.events;
 
 /**
  * The most basic form of an event.

@@ -10,8 +10,8 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.utils.ReflectUtil;
 import java.lang.reflect.Method;
 import java.nio.FloatBuffer;
 
-@WrapperClass(mcpName = "net.minecraft.client.renderer.GlStateManager",targetMap = MapEnum.VANILLA189)
-public class GlStateManager{
+@WrapperClass(mcpName = "net.minecraft.client.renderer.GlStateManager", targetMap = MapEnum.VANILLA189)
+public class GlStateManager {
     @WrapClass(mcpName = "net.minecraft.client.renderer.GlStateManager", targetMap = MapEnum.VANILLA189)
     public static Class GlStateManagerClass;
     @WrapMethod(mcpName = "alphaFunc", targetMap = MapEnum.VANILLA189)
@@ -159,9 +159,10 @@ public class GlStateManager{
     @WrapMethod(mcpName = "viewport", targetMap = MapEnum.VANILLA189)
     public static Method viewport;
     public static Method glTexEnvi;
+
     public static void glTexEnvi(int glTextureEnv, int glTextureEnvMode, int glModulate) {
         GL11.glTexEnvi(glTextureEnv, glTextureEnvMode, glModulate);
-            
+
     }
 
     public static void enableColorMaterial() {
@@ -183,8 +184,9 @@ public class GlStateManager{
     public static void disableDepth() {
         ReflectUtil.invoke(disableDepth, null);
     }
+
     public static void depthMask(boolean flag) {
-        ReflectUtil.invoke(depthMask, null,flag);
+        ReflectUtil.invoke(depthMask, null, flag);
     }
 
     public static void disableLighting() {
@@ -274,9 +276,11 @@ public class GlStateManager{
     public static void shadeModel(int mode) {
         ReflectUtil.invoke(shadeModel, null, mode);
     }
+
     public static void disableLight(int light) {
         ReflectUtil.invoke(disableLight, null, light);
     }
+
     public static void disableColorMaterial() {
         ReflectUtil.invoke(disableColorMaterial, null);
     }
@@ -286,10 +290,10 @@ public class GlStateManager{
     }
 
     public static void alphaFunc(int func, float ref) {
-        ReflectUtil.invoke(alphaFunc,null,func,ref);
+        ReflectUtil.invoke(alphaFunc, null, func, ref);
     }
 
     public static void enableLighting() {
-        ReflectUtil.invoke(enableLighting,null);
+        ReflectUtil.invoke(enableLighting, null);
     }
 }

@@ -1,8 +1,8 @@
-package  rbq.wtf.lycoris.client.event.api.events.callables;
+package rbq.wtf.lycoris.client.event.api.events.callables;
 
 
-import  rbq.wtf.lycoris.client.event.api.events.Cancellable;
-import  rbq.wtf.lycoris.client.event.api.events.Event;
+import rbq.wtf.lycoris.client.event.api.events.Cancellable;
+import rbq.wtf.lycoris.client.event.api.events.Event;
 
 /**
  * Abstract example implementation of the Cancellable interface.

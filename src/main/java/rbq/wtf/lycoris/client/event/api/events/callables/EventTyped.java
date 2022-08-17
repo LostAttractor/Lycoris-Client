@@ -1,7 +1,7 @@
-package  rbq.wtf.lycoris.client.event.api.events.callables;
+package rbq.wtf.lycoris.client.event.api.events.callables;
 
-import  rbq.wtf.lycoris.client.event.api.events.Event;
-import  rbq.wtf.lycoris.client.event.api.events.Typed;
+import rbq.wtf.lycoris.client.event.api.events.Event;
+import rbq.wtf.lycoris.client.event.api.events.Typed;
 
 /**
  * Abstract example implementation of the Typed interface.
@@ -16,8 +16,7 @@ public abstract class EventTyped implements Event, Typed {
     /**
      * Sets the type of the event when it's called.
      *
-     * @param eventType
-     *         The type ID of the event.
+     * @param eventType The type ID of the event.
      */
     protected EventTyped(byte eventType) {
         type = eventType;

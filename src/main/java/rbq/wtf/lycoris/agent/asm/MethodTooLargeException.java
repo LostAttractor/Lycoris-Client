@@ -35,48 +35,56 @@ package rbq.wtf.lycoris.agent.asm;
  */
 public final class MethodTooLargeException extends IndexOutOfBoundsException {
 
-  private final String className;
-  private final String methodName;
-  private final String descriptor;
-  private final int codeSize;
+    private final String className;
+    private final String methodName;
+    private final String descriptor;
+    private final int codeSize;
 
-  /**
-   * Constructs a new {@link MethodTooLargeException}.
-   *
-   * @param className the internal name of the owner class.
-   * @param methodName the name of the method.
-   * @param descriptor the descriptor of the method.
-   * @param codeSize the size of the method's Code attribute, in bytes.
-   */
-  public MethodTooLargeException(
-      final String className,
-      final String methodName,
-      final String descriptor,
-      final int codeSize) {
-    super("Method too large: " + className + "." + methodName + " " + descriptor);
-    this.className = className;
-    this.methodName = methodName;
-    this.descriptor = descriptor;
-    this.codeSize = codeSize;
-  }
+    /**
+     * Constructs a new {@link MethodTooLargeException}.
+     *
+     * @param className  the internal name of the owner class.
+     * @param methodName the name of the method.
+     * @param descriptor the descriptor of the method.
+     * @param codeSize   the size of the method's Code attribute, in bytes.
+     */
+    public MethodTooLargeException(
+            final String className,
+            final String methodName,
+            final String descriptor,
+            final int codeSize) {
+        super("Method too large: " + className + "." + methodName + " " + descriptor);
+        this.className = className;
+        this.methodName = methodName;
+        this.descriptor = descriptor;
+        this.codeSize = codeSize;
+    }
 
-  /** @return the internal name of the owner class. */
-  public String getClassName() {
-    return className;
-  }
+    /**
+     * @return the internal name of the owner class.
+     */
+    public String getClassName() {
+        return className;
+    }
 
-  /** @return the name of the method. */
-  public String getMethodName() {
-    return methodName;
-  }
+    /**
+     * @return the name of the method.
+     */
+    public String getMethodName() {
+        return methodName;
+    }
 
-  /** @return the descriptor of the method. */
-  public String getDescriptor() {
-    return descriptor;
-  }
+    /**
+     * @return the descriptor of the method.
+     */
+    public String getDescriptor() {
+        return descriptor;
+    }
 
-  /** @return the size of the method's Code attribute, in bytes. */
-  public int getCodeSize() {
-    return codeSize;
-  }
+    /**
+     * @return the size of the method's Code attribute, in bytes.
+     */
+    public int getCodeSize() {
+        return codeSize;
+    }
 }

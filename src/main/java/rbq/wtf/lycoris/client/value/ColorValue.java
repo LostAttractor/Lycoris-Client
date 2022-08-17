@@ -7,19 +7,18 @@ import java.awt.*;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-public class ColorValue extends Value<Color>{
-    private  Color awtvalue;
-    private  Integer value;
-    private  String name;
+public class ColorValue extends Value<Color> {
+    private Color awtvalue;
+    private Integer value;
+    private String name;
     private Module module;
     public boolean rainbow;
 
 
-
     public ColorValue(String Name, Color col) {
-        name=Name;
-        awtvalue=col;
-        value=col.getRGB();
+        name = Name;
+        awtvalue = col;
+        value = col.getRGB();
         module = null;
     }
 
@@ -52,11 +51,12 @@ public class ColorValue extends Value<Color>{
 
 
     public void setValue(Color value) {
-        awtvalue=value;
+        awtvalue = value;
         this.value = value.getRGB();
     }
+
     public void setState(Color value) {
-        awtvalue=value;
+        awtvalue = value;
     }
 
     public Color getValue() {
@@ -64,7 +64,7 @@ public class ColorValue extends Value<Color>{
     }
 
 
-    public Color  getState() {
+    public Color getState() {
         return awtvalue;
     }
 
@@ -75,51 +75,48 @@ public class ColorValue extends Value<Color>{
 
     public Color getValue(float offset) {
 
-        if(rainbow) {
+        if (rainbow) {
             final float[] hsb = new float[3];
-            Color.RGBtoHSB(awtvalue.getRed(),awtvalue.getGreen(),awtvalue.getBlue(),hsb);
-            hsb[0]=(hsb[0]-offset*0.001f)%73;
-            return Color.getHSBColor(hsb[0],hsb[1],hsb[2]);
-        }else{
+            Color.RGBtoHSB(awtvalue.getRed(), awtvalue.getGreen(), awtvalue.getBlue(), hsb);
+            hsb[0] = (hsb[0] - offset * 0.001f) % 73;
+            return Color.getHSBColor(hsb[0], hsb[1], hsb[2]);
+        } else {
             return awtvalue;
         }
     }
 
-    public Color getValue(float offset,int realpha) {
-        if(rainbow) {
+    public Color getValue(float offset, int realpha) {
+        if (rainbow) {
             final float[] hsb = new float[3];
-            Color.RGBtoHSB(awtvalue.getRed(),awtvalue.getGreen(),awtvalue.getBlue(),hsb);
-            hsb[0]=(hsb[0]-offset*0.001f)%73;
-            Color cc=Color.getHSBColor(hsb[0],hsb[1],hsb[2]);
-            return new Color(cc.getRed(),cc.getGreen(),cc.getBlue(),realpha);
-        }else{
+            Color.RGBtoHSB(awtvalue.getRed(), awtvalue.getGreen(), awtvalue.getBlue(), hsb);
+            hsb[0] = (hsb[0] - offset * 0.001f) % 73;
+            Color cc = Color.getHSBColor(hsb[0], hsb[1], hsb[2]);
+            return new Color(cc.getRed(), cc.getGreen(), cc.getBlue(), realpha);
+        } else {
             return awtvalue;
         }
     }
-
-
-
 
 
     public Color getValueR(float offset) {
-        if(rainbow) {
+        if (rainbow) {
             final float[] hsb = new float[3];
-            Color.RGBtoHSB(awtvalue.getRed(),awtvalue.getGreen(),awtvalue.getBlue(),hsb);
-            hsb[0]=(hsb[0]+offset*0.001f)%73;
-            return Color.getHSBColor(hsb[0],hsb[1],hsb[2]);
-        }else{
+            Color.RGBtoHSB(awtvalue.getRed(), awtvalue.getGreen(), awtvalue.getBlue(), hsb);
+            hsb[0] = (hsb[0] + offset * 0.001f) % 73;
+            return Color.getHSBColor(hsb[0], hsb[1], hsb[2]);
+        } else {
             return awtvalue;
         }
     }
 
-    public Color getValueR(float offset,int realAlpha) {
-        if(rainbow) {
+    public Color getValueR(float offset, int realAlpha) {
+        if (rainbow) {
             final float[] hsb = new float[3];
-            Color.RGBtoHSB(awtvalue.getRed(),awtvalue.getGreen(),awtvalue.getBlue(),hsb);
-            hsb[0]=(hsb[0]+offset*0.001f)%73;
-            Color cc=Color.getHSBColor(hsb[0],hsb[1],hsb[2]);
-            return new Color(cc.getRed(),cc.getGreen(),cc.getBlue(),realAlpha);
-        }else{
+            Color.RGBtoHSB(awtvalue.getRed(), awtvalue.getGreen(), awtvalue.getBlue(), hsb);
+            hsb[0] = (hsb[0] + offset * 0.001f) % 73;
+            Color cc = Color.getHSBColor(hsb[0], hsb[1], hsb[2]);
+            return new Color(cc.getRed(), cc.getGreen(), cc.getBlue(), realAlpha);
+        } else {
             return awtvalue;
         }
     }
@@ -140,7 +137,6 @@ public class ColorValue extends Value<Color>{
     public int getAlpha() {
         return awtvalue.getAlpha();
     }
-
 
 
     public float[] getHSB() {

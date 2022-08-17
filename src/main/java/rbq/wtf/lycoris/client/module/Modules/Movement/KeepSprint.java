@@ -7,14 +7,16 @@ import rbq.wtf.lycoris.client.module.ModuleCategory;
 public class KeepSprint extends Module {
 
     public KeepSprint() {
-        super("KeepSprint",ModuleCategory.Movement,0);
+        super("KeepSprint", ModuleCategory.Movement, 0);
     }
+
     @Override
-    public void onEnable(){
+    public void onEnable() {
 
     }
+
     @Override
-    public void onDisable(){
+    public void onDisable() {
 
     }
 }

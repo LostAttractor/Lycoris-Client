@@ -13,13 +13,16 @@ public class Access {
     private static final Set<ClassTransformer> transformers = new HashSet<>();
     private static ClassTransformer[] transformersArray;
     private static boolean modified;
-    private Access() {}
+
+    private Access() {
+    }
 
 
     public static void addTransformer(final ClassTransformer classTransformer) {
         transformers.add(classTransformer);
         modified = true;
     }
+
     public static byte[] transformClass(final ClassLoader loader, final String className, final Class<?> classBeingRedefined, final ProtectionDomain protectionDomain, final byte[] classfileBuffer) {
         if (classBeingRedefined == null)
             return classfileBuffer;
@@ -40,6 +43,7 @@ public class Access {
 
         return atomicReference.get();
     }
+
     public static ClassTransformer[] getTransformersAsArray() {
         if (modified) {
             modified = false;

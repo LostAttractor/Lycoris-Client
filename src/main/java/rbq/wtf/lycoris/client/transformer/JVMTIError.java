@@ -53,26 +53,26 @@ public enum JVMTIError {
     JVMTI_ERROR_MAX(116);
 
     private int value;
+
     JVMTIError(int value) {
         this.value = value;
     }
+
     public int getValue() {
         return this.value;
     }
 
 
-
-
     public static String parse(int value) {
         for (JVMTIError error : JVMTIError.values()) {
             if (error.getValue() == value) {
-                return firstLetterString(error.name().replace("JVMTI_ERROR_NONE","Successful").replaceAll("JVMTI_ERROR_","").replaceAll("_"," ").toLowerCase()) + "(" +  (value) + ")";
+                return firstLetterString(error.name().replace("JVMTI_ERROR_NONE", "Successful").replaceAll("JVMTI_ERROR_", "").replaceAll("_", " ").toLowerCase()) + "(" + (value) + ")";
             }
         }
-        return "Unknown error(" + value  + ")";
+        return "Unknown error(" + value + ")";
     }
 
-    public static String firstLetterString(String s){
+    public static String firstLetterString(String s) {
         String result = " ";
         String[] value = s.split(" ");
         for (String item : value) {
@@ -85,6 +85,6 @@ public enum JVMTIError {
 
     @Override
     public String toString() {
-        return this.name() + " : "+value;
+        return this.name() + " : " + value;
     }
 }

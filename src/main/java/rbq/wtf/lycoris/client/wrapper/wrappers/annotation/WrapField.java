@@ -14,6 +14,8 @@ import java.lang.annotation.*;
  */
 public @interface WrapField {
     String mcpName();
+
     MapEnum targetMap();
+
     String customSrgName() default "none";
 }

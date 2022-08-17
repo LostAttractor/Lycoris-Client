@@ -1,4 +1,4 @@
-package  rbq.wtf.lycoris.client.event.api.types;
+package rbq.wtf.lycoris.client.event.api.types;
 
 /**
  * The priority for the dispatcher to determine what method should be invoked first.

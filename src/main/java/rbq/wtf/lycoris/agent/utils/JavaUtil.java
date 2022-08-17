@@ -3,9 +3,9 @@ package rbq.wtf.lycoris.agent.utils;
 import java.util.Arrays;
 import java.util.Stack;
 
-public final class JavaUtil
-{
-    private JavaUtil() {}
+public final class JavaUtil {
+    private JavaUtil() {
+    }
 
     public static boolean equals(final byte[] firstByteArray, final byte[] secondByteArray) {
         if (firstByteArray.length != secondByteArray.length)

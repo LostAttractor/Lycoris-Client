@@ -2,12 +2,12 @@ package rbq.wtf.lycoris.client.value;
 
 import rbq.wtf.lycoris.client.module.Module;
 
-public class NumberValue extends Value<Float>{
-    private  String name;
-    private  float value;
-    private  float increase;
-    private  float min;
-    private  float max;
+public class NumberValue extends Value<Float> {
+    private String name;
+    private float value;
+    private float increase;
+    private float min;
+    private float max;
     private Module module;
 
     public NumberValue(String Name, float Value, float Min, float Max, float Increase) {
@@ -22,13 +22,13 @@ public class NumberValue extends Value<Float>{
     public NumberValue(String Name, double Value, double Min, double Max, double Increase) {
         this.name = Name;
         this.value = (float) Value;
-        this.min = (float)Min;
-        this.max =(float)Max;
-        this.increase = (float)Increase;
+        this.min = (float) Min;
+        this.max = (float) Max;
+        this.increase = (float) Increase;
         this.module = null;
     }
 
-    public NumberValue(String Name, float Value, float Min, float Max, float Increase,Module module) {
+    public NumberValue(String Name, float Value, float Min, float Max, float Increase, Module module) {
         this.name = Name;
         this.value = Value;
         this.min = Min;
@@ -37,12 +37,12 @@ public class NumberValue extends Value<Float>{
         this.module = module;
     }
 
-    public NumberValue(String Name, double Value, double Min, double Max, double Increase,Module module) {
+    public NumberValue(String Name, double Value, double Min, double Max, double Increase, Module module) {
         this.name = Name;
         this.value = (float) Value;
-        this.min = (float)Min;
-        this.max =(float)Max;
-        this.increase = (float)Increase;
+        this.min = (float) Min;
+        this.max = (float) Max;
+        this.increase = (float) Increase;
         this.module = module;
     }
 

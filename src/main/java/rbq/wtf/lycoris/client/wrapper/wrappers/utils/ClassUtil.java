@@ -10,7 +10,7 @@ public class ClassUtil {
     public static List<Class<?>> getClasses(String pack) {
         ArrayList<Class<?>> list = new ArrayList<Class<?>>();
         for (Class<?> allLoadedClass : LycorisAgent.getAllLoadedClass(new InstrumentationImpl())) {
-            if (allLoadedClass.getCanonicalName().startsWith(pack)){
+            if (allLoadedClass.getCanonicalName().startsWith(pack)) {
                 list.add(allLoadedClass);
             }
         }

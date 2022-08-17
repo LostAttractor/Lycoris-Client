@@ -32,43 +32,45 @@ import rbq.wtf.lycoris.agent.asm.MethodVisitor;
 
 import java.util.Map;
 
-/** An {@link AbstractInsnNode} that encapsulates a {@link Label}. */
+/**
+ * An {@link AbstractInsnNode} that encapsulates a {@link Label}.
+ */
 public class LabelNode extends AbstractInsnNode {
 
-  private Label value;
+    private Label value;
 
-  public LabelNode() {
-    super(-1);
-  }
-
-  public LabelNode(final Label label) {
-    super(-1);
-    this.value = label;
-  }
-
-  @Override
-  public int getType() {
-    return LABEL;
-  }
-
-  public Label getLabel() {
-    if (value == null) {
-      value = new Label();
+    public LabelNode() {
+        super(-1);
     }
-    return value;
-  }
 
-  @Override
-  public void accept(final MethodVisitor methodVisitor) {
-    methodVisitor.visitLabel(getLabel());
-  }
+    public LabelNode(final Label label) {
+        super(-1);
+        this.value = label;
+    }
 
-  @Override
-  public AbstractInsnNode clone(final Map<LabelNode, LabelNode> clonedLabels) {
-    return clonedLabels.get(this);
-  }
+    @Override
+    public int getType() {
+        return LABEL;
+    }
 
-  public void resetLabel() {
-    value = null;
-  }
+    public Label getLabel() {
+        if (value == null) {
+            value = new Label();
+        }
+        return value;
+    }
+
+    @Override
+    public void accept(final MethodVisitor methodVisitor) {
+        methodVisitor.visitLabel(getLabel());
+    }
+
+    @Override
+    public AbstractInsnNode clone(final Map<LabelNode, LabelNode> clonedLabels) {
+        return clonedLabels.get(this);
+    }
+
+    public void resetLabel() {
+        value = null;
+    }
 }

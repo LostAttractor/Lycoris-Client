@@ -2,17 +2,16 @@ package rbq.wtf.lycoris.client.gui.ClickGUI;
 
 
 import org.lwjgl.input.Mouse;
-
+import rbq.wtf.lycoris.client.gui.ClickGUI.Component.CategoryButton;
+import rbq.wtf.lycoris.client.gui.ClickGUI.Component.Component;
+import rbq.wtf.lycoris.client.gui.ClickGUI.Component.ModuleButtonList;
 import rbq.wtf.lycoris.client.gui.ClickGUI.Utils.RenderUtil;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
-import rbq.wtf.lycoris.client.gui.ClickGUI.Component.*;
-import rbq.wtf.lycoris.client.gui.ClickGUI.Component.Component;
 import rbq.wtf.lycoris.client.module.Module;
 import rbq.wtf.lycoris.client.module.ModuleCategory;
 import rbq.wtf.lycoris.client.wrapper.wrappers.impl.GuiScreenImpl;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -30,9 +29,10 @@ public class ClickGUI extends GuiScreenImpl {
     public ArrayList<CategoryButton> categoryButtonList = new ArrayList<CategoryButton>();
     public ArrayList<ModuleButtonList> moduleButtonList = new ArrayList<ModuleButtonList>();
     public static ArrayList<Component> valueComponentList = new ArrayList<Component>();
+
     public ClickGUI() {
         currentModuleType = ModuleCategory.Combat;
-        for (ModuleCategory c : ModuleCategory.values()){
+        for (ModuleCategory c : ModuleCategory.values()) {
             categoryButtonList.add(new CategoryButton(c));
             moduleButtonList.add(new ModuleButtonList(c));
         }
@@ -57,34 +57,34 @@ public class ClickGUI extends GuiScreenImpl {
         }
 
         //draw bg
-        RenderUtil.drawFastRoundedRect( startX - 1 , startY - 1 , startX + 445 + 1,
-                startY + 327 + 1,5,new Color( 15, 15, 15,33).getRGB());
-        RenderUtil.drawFastRoundedRect( startX - 1.5f , startY - 1.5f , startX + 445 + 1.5f,
-                startY + 327 + 1.5f,5,new Color( 15, 15, 15,31).getRGB());
-        RenderUtil.drawFastRoundedRect( startX - 2 , startY - 2 , startX + 445 + 2,
-                startY + 327 + 2,5,new Color( 15, 15, 15,29).getRGB());
-        RenderUtil.drawFastRoundedRect( startX , startY , startX + 445,
-                startY + 327,5,new Color( 15, 15, 15).getRGB());
-        RenderUtil.drawHLine(startX,startY + 35,startX + 445,startY + 35,4,
-                new Color(69,78,238).getRGB());
-        RenderUtil.drawHLine(startX + 110,startY + 35,startX + 110,startY + 327,4,
-                new Color(69,78,238).getRGB());
-        RenderUtil.drawHLine(startX + 107,startY + 36,startX + 107,startY + 327,4,
+        RenderUtil.drawFastRoundedRect(startX - 1, startY - 1, startX + 445 + 1,
+                startY + 327 + 1, 5, new Color(15, 15, 15, 33).getRGB());
+        RenderUtil.drawFastRoundedRect(startX - 1.5f, startY - 1.5f, startX + 445 + 1.5f,
+                startY + 327 + 1.5f, 5, new Color(15, 15, 15, 31).getRGB());
+        RenderUtil.drawFastRoundedRect(startX - 2, startY - 2, startX + 445 + 2,
+                startY + 327 + 2, 5, new Color(15, 15, 15, 29).getRGB());
+        RenderUtil.drawFastRoundedRect(startX, startY, startX + 445,
+                startY + 327, 5, new Color(15, 15, 15).getRGB());
+        RenderUtil.drawHLine(startX, startY + 35, startX + 445, startY + 35, 4,
+                new Color(69, 78, 238).getRGB());
+        RenderUtil.drawHLine(startX + 110, startY + 35, startX + 110, startY + 327, 4,
+                new Color(69, 78, 238).getRGB());
+        RenderUtil.drawHLine(startX + 107, startY + 36, startX + 107, startY + 327, 4,
                 new Color(38, 38, 38).getRGB());
-        RenderUtil.drawHLine(startX + 107,startY + 37,startX + 107,startY + 220,2,
+        RenderUtil.drawHLine(startX + 107, startY + 37, startX + 107, startY + 220, 2,
                 new Color(87, 87, 87).getRGB());
         //DrawClientName
         FontLoaders.default15.drawStringWithShadow("L",
-                startX + 403 ,
-                startY + 317 ,
-                new Color(96,78,238).getRGB());
+                startX + 403,
+                startY + 317,
+                new Color(96, 78, 238).getRGB());
         FontLoaders.default15.drawStringWithShadow("ycoris 2.0",
                 startX + 403 + FontLoaders.default15.getStringWidth("L"),
-                startY + 317 ,
-                new Color(255,255,255).getRGB());
+                startY + 317,
+                new Color(255, 255, 255).getRGB());
         //DrawCategory
         float categoryX = 0;
-        for (CategoryButton c: categoryButtonList) {
+        for (CategoryButton c : categoryButtonList) {
             c.updateComponent(
                     startX + 14 + categoryX,
                     startY + 14,
@@ -95,10 +95,10 @@ public class ClickGUI extends GuiScreenImpl {
         }
 
         //DrawModules
-        RenderUtil.startGlScissor((int) (ClickGUI.startX), (int) (ClickGUI.startY + 50.0F),445, (int)277);
+        RenderUtil.startGlScissor((int) (ClickGUI.startX), (int) (ClickGUI.startY + 50.0F), 445, (int) 277);
 
         float moduleY = startY + 45;
-        for (ModuleButtonList list: moduleButtonList) {
+        for (ModuleButtonList list : moduleButtonList) {
             if (list.category == currentModuleType) {
                 list.updateComponent(startX + 13,
                         startY + 45 + moduleWheel,
@@ -112,7 +112,7 @@ public class ClickGUI extends GuiScreenImpl {
         //Modules Mouse Wheel
         int mouseWheel = Mouse.getDWheel();
         if (this.isHovered(startX + 1.0F, startY + 40.0F, startX + 100.0F, startY + 327.0F, mouseX, mouseY)) {
-            if (mouseWheel < 0  && moduleY + moduleWheel - startY - 70 >= 260) {
+            if (mouseWheel < 0 && moduleY + moduleWheel - startY - 70 >= 260) {
                 moduleWheel = moduleWheel - 7;
             }
             if (mouseWheel > 0 && moduleWheel != 0) {
@@ -122,18 +122,18 @@ public class ClickGUI extends GuiScreenImpl {
 
         //DrawValues
         float valueY = startY + 45;
-        for (Component component : valueComponentList){
+        for (Component component : valueComponentList) {
             component.updateComponent(
                     startX + 120,
                     valueWheel + valueY,
                     mouseX,
                     mouseY
             );
-            valueY+=component.getHeight();
+            valueY += component.getHeight();
         }
         RenderUtil.stopGlScissor();
-        if (this.isHovered(startX + 110, startY + 35.0F, startX + 440.0F, startY + 330.0F, mouseX, mouseY)){
-            if (mouseWheel < 0  && valueY + valueWheel - startY > 325) {
+        if (this.isHovered(startX + 110, startY + 35.0F, startX + 440.0F, startY + 330.0F, mouseX, mouseY)) {
+            if (mouseWheel < 0 && valueY + valueWheel - startY > 325) {
                 valueWheel = valueWheel - 7;
             }
 
@@ -141,8 +141,6 @@ public class ClickGUI extends GuiScreenImpl {
                 valueWheel = valueWheel + 7;
             }
         }
-
-
 
 
     }
@@ -155,20 +153,20 @@ public class ClickGUI extends GuiScreenImpl {
         System.out.println(mouseX - startX);
         System.out.println(mouseY - startY);
         //Module Click
-        if (this.isHovered(startX + 1.0F, startY + 40.0F, startX + 100.0F, startY + 327.0F, mouseX, mouseY)){
-            for (ModuleButtonList list: moduleButtonList) {
+        if (this.isHovered(startX + 1.0F, startY + 40.0F, startX + 100.0F, startY + 327.0F, mouseX, mouseY)) {
+            for (ModuleButtonList list : moduleButtonList) {
                 if (list.category == currentModuleType) {
                     list.mouseClicked(mouseX, mouseY, mouseButton);
                 }
             }
         }
         //Value Click
-        if (this.isHovered(startX + 110, startY + 35.0F, startX + 440.0F, startY + 330.0F, mouseX, mouseY)){
+        if (this.isHovered(startX + 110, startY + 35.0F, startX + 440.0F, startY + 330.0F, mouseX, mouseY)) {
             float valueY = startY + 50;
             if (currentModule != null) {
-                for ( Component component : valueComponentList) {
-                    component.mouseClicked(mouseX,mouseY,mouseButton);
-                    valueY+=component.getHeight();
+                for (Component component : valueComponentList) {
+                    component.mouseClicked(mouseX, mouseY, mouseButton);
+                    valueY += component.getHeight();
                 }
 
             }
@@ -177,12 +175,12 @@ public class ClickGUI extends GuiScreenImpl {
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int state) {
-        if (this.isHovered(startX + 110, startY + 35.0F, startX + 440.0F, startY + 330.0F, mouseX, mouseY)){
+        if (this.isHovered(startX + 110, startY + 35.0F, startX + 440.0F, startY + 330.0F, mouseX, mouseY)) {
             float valueY = startY + 50;
             if (currentModule != null) {
-                for ( Component component : valueComponentList) {
+                for (Component component : valueComponentList) {
                     component.mouseReleased(state);
-                    valueY+=component.getHeight();
+                    valueY += component.getHeight();
                 }
 
             }
@@ -190,10 +188,10 @@ public class ClickGUI extends GuiScreenImpl {
     }
 
     @Override
-    public boolean keyTyped(char typedChar, int keyCode){
+    public boolean keyTyped(char typedChar, int keyCode) {
         super.keyTyped(typedChar, keyCode);
         if (currentActiveTextValue != null) {
-            currentActiveTextValue.keyTyped(typedChar,keyCode);
+            currentActiveTextValue.keyTyped(typedChar, keyCode);
         }
         return true;
     }

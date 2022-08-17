@@ -1,18 +1,18 @@
 /**
  * This is an API used for handling events across your java based projects.
  * It's meant to be simple to use without sacrificing performance and extensibility.
- *
- * Currently the API is in beta phase but it's stable and ready to be used. 
- *
- * If you have any suggestion for improvements/fixes for shit, 
+ * <p>
+ * Currently the API is in beta phase but it's stable and ready to be used.
+ * <p>
+ * If you have any suggestion for improvements/fixes for shit,
  * feel free to make a pull request on the bitbucket: https://bitbucket.org/DarkMagician6/eventapi/overview.
- *
+ * <p>
  * For information on how to use the API take a look at the wiki:
  * https://bitbucket.org/DarkMagician6/eventapi/wiki/Home
  *
  * @Todo Improve/update the wiki.
  */
-package  rbq.wtf.lycoris.client.event.api;
+package rbq.wtf.lycoris.client.event.api;
 
 
 /**
@@ -23,13 +23,13 @@ package  rbq.wtf.lycoris.client.event.api;
  * @since July 31, 2013
  */
 public final class EventAPI {
-	
-	/**
-	 * No need to create an Object of this class as all Methods are static.
-	 */
-	private EventAPI() {
 
-	}
+    /**
+     * No need to create an Object of this class as all Methods are static.
+     */
+    private EventAPI() {
+
+    }
 
     /**
      * The current version of the API.

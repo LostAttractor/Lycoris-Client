@@ -4,9 +4,9 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 
 
-public final class Reflections
-{
-    private Reflections() {}
+public final class Reflections {
+    private Reflections() {
+    }
 
     public static Method getMethod(final Class<?> aClass, final String name) {
         try {

@@ -1,16 +1,5 @@
 package rbq.wtf.lycoris.client.utils;
 
-import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.Display;
@@ -23,6 +12,16 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.GlStateManager;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.Tessellator;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.WorldRenderer;
 
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -38,6 +37,7 @@ public class RenderUtil {
     private static final Consumer<Integer> DISABLE_CLIENT_STATE;
 
     public static float delta;
+
     static {
         csBuffer = new ArrayList<Integer>();
         ENABLE_CLIENT_STATE = GL11::glEnableClientState;
@@ -130,7 +130,6 @@ public class RenderUtil {
         glEnable(GL_TEXTURE_2D);
         glDisable(GL_BLEND);
     }
-
 
 
     public static void color(int color, float alpha) {
@@ -291,7 +290,7 @@ public class RenderUtil {
         glEnable(3553);
         glDisable(3042);
         glDisable(2848);
-        Gui.drawRect(0,0,0,0,0);
+        Gui.drawRect(0, 0, 0, 0, 0);
     }
 
     public static void pre() {
@@ -319,7 +318,6 @@ public class RenderUtil {
                 rgb1[2] * r + rgb2[2] * ir);
         return color3;
     }
-
 
 
     public static void setupRender(final boolean start) {
@@ -515,7 +513,7 @@ public class RenderUtil {
         glDisable((int) 3042);
         glDisable((int) 2848);
         GL11.glPopMatrix();
-        Gui.drawRect(0,0,0,0,0);
+        Gui.drawRect(0, 0, 0, 0, 0);
     }
 
     public static void rectangleBordered(double x, double y, double x1, double y1, double width, int internalColor,
@@ -633,7 +631,7 @@ public class RenderUtil {
         final boolean result = GLU.gluProject((float) x, (float) y, (float) z, modelView, projection, viewport,
                 screenCoords);
         return (double[]) (result
-                ? new double[] { screenCoords.get(0), Display.getHeight() - screenCoords.get(1), screenCoords.get(2) }
+                ? new double[]{screenCoords.get(0), Display.getHeight() - screenCoords.get(1), screenCoords.get(2)}
                 : null);
     }
 
@@ -721,7 +719,6 @@ public class RenderUtil {
         glDisable((int) 3042);
         GL11.glScalef((float) 2.0f, (float) 2.0f, (float) 2.0f);
     }
-
 
 
     public static void drawHollowBox(float x, float y, float x1, float y1, float thickness, int color) {
@@ -1025,7 +1022,8 @@ public class RenderUtil {
 
     public static int createShader(String shaderCode, int shaderType) throws Exception {
         int shader;
-        block4: {
+        block4:
+        {
             shader = 0;
             try {
                 shader = ARBShaderObjects.glCreateShaderObjectARB((int) shaderType);

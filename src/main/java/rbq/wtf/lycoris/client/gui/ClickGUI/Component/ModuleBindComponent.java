@@ -2,14 +2,15 @@ package rbq.wtf.lycoris.client.gui.ClickGUI.Component;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI;
+import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.module.Module;
 
-public class ModuleBindComponent extends Component{
+public class ModuleBindComponent extends Component {
     Module module;
     float x;
     float y;
+
     public ModuleBindComponent(Module module) {
         this.module = module;
         this.setHeight(15);
@@ -24,9 +25,9 @@ public class ModuleBindComponent extends Component{
 
     @Override
     public void render() {
-        if (ClickGUI.currentActiveTextValue != null){
+        if (ClickGUI.currentActiveTextValue != null) {
             if (ClickGUI.currentActiveTextValue == this) {
-                FontLoaders.default18.drawStringWithShadow("Bind to" ,
+                FontLoaders.default18.drawStringWithShadow("Bind to",
                         x,
                         y,
                         -1);
@@ -61,7 +62,7 @@ public class ModuleBindComponent extends Component{
             }
         } else {
             if (ClickGUI.currentActiveTextValue != null) {
-                if (ClickGUI.currentActiveTextValue == this){
+                if (ClickGUI.currentActiveTextValue == this) {
                     ClickGUI.currentActiveTextValue = null;
                 }
             }

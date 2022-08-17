@@ -1,4 +1,4 @@
-package  rbq.wtf.lycoris.client.event.api.events;
+package rbq.wtf.lycoris.client.event.api.events;
 
 /**
  * The most basic form of an stoppable Event.
@@ -28,8 +28,7 @@ public abstract class EventStoppable implements Event {
     /**
      * Checks the stopped boolean.
      *
-     * @return
-     *      True if the EventStoppable is stopped.
+     * @return True if the EventStoppable is stopped.
      */
     public boolean isStopped() {
         return stopped;

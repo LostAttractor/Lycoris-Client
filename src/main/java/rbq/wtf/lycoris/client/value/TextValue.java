@@ -2,7 +2,7 @@ package rbq.wtf.lycoris.client.value;
 
 import rbq.wtf.lycoris.client.module.Module;
 
-public class TextValue extends Value<String>{
+public class TextValue extends Value<String> {
     private String name;
     private Module module;
     private String value;
@@ -22,11 +22,12 @@ public class TextValue extends Value<String>{
         return value;
     }
 
-    public TextValue(String name,  String value ,Module module) {
+    public TextValue(String name, String value, Module module) {
         this.name = name;
         this.module = module;
         this.value = value;
     }
+
     public TextValue(String name, String value) {
         this.name = name;
         this.module = null;

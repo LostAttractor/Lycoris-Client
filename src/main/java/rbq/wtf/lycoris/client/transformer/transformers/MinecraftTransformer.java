@@ -24,28 +24,28 @@ public class MinecraftTransformer extends ClassTransformer {
     public byte[] transform(byte[] bytes) {
         ClassReader cr = new ClassReader(bytes);
         ClassNode classNode = new ClassNode();
-        cr.accept(classNode,0);
-        for (MethodNode method: classNode.methods){
-            if (method.name.equalsIgnoreCase(Minecraft.runTick.getName())){
+        cr.accept(classNode, 0);
+        for (MethodNode method : classNode.methods) {
+            if (method.name.equalsIgnoreCase(Minecraft.runTick.getName())) {
                 InsnList insnList = new InsnList();
-                insnList.add(new TypeInsnNode(Opcodes.NEW,Type.getInternalName(EventTick.class)));
+                insnList.add(new TypeInsnNode(Opcodes.NEW, Type.getInternalName(EventTick.class)));
                 insnList.add(new InsnNode(Opcodes.DUP));
-                insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(EventTick.class),"<init>","()V",false));
-                insnList.add(new MethodInsnNode(Opcodes.INVOKESTATIC,Type.getInternalName(EventManager.class),"call","(L"+Type.getInternalName(Event.class)+";)L"+Type.getInternalName(Event.class)+";", false));
+                insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(EventTick.class), "<init>", "()V", false));
+                insnList.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(EventManager.class), "call", "(L" + Type.getInternalName(Event.class) + ";)L" + Type.getInternalName(Event.class) + ";", false));
                 insnList.add(new InsnNode(Opcodes.POP));
                 method.instructions.insert(insnList);
             }
-            if (method.name.equalsIgnoreCase(Minecraft.runGameLoop.getName())){
+            if (method.name.equalsIgnoreCase(Minecraft.runGameLoop.getName())) {
                 InsnList insnList = new InsnList();
-                insnList.add(new TypeInsnNode(Opcodes.NEW,Type.getInternalName(EventLoop.class)));
+                insnList.add(new TypeInsnNode(Opcodes.NEW, Type.getInternalName(EventLoop.class)));
                 insnList.add(new InsnNode(Opcodes.DUP));
-                insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(EventLoop.class),"<init>","()V",false));
-                insnList.add(new MethodInsnNode(Opcodes.INVOKESTATIC,Type.getInternalName(EventManager.class),"call","(L"+Type.getInternalName(Event.class)+";)L"+Type.getInternalName(Event.class)+";", false));
+                insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(EventLoop.class), "<init>", "()V", false));
+                insnList.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(EventManager.class), "call", "(L" + Type.getInternalName(Event.class) + ";)L" + Type.getInternalName(Event.class) + ";", false));
                 insnList.add(new InsnNode(Opcodes.POP));
                 method.instructions.insert(insnList);
             }
         }
-        ClassWriter cw = new ClassWriter(cr,ClassWriter.COMPUTE_MAXS + ClassWriter.COMPUTE_FRAMES);
+        ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS + ClassWriter.COMPUTE_FRAMES);
         classNode.accept(cw);
         return cw.toByteArray();
     }

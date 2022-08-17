@@ -1,4 +1,4 @@
-package  rbq.wtf.lycoris.client.event.api.types;
+package rbq.wtf.lycoris.client.event.api.types;
 
 /**
  * Types that can be used for typed events.
@@ -12,6 +12,6 @@ public enum EventType {
      * Used to define the type of a typed event.
      */
 
-            PRE,ON,POST,SEND,RECIEVE;
+    PRE, ON, POST, SEND, RECIEVE;
 
 }

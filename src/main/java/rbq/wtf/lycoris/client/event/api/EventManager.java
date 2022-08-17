@@ -1,10 +1,9 @@
-package  rbq.wtf.lycoris.client.event.api;
+package rbq.wtf.lycoris.client.event.api;
 
-import  rbq.wtf.lycoris.client.event.api.events.Event;
-import  rbq.wtf.lycoris.client.event.api.events.EventStoppable;
-import  rbq.wtf.lycoris.client.event.api.types.Priority;
+import rbq.wtf.lycoris.client.event.api.events.Event;
+import rbq.wtf.lycoris.client.event.api.events.EventStoppable;
+import rbq.wtf.lycoris.client.event.api.types.Priority;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,29 +12,26 @@ import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * 
- * 
  * @author DarkMagician6
  * @since February 2, 2014
  */
 public final class EventManager {
-	
-	/**
-	 * HashMap containing all the registered MethodData sorted on the event parameters of the methods.
-	 */
-	private static final Map<Class<? extends Event>, List<MethodData>> REGISTRY_MAP = new HashMap<Class<? extends Event>, List<MethodData>>();
-	
-	/**
-	 * All methods in this class are static so there would be no reason to create an object of the EventManager class.
-	 */
+
+    /**
+     * HashMap containing all the registered MethodData sorted on the event parameters of the methods.
+     */
+    private static final Map<Class<? extends Event>, List<MethodData>> REGISTRY_MAP = new HashMap<Class<? extends Event>, List<MethodData>>();
+
+    /**
+     * All methods in this class are static so there would be no reason to create an object of the EventManager class.
+     */
     private EventManager() {
-	}
-	
+    }
+
     /**
      * Registers all the methods marked with the EventTarget annotation in the class of the given Object.
      *
-     * @param object
-     *         Object that you want to register.
+     * @param object Object that you want to register.
      */
     public static void register(Object object) {
         for (final Method method : object.getClass().getDeclaredMethods()) {
@@ -51,10 +47,8 @@ public final class EventManager {
      * Registers the methods marked with the EventTarget annotation and that require
      * the specified Event as the parameter in the class of the given Object.
      *
-     * @param object
-     *         Object that contains the Method you want to register.
-     * @param Parameter
-     *         class for the marked method we are looking for.
+     * @param object    Object that contains the Method you want to register.
+     * @param Parameter class for the marked method we are looking for.
      */
     public static void register(Object object, Class<? extends Event> eventClass) {
         for (final Method method : object.getClass().getDeclaredMethods()) {
@@ -69,8 +63,7 @@ public final class EventManager {
     /**
      * Unregisters all the methods inside the Object that are marked with the EventTarget annotation.
      *
-     * @param object
-     *         Object of which you want to unregister all Methods.
+     * @param object Object of which you want to unregister all Methods.
      */
     public static void unregister(Object object) {
         for (final List<MethodData> dataList : REGISTRY_MAP.values()) {
@@ -87,16 +80,14 @@ public final class EventManager {
     /**
      * Unregisters all the methods in the given Object that have the specified class as a parameter.
      *
-     * @param object
-     *         Object that implements the Listener interface.
-     * @param Parameter
-     *         class for the method to remove.
+     * @param object    Object that implements the Listener interface.
+     * @param Parameter class for the method to remove.
      */
     public static void unregister(Object object, Class<? extends Event> eventClass) {
         if (REGISTRY_MAP.containsKey(eventClass)) {
             for (final MethodData data : REGISTRY_MAP.get(eventClass)) {
                 if (data.getSource().equals(object)) {
-                	REGISTRY_MAP.get(eventClass).remove(data);
+                    REGISTRY_MAP.get(eventClass).remove(data);
                 }
             }
 
@@ -111,41 +102,40 @@ public final class EventManager {
      * Otherwise it will put a new entry in the HashMap with a the first argument's class
      * and a new CopyOnWriteArrayList containing the new MethodData.
      *
-     * @param method
-     *         Method to register to the HashMap.
-     * @param object
-     *         Source object of the method.
+     * @param method Method to register to the HashMap.
+     * @param object Source object of the method.
      */
     private static void register(Method method, Object object) {
-    	Class<? extends Event> indexClass = (Class<? extends Event>) method.getParameterTypes()[0];
-    	//New MethodData from the Method we are registering.
-    	final MethodData data = new MethodData(object, method, method.getAnnotation(EventTarget.class).value());
-    	
-    	//Set's the method to accessible so that we can also invoke it if it's protected or private.
-    	if (!data.getTarget().isAccessible()) {
-    		data.getTarget().setAccessible(true);
-    	}
-	
-    	if (REGISTRY_MAP.containsKey(indexClass)) {
-    		if (!REGISTRY_MAP.get(indexClass).contains(data)) {
-    			REGISTRY_MAP.get(indexClass).add(data);
-    			sortListValue(indexClass);
-    		}
-    	} else {
-    		REGISTRY_MAP.put(indexClass, new CopyOnWriteArrayList<MethodData>() {
-    			//Eclipse was bitching about a serialVersionUID.
-    			private static final long serialVersionUID = 666L; {
-    				add(data);
-    			}
-    		});
-    	}
+        Class<? extends Event> indexClass = (Class<? extends Event>) method.getParameterTypes()[0];
+        //New MethodData from the Method we are registering.
+        final MethodData data = new MethodData(object, method, method.getAnnotation(EventTarget.class).value());
+
+        //Set's the method to accessible so that we can also invoke it if it's protected or private.
+        if (!data.getTarget().isAccessible()) {
+            data.getTarget().setAccessible(true);
+        }
+
+        if (REGISTRY_MAP.containsKey(indexClass)) {
+            if (!REGISTRY_MAP.get(indexClass).contains(data)) {
+                REGISTRY_MAP.get(indexClass).add(data);
+                sortListValue(indexClass);
+            }
+        } else {
+            REGISTRY_MAP.put(indexClass, new CopyOnWriteArrayList<MethodData>() {
+                //Eclipse was bitching about a serialVersionUID.
+                private static final long serialVersionUID = 666L;
+
+                {
+                    add(data);
+                }
+            });
+        }
     }
 
     /**
      * Removes an entry based on the key value in the map.
      *
-     * @param indexClass
-     *         They index key in the map of which the entry should be removed.
+     * @param indexClass They index key in the map of which the entry should be removed.
      */
     public static void removeEntry(Class<? extends Event> indexClass) {
         Iterator<Map.Entry<Class<? extends Event>, List<MethodData>>> mapIterator = REGISTRY_MAP.entrySet().iterator();
@@ -162,8 +152,7 @@ public final class EventManager {
      * Cleans up the map entries.
      * Uses an iterator to make sure that the entry is completely removed.
      *
-     * @param onlyEmptyEntries
-     *         If true only remove the entries with an empty list, otherwise remove all the entries.
+     * @param onlyEmptyEntries If true only remove the entries with an empty list, otherwise remove all the entries.
      */
     public static void cleanMap(boolean onlyEmptyEntries) {
         Iterator<Map.Entry<Class<? extends Event>, List<MethodData>>> mapIterator = REGISTRY_MAP.entrySet().iterator();
@@ -178,8 +167,7 @@ public final class EventManager {
     /**
      * Sorts the List that matches the corresponding Event class based on priority value.
      *
-     * @param indexClass
-     *         The Event class index in the HashMap of the List to sort.
+     * @param indexClass The Event class index in the HashMap of the List to sort.
      */
     private static void sortListValue(Class<? extends Event> indexClass) {
         List<MethodData> sortedList = new CopyOnWriteArrayList<MethodData>();
@@ -200,11 +188,8 @@ public final class EventManager {
      * Checks if the method does not meet the requirements to be used to receive event calls from the Dispatcher.
      * Performed checks: Checks if the parameter length is not 1 and if the EventTarget annotation is not present.
      *
-     * @param method
-     *         Method to check.
-     *
+     * @param method Method to check.
      * @return True if the method should not be used for receiving event calls from the Dispatcher.
-     *
      * @see EventTarget
      */
     private static boolean isMethodBad(Method method) {
@@ -215,19 +200,15 @@ public final class EventManager {
      * Checks if the method does not meet the requirements to be used to receive event calls from the Dispatcher.
      * Performed checks: Checks if the parameter class of the method is the same as the event we want to receive.
      *
-     * @param method
-     *         Method to check.
-     * @param Class
-     *         of the Event we want to find a method for receiving it.
-     *
+     * @param method Method to check.
+     * @param Class  of the Event we want to find a method for receiving it.
      * @return True if the method should not be used for receiving event calls from the Dispatcher.
-     *
      * @see EventTarget
      */
     private static boolean isMethodBad(Method method, Class<? extends Event> eventClass) {
         return isMethodBad(method) || !method.getParameterTypes()[0].equals(eventClass);
     }
-	
+
     /**
      * Call's an event and invokes the right methods that are listening to the event call.
      * First get's the matching list from the registry map based on the class of the event.
@@ -238,9 +219,7 @@ public final class EventManager {
      * For every MethodData in the list it will invoke the Data's method with the Event as the argument.
      * After that is all done it will return the Event.
      *
-     * @param event
-     *         Event to dispatch.
-     *
+     * @param event Event to dispatch.
      * @return Event in the state after dispatching it.
      */
     public static final Event call(final Event event) {
@@ -266,16 +245,14 @@ public final class EventManager {
 
         return event;
     }
-    
+
     /**
      * Invokes a MethodData when an Event call is made.
      *
-     * @param data
-     *         The data of which the targeted Method should be invoked.
-     * @param argument
-     *         The called Event which should be used as an argument for the targeted Method.
-     *         
-     * TODO: Error messages.
+     * @param data     The data of which the targeted Method should be invoked.
+     * @param argument The called Event which should be used as an argument for the targeted Method.
+     *                 <p>
+     *                                 TODO: Error messages.
      */
     private static void invoke(MethodData data, Event argument) {
         try {
@@ -284,66 +261,62 @@ public final class EventManager {
             e.printStackTrace();
         }
     }
-	
-	/**
-	 * 
-	 * @author DarkMagician6
-	 * @since January 2, 2014
-	 */
-	private static final class MethodData {
 
-	    private final Object source;
+    /**
+     * @author DarkMagician6
+     * @since January 2, 2014
+     */
+    private static final class MethodData {
 
-	    private final Method target;
+        private final Object source;
 
-	    private final byte priority;
+        private final Method target;
 
-	    /**
-	     * Sets the values of the data.
-	     *
-	     * @param source
-	     *         The source Object of the data. Used by the VM to
-	     *         determine to which object it should send the call to.
-	     * @param target
-	     *         The targeted Method to which the Event should be send to.
-	     * @param priority
-	     *         The priority of this Method. Used by the registry to sort
-	     *         the data on.
-	     */
-	    public MethodData(Object source, Method target, byte priority) {
-	        this.source = source;
-	        this.target = target;
-	        this.priority = priority;
-	    }
+        private final byte priority;
 
-	    /**
-	     * Gets the source Object of the data.
-	     *
-	     * @return Source Object of the targeted Method.
-	     */
-	    public Object getSource() {
-	        return source;
-	    }
+        /**
+         * Sets the values of the data.
+         *
+         * @param source   The source Object of the data. Used by the VM to
+         *                 determine to which object it should send the call to.
+         * @param target   The targeted Method to which the Event should be send to.
+         * @param priority The priority of this Method. Used by the registry to sort
+         *                 the data on.
+         */
+        public MethodData(Object source, Method target, byte priority) {
+            this.source = source;
+            this.target = target;
+            this.priority = priority;
+        }
 
-	    /**
-	     * Gets the targeted Method.
-	     *
-	     * @return The Method that is listening to certain Event calls.
-	     */
-	    public Method getTarget() {
-	        return target;
-	    }
+        /**
+         * Gets the source Object of the data.
+         *
+         * @return Source Object of the targeted Method.
+         */
+        public Object getSource() {
+            return source;
+        }
 
-	    /**
-	     * Gets the priority value of the targeted Method.
-	     *
-	     * @return The priority value of the targeted Method.
-	     */
-	    public byte getPriority() {
+        /**
+         * Gets the targeted Method.
+         *
+         * @return The Method that is listening to certain Event calls.
+         */
+        public Method getTarget() {
+            return target;
+        }
+
+        /**
+         * Gets the priority value of the targeted Method.
+         *
+         * @return The priority value of the targeted Method.
+         */
+        public byte getPriority() {
             return priority;
 
         }
 
-	}
+    }
 
 }

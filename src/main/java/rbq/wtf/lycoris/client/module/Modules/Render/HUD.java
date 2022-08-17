@@ -22,15 +22,16 @@ public class HUD extends Module {
     private static BooleanValue arrayList;
     private static ModeValue rainbowMode;
     private static NumberValue rainbowSpeed;
+
     public HUD() {
-        super("HUD", ModuleCategory.Render,0);
-        rainbowMode = new ModeValue("Rainbow Mode",new String[]{"Rainbow", "Astolfo", "Static","StaticRainbow"}, 0, 3);
+        super("HUD", ModuleCategory.Render, 0);
+        rainbowMode = new ModeValue("Rainbow Mode", new String[]{"Rainbow", "Astolfo", "Static", "StaticRainbow"}, 0, 3);
         this.addModeValue(rainbowMode);
-        waterMark = new BooleanValue("WaterMark",true,this);
+        waterMark = new BooleanValue("WaterMark", true, this);
         this.addBooleanValue(waterMark);
-        arrayList = new BooleanValue("ArrayList",true,this);
+        arrayList = new BooleanValue("ArrayList", true, this);
         this.addBooleanValue(arrayList);
-        rainbowSpeed = new NumberValue("RainbowSpeed",100.0F,0.0F,2000.0F,0.1F);
+        rainbowSpeed = new NumberValue("RainbowSpeed", 100.0F, 0.0F, 2000.0F, 0.1F);
         this.addNumberValue(rainbowSpeed);
     }
 
@@ -40,13 +41,13 @@ public class HUD extends Module {
     }
 
     @EventTarget
-    public void onRender2D(EventRender2D e){
+    public void onRender2D(EventRender2D e) {
         ScaledResolution sc = new ScaledResolution(Minecraft.getMinecraft());
-        if (waterMark.getValue()){
+        if (waterMark.getValue()) {
             FontLoaders.default25.drawStringWithShadow("Dimples.love",
                     5,
                     5,
-                    new Color(0,200,100).getRGB());
+                    new Color(0, 200, 100).getRGB());
         }
         if (arrayList.getValue()) {
             ArrayList<Module> sorted = new ArrayList<>();
@@ -58,9 +59,9 @@ public class HUD extends Module {
             float posY = 0;
             for (Module m : sorted) {
                 FontLoaders.default20.drawStringWithShadow(m.getName(),
-                        sc.getScaledWidth() - FontLoaders.default20.getStringWidth(m.getName()) - 5 ,
+                        sc.getScaledWidth() - FontLoaders.default20.getStringWidth(m.getName()) - 5,
                         posY + 5,
-                        new Color(0,200,100).getRGB()
+                        new Color(0, 200, 100).getRGB()
                 );
                 posY = posY + FontLoaders.default16.getStringHeight(m.getName()) + 4;
             }

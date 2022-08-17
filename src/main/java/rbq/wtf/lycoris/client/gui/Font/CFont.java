@@ -1,10 +1,10 @@
 /*
  * Decompiled with CFR 0_132.
- * 
+ *
  * Could not load the following classes:
  *  org.lwjgl.opengl.GL11
  */
-package  rbq.wtf.lycoris.client.gui.Font;
+package rbq.wtf.lycoris.client.gui.Font;
 
 import org.lwjgl.opengl.GL11;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.DynamicTexture;
@@ -14,8 +14,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 public class CFont {
     private float imgSize = 512.0f;
@@ -29,6 +27,7 @@ public class CFont {
     private boolean hasDone;
     private boolean unicode;
     protected HashMap<Character, Character> charmap = new HashMap();
+
     public CFont(Font font, boolean antiAlias, boolean fractionalMetrics, boolean unicode) {
         this.font = font;
         this.antiAlias = antiAlias;
@@ -46,8 +45,7 @@ public class CFont {
         BufferedImage img = this.generateFontImage(font, antiAlias, fractionalMetrics, chars);
         try {
             return new DynamicTexture(img);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -141,6 +139,7 @@ public class CFont {
         }
         return bufferedImage;
     }
+
     private char[] findCharactersInUnicodeBlock(final Character.UnicodeBlock block) {
         final ArrayList<Character> chars = new ArrayList<Character>();
         for (int codePoint = Character.MIN_CODE_POINT; codePoint <= Character.MAX_CODE_POINT; codePoint++) {
@@ -150,18 +149,18 @@ public class CFont {
         }
         return chars.toString().toCharArray();
     }
+
     public void drawChar(CharData[] chars, char c, float x, float y) throws ArrayIndexOutOfBoundsException {
         try {
             this.drawQuad(x, y, chars[c].width, chars[c].height, chars[c].storedX, chars[c].storedY, chars[c].width, chars[c].height);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     protected void drawQuad(float x, float y, float width, float height, float srcX, float srcY, float srcWidth, float srcHeight) {
-        float f=512.0f;//512.0f
-        float f2=512.0f;//512.0f
+        float f = 512.0f;//512.0f
+        float f2 = 512.0f;//512.0f
         float renderSRCX = srcX / f;
         float renderSRCY = srcY / f;
         float renderSRCWidth = srcWidth / f2;
@@ -239,6 +238,7 @@ public class CFont {
         public int height;
         public int storedX;
         public int storedY;
+
         protected CharData() {
         }
     }

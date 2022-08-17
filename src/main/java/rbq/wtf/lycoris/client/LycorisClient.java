@@ -1,7 +1,6 @@
 package rbq.wtf.lycoris.client;
 
 
-
 import rbq.wtf.lycoris.agent.instrument.impl.InstrumentationImpl;
 import rbq.wtf.lycoris.client.event.api.EventManager;
 import rbq.wtf.lycoris.client.event.api.EventTarget;
@@ -21,7 +20,8 @@ public class LycorisClient {
     public ModuleManager moduleManager;
     public ClickGUI clickGUI;
     public static LycorisClient instance;
-    public LycorisClient(){
+
+    public LycorisClient() {
         System.out.println("[Lycoris Client] Init Client");
         instance = this;
         moduleManager = new ModuleManager();
@@ -45,11 +45,12 @@ public class LycorisClient {
     public ClickGUI getClickGUI() {
         return clickGUI;
     }
+
     @EventTarget
     public void EventKeyPress(EventKey e) {
-        for(Module module : this.moduleManager.getModules()){
+        for (Module module : this.moduleManager.getModules()) {
             System.out.println("Key" + e.getKey());
-            if(module.getKey() == e.getKey()){
+            if (module.getKey() == e.getKey()) {
                 module.toggle();
             }
         }

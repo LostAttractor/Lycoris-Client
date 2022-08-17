@@ -6,14 +6,15 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapperClass;
 import rbq.wtf.lycoris.client.wrapper.wrappers.utils.ReflectUtil;
 
 import java.lang.reflect.Method;
-@WrapperClass(mcpName = "net.minecraft.util.ChatAllowedCharacters",targetMap = MapEnum.VANILLA189)
+
+@WrapperClass(mcpName = "net.minecraft.util.ChatAllowedCharacters", targetMap = MapEnum.VANILLA189)
 public class ChatAllowedCharacters {
-    @WrapMethod(mcpName = "isAllowedCharacter",targetMap = MapEnum.VANILLA189)
+    @WrapMethod(mcpName = "isAllowedCharacter", targetMap = MapEnum.VANILLA189)
     public static Method isAllowedCharacter;
-    @WrapMethod(mcpName = "filterAllowedCharacters",targetMap = MapEnum.VANILLA189)
+    @WrapMethod(mcpName = "filterAllowedCharacters", targetMap = MapEnum.VANILLA189)
     public static Method filterAllowedCharacters;
 
-    public static boolean isAllowedCharacter(char chars){
-        return (boolean)ReflectUtil.invoke(isAllowedCharacter,null,chars);
+    public static boolean isAllowedCharacter(char chars) {
+        return (boolean) ReflectUtil.invoke(isAllowedCharacter, null, chars);
     }
 }

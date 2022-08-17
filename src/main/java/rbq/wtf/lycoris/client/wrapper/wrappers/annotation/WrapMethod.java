@@ -14,7 +14,10 @@ import java.lang.annotation.*;
  */
 public @interface WrapMethod {
     String mcpName();
+
     MapEnum targetMap();
+
     String customSrgName() default "none";
+
     String signature() default "none";
 }

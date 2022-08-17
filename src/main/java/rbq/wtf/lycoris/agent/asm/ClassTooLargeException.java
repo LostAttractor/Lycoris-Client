@@ -35,28 +35,32 @@ package rbq.wtf.lycoris.agent.asm;
  */
 public final class ClassTooLargeException extends IndexOutOfBoundsException {
 
-  private final String className;
-  private final int constantPoolCount;
+    private final String className;
+    private final int constantPoolCount;
 
-  /**
-   * Constructs a new {@link ClassTooLargeException}.
-   *
-   * @param className the internal name of the class.
-   * @param constantPoolCount the number of constant pool items of the class.
-   */
-  public ClassTooLargeException(final String className, final int constantPoolCount) {
-    super("Class too large: " + className);
-    this.className = className;
-    this.constantPoolCount = constantPoolCount;
-  }
+    /**
+     * Constructs a new {@link ClassTooLargeException}.
+     *
+     * @param className         the internal name of the class.
+     * @param constantPoolCount the number of constant pool items of the class.
+     */
+    public ClassTooLargeException(final String className, final int constantPoolCount) {
+        super("Class too large: " + className);
+        this.className = className;
+        this.constantPoolCount = constantPoolCount;
+    }
 
-  /** @return the internal name of the class. */
-  public String getClassName() {
-    return className;
-  }
+    /**
+     * @return the internal name of the class.
+     */
+    public String getClassName() {
+        return className;
+    }
 
-  /** @return the number of constant pool items of the class. */
-  public int getConstantPoolCount() {
-    return constantPoolCount;
-  }
+    /**
+     * @return the number of constant pool items of the class.
+     */
+    public int getConstantPoolCount() {
+        return constantPoolCount;
+    }
 }

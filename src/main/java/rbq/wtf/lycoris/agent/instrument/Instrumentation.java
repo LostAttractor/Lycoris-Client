@@ -1,9 +1,7 @@
 package rbq.wtf.lycoris.agent.instrument;
 
 
-
-public interface Instrumentation
-{
+public interface Instrumentation {
     Class<?>[] getAllLoadedClasses();
 
     ClassTransformer[] getTransformers();

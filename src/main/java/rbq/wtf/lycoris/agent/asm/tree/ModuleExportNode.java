@@ -39,43 +39,45 @@ import java.util.List;
  */
 public class ModuleExportNode {
 
-  /** The internal name of the exported package. */
-  public String packaze;
+    /**
+     * The internal name of the exported package.
+     */
+    public String packaze;
 
-  /**
-   * The access flags (see {@link Opcodes}). Valid values are {@code
-   * ACC_SYNTHETIC} and {@code ACC_MANDATED}.
-   */
-  public int access;
+    /**
+     * The access flags (see {@link Opcodes}). Valid values are {@code
+     * ACC_SYNTHETIC} and {@code ACC_MANDATED}.
+     */
+    public int access;
 
-  /**
-   * The list of modules that can access this exported package, specified with fully qualified names
-   * (using dots). May be <tt>null</tt>.
-   */
-  public List<String> modules;
+    /**
+     * The list of modules that can access this exported package, specified with fully qualified names
+     * (using dots). May be <tt>null</tt>.
+     */
+    public List<String> modules;
 
-  /**
-   * Constructs a new {@link ModuleExportNode}.
-   *
-   * @param packaze the internal name of the exported package.
-   * @param access the package access flags, one or more of {@code ACC_SYNTHETIC} and {@code
-   *     ACC_MANDATED}.
-   * @param modules a list of modules that can access this exported package, specified with fully
-   *     qualified names (using dots).
-   */
-  public ModuleExportNode(final String packaze, final int access, final List<String> modules) {
-    this.packaze = packaze;
-    this.access = access;
-    this.modules = modules;
-  }
+    /**
+     * Constructs a new {@link ModuleExportNode}.
+     *
+     * @param packaze the internal name of the exported package.
+     * @param access  the package access flags, one or more of {@code ACC_SYNTHETIC} and {@code
+     *                ACC_MANDATED}.
+     * @param modules a list of modules that can access this exported package, specified with fully
+     *                qualified names (using dots).
+     */
+    public ModuleExportNode(final String packaze, final int access, final List<String> modules) {
+        this.packaze = packaze;
+        this.access = access;
+        this.modules = modules;
+    }
 
-  /**
-   * Makes the given module visitor visit this export declaration.
-   *
-   * @param moduleVisitor a module visitor.
-   */
-  public void accept(final ModuleVisitor moduleVisitor) {
-    moduleVisitor.visitExport(
-        packaze, access, modules == null ? null : modules.toArray(new String[modules.size()]));
-  }
+    /**
+     * Makes the given module visitor visit this export declaration.
+     *
+     * @param moduleVisitor a module visitor.
+     */
+    public void accept(final ModuleVisitor moduleVisitor) {
+        moduleVisitor.visitExport(
+                packaze, access, modules == null ? null : modules.toArray(new String[modules.size()]));
+    }
 }

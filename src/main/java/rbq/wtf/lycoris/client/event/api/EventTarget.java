@@ -1,6 +1,6 @@
-package  rbq.wtf.lycoris.client.event.api;
+package rbq.wtf.lycoris.client.event.api;
 
-import  rbq.wtf.lycoris.client.event.api.types.Priority;
+import rbq.wtf.lycoris.client.event.api.types.Priority;
 
 import java.lang.annotation.*;
 

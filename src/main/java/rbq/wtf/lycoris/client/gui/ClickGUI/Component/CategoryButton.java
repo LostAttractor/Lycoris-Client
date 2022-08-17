@@ -1,29 +1,30 @@
 package rbq.wtf.lycoris.client.gui.ClickGUI.Component;
 
 import org.lwjgl.input.Mouse;
-import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI;
+import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.module.ModuleCategory;
 
 import java.awt.*;
 
-public class CategoryButton extends Component{
+public class CategoryButton extends Component {
     private ModuleCategory category;
     private float x;
     private float y;
+
     public CategoryButton(ModuleCategory Category) {
         this.category = Category;
     }
 
 
     @Override
-    public void updateComponent(float X, float Y , int mouseX, int mouseY) {
+    public void updateComponent(float X, float Y, int mouseX, int mouseY) {
         this.x = X;
         this.y = Y;
         render();
         if (this.isHovered(
                 x,
-                y ,
+                y,
                 x + FontLoaders.default20.getStringWidth(category.toString()),
                 y + FontLoaders.default20.getHeight(),
                 mouseX,
@@ -49,7 +50,7 @@ public class CategoryButton extends Component{
             FontLoaders.default20.drawString(category.toString(),
                     x,
                     y,
-                    new Color(101,81,255).getRGB());
+                    new Color(101, 81, 255).getRGB());
         }
     }
 

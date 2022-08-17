@@ -9,15 +9,16 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 
 import java.lang.reflect.Method;
 
-@WrapperClass(mcpName = "net.minecraft.client.renderer.texture.AbstractTexture",targetMap = MapEnum.VANILLA189)
+@WrapperClass(mcpName = "net.minecraft.client.renderer.texture.AbstractTexture", targetMap = MapEnum.VANILLA189)
 public class AbstractTexture extends IWrapper {
-    @WrapMethod(mcpName = "getGlTextureId",targetMap = MapEnum.VANILLA189)
+    @WrapMethod(mcpName = "getGlTextureId", targetMap = MapEnum.VANILLA189)
     public static Method getGlTextureId;
+
     public AbstractTexture(Object obj) {
         super(obj);
     }
-    public int getGlTextureId()
-    {
-        return (int) ReflectUtil.invoke(getGlTextureId,getWrapObject());
+
+    public int getGlTextureId() {
+        return (int) ReflectUtil.invoke(getGlTextureId, getWrapObject());
     }
 }

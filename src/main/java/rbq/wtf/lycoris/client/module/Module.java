@@ -16,6 +16,7 @@ public class Module {
     private ArrayList<ModeValue> ModeValues;
     private ArrayList<ColorValue> ColorValues;
     private ArrayList<TextValue> TextValues;
+
     public Module(String Name, ModuleCategory Category, int Key) {
         this.BooleanValues = new ArrayList<BooleanValue>();
         this.NumberValues = new ArrayList<NumberValue>();
@@ -29,11 +30,11 @@ public class Module {
     }
 
 
-    public void onEnable (){
+    public void onEnable() {
 
     }
 
-    public void onDisable (){
+    public void onDisable() {
 
     }
 
@@ -46,8 +47,6 @@ public class Module {
         Values.addAll(TextValues);
         return Values;
     }
-
-
 
 
     public ArrayList<BooleanValue> getBooleanValues() {
@@ -66,20 +65,25 @@ public class Module {
         return TextValues;
     }
 
-    public ArrayList<ColorValue> getColorValues() {return ColorValues;}
+    public ArrayList<ColorValue> getColorValues() {
+        return ColorValues;
+    }
 
     public void addNumberValue(NumberValue value) {
         value.setModule(this);
         this.NumberValues.add(value);
     }
+
     public void addModeValue(ModeValue value) {
         value.setModule(this);
         this.ModeValues.add(value);
     }
+
     public void addBooleanValue(BooleanValue value) {
         value.setModule(this);
         this.BooleanValues.add(value);
     }
+
     public void addColorValue(ColorValue value) {
         value.setModule(this);
         this.ColorValues.add(value);
@@ -89,6 +93,7 @@ public class Module {
         value.setModule(this);
         this.TextValues.add(value);
     }
+
     public boolean isState() {
         return State;
     }
@@ -97,7 +102,7 @@ public class Module {
         return Category;
     }
 
-    public void toggle(){
+    public void toggle() {
         setState(!State);
     }
 

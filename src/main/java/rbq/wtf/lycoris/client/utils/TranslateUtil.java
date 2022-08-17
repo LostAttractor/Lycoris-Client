@@ -15,8 +15,8 @@ public class TranslateUtil {
         long currentMS = System.currentTimeMillis();
         long delta = currentMS - this.lastMS;
         this.lastMS = currentMS;
-        int deltaX = (int)(Math.abs((float)(targetX - this.x)) * smoothing);
-        int deltaY = (int)(Math.abs((float)(targetY - this.y)) * smoothing);
+        int deltaX = (int) (Math.abs((float) (targetX - this.x)) * smoothing);
+        int deltaY = (int) (Math.abs((float) (targetY - this.y)) * smoothing);
         this.x = this.calculateCompensation(targetX, this.x, delta, deltaX);
         this.y = this.calculateCompensation(targetY, this.y, delta, deltaY);
     }
@@ -42,14 +42,14 @@ public class TranslateUtil {
         if (delta < 1L) {
             delta = 1L;
         }
-        if (diff > (float)speed) {
-            double dell = (double)((long)speed * delta / 16L) < 0.25 ? 0.5 : (double)((long)speed * delta / 16L);
-            if ((current = (float)((double)current - dell)) < target) {
+        if (diff > (float) speed) {
+            double dell = (double) ((long) speed * delta / 16L) < 0.25 ? 0.5 : (double) ((long) speed * delta / 16L);
+            if ((current = (float) ((double) current - dell)) < target) {
                 current = target;
             }
-        } else if (diff < (float)(- speed)) {
-            double dell = (double)((long)speed * delta / 16L) < 0.25 ? 0.5 : (double)((long)speed * delta / 16L);
-            if ((current = (float)((double)current + dell)) > target) {
+        } else if (diff < (float) (-speed)) {
+            double dell = (double) ((long) speed * delta / 16L) < 0.25 ? 0.5 : (double) ((long) speed * delta / 16L);
+            if ((current = (float) ((double) current + dell)) > target) {
                 current = target;
             }
         } else {

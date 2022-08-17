@@ -2,22 +2,23 @@ package rbq.wtf.lycoris.client.value;
 
 import rbq.wtf.lycoris.client.module.Module;
 
-public class ModeValue extends Value<String>{
-    private  int selection;
-    private  int selectionAmount;
-    private  String[] modes;
-    private  String name;
+public class ModeValue extends Value<String> {
+    private int selection;
+    private int selectionAmount;
+    private String[] modes;
+    private String name;
     private Module module;
 
-    public ModeValue(String Name,String[] Modes, int Selection, int Amount) {
-        this.name=Name;
+    public ModeValue(String Name, String[] Modes, int Selection, int Amount) {
+        this.name = Name;
         this.modes = Modes;
         this.selection = Selection;
         this.selectionAmount = Amount;
         this.module = null;
     }
-    public ModeValue(String Name,String[] Modes, int Selection, int Amount,Module m) {
-        this.name=Name;
+
+    public ModeValue(String Name, String[] Modes, int Selection, int Amount, Module m) {
+        this.name = Name;
         this.modes = Modes;
         this.selection = Selection;
         this.selectionAmount = Amount;
@@ -48,9 +49,10 @@ public class ModeValue extends Value<String>{
     public String getValue() {
         return this.modes[selection];
     }
+
     @Override
     public void setValue(String s) {
-        if(getCurrentSelectionName().equalsIgnoreCase(s)){
+        if (getCurrentSelectionName().equalsIgnoreCase(s)) {
             return;
         }
         setCurrentSelectionName(s);
@@ -63,19 +65,21 @@ public class ModeValue extends Value<String>{
     public String[] getModes() {
         return modes;
     }
+
     public void setCurrentSelectionName(String nm) {
-        int i=0;
-        for(String mode:this.modes){
-            if(mode.equalsIgnoreCase(nm)){
+        int i = 0;
+        for (String mode : this.modes) {
+            if (mode.equalsIgnoreCase(nm)) {
                 setSelection(i);
                 break;
             }
         }
 
     }
+
     public void setState(String s) {
-        for (int i = 0;i<this.modes.length-1;i++) {
-            if(this.modes[i].equalsIgnoreCase(s)){
+        for (int i = 0; i < this.modes.length - 1; i++) {
+            if (this.modes[i].equalsIgnoreCase(s)) {
                 setSelection(i);
                 break;
             }
@@ -83,8 +87,8 @@ public class ModeValue extends Value<String>{
     }
 
     public void setValueState(String s) {
-        for (int i = 0;i<this.modes.length-1;i++) {
-            if(this.modes[i].equalsIgnoreCase(s)){
+        for (int i = 0; i < this.modes.length - 1; i++) {
+            if (this.modes[i].equalsIgnoreCase(s)) {
                 setSelection(i);
                 break;
             }
@@ -106,6 +110,7 @@ public class ModeValue extends Value<String>{
     public String getCurrentSelectionName() {
         return this.modes[this.selection];
     }
+
     public int getSelectionAmount() {
         return this.selectionAmount;
     }

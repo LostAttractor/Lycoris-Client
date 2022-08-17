@@ -1,13 +1,12 @@
 package rbq.wtf.lycoris.client.utils;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class WebUtils {
-    public static String get(String url)  {
+    public static String get(String url) {
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
 
@@ -18,7 +17,7 @@ public class WebUtils {
             String inputLine;
             StringBuilder response = new StringBuilder();
 
-            while((inputLine = in.readLine())!= null) {
+            while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
 

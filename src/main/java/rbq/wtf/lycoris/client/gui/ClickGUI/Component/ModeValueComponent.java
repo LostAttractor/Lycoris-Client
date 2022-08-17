@@ -6,10 +6,11 @@ import rbq.wtf.lycoris.client.value.ModeValue;
 
 import java.awt.*;
 
-public class ModeValueComponent extends Component{
+public class ModeValueComponent extends Component {
     public ModeValue Value;
     private float x;
     private float y;
+
     public ModeValueComponent(ModeValue value) {
         this.Value = value;
         this.setHeight(35);
@@ -27,25 +28,25 @@ public class ModeValueComponent extends Component{
         FontLoaders.default20.drawString(Value.getName(),
                 x,
                 y,
-                new Color(255,255,255).getRGB());
+                new Color(255, 255, 255).getRGB());
         RenderUtil.drawFastRoundedRect(x + 220,
                 y + 10,
                 x + 310,
                 y + 30,
                 2,
-                new Color(83,69,193).getRGB()
+                new Color(83, 69, 193).getRGB()
         );
         RenderUtil.drawFastRoundedRect(x + 220 + 1,
                 y + 10 + 1,
                 x + 310 - 1,
                 y + 30 - 1,
                 2,
-                new Color(27,27,27).getRGB()
+                new Color(27, 27, 27).getRGB()
         );
         FontLoaders.default20.drawCenteredString(Value.getCurrentSelectionName(),
                 x + 265,
                 y + 16,
-                new Color(255,255,255).getRGB()
+                new Color(255, 255, 255).getRGB()
         );
     }
 
@@ -56,7 +57,7 @@ public class ModeValueComponent extends Component{
                 x + 310,
                 y + 30,
                 mouseX,
-                mouseY)){
+                mouseY)) {
             Value.incrementSelection();
         }
     }

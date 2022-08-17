@@ -12,7 +12,7 @@ import java.util.List;
 public class ModuleManager {
     private ArrayList<Module> modules = new ArrayList<>();
 
-    public ModuleManager(){
+    public ModuleManager() {
         modules.add(new KeepSprint());
         modules.add(new HUD());
         modules.add(new ClickGUI());

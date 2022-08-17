@@ -1,7 +1,6 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.annotation.repeat;
 
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapEnum;
-import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapField;
 
 import java.lang.annotation.*;
 

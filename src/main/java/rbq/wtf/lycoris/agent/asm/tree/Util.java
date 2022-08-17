@@ -38,120 +38,121 @@ import java.util.List;
  */
 final class Util {
 
-  private Util() {}
+    private Util() {
+    }
 
-  static <T> List<T> asArrayList(final int length) {
-    List<T> list = new ArrayList<T>(length);
-    for (int i = 0; i < length; ++i) {
-      list.add(null);
+    static <T> List<T> asArrayList(final int length) {
+        List<T> list = new ArrayList<T>(length);
+        for (int i = 0; i < length; ++i) {
+            list.add(null);
+        }
+        return list;
     }
-    return list;
-  }
 
-  static <T> List<T> asArrayList(final T[] array) {
-    if (array == null) {
-      return new ArrayList<T>();
+    static <T> List<T> asArrayList(final T[] array) {
+        if (array == null) {
+            return new ArrayList<T>();
+        }
+        ArrayList<T> list = new ArrayList<T>(array.length);
+        for (T t : array) {
+            list.add(t);
+        }
+        return list;
     }
-    ArrayList<T> list = new ArrayList<T>(array.length);
-    for (T t : array) {
-      list.add(t);
-    }
-    return list;
-  }
 
-  static List<Byte> asArrayList(final byte[] byteArray) {
-    if (byteArray == null) {
-      return new ArrayList<Byte>();
+    static List<Byte> asArrayList(final byte[] byteArray) {
+        if (byteArray == null) {
+            return new ArrayList<Byte>();
+        }
+        ArrayList<Byte> byteList = new ArrayList<Byte>(byteArray.length);
+        for (byte b : byteArray) {
+            byteList.add(b);
+        }
+        return byteList;
     }
-    ArrayList<Byte> byteList = new ArrayList<Byte>(byteArray.length);
-    for (byte b : byteArray) {
-      byteList.add(b);
-    }
-    return byteList;
-  }
 
-  static List<Boolean> asArrayList(final boolean[] booleanArray) {
-    if (booleanArray == null) {
-      return new ArrayList<Boolean>();
+    static List<Boolean> asArrayList(final boolean[] booleanArray) {
+        if (booleanArray == null) {
+            return new ArrayList<Boolean>();
+        }
+        ArrayList<Boolean> booleanList = new ArrayList<Boolean>(booleanArray.length);
+        for (boolean b : booleanArray) {
+            booleanList.add(b);
+        }
+        return booleanList;
     }
-    ArrayList<Boolean> booleanList = new ArrayList<Boolean>(booleanArray.length);
-    for (boolean b : booleanArray) {
-      booleanList.add(b);
-    }
-    return booleanList;
-  }
 
-  static List<Short> asArrayList(final short[] shortArray) {
-    if (shortArray == null) {
-      return new ArrayList<Short>();
+    static List<Short> asArrayList(final short[] shortArray) {
+        if (shortArray == null) {
+            return new ArrayList<Short>();
+        }
+        ArrayList<Short> shortList = new ArrayList<Short>(shortArray.length);
+        for (short s : shortArray) {
+            shortList.add(s);
+        }
+        return shortList;
     }
-    ArrayList<Short> shortList = new ArrayList<Short>(shortArray.length);
-    for (short s : shortArray) {
-      shortList.add(s);
-    }
-    return shortList;
-  }
 
-  static List<Character> asArrayList(final char[] charArray) {
-    if (charArray == null) {
-      return new ArrayList<Character>();
+    static List<Character> asArrayList(final char[] charArray) {
+        if (charArray == null) {
+            return new ArrayList<Character>();
+        }
+        ArrayList<Character> charList = new ArrayList<Character>(charArray.length);
+        for (char c : charArray) {
+            charList.add(c);
+        }
+        return charList;
     }
-    ArrayList<Character> charList = new ArrayList<Character>(charArray.length);
-    for (char c : charArray) {
-      charList.add(c);
-    }
-    return charList;
-  }
 
-  static List<Integer> asArrayList(final int[] intArray) {
-    if (intArray == null) {
-      return new ArrayList<Integer>();
+    static List<Integer> asArrayList(final int[] intArray) {
+        if (intArray == null) {
+            return new ArrayList<Integer>();
+        }
+        ArrayList<Integer> intList = new ArrayList<Integer>(intArray.length);
+        for (int i : intArray) {
+            intList.add(i);
+        }
+        return intList;
     }
-    ArrayList<Integer> intList = new ArrayList<Integer>(intArray.length);
-    for (int i : intArray) {
-      intList.add(i);
-    }
-    return intList;
-  }
 
-  static List<Float> asArrayList(final float[] floatArray) {
-    if (floatArray == null) {
-      return new ArrayList<Float>();
+    static List<Float> asArrayList(final float[] floatArray) {
+        if (floatArray == null) {
+            return new ArrayList<Float>();
+        }
+        ArrayList<Float> floatList = new ArrayList<Float>(floatArray.length);
+        for (float f : floatArray) {
+            floatList.add(f);
+        }
+        return floatList;
     }
-    ArrayList<Float> floatList = new ArrayList<Float>(floatArray.length);
-    for (float f : floatArray) {
-      floatList.add(f);
-    }
-    return floatList;
-  }
 
-  static List<Long> asArrayList(final long[] longArray) {
-    if (longArray == null) {
-      return new ArrayList<Long>();
+    static List<Long> asArrayList(final long[] longArray) {
+        if (longArray == null) {
+            return new ArrayList<Long>();
+        }
+        ArrayList<Long> longList = new ArrayList<Long>(longArray.length);
+        for (long l : longArray) {
+            longList.add(l);
+        }
+        return longList;
     }
-    ArrayList<Long> longList = new ArrayList<Long>(longArray.length);
-    for (long l : longArray) {
-      longList.add(l);
-    }
-    return longList;
-  }
 
-  static List<Double> asArrayList(final double[] doubleArray) {
-    if (doubleArray == null) {
-      return new ArrayList<Double>();
+    static List<Double> asArrayList(final double[] doubleArray) {
+        if (doubleArray == null) {
+            return new ArrayList<Double>();
+        }
+        ArrayList<Double> doubleList = new ArrayList<Double>(doubleArray.length);
+        for (double d : doubleArray) {
+            doubleList.add(d);
+        }
+        return doubleList;
     }
-    ArrayList<Double> doubleList = new ArrayList<Double>(doubleArray.length);
-    for (double d : doubleArray) {
-      doubleList.add(d);
-    }
-    return doubleList;
-  }
 
-  static <T> List<T> asArrayList(final int length, final T[] array) {
-    List<T> list = new ArrayList<T>(length);
-    for (int i = 0; i < length; ++i) {
-      list.add(array[i]);
+    static <T> List<T> asArrayList(final int length, final T[] array) {
+        List<T> list = new ArrayList<T>(length);
+        for (int i = 0; i < length; ++i) {
+            list.add(array[i]);
+        }
+        return list;
     }
-    return list;
-  }
 }
