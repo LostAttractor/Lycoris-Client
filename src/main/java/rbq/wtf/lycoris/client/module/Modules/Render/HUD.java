@@ -1,7 +1,7 @@
 package rbq.wtf.lycoris.client.module.Modules.Render;
 
 
-import rbq.wtf.lycoris.client.LycorisClient;
+import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.event.api.EventTarget;
 import rbq.wtf.lycoris.client.event.events.EventRender2D;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
@@ -18,26 +18,21 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class HUD extends Module {
-    private static BooleanValue waterMark;
-    private static BooleanValue arrayList;
-    private static ModeValue rainbowMode;
-    private static NumberValue rainbowSpeed;
+    public final BooleanValue waterMark = new BooleanValue("WaterMark", true, this);;
+    public final BooleanValue arrayList = new BooleanValue("ArrayList", true, this);
+    public final ModeValue rainbowMode  = new ModeValue("Rainbow Mode", new String[]{"Rainbow", "Astolfo", "Static", "StaticRainbow"}, 0, 3);;
+    public final NumberValue rainbowSpeed = new NumberValue("RainbowSpeed", 100.0F, 0.0F, 2000.0F, 0.1F);;
 
     public HUD() {
         super("HUD", ModuleCategory.Render, 0);
-        rainbowMode = new ModeValue("Rainbow Mode", new String[]{"Rainbow", "Astolfo", "Static", "StaticRainbow"}, 0, 3);
         this.addModeValue(rainbowMode);
-        waterMark = new BooleanValue("WaterMark", true, this);
         this.addBooleanValue(waterMark);
-        arrayList = new BooleanValue("ArrayList", true, this);
         this.addBooleanValue(arrayList);
-        rainbowSpeed = new NumberValue("RainbowSpeed", 100.0F, 0.0F, 2000.0F, 0.1F);
         this.addNumberValue(rainbowSpeed);
     }
 
     @Override
     public void onEnable() {
-        System.out.println("Enable");
     }
 
     @EventTarget
@@ -51,7 +46,7 @@ public class HUD extends Module {
         }
         if (arrayList.getValue()) {
             ArrayList<Module> sorted = new ArrayList<>();
-            for (Module m : LycorisClient.instance.getModuleManager().getModules()) {
+            for (Module m : client.moduleManager.getModules()) {
                 if (!m.isState()) continue;
                 sorted.add(m);
             }

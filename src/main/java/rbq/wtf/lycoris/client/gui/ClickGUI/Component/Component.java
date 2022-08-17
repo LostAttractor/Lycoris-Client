@@ -1,7 +1,6 @@
 package rbq.wtf.lycoris.client.gui.ClickGUI.Component;
 
 public class Component {
-
     private float Height = 0;
     private float Width = 0;
 

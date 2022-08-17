@@ -17,7 +17,7 @@ public class ModuleManager {
         modules.add(new HUD());
         modules.add(new ClickGUI());
         for (Module m : modules) {
-            System.out.println(m.Name);
+            System.out.println(m.name);
         }
     }
 

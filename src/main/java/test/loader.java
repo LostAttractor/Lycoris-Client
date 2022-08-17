@@ -1,7 +1,7 @@
 package test;
 
 import net.minecraftforge.fml.common.Mod;
-import rbq.wtf.lycoris.client.LycorisClient;
+import rbq.wtf.lycoris.client.Client;
 
 import javax.swing.*;
 
@@ -12,7 +12,7 @@ public class loader {
         System.out.println("Print");
         new Thread(() -> {
             JOptionPane.showConfirmDialog(null, "Wait");
-            new LycorisClient();
+            new Client();
         }).start();
     }
 }

@@ -1,6 +1,6 @@
 package rbq.wtf.lycoris.client.gui.ClickGUI.Component;
 
-import rbq.wtf.lycoris.client.LycorisClient;
+import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.module.Module;
@@ -29,7 +29,7 @@ public class ModuleButtonList extends Component {
     @Override
     public void render() {
         float moduleY = 0;
-        for (Module module : LycorisClient.instance.getModuleManager().getModulesInType(category)) {
+        for (Module module : Client.instance.moduleManager.getModulesInType(category)) {
             if (module.isState()) {
                 FontLoaders.default20.drawString(module.getName(),
                         x,
@@ -49,7 +49,7 @@ public class ModuleButtonList extends Component {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         float moduleY = 0;
-        for (Module module : LycorisClient.instance.getModuleManager().getModulesInType(category)) {
+        for (Module module : Client.instance.moduleManager.getModulesInType(category)) {
             if (this.isHovered(
                     x,
                     y + moduleY,

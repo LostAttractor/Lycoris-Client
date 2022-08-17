@@ -1,6 +1,7 @@
 package rbq.wtf.lycoris.client.module;
 
 
+import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.event.api.EventManager;
 import rbq.wtf.lycoris.client.value.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
@@ -8,28 +9,26 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 import java.util.ArrayList;
 
 public class Module {
-    public boolean State;
-    public ModuleCategory Category;
-    public String Name;
-    public int Key;
-    private ArrayList<BooleanValue> BooleanValues;
-    private ArrayList<NumberValue> NumberValues;
-    private ArrayList<ModeValue> ModeValues;
-    private ArrayList<ColorValue> ColorValues;
-    private ArrayList<TextValue> TextValues;
+    public final ModuleCategory category;
+    public final String name;
 
-    protected Minecraft mc = Minecraft.getMinecraft();
+    public boolean state;
+    public int key;
+
+    private final ArrayList<BooleanValue> booleanValues = new ArrayList<>();
+    private final ArrayList<NumberValue> numberValues = new ArrayList<>();
+    private final ArrayList<ModeValue> modeValues = new ArrayList<>();
+    private final ArrayList<ColorValue> colorValues = new ArrayList<>();
+    private final ArrayList<TextValue> textValues = new ArrayList<>();
+
+    protected final Minecraft mc = Minecraft.getMinecraft();
+    protected final Client client = Client.instance;
 
     public Module(String Name, ModuleCategory Category, int Key) {
-        this.BooleanValues = new ArrayList<BooleanValue>();
-        this.NumberValues = new ArrayList<NumberValue>();
-        this.ModeValues = new ArrayList<ModeValue>();
-        this.ColorValues = new ArrayList<ColorValue>();
-        this.TextValues = new ArrayList<TextValue>();
-        this.Category = Category;
-        this.Name = Name;
-        this.State = false;
-        this.Key = Key;
+        this.category = Category;
+        this.name = Name;
+        // this.state = false;
+        this.key = Key;
     }
 
 
@@ -43,86 +42,82 @@ public class Module {
 
     public ArrayList<Value> getValues() {
         ArrayList<Value> Values = new ArrayList<>();
-        Values.addAll(BooleanValues);
-        Values.addAll(ModeValues);
-        Values.addAll(NumberValues);
-        Values.addAll(ColorValues);
-        Values.addAll(TextValues);
+        Values.addAll(booleanValues);
+        Values.addAll(modeValues);
+        Values.addAll(numberValues);
+        Values.addAll(colorValues);
+        Values.addAll(textValues);
         return Values;
     }
 
 
     public ArrayList<BooleanValue> getBooleanValues() {
-        return BooleanValues;
+        return booleanValues;
     }
 
     public ArrayList<ModeValue> getModeValues() {
-        return ModeValues;
+        return modeValues;
     }
 
     public ArrayList<NumberValue> getNumberValues() {
-        return NumberValues;
+        return numberValues;
     }
 
     public ArrayList<TextValue> getTextValues() {
-        return TextValues;
+        return textValues;
     }
 
     public ArrayList<ColorValue> getColorValues() {
-        return ColorValues;
+        return colorValues;
     }
 
     public void addNumberValue(NumberValue value) {
         value.setModule(this);
-        this.NumberValues.add(value);
+        this.numberValues.add(value);
     }
 
     public void addModeValue(ModeValue value) {
         value.setModule(this);
-        this.ModeValues.add(value);
+        this.modeValues.add(value);
     }
 
     public void addBooleanValue(BooleanValue value) {
         value.setModule(this);
-        this.BooleanValues.add(value);
+        this.booleanValues.add(value);
     }
 
     public void addColorValue(ColorValue value) {
         value.setModule(this);
-        this.ColorValues.add(value);
+        this.colorValues.add(value);
     }
 
     public void addTextValue(TextValue value) {
         value.setModule(this);
-        this.TextValues.add(value);
+        this.textValues.add(value);
     }
 
     public boolean isState() {
-        return State;
+        return state;
     }
 
     public ModuleCategory getCategory() {
-        return Category;
+        return category;
     }
 
     public void toggle() {
-        setState(!State);
+        setState(!state);
     }
 
     public void setKey(int key) {
-        Key = key;
+        this.key = key;
     }
 
     public int getKey() {
-        return Key;
-    }
-
-    public void setName(String name) {
-        Name = name;
+        return key;
     }
 
     public void setState(boolean state) {
-        State = state;
+        this.state = state;
         if (state) {
             this.onEnable();
             EventManager.register(this);
@@ -133,6 +128,6 @@ public class Module {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 }
