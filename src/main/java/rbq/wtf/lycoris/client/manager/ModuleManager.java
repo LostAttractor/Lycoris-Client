@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModuleManager {
-    private ArrayList<Module> modules = new ArrayList<>();
+    private final ArrayList<Module> modules = new ArrayList<>();
 
     public ModuleManager() {
         modules.add(new KeepSprint());
@@ -43,10 +43,9 @@ public class ModuleManager {
 
     public List<Module> getModulesInType(ModuleCategory t) {
         ArrayList<Module> output = new ArrayList<Module>();
-        for (Module m : modules) {
-            if (m.getCategory() != t)
-                continue;
-            output.add(m);
+        for (Module module : modules) {
+            if (module.getCategory() == t)
+                output.add(module);
         }
         return output;
     }

@@ -20,7 +20,7 @@ public class ClickGUI extends Module {
     private static ModeValue rainbowMode;
 
     public ClickGUI() {
-        super("ClickGUI", ModuleCategory.Render, 210);
+        super("ClickGUI", ModuleCategory.Render, 210); // Insert Key
         rainbowMode = new ModeValue("Rainbow Mode", new String[]{"Rainbow", "Astolfo", "Static", "StaticRainbow"}, 0, 3);
         this.addModeValue(rainbowMode);
         waterMark = new BooleanValue("WaterMark", true, this);

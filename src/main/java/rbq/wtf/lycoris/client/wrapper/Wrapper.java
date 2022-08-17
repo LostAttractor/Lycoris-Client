@@ -1,7 +1,7 @@
 package rbq.wtf.lycoris.client.wrapper;
 
-import rbq.wtf.lycoris.client.LycorisClient;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
+import rbq.wtf.lycoris.client.utils.Logger;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.Reader;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MapNode;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MethodNode;
@@ -37,13 +37,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Wrapper {
-
-    public static MapEnum MapEnv;
-    private static Reader reader;
     private static final List<Class<? extends IWrapper>> wrappers = new ArrayList<Class<? extends IWrapper>>();
+    public static MapEnum MapEnv;
+    public static boolean useMapObf;
+    private static Reader reader;
 
     public static void initWrapper() {
         MapEnv = MapEnum.VANILLA189;
+        useMapObf = false; //是否使用混淆后的名称，在MDK环境下需设为false
         Path path = Paths.get("").toAbsolutePath().getParent().resolve("maps/" + MapEnv.toString() + ".srg");
         String map = readFileByPath(path);
         reader = new Reader(map);
@@ -75,7 +76,7 @@ public class Wrapper {
     }
 
     public static void loadWrapper() {
-        System.out.println("[Wrapper] Loading wrapper");
+        Logger.log("Loading wrapper", "Wrapper");
         List<Class<?>> classes = new ArrayList<Class<?>>();
         //client
         classes.add(Minecraft.class);
@@ -115,9 +116,8 @@ public class Wrapper {
         //utils.text
         classes.add(IChatComponent.class);
 
-
         for (Class<?> aClass : classes) {
-            System.out.println(aClass.getCanonicalName());
+            // Logger.log(aClass.getCanonicalName(), "Wrapper");
             if (aClass != IWrapper.class) {
                 wrappers.add((Class<? extends IWrapper>) aClass);
             }
@@ -130,9 +130,8 @@ public class Wrapper {
     }
 
     private static void applyMap() throws IllegalAccessException, ClassNotFoundException, NoSuchFieldException, NoSuchMethodException {
-        int index = 1;
         for (Class<? extends IWrapper> wrapper : wrappers) {
-            System.out.println("apply wrapper " + wrapper.getCanonicalName());
+            Logger.log("Apply wrapper " + wrapper.getCanonicalName(), "Wrapper");
             for (Annotation declaredAnnotation : wrapper.getDeclaredAnnotations()) {
                 if (declaredAnnotation instanceof WrapperClasses) {
                     for (WrapperClass wrapperClass : ((WrapperClasses) declaredAnnotation).value()) {
@@ -143,11 +142,9 @@ public class Wrapper {
                     applyClass(wrapperClass, wrapper);
                 }
             }
-            index++;
         }
-        index = 1;
         for (Class<? extends IWrapper> wrapper : wrappers) {
-            System.out.println("apply constructor " + wrapper.getCanonicalName());
+            Logger.log("Apply constructor " + wrapper.getCanonicalName(), "Wrapper");
             for (Annotation declaredAnnotation : wrapper.getDeclaredAnnotations()) {
                 if (declaredAnnotation instanceof WrapperClasses) {
                     for (WrapperClass wrapperClass : ((WrapperClasses) declaredAnnotation).value()) {
@@ -158,7 +155,6 @@ public class Wrapper {
                     applyConstructor(wrapperClass, wrapper);
                 }
             }
-            index++;
         }
     }
 
@@ -177,6 +173,7 @@ public class Wrapper {
                         }
                     }
                 } catch (Exception e) {
+                    Logger.log("Failed to apply Constructor: " + wrapperClass.mcpName(), "Wrapper", Logger.LogLevel.ERROR);
                     e.printStackTrace();
                 }
             }
@@ -210,8 +207,8 @@ public class Wrapper {
                     }
                 }
                 MapNode mapNode = readClass(wrapperClass.mcpName());
-                Class target = reflectClassByMap(mapNode);
-                Constructor constructor;
+                Class<?> target = reflectClassByMap(mapNode);
+                Constructor<?> constructor;
                 if (classes.size() == 0) {
                     constructor = target.getConstructors()[0];
                 } else {
@@ -272,7 +269,7 @@ public class Wrapper {
     }
 
     private static void applyEnum(WrapperClass wrapperClass, WrapEnum
-            wrapEnum, Field declaredField) throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+            wrapEnum, Field declaredField) throws IllegalAccessException {
         if (wrapEnum.targetMap() == MapEnv) {
             if (Modifier.isStatic(declaredField.getModifiers())) {
                 //ReadMap
@@ -283,11 +280,13 @@ public class Wrapper {
                         mapNode = new MapNode(NodeType.Field, "", clazz.getSrg().replace(".", "/") + wrapEnum.customSrgName());
                 }
                 if (mapNode != null) {
-                    System.out.println(wrapperClass.mcpName() + " " + wrapEnum.mcpName() + " -> " + mapNode.getSrg());
                     declaredField.setAccessible(true);
-                    System.out.println("Enum null: " + (reflectEnumByMap(mapNode) == null));
-                    System.out.println(mapNode.getMcp() + " " + mapNode.getSrg());
-                    declaredField.set(null, reflectEnumByMap(mapNode));
+                    try {
+                        declaredField.set(null, reflectEnumByMap(mapNode));
+                        Logger.log("Successful Apply Enum: " + wrapperClass.mcpName() + " " + wrapEnum.mcpName() + " -> " + mapNode.getSrg(), "Wrapper");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -316,7 +315,7 @@ public class Wrapper {
                     return (Enum<?>) enumConstant;
             }
         }
-        return null;
+        throw new NullPointerException("Can't wrap: " + mapNode.getMcp() + " -> " + c.getCanonicalName() + "." + field + "]");
     }
 
     private static void applyObject(WrapperClass wrapperClass, WrapObject wrapObject, Field declaredField) throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
@@ -324,15 +323,17 @@ public class Wrapper {
             if (Modifier.isStatic(declaredField.getModifiers())) {
                 //ReadMap
                 MapNode mapNode = readField(wrapperClass.mcpName(), wrapObject.mcpName());
-                String customSrg = wrapObject.customSrgName();
-                if (!customSrg.equals("none")) {
+                if (!wrapObject.customSrgName().equals("none")) {
                     MapNode clazz = readClass(wrapperClass.mcpName());
-                    mapNode = new MapNode(NodeType.Field, "", clazz.getSrg().replace(".", "/") + customSrg);
+                    if (clazz != null)
+                        mapNode = new MapNode(NodeType.Field, "", clazz.getSrg().replace(".", "/") + wrapObject.customSrgName());
                 }
-                System.out.println(wrapperClass.mcpName() + " " + wrapObject.mcpName() + " -> " + mapNode.getSrg());
                 if (mapNode != null) {
                     declaredField.setAccessible(true);
                     declaredField.set(null, reflectFieldByMap(mapNode).get(null));
+                    Logger.log("Successful Apply Object: " + wrapperClass.mcpName() + " " + wrapObject.mcpName() + " -> " + mapNode.getSrg(), "Wrapper");
+                } else {
+                    Logger.log("Failed to find Object in SrgMap: " + wrapObject.mcpName(), "Wrapper", Logger.LogLevel.ERROR);
                 }
             }
         }
@@ -343,15 +344,17 @@ public class Wrapper {
             if (Modifier.isStatic(declaredField.getModifiers())) {
                 //ReadMap
                 MapNode mapNode = readField(wrapperClass.mcpName(), wrapField.mcpName());
-                String customSrg = wrapField.customSrgName();
-                if (!customSrg.equals("none")) {
+                if (!wrapField.customSrgName().equals("none")) {
                     MapNode clazz = readClass(wrapperClass.mcpName());
-                    mapNode = new MapNode(NodeType.Field, "", clazz.getSrg().replace(".", "/") + customSrg);
+                    if (clazz != null)
+                        mapNode = new MapNode(NodeType.Field, "", clazz.getSrg().replace(".", "/") + wrapField.customSrgName());
                 }
-                System.out.println(wrapperClass.mcpName() + " " + wrapField.mcpName() + " -> " + mapNode.getSrg());
                 if (mapNode != null) {
                     declaredField.setAccessible(true);
                     declaredField.set(null, reflectFieldByMap(mapNode));
+                    Logger.log("Successful Apply Field: " + wrapperClass.mcpName() + " " + wrapField.mcpName() + " -> " + mapNode.getSrg(), "Wrapper");
+                } else {
+                    Logger.log("Failed to find Field in SrgMap: " + wrapField.mcpName(), "Wrapper", Logger.LogLevel.ERROR);
                 }
             }
         }
@@ -362,11 +365,12 @@ public class Wrapper {
             if (Modifier.isStatic(declaredField.getModifiers())) {
                 //ReadMap
                 MapNode mapNode = readClass(wrapClass.mcpName());
-
-                System.out.println(wrapClass.mcpName() + " -> " + mapNode.getSrg());
                 if (mapNode != null) {
                     declaredField.setAccessible(true);
                     declaredField.set(null, reflectClassByMap(mapNode));
+                    Logger.log("Successful Apply Class: " + wrapperClass.mcpName() + " " + wrapClass.mcpName() + " -> " + mapNode.getSrg(), "Wrapper");
+                } else {
+                    Logger.log("Failed to find Class in SrgMap: " + wrapClass.mcpName(), "Wrapper", Logger.LogLevel.ERROR);
                 }
             }
         }
@@ -382,23 +386,25 @@ public class Wrapper {
                 MapNode mapNode = readMethod(wrapperClass.mcpName(), wrapMethod.mcpName(), costumSig);
                 if (mapNode != null) {
                     if (mapNode.getSrg() == null) {
-                        System.out.println("null" + " " + wrapperClass.mcpName() + " " + wrapMethod.mcpName());
+                        Logger.log("null" + " " + wrapperClass.mcpName() + " " + wrapMethod.mcpName(), "Wrapper", Logger.LogLevel.ERROR);
                     }
                     try {
                         declaredField.setAccessible(true);
                         declaredField.set(null, reflectMethodByMap(mapNode));
-                        System.out.println(wrapperClass.mcpName() + " " + wrapMethod.mcpName() + " -> " + mapNode.getSrg());
+                        Logger.log("Successful Apply Method: " + wrapperClass.mcpName() + " " + wrapMethod.mcpName() + " -> " + mapNode.getSrg(), "Wrapper");
                     } catch (Exception e) {
-                        System.out.println("[Failed]" + wrapperClass.mcpName() + " " + wrapMethod.mcpName() + " -> " + mapNode.getSrg());
+                        Logger.log("Failed to apply Method: " + wrapperClass.mcpName() + " " + wrapMethod.mcpName() + " -> " + mapNode.getSrg(), "Wrapper", Logger.LogLevel.ERROR);
                         e.printStackTrace();
                     }
+                } else {
+                    Logger.log("Failed to find Method in SrgMap: " + wrapMethod.mcpName(), "Wrapper", Logger.LogLevel.ERROR);
                 }
             }
         }
     }
 
     private static Field reflectFieldByMap(MapNode mapNode) throws ClassNotFoundException, NoSuchFieldException {
-        String srg = LycorisClient.useMapObf ? mapNode.getSrg() : mapNode.getMcp();
+        String srg = useMapObf ? mapNode.getSrg() : mapNode.getMcp();
         String field = srg.split("/")[srg.split("/").length - 1];
         String clazz = srg.replace("/", ".").replace("." + field, "");
         Class<?> c = reader.getClassNative(clazz);
@@ -414,34 +420,33 @@ public class Wrapper {
                 return declaredField;
             }
         }
-        throw new NullPointerException("Can't wrap " + mapNode.getMcp() + " -> " + c.getCanonicalName() + "." + field + "]");
+        throw new NullPointerException("Can't wrap: " + mapNode.getMcp() + " -> " + c.getCanonicalName() + "." + field + "]");
     }
 
     private static Class<?> reflectClassByMap(MapNode mapNode) throws ClassNotFoundException, NoSuchFieldException {
-        String srg = LycorisClient.useMapObf ? mapNode.getSrg() : mapNode.getMcp();
+        String srg = useMapObf ? mapNode.getSrg() : mapNode.getMcp();
         String clazz = srg.replace("/", ".");
         Class<?> c = reader.getClassNative(clazz);
         return c;
     }
 
     private static Method reflectMethodByMap(MapNode mapNode) throws ClassNotFoundException, NoSuchFieldException, NoSuchMethodException {
-        Method m;
         if (mapNode instanceof MethodNode) {
-            String srg = LycorisClient.useMapObf ? mapNode.getSrg() : mapNode.getMcp();
+            String srg = useMapObf ? mapNode.getSrg() : mapNode.getMcp();
             String method = srg.split("/")[srg.split("/").length - 1];
             String clazz = srg.replace("/", ".").replace("." + method, "");
             for (Class<?> arg : ((MethodNode) mapNode).getSignature().getArgs()) {
                 if (arg == null) {
-                    System.out.println(mapNode.getSrg() + " arg is null");
+                    Logger.log("arg is null: " + mapNode.getSrg(), "Wrapper", Logger.LogLevel.ERROR);
+                    throw new NullPointerException("arg is null: " + mapNode.getSrg());
                 }
             }
             Class<?> c = reader.getClassNative(clazz);
-            m = c.getDeclaredMethod(method, ((MethodNode) mapNode).getSignature().getArgs());
+            Method m = c.getDeclaredMethod(method, ((MethodNode) mapNode).getSignature().getArgs());
             m.setAccessible(true);
-        } else {
-            m = null;
+            return m;
         }
-        return m;
+        throw new NullPointerException("Can't wrap: " + mapNode.getMcp());
     }
 
     public static MapNode readField(String clazz, String field) {

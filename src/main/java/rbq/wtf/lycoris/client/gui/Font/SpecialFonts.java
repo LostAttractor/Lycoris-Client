@@ -1,8 +1,6 @@
 package rbq.wtf.lycoris.client.gui.Font;
 
 public class SpecialFonts {
-
-
     //Notifi
     public static String ICON_FRAME = "\uF0AF";// "\ue90b";
     public static String ICON_NOTIFY_INFO = "i";// "\ue90b";

@@ -76,7 +76,7 @@ public class CFont {
 
             CharData charData = new CharData();
             Rectangle2D dimensions = fontMetrics.getStringBounds(String.valueOf(ch), g);
-            charData.width = (dimensions.getBounds().width + 8);
+            charData.width = dimensions.getBounds().width + 8;
             charData.height = dimensions.getBounds().height;
 
             if (positionX + charData.width >= imgSize) {
@@ -110,7 +110,7 @@ public class CFont {
 
                 CharData charData = new CharData();
                 Rectangle2D dimensions = fontMetrics.getStringBounds(String.valueOf(chinesechar[i - 256]), g);
-                charData.width = (dimensions.getBounds().width + 8);
+                charData.width = dimensions.getBounds().width + 8;
                 charData.height = dimensions.getBounds().height;
 
                 if (positionX + charData.width >= imgSize) {
@@ -140,7 +140,7 @@ public class CFont {
         return bufferedImage;
     }
 
-    private char[] findCharactersInUnicodeBlock(final Character.UnicodeBlock block) {
+    private char[] findCharactersInUnicodeBlock(Character.UnicodeBlock block) {
         final ArrayList<Character> chars = new ArrayList<Character>();
         for (int codePoint = Character.MIN_CODE_POINT; codePoint <= Character.MAX_CODE_POINT; codePoint++) {
             if (block == Character.UnicodeBlock.of(codePoint)) {
