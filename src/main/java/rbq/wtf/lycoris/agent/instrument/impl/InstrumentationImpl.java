@@ -12,9 +12,10 @@ import java.nio.file.Paths;
 
 public class InstrumentationImpl implements Instrumentation
 {
+    public static final String NativeLibPath = Paths.get("").toAbsolutePath().getParent().resolve("Lycoris-Native-Loader/x64/Release/Lycoris-Native-Loader.dll").toString();
     public static void init(){
-        System.out.println("InitNaive");
-        System.load(Paths.get("").toAbsolutePath().getParent().resolve("Lycoris-Native-Loader/x64/Release/Lycoris-Native-Loader.dll").toString());
+        System.out.println("Load Native: " + NativeLibPath);
+        System.load(NativeLibPath);
     }
 
     @Override
