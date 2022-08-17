@@ -1,80 +1,68 @@
 package rbq.wtf.lycoris.client.wrapper;
 
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
+import rbq.wtf.lycoris.client.utils.FileUtils;
 import rbq.wtf.lycoris.client.utils.Logger;
-import rbq.wtf.lycoris.client.wrapper.SRGReader.Reader;
+import rbq.wtf.lycoris.client.wrapper.SRGReader.SRGReader;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MapNode;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MethodNode;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.NodeType;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.repeat.*;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.*;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.GameSettings;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.KeyBinding;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.Entity;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayerSP;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.*;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.*;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.*;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.AbstractTexture;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.DynamicTexture;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.*;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.*;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.click.*;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.text.*;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.HoverEvent;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.click.ClickEvent;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.click.ClickEventAction;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.text.IChatComponent;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Wrapper {
-    private static final List<Class<? extends IWrapper>> wrappers = new ArrayList<Class<? extends IWrapper>>();
+    private static final List<Class<? extends IWrapper>> wrapperList = new ArrayList<>();
     public static MapEnum MapEnv;
     public static boolean useMapObf;
-    private static Reader reader;
+    public static String srgMap;
+    public static Path srgPath;
+    private static SRGReader reader;
 
     public static void init() {
         Logger.log("Start Initialize Wrapper","Wrapper");
-        MapEnv = MapEnum.VANILLA189;
-        useMapObf = false; //是否使用混淆后的名称，在MDK环境下需设为false
-        Path path = Paths.get("").toAbsolutePath().getParent().resolve("maps/" + MapEnv.toString() + ".srg");
-        String map = readFileByPath(path);
-        reader = new Reader(map);
-        reader.preRead();
-        loadWrapper();
-        //ReflectLoading.loadingProgress.setString("Loading Wrapper");
         try {
+            MapEnv = MapEnum.VANILLA189;
+            useMapObf = false; //是否使用混淆后的名称，在MDK环境下需设为false
+            srgPath = Paths.get("").toAbsolutePath().getParent().resolve("maps/" + MapEnv.toString() + ".srg");
+            srgMap = FileUtils.readFileByPath(srgPath);
+            reader = new SRGReader(srgMap);
+            loadWrappers();
             applyMap();
-            Logger.log("Wrapper Initialized Successful", "Wrapper");
+            //ReflectLoading.loadingProgress.setString("Loading Wrapper");
         } catch (Exception e) {
             e.printStackTrace();
             Logger.log("Wrapper Initialized Failed", "Wrapper");
         }
+        Logger.log("Wrapper Initialized Successful", "Wrapper");
     }
 
-    public static String readFileByPath(Path path) {
-        try {
-            InputStream stream = Files.newInputStream(path);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] buffer = new byte[512000];
-
-            int length;
-            while ((length = stream.read(buffer)) != -1) {
-                bos.write(buffer, 0, length);
-            }
-            return bos.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-    public static void loadWrapper() {
-        Logger.log("Loading wrapper", "Wrapper");
+    public static void loadWrappers() {
+        Logger.log("Loading wrappers", "Wrapper");
         List<Class<?>> classes = new ArrayList<Class<?>>();
         //client
         classes.add(Minecraft.class);
@@ -118,17 +106,17 @@ public class Wrapper {
         for (Class<?> aClass : classes) {
             // Logger.log(aClass.getCanonicalName(), "Wrapper");
             if (aClass != IWrapper.class) {
-                wrappers.add((Class<? extends IWrapper>) aClass);
+                wrapperList.add((Class<? extends IWrapper>) aClass);
             }
         }
     }
 
-    public static List<Class<? extends IWrapper>> getWrappers() {
-        return wrappers;
+    public static List<Class<? extends IWrapper>> getWrapperList() {
+        return wrapperList;
     }
 
     private static void applyMap() throws IllegalAccessException, ClassNotFoundException, NoSuchFieldException, NoSuchMethodException {
-        for (Class<? extends IWrapper> wrapper : wrappers) {
+        for (Class<? extends IWrapper> wrapper : wrapperList) {
             Logger.log("Apply wrapper " + wrapper.getCanonicalName(), "Wrapper");
             for (Annotation declaredAnnotation : wrapper.getDeclaredAnnotations()) {
                 if (declaredAnnotation instanceof WrapperClasses) {
@@ -141,7 +129,7 @@ public class Wrapper {
                 }
             }
         }
-        for (Class<? extends IWrapper> wrapper : wrappers) {
+        for (Class<? extends IWrapper> wrapper : wrapperList) {
             Logger.log("Apply constructor " + wrapper.getCanonicalName(), "Wrapper");
             for (Annotation declaredAnnotation : wrapper.getDeclaredAnnotations()) {
                 if (declaredAnnotation instanceof WrapperClasses) {
@@ -267,7 +255,7 @@ public class Wrapper {
     }
 
     private static void applyEnum(WrapperClass wrapperClass, WrapEnum
-            wrapEnum, Field declaredField) throws IllegalAccessException {
+            wrapEnum, Field declaredField) {
         if (wrapEnum.targetMap() == MapEnv) {
             if (Modifier.isStatic(declaredField.getModifiers())) {
                 //ReadMap

@@ -12,6 +12,9 @@ import rbq.wtf.lycoris.client.utils.Logger;
 import rbq.wtf.lycoris.client.wrapper.Wrapper;
 import rbq.wtf.lycoris.client.wrapper.bridge.BridgeUtil;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 public class Client {
     public static Client instance;

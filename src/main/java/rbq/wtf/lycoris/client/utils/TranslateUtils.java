@@ -1,11 +1,11 @@
 package rbq.wtf.lycoris.client.utils;
 
-public class TranslateUtil {
+public class TranslateUtils {
     private float x;
     private float y;
     private long lastMS;
 
-    public TranslateUtil(float x, float y) {
+    public TranslateUtils(float x, float y) {
         this.x = x;
         this.y = y;
         this.lastMS = System.currentTimeMillis();

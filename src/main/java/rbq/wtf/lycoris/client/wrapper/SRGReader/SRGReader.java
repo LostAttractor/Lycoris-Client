@@ -10,19 +10,19 @@ import rbq.wtf.lycoris.client.wrapper.SRGReader.utils.StringStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Reader {
-    private final String map;
+public class SRGReader {
+    //private final String srgMap;
     private List<MapNode> mapNodes;
-    private List<Class<?>> loadedClasses = new ArrayList<>();
+    //private List<Class<?>> loadedClasses = new ArrayList<>();
 
-    public Reader(String MCP2SrgMap) {
-        this.map = MCP2SrgMap;
+    public SRGReader(String srgMap) {
+        // srgMap = Mcp2SrgMap;
+        mapNodes = readMap(srgMap);
     }
 
-    public List<MapNode> preRead() {
-        //loadedClasses.addAll(Arrays.asList(ReflectNative.getAllLoadedClasses()));
-        mapNodes = new ArrayList<MapNode>();
-        for (String s : map.split("\\n")) {
+    public List<MapNode> readMap(String srgMap) {
+        List<MapNode> mapNodes = new ArrayList<MapNode>();
+        for (String s : srgMap.split("\\n")) {
             try {
                 String[] strings = s.split(" ");
                 if (strings.length != 0) {
@@ -46,7 +46,7 @@ public class Reader {
 
     public Class<?> getClassNative(String name) {
         try {
-            return Reader.class.getClassLoader().loadClass(name);
+            return SRGReader.class.getClassLoader().loadClass(name);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return null;

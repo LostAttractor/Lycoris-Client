@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class RenderUtil {
+public class RenderUtils {
 
     private static Minecraft mc = Minecraft.getMinecraft();
     private static final List<Integer> csBuffer;
@@ -68,18 +68,18 @@ public class RenderUtil {
                                      int color) {
         double width = endX - xPosition;
         double height = endY - yPosition;
-        RenderUtil.drawRect(xPosition + radius, yPosition + radius, xPosition + width - radius, yPosition + height - radius,
+        RenderUtils.drawRect(xPosition + radius, yPosition + radius, xPosition + width - radius, yPosition + height - radius,
                 color);
-        RenderUtil.drawRect(xPosition, yPosition + radius, xPosition + radius, yPosition + height - radius, color);
-        RenderUtil.drawRect(xPosition + width - radius, yPosition + radius, xPosition + width, yPosition + height - radius,
+        RenderUtils.drawRect(xPosition, yPosition + radius, xPosition + radius, yPosition + height - radius, color);
+        RenderUtils.drawRect(xPosition + width - radius, yPosition + radius, xPosition + width, yPosition + height - radius,
                 color);
-        RenderUtil.drawRect(xPosition + radius, yPosition, xPosition + width - radius, yPosition + radius, color);
-        RenderUtil.drawRect(xPosition + radius, yPosition + height - radius, xPosition + width - radius, yPosition + height,
+        RenderUtils.drawRect(xPosition + radius, yPosition, xPosition + width - radius, yPosition + radius, color);
+        RenderUtils.drawRect(xPosition + radius, yPosition + height - radius, xPosition + width - radius, yPosition + height,
                 color);
-        RenderUtil.drawFilledCircle(xPosition + radius, yPosition + radius, radius, color, 1);
-        RenderUtil.drawFilledCircle(xPosition + radius, yPosition + height - radius, radius, color, 2);
-        RenderUtil.drawFilledCircle(xPosition + width - radius, yPosition + radius, radius, color, 3);
-        RenderUtil.drawFilledCircle(xPosition + width - radius, yPosition + height - radius, radius, color, 4);
+        RenderUtils.drawFilledCircle(xPosition + radius, yPosition + radius, radius, color, 1);
+        RenderUtils.drawFilledCircle(xPosition + radius, yPosition + height - radius, radius, color, 2);
+        RenderUtils.drawFilledCircle(xPosition + width - radius, yPosition + radius, radius, color, 3);
+        RenderUtils.drawFilledCircle(xPosition + width - radius, yPosition + height - radius, radius, color, 4);
     }
 
     public static void drawFilledCircle(double x, double y, double r, int c, int id) {
@@ -264,7 +264,7 @@ public class RenderUtil {
 
     public static void drawBorderedRect(final double x, final double y, final double x2, final double d, final float l1,
                                         final int col1, final int col2) {
-        RenderUtil.drawRect(x, y, x2, d, col2);
+        RenderUtils.drawRect(x, y, x2, d, col2);
         final float f = (col1 >> 24 & 0xFF) / 255.0f;
         final float f2 = (col1 >> 16 & 0xFF) / 255.0f;
         final float f3 = (col1 >> 8 & 0xFF) / 255.0f;
@@ -501,7 +501,7 @@ public class RenderUtil {
         GL11.glBlendFunc((int) 770, (int) 771);
         glEnable((int) 2848);
         GL11.glPushMatrix();
-        RenderUtil.color(color);
+        RenderUtils.color(color);
         glBegin((int) 7);
         GL11.glVertex2d((double) f, (double) e);
         GL11.glVertex2d((double) d, (double) e);
@@ -518,15 +518,15 @@ public class RenderUtil {
 
     public static void rectangleBordered(double x, double y, double x1, double y1, double width, int internalColor,
                                          int borderColor) {
-        RenderUtil.rectangle(x + width, y + width, x1 - width, y1 - width, internalColor);
+        RenderUtils.rectangle(x + width, y + width, x1 - width, y1 - width, internalColor);
         GlStateManager.color((float) 1.0f, (float) 1.0f, (float) 1.0f, (float) 1.0f);
-        RenderUtil.rectangle(x + width, y, x1 - width, y + width, borderColor);
+        RenderUtils.rectangle(x + width, y, x1 - width, y + width, borderColor);
         GlStateManager.color((float) 1.0f, (float) 1.0f, (float) 1.0f, (float) 1.0f);
-        RenderUtil.rectangle(x, y, x + width, y1, borderColor);
+        RenderUtils.rectangle(x, y, x + width, y1, borderColor);
         GlStateManager.color((float) 1.0f, (float) 1.0f, (float) 1.0f, (float) 1.0f);
-        RenderUtil.rectangle(x1 - width, y, x1, y1, borderColor);
+        RenderUtils.rectangle(x1 - width, y, x1, y1, borderColor);
         GlStateManager.color((float) 1.0f, (float) 1.0f, (float) 1.0f, (float) 1.0f);
-        RenderUtil.rectangle(x + width, y1 - width, x1 - width, y1, borderColor);
+        RenderUtils.rectangle(x + width, y1 - width, x1 - width, y1, borderColor);
         GlStateManager.color((float) 1.0f, (float) 1.0f, (float) 1.0f, (float) 1.0f);
     }
 
@@ -722,22 +722,22 @@ public class RenderUtil {
 
 
     public static void drawHollowBox(float x, float y, float x1, float y1, float thickness, int color) {
-        RenderUtil.drawHorizontalLine(x, y, x1, thickness, color);
-        RenderUtil.drawHorizontalLine(x, y1, x1, thickness, color);
-        RenderUtil.drawVerticalLine(x, y, y1, thickness, color);
-        RenderUtil.drawVerticalLine(x1 - thickness, y, y1, thickness, color);
+        RenderUtils.drawHorizontalLine(x, y, x1, thickness, color);
+        RenderUtils.drawHorizontalLine(x, y1, x1, thickness, color);
+        RenderUtils.drawVerticalLine(x, y, y1, thickness, color);
+        RenderUtils.drawVerticalLine(x1 - thickness, y, y1, thickness, color);
     }
 
     public static void drawHorizontalLine(float x, float y, float x1, float thickness, int color) {
-        RenderUtil.drawRect2(x, y, x1, y + thickness, color);
+        RenderUtils.drawRect2(x, y, x1, y + thickness, color);
     }
 
     public static void drawRect2(double x, double y, double x2, double y2, int color) {
-        RenderUtil.drawRect(x, y, x2, y2, color);
+        RenderUtils.drawRect(x, y, x2, y2, color);
     }
 
     public static void drawVerticalLine(float x, float y, float y1, float thickness, int color) {
-        RenderUtil.drawRect2(x, y, x + thickness, y1, color);
+        RenderUtils.drawRect2(x, y, x + thickness, y1, color);
     }
 
     public static int rainbow(int delay) {
@@ -858,10 +858,10 @@ public class RenderUtil {
             R2DUtils.enableGL2D();
             GL11.glShadeModel((int) 7425);
             glBegin((int) 7);
-            RenderUtil.glColor(topColor);
+            RenderUtils.glColor(topColor);
             GL11.glVertex2f((float) x, (float) y1);
             GL11.glVertex2f((float) x1, (float) y1);
-            RenderUtil.glColor(bottomColor);
+            RenderUtils.glColor(bottomColor);
             GL11.glVertex2f((float) x1, (float) y);
             GL11.glVertex2f((float) x, (float) y);
             GL11.glEnd();
@@ -994,10 +994,10 @@ public class RenderUtil {
     }
 
     public static void drawOutline(double x, double y, double width, double height, double lineWidth, int color) {
-        RenderUtil.drawRect(x, y, x + width, y + lineWidth, color);
-        RenderUtil.drawRect(x, y, x + lineWidth, y + height, color);
-        RenderUtil.drawRect(x, y + height - lineWidth, x + width, y + height, color);
-        RenderUtil.drawRect(x + width - lineWidth, y, x + width, y + height, color);
+        RenderUtils.drawRect(x, y, x + width, y + lineWidth, color);
+        RenderUtils.drawRect(x, y, x + lineWidth, y + height, color);
+        RenderUtils.drawRect(x, y + height - lineWidth, x + width, y + height, color);
+        RenderUtils.drawRect(x + width - lineWidth, y, x + width, y + height, color);
     }
 
     public static double interpolate(double current, double old, double scale) {
@@ -1062,7 +1062,7 @@ public class RenderUtil {
         int scaleFactor = new ScaledResolution(mc).getScaleFactor();
         GL11.glPushMatrix();
         glEnable((int) 3089);
-        GL11.glScissor((int) (x * scaleFactor), (int) (RenderUtil.mc.getDisplayHeight() - (y + height) * scaleFactor),
+        GL11.glScissor((int) (x * scaleFactor), (int) (RenderUtils.mc.getDisplayHeight() - (y + height) * scaleFactor),
                 (int) (width * scaleFactor), (int) ((height += 14) * scaleFactor));
     }
 
