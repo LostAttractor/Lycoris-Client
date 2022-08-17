@@ -10,6 +10,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.IGuiScreen;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 public class BridgeUtil {
     public static Class<?> GuiScreenBridge = null;
@@ -21,13 +22,13 @@ public class BridgeUtil {
             Method classloader = ClassLoader.class.getDeclaredMethod("defineClass", String.class, byte[].class, Integer.TYPE, Integer.TYPE);
             classloader.setAccessible(true);
             byte[] buf = buildGuiScreenBridge("rbq.wtf.lycoris.client.wrapper.bridge.accessor.GuiScreenBridge");
-            GuiScreenBridge = (Class) classloader.invoke(BridgeUtil.class.getClassLoader(), null, buf, 0, buf.length);
+            GuiScreenBridge = (Class<?>) classloader.invoke(BridgeUtil.class.getClassLoader(), null, buf, 0, buf.length);
 
             buf = buildGuiChatBridge("rbq.wtf.lycoris.client.wrapper.bridge.accessor.GuiCommandReplace");
-            GuiChatReplace = (Class) classloader.invoke(BridgeUtil.class.getClassLoader(), null, buf, 0, buf.length);
+            GuiChatReplace = (Class<?>) classloader.invoke(BridgeUtil.class.getClassLoader(), null, buf, 0, buf.length);
             if (MargeleAntiCheatDetector.isMAC()) {
                 buf = buildMargeleAntiCheatAccessor("rbq.wtf.lycoris.client.wrapper.bridge.accessor.MargeleAntiCheatAccessor");
-                MargeleAntiCheatAccessor = (Class) classloader.invoke(BridgeUtil.class.getClassLoader(), null, buf, 0, buf.length);
+                MargeleAntiCheatAccessor = (Class<?>) classloader.invoke(BridgeUtil.class.getClassLoader(), null, buf, 0, buf.length);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,7 +65,7 @@ public class BridgeUtil {
                 , null, Object.class.getCanonicalName().replace(".", "/"), new String[]{});
         MethodVisitor setCheatVL = cw.visitMethod(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC, "setCheatVL", "(I)V", null, null);
         setCheatVL.visitVarInsn(Opcodes.ILOAD, 0);
-        setCheatVL.visitFieldInsn(Opcodes.PUTSTATIC, Type.getInternalName(MargeleAntiCheatDetector.getMAC()), "cheatingVl", "I");
+        setCheatVL.visitFieldInsn(Opcodes.PUTSTATIC, Type.getInternalName(Objects.requireNonNull(MargeleAntiCheatDetector.getMAC())), "cheatingVl", "I");
         setCheatVL.visitInsn(Opcodes.RETURN);
         //setCheatVL.visitMethodInsn(Opcodes.INVOKESTATIC,Type.getInternalName(MargeleAntiCheatDetector.getMAC()),"setCheatVL","(I)V",false);
         setCheatVL.visitEnd();
@@ -84,7 +85,7 @@ public class BridgeUtil {
         return buildGuiScreenBridge(GuiScreen.GuiScreenClass, pkg);
     }
 
-    public static byte[] buildGuiScreenBridge(Class superClass, String pkg) {
+    public static byte[] buildGuiScreenBridge(Class<?> superClass, String pkg) {
         ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
         String wrappedScreen = "wrappedScreen";
         cw.visit(Opcodes.V1_8, Opcodes.ACC_PUBLIC, pkg.replace(".", "/")
