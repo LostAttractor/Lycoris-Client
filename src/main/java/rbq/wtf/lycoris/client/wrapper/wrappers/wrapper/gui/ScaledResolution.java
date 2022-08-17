@@ -34,22 +34,22 @@ public class ScaledResolution extends IWrapper {
     }
 
     public int getScaledWidth() {
-        return (int) ReflectUtil.getField(scaledWidth, getWrapObject());
+        return (int) getField(scaledWidth);
     }
 
     public int getScaledHeight() {
-        return (int) ReflectUtil.getField(scaledHeight, getWrapObject());
+        return (int) getField(scaledHeight);
     }
 
     public double getScaledWidth_double() {
-        return (double) ReflectUtil.getField(scaledWidthD, getWrapObject());
+        return (double) getField(scaledWidthD);
     }
 
     public double getScaledHeight_double() {
-        return (double) ReflectUtil.getField(scaledHeightD, getWrapObject());
+        return (double) getField(scaledHeightD);
     }
 
     public int getScaleFactor() {
-        return (int) ReflectUtil.getField(scaleFactor, getWrapObject());
+        return (int) getField(scaleFactor);
     }
 }

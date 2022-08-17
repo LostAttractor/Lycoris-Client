@@ -8,6 +8,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 @WrapperClass(mcpName = "net.minecraft.util.AxisAlignedBB", targetMap = MapEnum.VANILLA189)
@@ -41,7 +42,7 @@ public class AxisAlignedBB extends IWrapper {
     @WrapMethod(mcpName = "isVecInside", targetMap = MapEnum.VANILLA189)
     public static Method isVecInside;
 
-    public AxisAlignedBB(double x1, double y1, double z1, double x2, double y2, double z2) {
+    public AxisAlignedBB(double x1, double y1, double z1, double x2, double y2, double z2)  {
         super(ReflectUtil.construction(AxisAlignedBB_Constructor_DDDDDD, x1, y1, z1, x2, y2, z2));
     }
 
@@ -54,27 +55,27 @@ public class AxisAlignedBB extends IWrapper {
     }
 
     public double getMinZ() {
-        return (double) ReflectUtil.getField(minZ, getWrapObject());
+        return (double) getField(minZ);
     }
 
     public double getMinY() {
-        return (double) ReflectUtil.getField(minY, getWrapObject());
+        return (double) getField(minY);
     }
 
     public double getMaxZ() {
-        return (double) ReflectUtil.getField(maxZ, getWrapObject());
+        return (double) getField(maxZ);
     }
 
     public double getMaxY() {
-        return (double) ReflectUtil.getField(maxY, getWrapObject());
+        return (double) getField(maxY);
     }
 
     public double getMaxX() {
-        return (double) ReflectUtil.getField(maxX, getWrapObject());
+        return (double) getField(maxX);
     }
 
     public double getMinX() {
-        return (double) ReflectUtil.getField(minX, getWrapObject());
+        return (double) getField(minX);
     }
 
     public AxisAlignedBB offset(double x, double y, double z) {

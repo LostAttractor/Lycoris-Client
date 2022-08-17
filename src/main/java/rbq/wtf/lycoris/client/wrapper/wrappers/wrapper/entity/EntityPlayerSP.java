@@ -24,15 +24,15 @@ public class EntityPlayerSP extends IWrapper {
     @WrapMethod(mcpName = "setSprinting", targetMap = MapEnum.VANILLA189)
     public static Method setSprinting;
 
+    public EntityPlayerSP(Object obj) {
+        super(obj);
+    }
+
     public void setSprinting(boolean sprint) {
         invoke(setSprinting, sprint);
     }
 
     public void setSprintingTicksLeft (int TicksLeft){
         setField(sprintingTicksLeft, TicksLeft);
-    }
-
-    public EntityPlayerSP(Object obj) {
-        super(obj);
     }
 }

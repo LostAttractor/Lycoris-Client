@@ -26,10 +26,10 @@ public class Tessellator extends IWrapper {
     }
 
     public WorldRenderer getWorldRenderer() {
-        return new WorldRenderer(ReflectUtil.getField(worldRenderer, getWrapObject()));
+        return new WorldRenderer(getField(worldRenderer));
     }
 
     public void draw() {
-        ReflectUtil.invoke(draw, getWrapObject());
+        invoke(draw);
     }
 }

@@ -3,7 +3,6 @@ package rbq.wtf.lycoris.client.wrapper.wrappers.wrapper;
 import rbq.wtf.lycoris.client.wrapper.MapEnum;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapField;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapperClass;
-import rbq.wtf.lycoris.client.wrapper.wrappers.utils.ReflectUtil;
 
 import java.lang.reflect.Field;
 
@@ -73,11 +72,11 @@ public class GameSettings extends IWrapper {
     }
 
     public KeyBinding getKeyBindAttack() {
-        return new KeyBinding(ReflectUtil.getField(keyBindAttack, getWrapObject()));
+        return new KeyBinding(getField(keyBindAttack));
     }
 
     public KeyBinding getKeyBindUseItem() {
-        return new KeyBinding(ReflectUtil.getField(keyBindUseItem, getWrapObject()));
+        return new KeyBinding(getField(keyBindUseItem));
     }
 
     public float getMouseSensitivity() {

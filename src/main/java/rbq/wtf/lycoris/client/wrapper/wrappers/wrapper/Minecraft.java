@@ -53,6 +53,8 @@ public class Minecraft extends IWrapper {
     public static Field renderManager;
     @WrapField(mcpName = "renderEngine", targetMap = MapEnum.VANILLA189)
     public static Field renderEngine;
+    @WrapField(mcpName = "displayWidth", targetMap = MapEnum.VANILLA189)
+    public static Field displayWidth;
     @WrapField(mcpName = "displayHeight", targetMap = MapEnum.VANILLA189)
     public static Field displayHeight;
     @WrapField(mcpName = "session", targetMap = MapEnum.VANILLA189)
@@ -81,19 +83,17 @@ public class Minecraft extends IWrapper {
     public static Field renderGlobal;
     @WrapMethod(mcpName = "addScheduledTask", targetMap = MapEnum.VANILLA189, signature = "(Ljava/lang/Runnable;)Lcom/google/common/util/concurrent/ListenableFuture;")
     public static Method addScheduledTask;
-    @WrapMethod(mcpName = "displayWidth", targetMap = MapEnum.VANILLA189)
-    public static Field displayWidth;
 
     public Minecraft(Object obj) {
         super(obj);
     }
 
     public static int getDebugFPS() {
-        return (int) ReflectUtil.getField(debugFPS, null);
+        return (int) getMinecraft().getField(debugFPS);
     }
 
     public int getDisplayHeight() {
-        return (int) ReflectUtil.getField(displayHeight, getWrapObject());
+        return (int) getField(displayHeight);
     }
 
     public int getDisplayWidth() {

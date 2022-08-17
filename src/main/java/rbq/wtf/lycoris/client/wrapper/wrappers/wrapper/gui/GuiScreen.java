@@ -47,19 +47,19 @@ public class GuiScreen extends Gui {
     }
 
     public void setMc(Minecraft mcIn) {
-        ReflectUtil.setField(mc, mcIn.getWrapObject(), getWrapObject());
+        setField(mc, mcIn.getWrapObject());
     }
 
     public void setHeight(int heightIn) {
-        ReflectUtil.setField(height, heightIn, getWrapObject());
+        setField(height, heightIn);
     }
 
     public void setWidth(int widthIn) {
-        ReflectUtil.setField(width, widthIn, getWrapObject());
+        setField(width, widthIn);
     }
 
     public void initGui() {
-        ReflectUtil.invoke(initGui, getWrapObject());
+        invoke(initGui);
     }
 
     public void keyTyped(char c, int i) {

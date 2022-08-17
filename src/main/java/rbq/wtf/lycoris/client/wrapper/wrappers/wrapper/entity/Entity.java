@@ -129,15 +129,15 @@ public class Entity extends IWrapper {
     }
 
     public float getRotationPitch() {
-        return (float) ReflectUtil.getField(rotationPitch, getWrapObject());
+        return (float) getField(rotationPitch);
     }
 
     public float getRotationYaw() {
-        return (float) ReflectUtil.getField(rotationYaw, getWrapObject());
+        return (float) getField(rotationYaw);
     }
 
     public int getTicksExisted() {
-        return (int) ReflectUtil.getField(ticksExisted, getWrapObject());
+        return (int) getField(ticksExisted);
     }
 
     public void playSound(String name, int volume, int pitch) {
@@ -163,31 +163,31 @@ public class Entity extends IWrapper {
     }
 
     public double getPosX() {
-        return (double) ReflectUtil.getField(posX, getWrapObject());
+        return (double) getField(posX);
     }
 
     public double getPosY() {
-        return (double) ReflectUtil.getField(posY, getWrapObject());
+        return (double) getField(posY);
     }
 
     public double getPosZ() {
-        return (double) ReflectUtil.getField(posZ, getWrapObject());
+        return (double) getField(posZ);
     }
 
     public double getLastTickPosX() {
-        return (double) ReflectUtil.getField(lastTickPosX, getWrapObject());
+        return (double) getField(lastTickPosX);
     }
 
     public double getLastTickPosY() {
-        return (double) ReflectUtil.getField(lastTickPosY, getWrapObject());
+        return (double) getField(lastTickPosY);
     }
 
     public double getLastTickPosZ() {
-        return (double) ReflectUtil.getField(lastTickPosZ, getWrapObject());
+        return (double) getField(lastTickPosZ);
     }
 
     public AxisAlignedBB getEntityBoundingBox() {
-        return new AxisAlignedBB(ReflectUtil.getField(boundingBox, getWrapObject()));
+        return new AxisAlignedBB(getField(boundingBox));
     }
 
     public void copyLocationAndAnglesFrom(Entity entity) {
@@ -195,30 +195,30 @@ public class Entity extends IWrapper {
     }
 
     public void setRotationYaw(float yaw) {
-        ReflectUtil.setField(rotationYaw, yaw, getWrapObject());
+        setField(rotationYaw, yaw);
     }
 
     public void setRotationPitch(float pitch) {
-        ReflectUtil.setField(rotationPitch, pitch, getWrapObject());
+        setField(rotationPitch, pitch);
     }
 
     public void setOnGround(boolean isOnGround) {
-        ReflectUtil.setField(onGround, isOnGround, getWrapObject());
+        setField(onGround, isOnGround);
     }
 
     public boolean isOnGround() {
-        return (boolean) ReflectUtil.getField(onGround, getWrapObject());
+        return (boolean) getField(onGround);
     }
 
     //    public IChatComponent getDisplayName(){
 //        return new IChatComponent(ReflectUtil.invoke(getDisplayName,getWrapObject()));
 //    }
     public boolean isDead() {
-        return (boolean) ReflectUtil.getField(isDead, getWrapObject());
+        return (boolean) getField(isDead);
     }
 
     public String getName() {
-        return (String) ReflectUtil.invoke(getName, getWrapObject());
+        return (String) invoke(getName);
     }
 
     public float getDistanceToEntity(Entity entity) {

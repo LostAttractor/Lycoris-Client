@@ -12,7 +12,7 @@ public class ReflectUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        throw new NullPointerException("Can't get Field " + f.getName() + " in " + o.getClass().getName());
     }
 
     public static void setField(Field f, Object v, Object o) {
@@ -21,16 +21,16 @@ public class ReflectUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        throw new NullPointerException("Can't set Field " + f.getName() + " in " + o.getClass().getName());
     }
 
     public static Object invoke(Method m, Object o, Object... args) {
-
         try {
             return m.invoke(o, args);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        throw new NullPointerException("Can't invoke " + o.getClass().getName() + " to " + m.getName());
     }
 
     @Deprecated
@@ -48,7 +48,7 @@ public class ReflectUtil {
                  IllegalAccessException e) {
             e.printStackTrace();
         }
-        return null;
+        throw new NullPointerException("Can't construction Class: " + classIn.getName());
     }
 
     public static Object construction(Constructor<?> constructor, Object... args) {
@@ -57,6 +57,6 @@ public class ReflectUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        throw new NullPointerException("Can't construction Class: " + constructor.getName());
     }
 }

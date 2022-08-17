@@ -19,6 +19,6 @@ public class AbstractTexture extends IWrapper {
     }
 
     public int getGlTextureId() {
-        return (int) ReflectUtil.invoke(getGlTextureId, getWrapObject());
+        return (int) invoke(getGlTextureId);
     }
 }

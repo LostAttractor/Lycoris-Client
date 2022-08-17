@@ -26,7 +26,7 @@ public class KeyBinding extends IWrapper {
     }
 
     public boolean isKeyDown() {
-        return (boolean) ReflectUtil.getField(pressed, getWrapObject());
+        return (boolean) getField(pressed);
     }
 
     public void setPressed(boolean v) {
@@ -42,6 +42,6 @@ public class KeyBinding extends IWrapper {
     }
 
     public int getKeyCode() {
-        return (int) ReflectUtil.getField(keyCode, getWrapObject());
+        return (int) getField(keyCode);
     }
 }
