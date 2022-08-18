@@ -7,10 +7,11 @@ public class BooleanValue extends Value<Boolean> {
     private String name;
     private Module module;
 
-    public BooleanValue(String Name, boolean State, Module module) {
-        this.name = Name;
-        this.value = State;
+    public BooleanValue(String name, boolean state, Module module) {
+        this.name = name;
+        this.value = state;
         this.module = module;
+        module.addBooleanValue(this);
     }
 
     @Override

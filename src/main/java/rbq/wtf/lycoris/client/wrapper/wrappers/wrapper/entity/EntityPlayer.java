@@ -15,31 +15,21 @@ import java.lang.reflect.Method;
 public class EntityPlayer extends IWrapper {
     @WrapClass(mcpName = "net.minecraft.entity.player.EntityPlayer", targetMap = MapEnum.VANILLA189)
     public static Class<?> EntityPlayerClass;
-
-    @WrapField(mcpName = "sprintingTicksLeft", targetMap = MapEnum.VANILLA189)
-    public static Field sprintingTicksLeft;
     @WrapField(mcpName = "foodStats", targetMap = MapEnum.VANILLA189)
     public static Field foodStats;
-
-    @WrapMethod(mcpName = "onUpdateWalkingPlayer", targetMap = MapEnum.VANILLA189)
-    public static Method onUpdateWalkingPlayer;
-    @WrapMethod(mcpName = "setSprinting", targetMap = MapEnum.VANILLA189)
-    public static Method setSprinting;
+    @WrapField(mcpName = "capabilities", targetMap = MapEnum.VANILLA189)
+    public static Field capabilities;
 
     public EntityPlayer(Object obj) {
         super(obj);
     }
 
-    public boolean isMoving() {
-        return new EntityLivingBase(getWrapObject()).isMoving();
+    public EntityLivingBase getEntityLivingBaseInstance() {
+        return new EntityLivingBase(getWrapObject());
     }
 
-    public void setSprinting(boolean sprint) {
-        invoke(setSprinting, sprint);
-    }
-
-    public void setSprintingTicksLeft(int TicksLeft){
-        setField(sprintingTicksLeft, TicksLeft);
+    public PlayerCapabilities getCapabilities() {
+        return new PlayerCapabilities(getField(capabilities));
     }
 
     public FoodStats getFoodStats() {

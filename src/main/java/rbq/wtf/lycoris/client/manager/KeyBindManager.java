@@ -8,8 +8,8 @@ import rbq.wtf.lycoris.client.module.Module;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 
 public class KeyBindManager {
-    protected final Minecraft mc = Minecraft.getMinecraft();
     protected final Client client = Client.instance;
+    protected final Minecraft mc = client.mc;
 
     public KeyBindManager() {
         EventManager.register(this);

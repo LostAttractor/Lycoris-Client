@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 
 public class IWrapper {
-    private Object object;
+    private final Object object;
 
     public IWrapper(Object obj) {
         this.object = obj;

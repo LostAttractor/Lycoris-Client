@@ -15,17 +15,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
 public class ClickGUI extends Module {
-    private static BooleanValue waterMark;
-    private static BooleanValue arrayList;
-    private static ModeValue rainbowMode;
+    public final BooleanValue waterMark = new BooleanValue("WaterMark", true, this);
+    public final BooleanValue arrayList = new BooleanValue("ArrayList", true, this);
+    public final ModeValue rainbowMode = new ModeValue("Rainbow Mode", new String[]{"Rainbow", "Astolfo", "Static", "StaticRainbow"}, 0, 3, this);
 
     public ClickGUI() {
         super("ClickGUI", ModuleCategory.Render, 210); // Insert Key
-        rainbowMode = new ModeValue("Rainbow Mode", new String[]{"Rainbow", "Astolfo", "Static", "StaticRainbow"}, 0, 3);
         this.addModeValue(rainbowMode);
-        waterMark = new BooleanValue("WaterMark", true, this);
         this.addBooleanValue(waterMark);
-        arrayList = new BooleanValue("ArrayList", true, this);
         this.addBooleanValue(arrayList);
     }
 

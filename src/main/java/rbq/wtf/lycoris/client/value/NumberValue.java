@@ -10,24 +10,6 @@ public class NumberValue extends Value<Float> {
     private float max;
     private Module module;
 
-    public NumberValue(String Name, float Value, float Min, float Max, float Increase) {
-        this.name = Name;
-        this.value = Value;
-        this.min = Min;
-        this.max = Max;
-        this.increase = Increase;
-        this.module = null;
-    }
-
-    public NumberValue(String Name, double Value, double Min, double Max, double Increase) {
-        this.name = Name;
-        this.value = (float) Value;
-        this.min = (float) Min;
-        this.max = (float) Max;
-        this.increase = (float) Increase;
-        this.module = null;
-    }
-
     public NumberValue(String Name, float Value, float Min, float Max, float Increase, Module module) {
         this.name = Name;
         this.value = Value;
@@ -35,15 +17,7 @@ public class NumberValue extends Value<Float> {
         this.max = Max;
         this.increase = Increase;
         this.module = module;
-    }
-
-    public NumberValue(String Name, double Value, double Min, double Max, double Increase, Module module) {
-        this.name = Name;
-        this.value = (float) Value;
-        this.min = (float) Min;
-        this.max = (float) Max;
-        this.increase = (float) Increase;
-        this.module = module;
+        module.addNumberValue(this);
     }
 
     @Override

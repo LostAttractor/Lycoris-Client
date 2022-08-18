@@ -5,6 +5,7 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
+import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.Gui;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution;
@@ -26,8 +27,7 @@ import java.util.function.Consumer;
 import static org.lwjgl.opengl.GL11.*;
 
 public class RenderUtils {
-
-    private static Minecraft mc = Minecraft.getMinecraft();
+    private static final Minecraft mc = Client.instance.mc;
     private static final List<Integer> csBuffer;
     private static final Consumer<Integer> ENABLE_CLIENT_STATE;
     private static int lastScale;
@@ -636,7 +636,6 @@ public class RenderUtils {
     }
 
     public static void doGlScissor(int x, int y, int width, int height) {
-        Minecraft mc = Minecraft.getMinecraft();
         int scaleFactor = 1;
         int k = mc.getGameSettings().getGuiScale();
         if (k == 0) {

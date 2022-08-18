@@ -26,12 +26,7 @@ public class TextValue extends Value<String> {
         this.name = name;
         this.module = module;
         this.value = value;
-    }
-
-    public TextValue(String name, String value) {
-        this.name = name;
-        this.module = null;
-        this.value = value;
+        module.addTextValue(this);
     }
 
     @Override

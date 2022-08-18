@@ -9,20 +9,13 @@ public class ModeValue extends Value<String> {
     private String name;
     private Module module;
 
-    public ModeValue(String Name, String[] Modes, int Selection, int Amount) {
-        this.name = Name;
-        this.modes = Modes;
-        this.selection = Selection;
-        this.selectionAmount = Amount;
-        this.module = null;
-    }
-
-    public ModeValue(String Name, String[] Modes, int Selection, int Amount, Module m) {
-        this.name = Name;
-        this.modes = Modes;
-        this.selection = Selection;
-        this.selectionAmount = Amount;
-        this.module = m;
+    public ModeValue(String name, String[] modes, int selection, int amount, Module module) {
+        this.name = name;
+        this.modes = modes;
+        this.selection = selection;
+        this.selectionAmount = amount;
+        this.module = module;
+        module.addModeValue(this);
     }
 
     @Override

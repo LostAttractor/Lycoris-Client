@@ -11,6 +11,7 @@ import rbq.wtf.lycoris.client.transformer.TransformManager;
 import rbq.wtf.lycoris.client.utils.Logger;
 import rbq.wtf.lycoris.client.wrapper.Wrapper;
 import rbq.wtf.lycoris.client.wrapper.bridge.BridgeUtil;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 
 
 public class Client {
@@ -21,6 +22,7 @@ public class Client {
     public static final boolean enabledLog = true;
     public static final boolean showDebugLevelLog = true;
 
+    public final Minecraft mc;
     public final ModuleManager moduleManager;
     public final ConfigManager configManager;
     public final CommandManager commandManager;
@@ -35,6 +37,7 @@ public class Client {
         BridgeUtil.init();
         InstrumentationImpl.init();
         TransformManager.init();
+        mc = Minecraft.getMinecraft();
         moduleManager = new ModuleManager();
         configManager = new ConfigManager();
         commandManager = new CommandManager();

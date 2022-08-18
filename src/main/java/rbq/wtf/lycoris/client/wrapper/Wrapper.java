@@ -9,23 +9,16 @@ import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MethodNode;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.NodeType;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.repeat.*;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.GameSettings;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.KeyBinding;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.Entity;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityLivingBase;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayer;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayerSP;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.*;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.*;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.potion.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.*;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.AbstractTexture;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.DynamicTexture;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.*;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.HoverEvent;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.click.ClickEvent;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.click.ClickEventAction;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.text.IChatComponent;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.*;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.click.*;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.text.*;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -75,6 +68,8 @@ public class Wrapper {
         classes.add(EntityLivingBase.class);
         classes.add(EntityPlayer.class);
         classes.add(EntityPlayerSP.class);
+        //potion
+        classes.add(Potion.class);
         //gui
         classes.add(Gui.class);
         classes.add(ScaledResolution.class);
@@ -101,6 +96,7 @@ public class Wrapper {
         classes.add(ChatAllowedCharacters.class);
         classes.add(ChatStyle.class);
         classes.add(FoodStats.class);
+        classes.add(MovementInput.class);
         //util.event
         classes.add(ClickEvent.class);
         classes.add(ClickEventAction.class);
@@ -370,14 +366,12 @@ public class Wrapper {
         }
     }
 
-    private static void applyMethod(WrapperClass wrapperClass, WrapMethod wrapMethod, Field declaredField) throws NoSuchFieldException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException {
+    private static void applyMethod(WrapperClass wrapperClass, WrapMethod wrapMethod, Field declaredField) {
         if (wrapMethod.targetMap() == MapEnv) {
             if (Modifier.isStatic(declaredField.getModifiers())) {
-                String costumSig = null;
-                if (!wrapMethod.signature().equals("none")) {
-                    costumSig = wrapMethod.signature();
-                }
-                MapNode mapNode = readMethod(wrapperClass.mcpName(), wrapMethod.mcpName(), costumSig);
+                MapNode mapNode = wrapMethod.signature().equals("none") ?
+                        readMethod(wrapperClass.mcpName(), wrapMethod.mcpName(), null) :
+                        readMethod(wrapperClass.mcpName(), wrapMethod.mcpName(), wrapMethod.signature());
                 if (mapNode != null) {
                     if (mapNode.getSrg() == null) {
                         Logger.log("null" + " " + wrapperClass.mcpName() + " " + wrapMethod.mcpName(), "Wrapper", Logger.LogLevel.ERROR);

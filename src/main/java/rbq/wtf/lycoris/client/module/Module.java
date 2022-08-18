@@ -21,8 +21,8 @@ public class Module {
     private final ArrayList<ColorValue> colorValues = new ArrayList<>();
     private final ArrayList<TextValue> textValues = new ArrayList<>();
 
-    protected final Minecraft mc = Minecraft.getMinecraft();
     protected final Client client = Client.instance;
+    protected final Minecraft mc = client.mc;
 
     public Module(String Name, ModuleCategory Category, int Key) {
         this.category = Category;

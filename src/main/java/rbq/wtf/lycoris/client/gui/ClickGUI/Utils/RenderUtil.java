@@ -2,6 +2,7 @@ package rbq.wtf.lycoris.client.gui.ClickGUI.Utils;
 
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
+import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.Gui;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution;
@@ -15,12 +16,8 @@ import java.awt.*;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public enum RenderUtil {
-    INSTANCE;
-
-    public static Minecraft mc = Minecraft.getMinecraft();
-    public static float delta;
-
+public class RenderUtil {
+    private static final Minecraft mc = Client.instance.mc;
 
     public static void drawGradientRect(float x, float y, float x1, float y1, int topColor, int bottomColor) {
         R2DUtils.drawGradientRect(x, y, x1, y1, topColor, bottomColor);
@@ -450,7 +447,6 @@ public enum RenderUtil {
 
 
     public static void doGlScissor(int x, int y, int width, int height) {
-        Minecraft mc = Minecraft.getMinecraft();
         int scaleFactor = 1;
         int k = mc.getGameSettings().getGuiScale();
         if (k == 0) {
@@ -975,7 +971,7 @@ public enum RenderUtil {
         int scaleFactor = new ScaledResolution(mc).getScaleFactor();
         GL11.glPushMatrix();
         glEnable((int) 3089);
-        GL11.glScissor((int) (x * scaleFactor), (int) (RenderUtil.mc.getDisplayHeight() - (y + height) * scaleFactor),
+        GL11.glScissor((int) (x * scaleFactor), (int) (mc.getDisplayHeight() - (y + height) * scaleFactor),
                 (int) (width * scaleFactor), (int) ((height + 14) * scaleFactor));
     }
 
