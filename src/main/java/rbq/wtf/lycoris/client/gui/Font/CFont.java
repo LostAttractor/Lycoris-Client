@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CFont {
-    private float imgSize = 512.0f;
     protected CharData[] charData = new CharData[256];
     protected Font font;
     protected boolean antiAlias;
@@ -24,9 +23,10 @@ public class CFont {
     protected int fontHeight = -1;
     protected int charOffset = 0;
     protected DynamicTexture tex;
+    protected HashMap<Character, Character> charmap = new HashMap();
+    private float imgSize = 512.0f;
     private boolean hasDone;
     private boolean unicode;
-    protected HashMap<Character, Character> charmap = new HashMap();
 
     public CFont(Font font, boolean antiAlias, boolean fractionalMetrics, boolean unicode) {
         this.font = font;

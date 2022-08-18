@@ -1,6 +1,9 @@
 package rbq.wtf.lycoris.client.transformer.transformers;
 
-import rbq.wtf.lycoris.agent.asm.*;
+import rbq.wtf.lycoris.agent.asm.ClassReader;
+import rbq.wtf.lycoris.agent.asm.ClassWriter;
+import rbq.wtf.lycoris.agent.asm.Opcodes;
+import rbq.wtf.lycoris.agent.asm.Type;
 import rbq.wtf.lycoris.agent.asm.tree.*;
 import rbq.wtf.lycoris.client.event.api.EventManager;
 import rbq.wtf.lycoris.client.event.api.events.Event;

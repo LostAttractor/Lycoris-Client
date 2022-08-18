@@ -1,7 +1,6 @@
 package rbq.wtf.lycoris.client.event.events;
 
 import rbq.wtf.lycoris.client.event.api.events.Event;
-import rbq.wtf.lycoris.client.utils.Logger;
 
 // EventMotionUpdate Will be called at EntityPlayerSP.class's onUpdateWalkingPlayer func
 // Determine pre or post before use !!!

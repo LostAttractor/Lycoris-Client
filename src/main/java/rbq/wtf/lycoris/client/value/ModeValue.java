@@ -19,23 +19,23 @@ public class ModeValue extends Value<String> {
     }
 
     @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
     public String getName() {
         return this.name;
     }
 
     @Override
-    public void setModule(Module module) {
-        this.module = module;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public Module getModule() {
         return this.module;
+    }
+
+    @Override
+    public void setModule(Module module) {
+        this.module = module;
     }
 
     @Override
@@ -51,23 +51,12 @@ public class ModeValue extends Value<String> {
         setCurrentSelectionName(s);
     }
 
-    public void setModes(String[] modes) {
-        this.modes = modes;
-    }
-
     public String[] getModes() {
         return modes;
     }
 
-    public void setCurrentSelectionName(String nm) {
-        int i = 0;
-        for (String mode : this.modes) {
-            if (mode.equalsIgnoreCase(nm)) {
-                setSelection(i);
-                break;
-            }
-        }
-
+    public void setModes(String[] modes) {
+        this.modes = modes;
     }
 
     public void setState(String s) {
@@ -92,10 +81,6 @@ public class ModeValue extends Value<String> {
         this.selection = this.selection < this.selectionAmount ? ++this.selection : 0;
     }
 
-    public void setSelectionAmount(int amount) {
-        this.selectionAmount = amount;
-    }
-
     public void setSelection(int index) {
         this.selection = index;
     }
@@ -104,8 +89,23 @@ public class ModeValue extends Value<String> {
         return this.modes[this.selection];
     }
 
+    public void setCurrentSelectionName(String nm) {
+        int i = 0;
+        for (String mode : this.modes) {
+            if (mode.equalsIgnoreCase(nm)) {
+                setSelection(i);
+                break;
+            }
+        }
+
+    }
+
     public int getSelectionAmount() {
         return this.selectionAmount;
+    }
+
+    public void setSelectionAmount(int amount) {
+        this.selectionAmount = amount;
     }
 
 }

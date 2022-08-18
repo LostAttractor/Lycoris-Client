@@ -6,12 +6,12 @@ import rbq.wtf.lycoris.client.Client;
 import javax.swing.*;
 
 @Mod(modid = "Lycoris Client")
-public class loader {
+public class Loader {
 
-    public loader() {
-        System.out.println("Print");
+    public Loader() {
         new Thread(() -> {
-            JOptionPane.showConfirmDialog(null, "Wait");
+            if (Client.developEnv)
+                JOptionPane.showConfirmDialog(null, "Wait");
             new Client();
         }).start();
     }

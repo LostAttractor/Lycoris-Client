@@ -11,18 +11,15 @@ import java.util.ArrayList;
 public class Module {
     public final ModuleCategory category;
     public final String name;
-
-    public boolean state;
-    public int key;
-
+    protected final Client client = Client.instance;
+    protected final Minecraft mc = client.mc;
     private final ArrayList<BooleanValue> booleanValues = new ArrayList<>();
     private final ArrayList<NumberValue> numberValues = new ArrayList<>();
     private final ArrayList<ModeValue> modeValues = new ArrayList<>();
     private final ArrayList<ColorValue> colorValues = new ArrayList<>();
     private final ArrayList<TextValue> textValues = new ArrayList<>();
-
-    protected final Client client = Client.instance;
-    protected final Minecraft mc = client.mc;
+    public boolean state;
+    public int key;
 
     public Module(String Name, ModuleCategory Category, int Key) {
         this.category = Category;
@@ -100,22 +97,6 @@ public class Module {
         return state;
     }
 
-    public ModuleCategory getCategory() {
-        return category;
-    }
-
-    public void toggle() {
-        setState(!state);
-    }
-
-    public void setKey(int key) {
-        this.key = key;
-    }
-
-    public int getKey() {
-        return key;
-    }
-
     public void setState(boolean state) {
         this.state = state;
         if (state) {
@@ -125,6 +106,22 @@ public class Module {
             this.onDisable();
             EventManager.unregister(this);
         }
+    }
+
+    public ModuleCategory getCategory() {
+        return category;
+    }
+
+    public void toggle() {
+        setState(!state);
+    }
+
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
     }
 
     public String getName() {

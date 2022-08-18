@@ -21,18 +21,13 @@ public class NumberValue extends Value<Float> {
     }
 
     @Override
-    public void setModule(Module module) {
-        this.module = module;
-    }
-
-    @Override
     public Module getModule() {
         return this.module;
     }
 
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public void setModule(Module module) {
+        this.module = module;
     }
 
     @Override
@@ -41,8 +36,8 @@ public class NumberValue extends Value<Float> {
     }
 
     @Override
-    public void setValue(Float value) {
-        this.value = value;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -50,28 +45,33 @@ public class NumberValue extends Value<Float> {
         return value;
     }
 
-    public void setIncrease(float increase) {
-        this.increase = increase;
+    @Override
+    public void setValue(Float value) {
+        this.value = value;
     }
 
     public float getIncrease() {
         return increase;
     }
 
-    public void setMax(float max) {
-        this.max = max;
+    public void setIncrease(float increase) {
+        this.increase = increase;
     }
 
     public float getMax() {
         return max;
     }
 
-    public void setMin(float min) {
-        this.min = min;
+    public void setMax(float max) {
+        this.max = max;
     }
 
     public float getMin() {
         return min;
+    }
+
+    public void setMin(float min) {
+        this.min = min;
     }
 
 }

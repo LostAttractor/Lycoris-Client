@@ -5,7 +5,6 @@ import rbq.wtf.lycoris.client.module.ModuleCategory;
 import rbq.wtf.lycoris.client.module.Modules.Movement.KeepSprint;
 import rbq.wtf.lycoris.client.module.Modules.Render.ClickGUI;
 import rbq.wtf.lycoris.client.module.Modules.Render.HUD;
-import rbq.wtf.lycoris.client.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

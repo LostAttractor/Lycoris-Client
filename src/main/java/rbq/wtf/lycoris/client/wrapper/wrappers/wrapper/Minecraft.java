@@ -92,16 +92,16 @@ public class Minecraft extends IWrapper {
         return (int) getMinecraft().getField(debugFPS);
     }
 
+    public static Minecraft getMinecraft() {
+        return new Minecraft(ReflectUtil.getField(theMinecraft, null));
+    }
+
     public int getDisplayHeight() {
         return (int) getField(displayHeight);
     }
 
     public int getDisplayWidth() {
         return (int) getField(displayWidth);
-    }
-
-    public static Minecraft getMinecraft() {
-        return new Minecraft(ReflectUtil.getField(theMinecraft, null));
     }
 
     public EntityPlayerSP getPlayer() {
@@ -128,6 +128,6 @@ public class Minecraft extends IWrapper {
     }
 
     public GuiScreen getCurrentScreen() {
-        return new GuiScreen(ReflectUtil.getField(currentScreen, getWrapObject()));
+        return new GuiScreen(getField(currentScreen));
     }
 }

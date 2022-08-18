@@ -8,10 +8,10 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class ColorValue extends Value<Color> {
+    public boolean rainbow;
     private Color awtvalue;
     private String name;
     private Module module;
-    public boolean rainbow;
 
 
     public ColorValue(String name, Color color, Module module) {
@@ -21,44 +21,39 @@ public class ColorValue extends Value<Color> {
         module.addColorValue(this);
     }
 
+    @Override
+    public Module getModule() {
+        return module;
+    }
 
     @Override
     public void setModule(Module module) {
         this.module = module;
     }
 
-    @Override
-    public Module getModule() {
-        return module;
+    public String getName() {
+        return name;
     }
 
     public void setName(String n) {
         name = n;
     }
 
-
-    public String getName() {
-        return name;
+    public Color getValue() {
+        return awtvalue;
     }
-
 
     public void setValue(Color value) {
         awtvalue = value;
     }
 
-    public void setState(Color value) {
-        awtvalue = value;
-    }
-
-    public Color getValue() {
-        return awtvalue;
-    }
-
-
     public Color getState() {
         return awtvalue;
     }
 
+    public void setState(Color value) {
+        awtvalue = value;
+    }
 
     public Color getValueState() {
         return awtvalue;

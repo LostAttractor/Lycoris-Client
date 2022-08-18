@@ -45,16 +45,11 @@ public class SRGReader {
         return mapNodes;
     }
 
-    public Class<?> getClassNative(String name) {
-        try {
-            return SRGReader.class.getClassLoader().loadClass(name);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public Class<?> getClassNative(String name) throws ClassNotFoundException {
+        return SRGReader.class.getClassLoader().loadClass(name);
     }
 
-    private Signature genSignature(String sig) throws ClassNotFoundException {
+    private Signature genSignature(String sig) {
         List<Class<?>> arg = new ArrayList<Class<?>>();
         Class<?> ret = void.class;
         boolean readClassName = false;
@@ -70,14 +65,15 @@ public class SRGReader {
                     } else {
                         try {
                             readClassName = false;
+                            Logger.log("Loading Class: " + className.toString().replace("/", "."), "SRGReader", Logger.LogLevel.DEBUG);
                             Class<?> target = Class.forName(className.toString().replace("/", "."));
                             arg.add(target);
-                        } catch (ClassNotFoundException e) {
+                        } catch (Exception e) {
                             if (className.toString().contains("net/minecraft/server")) {
-                                Logger.log("Failed to find a Server Class:" + className + ", Ignored", "SRGReader", Logger.LogLevel.WARNING);
+                                Logger.log("Failed to find a Server Class: " + className + ", Ignored", "SRGReader", Logger.LogLevel.WARNING);
                             } else {
-                                Logger.log("Failed to find Class:" + className, "SRGReader", Logger.LogLevel.ERROR);
                                 e.printStackTrace();
+                                Logger.log("Failed to find Class: " + className, "SRGReader", Logger.LogLevel.ERROR);
                             }
                         }
                     }
@@ -112,13 +108,14 @@ public class SRGReader {
                     } else {
                         try {
                             readClassName = false;
+                            Logger.log("Loading Class: " + className.toString().replace("/", "."), "SRGReader", Logger.LogLevel.DEBUG);
                             ret = (Class.forName(className.toString().replace("/", ".")));
-                        } catch (ClassNotFoundException e) {
+                        } catch (Exception e) {
                             if (className.toString().contains("net/minecraft/server")) {
-                                Logger.log("Failed to find a Server Class:" + className + ", Ignored", "SRGReader", Logger.LogLevel.WARNING);
+                                Logger.log("Failed to find a Server Class: " + className + ", Ignored", "SRGReader", Logger.LogLevel.WARNING);
                             } else {
-                                Logger.log("Failed to find Class:" + className, "SRGReader", Logger.LogLevel.ERROR);
                                 e.printStackTrace();
+                                Logger.log("Failed to find Class: " + className, "SRGReader", Logger.LogLevel.ERROR);
                             }
                         }
                     }

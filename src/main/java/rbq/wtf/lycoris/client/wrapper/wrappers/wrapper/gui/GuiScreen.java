@@ -49,14 +49,6 @@ public class GuiScreen extends Gui {
         setField(mc, mcIn.getWrapObject());
     }
 
-    public void setHeight(int heightIn) {
-        setField(height, heightIn);
-    }
-
-    public void setWidth(int widthIn) {
-        setField(width, widthIn);
-    }
-
     public void initGui() {
         invoke(initGui);
     }
@@ -69,8 +61,16 @@ public class GuiScreen extends Gui {
         return (int) getField(height);
     }
 
+    public void setHeight(int heightIn) {
+        setField(height, heightIn);
+    }
+
     public int getWidth() {
         return (int) getField(width);
+    }
+
+    public void setWidth(int widthIn) {
+        setField(width, widthIn);
     }
 
     public void drawScreen(int var1, int var2, float var3) {

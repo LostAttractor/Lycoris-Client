@@ -4,13 +4,6 @@ import rbq.wtf.lycoris.client.Client;
 
 public class Logger {
 
-    public enum LogLevel{
-        LOG,
-        WARNING,
-        ERROR,
-        DEBUG
-    }
-
     public static void log(String msg) {
         if (Client.enabledLog) {
             System.out.println("[Lycoris] " + msg);
@@ -31,7 +24,14 @@ public class Logger {
 
     public static void log(String msg, String category, LogLevel level) {
         if (Client.enabledLog && (Client.showDebugLevelLog || level != LogLevel.DEBUG)) {
-            System.out.println("[Lycoris] [" + category + "] ["+  level.toString() + "] " + msg);
+            System.out.println("[Lycoris] [" + category + "] [" + level.toString() + "] " + msg);
         }
+    }
+
+    public enum LogLevel {
+        LOG,
+        WARNING,
+        ERROR,
+        DEBUG
     }
 }

@@ -40,88 +40,29 @@ package rbq.wtf.lycoris.agent.asm;
 final class SymbolTable {
 
     /**
-     * An entry of a SymbolTable. This concrete and private subclass of {@link Symbol} adds two fields
-     * which are only used inside SymbolTable, to implement hash sets of symbols (in order to avoid
-     * duplicate symbols). See {@link #entries}.
-     *
-     * @author Eric Bruneton
-     */
-    private static class Entry extends Symbol {
-
-        /**
-         * The hash code of this entry.
-         */
-        final int hashCode;
-
-        /**
-         * Another entry (and so on recursively) having the same hash code (modulo the size of {@link
-         * #entries}) as this one.
-         */
-        Entry next;
-
-        Entry(
-                final int index,
-                final int tag,
-                final String owner,
-                final String name,
-                final String value,
-                final long data,
-                final int hashCode) {
-            super(index, tag, owner, name, value, data);
-            this.hashCode = hashCode;
-        }
-
-        Entry(final int index, final int tag, final String value, final int hashCode) {
-            super(index, tag, /* owner = */ null, /* name = */ null, value, /* data = */ 0);
-            this.hashCode = hashCode;
-        }
-
-        Entry(final int index, final int tag, final String value, final long data, final int hashCode) {
-            super(index, tag, /* owner = */ null, /* name = */ null, value, data);
-            this.hashCode = hashCode;
-        }
-
-        Entry(
-                final int index, final int tag, final String name, final String value, final int hashCode) {
-            super(index, tag, /* owner = */ null, name, value, /* data = */ 0);
-            this.hashCode = hashCode;
-        }
-
-        Entry(final int index, final int tag, final long data, final int hashCode) {
-            super(index, tag, /* owner = */ null, /* name = */ null, /* value = */ null, data);
-            this.hashCode = hashCode;
-        }
-    }
-
-    /**
      * The ClassWriter to which this SymbolTable belongs. This is only used to get access to {@link
      * ClassWriter#getCommonSuperClass} and to serialize custom attributes with {@link
      * Attribute#write}.
      */
     final ClassWriter classWriter;
-
     /**
      * The ClassReader from which this SymbolTable was constructed, or <tt>null</tt> if it was
      * constructed from scratch.
      */
     private final ClassReader sourceClassReader;
-
     /**
      * The major version number of the class to which this symbol table belongs.
      */
     private int majorVersion;
-
     /**
      * The internal name of the class to which this symbol table belongs.
      */
     private String className;
-
     /**
      * The total number of {@link Entry} instances in {@link #entries}. This includes entries that are
      * accessible (recursively) via {@link Entry#next}.
      */
     private int entryCount;
-
     /**
      * A hash set of all the entries in this SymbolTable (this includes the constant pool entries, the
      * bootstrap method entries and the type table entries). Each {@link Entry} instance is stored at
@@ -130,38 +71,32 @@ final class SymbolTable {
      * factory methods of this class make sure that this table does not contain duplicated entries.
      */
     private Entry[] entries;
-
     /**
      * The number of constant pool items in {@link #constantPool}, plus 1. The first constant pool
      * item has index 1, and long and double items count for two items.
      */
     private int constantPoolCount;
-
     /**
      * The content of the ClassFile's constant_pool JVMS structure corresponding to this SymbolTable.
      * The ClassFile's constant_pool_count field is <i>not</i> included.
      */
     private ByteVector constantPool;
-
     /**
      * The number of bootstrap methods in {@link #bootstrapMethods}. Corresponds to the
      * BootstrapMethods_attribute's num_bootstrap_methods field value.
      */
     private int bootstrapMethodCount;
-
     /**
      * The content of the BootstrapMethods attribute 'bootstrap_methods' array corresponding to this
      * SymbolTable. Note that the first 6 bytes of the BootstrapMethods_attribute, and its
      * num_bootstrap_methods field, are <i>not</i> included.
      */
     private ByteVector bootstrapMethods;
-
     /**
      * The actual number of elements in {@link #typeTable}. These elements are stored from index 0 to
      * typeCount (excluded). The other array entries are empty.
      */
     private int typeCount;
-
     /**
      * An ASM specific type table used to temporarily store internal names that will not necessarily
      * be stored in the constant pool. This type table is used by the control flow and data flow
@@ -318,6 +253,45 @@ final class SymbolTable {
         }
     }
 
+    private static int hash(final int tag, final int value) {
+        return 0x7FFFFFFF & (tag + value);
+    }
+
+    private static int hash(final int tag, final long value) {
+        return 0x7FFFFFFF & (tag + (int) value + (int) (value >>> 32));
+    }
+
+    private static int hash(final int tag, final String value) {
+        return 0x7FFFFFFF & (tag + value.hashCode());
+    }
+
+    private static int hash(final int tag, final String value1, final int value2) {
+        return 0x7FFFFFFF & (tag + value1.hashCode() + value2);
+    }
+
+    private static int hash(final int tag, final String value1, final String value2) {
+        return 0x7FFFFFFF & (tag + value1.hashCode() * value2.hashCode());
+    }
+
+    private static int hash(
+            final int tag, final String value1, final String value2, final int value3) {
+        return 0x7FFFFFFF & (tag + value1.hashCode() * value2.hashCode() * (value3 + 1));
+    }
+
+    private static int hash(
+            final int tag, final String value1, final String value2, final String value3) {
+        return 0x7FFFFFFF & (tag + value1.hashCode() * value2.hashCode() * value3.hashCode());
+    }
+
+    private static int hash(
+            final int tag,
+            final String value1,
+            final String value2,
+            final String value3,
+            final int value4) {
+        return 0x7FFFFFFF & (tag + value1.hashCode() * value2.hashCode() * value3.hashCode() * value4);
+    }
+
     /**
      * @return the ClassReader from which this SymbolTable was constructed, or <tt>null</tt> if it was
      * constructed from scratch.
@@ -332,6 +306,10 @@ final class SymbolTable {
     int getMajorVersion() {
         return majorVersion;
     }
+
+    // -----------------------------------------------------------------------------------------------
+    // Generic symbol table entries management.
+    // -----------------------------------------------------------------------------------------------
 
     /**
      * @return the internal name of the class to which this symbol table belongs.
@@ -360,6 +338,10 @@ final class SymbolTable {
     int getConstantPoolCount() {
         return constantPoolCount;
     }
+
+    // -----------------------------------------------------------------------------------------------
+    // Constant pool entries management.
+    // -----------------------------------------------------------------------------------------------
 
     /**
      * @return the length in bytes of this symbol table's constant_pool array.
@@ -408,10 +390,6 @@ final class SymbolTable {
                     .putByteArray(bootstrapMethods.data, 0, bootstrapMethods.length);
         }
     }
-
-    // -----------------------------------------------------------------------------------------------
-    // Generic symbol table entries management.
-    // -----------------------------------------------------------------------------------------------
 
     /**
      * @param hashCode a {@link Entry#hashCode} value.
@@ -467,10 +445,6 @@ final class SymbolTable {
         entry.next = entries[index];
         entries[index] = entry;
     }
-
-    // -----------------------------------------------------------------------------------------------
-    // Constant pool entries management.
-    // -----------------------------------------------------------------------------------------------
 
     /**
      * Adds a number or string constant to the constant pool of this symbol table. Does nothing if the
@@ -913,6 +887,10 @@ final class SymbolTable {
                 Symbol.CONSTANT_DYNAMIC_TAG, name, descriptor, bootstrapMethod.index);
     }
 
+    // -----------------------------------------------------------------------------------------------
+    // Bootstrap method entries management.
+    // -----------------------------------------------------------------------------------------------
+
     /**
      * Adds a CONSTANT_InvokeDynamic_info to the constant pool of this symbol table. Also adds the
      * related bootstrap method to the BootstrapMethods of this symbol table. Does nothing if the
@@ -965,6 +943,10 @@ final class SymbolTable {
                 new Entry(
                         constantPoolCount++, tag, null, name, descriptor, bootstrapMethodIndex, hashCode));
     }
+
+    // -----------------------------------------------------------------------------------------------
+    // Type table entries management.
+    // -----------------------------------------------------------------------------------------------
 
     /**
      * Adds a new CONSTANT_Dynamic_info or CONSTANT_InvokeDynamic_info to the constant pool of this
@@ -1051,7 +1033,7 @@ final class SymbolTable {
     }
 
     // -----------------------------------------------------------------------------------------------
-    // Bootstrap method entries management.
+    // Static helper methods to compute hash codes.
     // -----------------------------------------------------------------------------------------------
 
     /**
@@ -1139,10 +1121,6 @@ final class SymbolTable {
         }
         return put(new Entry(bootstrapMethodCount++, Symbol.BOOTSTRAP_METHOD_TAG, offset, hashCode));
     }
-
-    // -----------------------------------------------------------------------------------------------
-    // Type table entries management.
-    // -----------------------------------------------------------------------------------------------
 
     /**
      * @param typeIndex a type table index.
@@ -1246,46 +1224,57 @@ final class SymbolTable {
         return put(entry).index;
     }
 
-    // -----------------------------------------------------------------------------------------------
-    // Static helper methods to compute hash codes.
-    // -----------------------------------------------------------------------------------------------
+    /**
+     * An entry of a SymbolTable. This concrete and private subclass of {@link Symbol} adds two fields
+     * which are only used inside SymbolTable, to implement hash sets of symbols (in order to avoid
+     * duplicate symbols). See {@link #entries}.
+     *
+     * @author Eric Bruneton
+     */
+    private static class Entry extends Symbol {
 
-    private static int hash(final int tag, final int value) {
-        return 0x7FFFFFFF & (tag + value);
-    }
+        /**
+         * The hash code of this entry.
+         */
+        final int hashCode;
 
-    private static int hash(final int tag, final long value) {
-        return 0x7FFFFFFF & (tag + (int) value + (int) (value >>> 32));
-    }
+        /**
+         * Another entry (and so on recursively) having the same hash code (modulo the size of {@link
+         * #entries}) as this one.
+         */
+        Entry next;
 
-    private static int hash(final int tag, final String value) {
-        return 0x7FFFFFFF & (tag + value.hashCode());
-    }
+        Entry(
+                final int index,
+                final int tag,
+                final String owner,
+                final String name,
+                final String value,
+                final long data,
+                final int hashCode) {
+            super(index, tag, owner, name, value, data);
+            this.hashCode = hashCode;
+        }
 
-    private static int hash(final int tag, final String value1, final int value2) {
-        return 0x7FFFFFFF & (tag + value1.hashCode() + value2);
-    }
+        Entry(final int index, final int tag, final String value, final int hashCode) {
+            super(index, tag, /* owner = */ null, /* name = */ null, value, /* data = */ 0);
+            this.hashCode = hashCode;
+        }
 
-    private static int hash(final int tag, final String value1, final String value2) {
-        return 0x7FFFFFFF & (tag + value1.hashCode() * value2.hashCode());
-    }
+        Entry(final int index, final int tag, final String value, final long data, final int hashCode) {
+            super(index, tag, /* owner = */ null, /* name = */ null, value, data);
+            this.hashCode = hashCode;
+        }
 
-    private static int hash(
-            final int tag, final String value1, final String value2, final int value3) {
-        return 0x7FFFFFFF & (tag + value1.hashCode() * value2.hashCode() * (value3 + 1));
-    }
+        Entry(
+                final int index, final int tag, final String name, final String value, final int hashCode) {
+            super(index, tag, /* owner = */ null, name, value, /* data = */ 0);
+            this.hashCode = hashCode;
+        }
 
-    private static int hash(
-            final int tag, final String value1, final String value2, final String value3) {
-        return 0x7FFFFFFF & (tag + value1.hashCode() * value2.hashCode() * value3.hashCode());
-    }
-
-    private static int hash(
-            final int tag,
-            final String value1,
-            final String value2,
-            final String value3,
-            final int value4) {
-        return 0x7FFFFFFF & (tag + value1.hashCode() * value2.hashCode() * value3.hashCode() * value4);
+        Entry(final int index, final int tag, final long data, final int hashCode) {
+            super(index, tag, /* owner = */ null, /* name = */ null, /* value = */ null, data);
+            this.hashCode = hashCode;
+        }
     }
 }

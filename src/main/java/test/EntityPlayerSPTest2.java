@@ -2,8 +2,11 @@ package test;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+
+interface Event {
+
+}
 
 public class EntityPlayerSPTest2 extends Entity {
     public EntityPlayerSPTest2(World p_i1582_1_) {
@@ -28,10 +31,6 @@ public class EntityPlayerSPTest2 extends Entity {
     protected void writeEntityToNBT(NBTTagCompound nbtTagCompound) {
 
     }
-}
-
-interface Event {
-
 }
 
 class EventMotionUpdate implements Event {

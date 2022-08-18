@@ -28,11 +28,11 @@ public class GuiChat extends GuiScreen {
         return new GuiTextField(getField(inputField));
     }
 
-    public void setSentHistoryCursor(int i) {
-        setField(sentHistoryCursor, i);
-    }
-
     public void setInputField(GuiTextField textField) {
         setField(inputField, textField.getWrapObject());
+    }
+
+    public void setSentHistoryCursor(int i) {
+        setField(sentHistoryCursor, i);
     }
 }

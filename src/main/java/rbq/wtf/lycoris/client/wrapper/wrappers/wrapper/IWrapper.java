@@ -21,7 +21,7 @@ public class IWrapper {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        throw new NullPointerException("Can't get Field " + f.getName() + " in " + getWrapObject().getClass().getName());
     }
 
     public void setField(Field f, Object v) {
@@ -38,7 +38,7 @@ public class IWrapper {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        throw new NullPointerException("Can't invoke " + getWrapObject().getClass().getName() + " to " + m.getName());
     }
 
     public boolean isNull() {

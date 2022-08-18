@@ -42,7 +42,7 @@ public class EntityPlayerSP extends IWrapper {
         invoke(setSprinting, sprint);
     }
 
-    public void setSprintingTicksLeft (int TicksLeft){
+    public void setSprintingTicksLeft(int TicksLeft) {
         setField(sprintingTicksLeft, TicksLeft);
     }
 

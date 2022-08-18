@@ -44,19 +44,17 @@ public class Attribute {
      * The type of this attribute, also called its name in the JVMS.
      */
     public final String type;
-
+    /**
+     * The next attribute in this attribute list (Attribute instances can be linked via this field to
+     * store a list of class, field, method or code attributes). May be <tt>null</tt>.
+     */
+    Attribute nextAttribute;
     /**
      * The raw content of this attribute, only used for unknown attributes (see {@link #isUnknown()}).
      * The 6 header bytes of the attribute (attribute_name_index and attribute_length) are <i>not</i>
      * included.
      */
     private byte[] content;
-
-    /**
-     * The next attribute in this attribute list (Attribute instances can be linked via this field to
-     * store a list of class, field, method or code attributes). May be <tt>null</tt>.
-     */
-    Attribute nextAttribute;
 
     /**
      * Constructs a new empty attribute.

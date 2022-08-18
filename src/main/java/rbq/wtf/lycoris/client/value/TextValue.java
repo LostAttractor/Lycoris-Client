@@ -7,21 +7,6 @@ public class TextValue extends Value<String> {
     private Module module;
     private String value;
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public Module getModule() {
-        return module;
-    }
-
-    @Override
-    public String getValue() {
-        return value;
-    }
-
     public TextValue(String name, String value, Module module) {
         this.name = name;
         this.module = module;
@@ -30,13 +15,28 @@ public class TextValue extends Value<String> {
     }
 
     @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
     @Override
+    public Module getModule() {
+        return module;
+    }
+
+    @Override
     public void setModule(Module module) {
         this.module = module;
+    }
+
+    @Override
+    public String getValue() {
+        return value;
     }
 
     @Override

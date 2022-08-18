@@ -15,18 +15,13 @@ public class BooleanValue extends Value<Boolean> {
     }
 
     @Override
-    public void setModule(Module module) {
-        this.module = module;
-    }
-
-    @Override
     public Module getModule() {
         return module;
     }
 
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public void setModule(Module module) {
+        this.module = module;
     }
 
     @Override
@@ -35,13 +30,18 @@ public class BooleanValue extends Value<Boolean> {
     }
 
     @Override
-    public void setValue(Boolean value) {
-        this.value = value;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public Boolean getValue() {
         return value;
+    }
+
+    @Override
+    public void setValue(Boolean value) {
+        this.value = value;
     }
 
 }

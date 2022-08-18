@@ -65,12 +65,16 @@ public class GuiTextField extends Gui {
         super(obj);
     }
 
+    public GuiTextField(int componentId, FontRenderer fontrendererObj, int x, int y, int par5Width, int par6Height) {
+        super(ReflectUtil.construction(GuiTextField_I_FontRenderer_IIII, componentId, fontrendererObj.getWrapObject(), x, y, par5Width, par6Height));
+    }
+
     public String getText() {
         return (String) getField(text);
     }
 
-    public GuiTextField(int componentId, FontRenderer fontrendererObj, int x, int y, int par5Width, int par6Height) {
-        super(ReflectUtil.construction(GuiTextField_I_FontRenderer_IIII, componentId, fontrendererObj.getWrapObject(), x, y, par5Width, par6Height));
+    public void setText(String s) {
+        invoke(setText, s);
     }
 
     public void setMaxStringLength(int max) {
@@ -107,10 +111,6 @@ public class GuiTextField extends Gui {
 
     public void writeText(String s) {
         invoke(writeText, s);
-    }
-
-    public void setText(String s) {
-        invoke(setText, s);
     }
 
     public boolean textboxKeyTyped(char c, int i) {

@@ -12,11 +12,10 @@ import java.lang.reflect.Method;
 public class GuiIngame extends IWrapper {
     @WrapClass(mcpName = "net.minecraft.client.gui.GuiIngame", targetMap = MapEnum.VANILLA189)
     public static Class<?> GuiIngameClass;
+    @WrapMethod(mcpName = "renderTooltip", targetMap = MapEnum.VANILLA189)
+    public static Method renderTooltip;
 
     public GuiIngame(Object obj) {
         super(obj);
     }
-
-    @WrapMethod(mcpName = "renderTooltip", targetMap = MapEnum.VANILLA189)
-    public static Method renderTooltip;
 }

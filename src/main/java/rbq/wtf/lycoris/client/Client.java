@@ -13,14 +13,18 @@ import rbq.wtf.lycoris.client.wrapper.Wrapper;
 import rbq.wtf.lycoris.client.wrapper.bridge.BridgeUtil;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 public class Client {
-    public static Client instance;
-
-    public static boolean isVanilla = true;
-    public static String game_version = "1.8.9";
     public static final boolean enabledLog = true;
     public static final boolean showDebugLevelLog = true;
+    public static Client instance;
+    public static boolean isVanilla = true;
+    public static boolean developEnv = true;
+    public static String game_version = "1.8.9";
+    public static Path runPath = Paths.get("").toAbsolutePath();
 
     public final Minecraft mc;
     public final ModuleManager moduleManager;

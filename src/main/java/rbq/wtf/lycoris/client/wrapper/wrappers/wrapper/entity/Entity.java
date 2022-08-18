@@ -131,8 +131,16 @@ public class Entity extends IWrapper {
         return (float) getField(rotationPitch);
     }
 
+    public void setRotationPitch(float pitch) {
+        setField(rotationPitch, pitch);
+    }
+
     public float getRotationYaw() {
         return (float) getField(rotationYaw);
+    }
+
+    public void setRotationYaw(float yaw) {
+        setField(rotationYaw, yaw);
     }
 
     public int getTicksExisted() {
@@ -193,20 +201,12 @@ public class Entity extends IWrapper {
         invoke(copyLocationAndAnglesFrom, entity.getWrapObject());
     }
 
-    public void setRotationYaw(float yaw) {
-        setField(rotationYaw, yaw);
-    }
-
-    public void setRotationPitch(float pitch) {
-        setField(rotationPitch, pitch);
+    public boolean isOnGround() {
+        return (boolean) getField(onGround);
     }
 
     public void setOnGround(boolean isOnGround) {
         setField(onGround, isOnGround);
-    }
-
-    public boolean isOnGround() {
-        return (boolean) getField(onGround);
     }
 
     //    public IChatComponent getDisplayName(){
@@ -232,24 +232,24 @@ public class Entity extends IWrapper {
         return (double) getField(motionX);
     }
 
+    public void setMotionX(double d) {
+        setField(motionX, d);
+    }
+
     public double getMotionY() {
         return (double) getField(motionY);
+    }
+
+    public void setMotionY(double d) {
+        setField(motionY, d);
     }
 
     public double getMotionZ() {
         return (double) getField(motionZ);
     }
 
-    public void setPrevPosX(double d) {
-        setField(prevPosX, d);
-    }
-
-    public void setPrevPosY(double d) {
-        setField(prevPosY, d);
-    }
-
-    public void setPrevPosZ(double d) {
-        setField(prevPosZ, d);
+    public void setMotionZ(double d) {
+        setField(motionZ, d);
     }
 
     public boolean getIsInWeb() {
@@ -268,12 +268,24 @@ public class Entity extends IWrapper {
         return (double) getField(prevPosX);
     }
 
+    public void setPrevPosX(double d) {
+        setField(prevPosX, d);
+    }
+
     public double getPrevPosY() {
         return (double) getField(prevPosY);
     }
 
+    public void setPrevPosY(double d) {
+        setField(prevPosY, d);
+    }
+
     public double getPrevPosZ() {
         return (double) getField(prevPosZ);
+    }
+
+    public void setPrevPosZ(double d) {
+        setField(prevPosZ, d);
     }
 
     public float getHeight() {
@@ -284,28 +296,16 @@ public class Entity extends IWrapper {
         return (float) invoke(getEyeHeight);
     }
 
-    public void setMotionX(double d) {
-        setField(motionX, d);
-    }
-
-    public void setMotionY(double d) {
-        setField(motionY, d);
-    }
-
-    public void setMotionZ(double d) {
-        setField(motionZ, d);
-    }
-
     public boolean isRiding() {
         return (boolean) invoke(isRiding);
     }
 
-    public void setStepHeight(float f) {
-        setField(stepHeight, f);
-    }
-
     public float getStepHeight() {
         return (float) getField(stepHeight);
+    }
+
+    public void setStepHeight(float f) {
+        setField(stepHeight, f);
     }
 
     public boolean isCollidedVertically() {
@@ -320,12 +320,12 @@ public class Entity extends IWrapper {
         return (boolean) invoke(canBeCollidedWith);
     }
 
-    public void setWidth(float f) {
-        setField(width, f);
-    }
-
     public float getWidth() {
         return (float) getField(width);
+    }
+
+    public void setWidth(float f) {
+        setField(width, f);
     }
 
     public double getDistance(double x, double y, double z) {

@@ -4,16 +4,17 @@ package rbq.wtf.lycoris.agent.instrument.impl;
 import rbq.wtf.lycoris.agent.Access;
 import rbq.wtf.lycoris.agent.instrument.ClassTransformer;
 import rbq.wtf.lycoris.agent.instrument.Instrumentation;
+import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.utils.Logger;
-
-import java.nio.file.Paths;
 
 
 public class InstrumentationImpl implements Instrumentation {
-    public static final String NativeLibPath = Paths.get("").toAbsolutePath().getParent().resolve("Lycoris-Native-Loader/x64/Release/Lycoris-Native-Loader.dll").toString();
+    public static String NativeLibPath;
 
     public static void init() {
         Logger.log("Start Initialize Native", "Native");
+        NativeLibPath = (Client.developEnv ? Client.runPath.getParent().resolve("Lycoris-Native-Loader/x64/Release/Lycoris-Native-Loader.dll")
+                : Client.runPath.resolve("Lycoris-Native-Loader.dll")).toString();
         Logger.log("Load Native: " + NativeLibPath, "Native");
         System.load(NativeLibPath);
         Logger.log("Native Initialized Successful", "Native");

@@ -9,7 +9,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 import java.lang.reflect.Field;
 
 @WrapperClass(mcpName = "net.minecraft.potion.Potion", targetMap = MapEnum.VANILLA189)
-public class Potion extends IWrapper{
+public class Potion extends IWrapper {
 
     @WrapField(mcpName = "blindness", targetMap = MapEnum.VANILLA189)
     public static Field blindness;

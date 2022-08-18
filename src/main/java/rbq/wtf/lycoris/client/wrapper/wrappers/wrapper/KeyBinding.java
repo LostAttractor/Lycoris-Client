@@ -25,20 +25,20 @@ public class KeyBinding extends IWrapper {
         super(obj);
     }
 
-    public boolean isKeyDown() {
-        return (boolean) getField(pressed);
+    public static void onTick(int keyCode) {
+        ReflectUtil.invoke(onTick, null, keyCode);
     }
 
-    public void setPressed(boolean v) {
-        setField(pressed, v);
+    public boolean isKeyDown() {
+        return (boolean) getField(pressed);
     }
 
     public boolean isPressed() {
         return (boolean) getField(pressed);
     }
 
-    public static void onTick(int keyCode) {
-        ReflectUtil.invoke(onTick, null, keyCode);
+    public void setPressed(boolean v) {
+        setField(pressed, v);
     }
 
     public int getKeyCode() {

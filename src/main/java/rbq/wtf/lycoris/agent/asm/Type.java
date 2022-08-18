@@ -494,149 +494,6 @@ public class Type {
     // -----------------------------------------------------------------------------------------------
 
     /**
-     * Returns the sort of this type.
-     *
-     * @return {@link #VOID}, {@link #BOOLEAN}, {@link #CHAR}, {@link #BYTE}, {@link #SHORT}, {@link
-     * #INT}, {@link #FLOAT}, {@link #LONG}, {@link #DOUBLE}, {@link #ARRAY}, {@link #OBJECT} or
-     * {@link #METHOD}.
-     */
-    public int getSort() {
-        return sort == INTERNAL ? OBJECT : sort;
-    }
-
-    /**
-     * Returns the number of dimensions of this array type. This method should only be used for an
-     * array type.
-     *
-     * @return the number of dimensions of this array type.
-     */
-    public int getDimensions() {
-        int numDimensions = 1;
-        while (valueBuffer.charAt(valueBegin + numDimensions) == '[') {
-            numDimensions++;
-        }
-        return numDimensions;
-    }
-
-    /**
-     * Returns the type of the elements of this array type. This method should only be used for an
-     * array type.
-     *
-     * @return Returns the type of the elements of this array type.
-     */
-    public Type getElementType() {
-        final int numDimensions = getDimensions();
-        return getType(valueBuffer, valueBegin + numDimensions, valueEnd);
-    }
-
-    /**
-     * Returns the binary name of the class corresponding to this type. This method must not be used
-     * on method types.
-     *
-     * @return the binary name of the class corresponding to this type.
-     */
-    public String getClassName() {
-        switch (sort) {
-            case VOID:
-                return "void";
-            case BOOLEAN:
-                return "boolean";
-            case CHAR:
-                return "char";
-            case BYTE:
-                return "byte";
-            case SHORT:
-                return "short";
-            case INT:
-                return "int";
-            case FLOAT:
-                return "float";
-            case LONG:
-                return "long";
-            case DOUBLE:
-                return "double";
-            case ARRAY:
-                StringBuilder stringBuilder = new StringBuilder(getElementType().getClassName());
-                for (int i = getDimensions(); i > 0; --i) {
-                    stringBuilder.append("[]");
-                }
-                return stringBuilder.toString();
-            case OBJECT:
-            case INTERNAL:
-                return valueBuffer.substring(valueBegin, valueEnd).replace('/', '.');
-            default:
-                throw new AssertionError();
-        }
-    }
-
-    /**
-     * Returns the internal name of the class corresponding to this object or array type. The internal
-     * name of a class is its fully qualified name (as returned by Class.getName(), where '.' are
-     * replaced by '/'). This method should only be used for an object or array type.
-     *
-     * @return the internal name of the class corresponding to this object type.
-     */
-    public String getInternalName() {
-        return valueBuffer.substring(valueBegin, valueEnd);
-    }
-
-    /**
-     * Returns the argument types of methods of this type. This method should only be used for method
-     * types.
-     *
-     * @return the argument types of methods of this type.
-     */
-    public Type[] getArgumentTypes() {
-        return getArgumentTypes(getDescriptor());
-    }
-
-    /**
-     * Returns the return type of methods of this type. This method should only be used for method
-     * types.
-     *
-     * @return the return type of methods of this type.
-     */
-    public Type getReturnType() {
-        return getReturnType(getDescriptor());
-    }
-
-    /**
-     * Returns the size of the arguments and of the return value of methods of this type. This method
-     * should only be used for method types.
-     *
-     * @return the size of the arguments of the method (plus one for the implicit this argument),
-     * argumentsSize, and the size of its return value, returnSize, packed into a single int i =
-     * <tt>(argumentsSize &lt;&lt; 2) | returnSize</tt> (argumentsSize is therefore equal to <tt>i
-     * &gt;&gt; 2</tt>, and returnSize to <tt>i &amp; 0x03</tt>).
-     */
-    public int getArgumentsAndReturnSizes() {
-        return getArgumentsAndReturnSizes(getDescriptor());
-    }
-
-    // -----------------------------------------------------------------------------------------------
-    // Conversion to type descriptors
-    // -----------------------------------------------------------------------------------------------
-
-    /**
-     * Returns the descriptor corresponding to this type.
-     *
-     * @return the descriptor corresponding to this type.
-     */
-    public String getDescriptor() {
-        if (sort == OBJECT) {
-            return valueBuffer.substring(valueBegin - 1, valueEnd + 1);
-        } else if (sort == INTERNAL) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append('L');
-            stringBuilder.append(valueBuffer, valueBegin, valueEnd);
-            stringBuilder.append(';');
-            return stringBuilder.toString();
-        } else {
-            return valueBuffer.substring(valueBegin, valueEnd);
-        }
-    }
-
-    /**
      * Returns the descriptor corresponding to the given argument and return types.
      *
      * @param returnType    the return type of the method.
@@ -653,28 +510,6 @@ public class Type {
         returnType.appendDescriptor(stringBuilder);
         return stringBuilder.toString();
     }
-
-    /**
-     * Appends the descriptor corresponding to this type to the given string buffer.
-     *
-     * @param stringBuilder the string builder to which the descriptor must be appended.
-     */
-    private void appendDescriptor(final StringBuilder stringBuilder) {
-        if (sort == OBJECT) {
-            stringBuilder.append(valueBuffer, valueBegin - 1, valueEnd + 1);
-        } else if (sort == INTERNAL) {
-            stringBuilder.append('L');
-            stringBuilder.append(valueBuffer, valueBegin, valueEnd);
-            stringBuilder.append(';');
-        } else {
-            stringBuilder.append(valueBuffer, valueBegin, valueEnd);
-        }
-    }
-
-    // -----------------------------------------------------------------------------------------------
-    // Direct conversion from classes to type descriptors,
-    // without intermediate Type objects
-    // -----------------------------------------------------------------------------------------------
 
     /**
      * Returns the internal name of the given class. The internal name of a class is its fully
@@ -778,6 +613,171 @@ public class Type {
                 stringBuilder.append(car == '.' ? '/' : car);
             }
             stringBuilder.append(';');
+        }
+    }
+
+    /**
+     * Returns the sort of this type.
+     *
+     * @return {@link #VOID}, {@link #BOOLEAN}, {@link #CHAR}, {@link #BYTE}, {@link #SHORT}, {@link
+     * #INT}, {@link #FLOAT}, {@link #LONG}, {@link #DOUBLE}, {@link #ARRAY}, {@link #OBJECT} or
+     * {@link #METHOD}.
+     */
+    public int getSort() {
+        return sort == INTERNAL ? OBJECT : sort;
+    }
+
+    /**
+     * Returns the number of dimensions of this array type. This method should only be used for an
+     * array type.
+     *
+     * @return the number of dimensions of this array type.
+     */
+    public int getDimensions() {
+        int numDimensions = 1;
+        while (valueBuffer.charAt(valueBegin + numDimensions) == '[') {
+            numDimensions++;
+        }
+        return numDimensions;
+    }
+
+    // -----------------------------------------------------------------------------------------------
+    // Conversion to type descriptors
+    // -----------------------------------------------------------------------------------------------
+
+    /**
+     * Returns the type of the elements of this array type. This method should only be used for an
+     * array type.
+     *
+     * @return Returns the type of the elements of this array type.
+     */
+    public Type getElementType() {
+        final int numDimensions = getDimensions();
+        return getType(valueBuffer, valueBegin + numDimensions, valueEnd);
+    }
+
+    /**
+     * Returns the binary name of the class corresponding to this type. This method must not be used
+     * on method types.
+     *
+     * @return the binary name of the class corresponding to this type.
+     */
+    public String getClassName() {
+        switch (sort) {
+            case VOID:
+                return "void";
+            case BOOLEAN:
+                return "boolean";
+            case CHAR:
+                return "char";
+            case BYTE:
+                return "byte";
+            case SHORT:
+                return "short";
+            case INT:
+                return "int";
+            case FLOAT:
+                return "float";
+            case LONG:
+                return "long";
+            case DOUBLE:
+                return "double";
+            case ARRAY:
+                StringBuilder stringBuilder = new StringBuilder(getElementType().getClassName());
+                for (int i = getDimensions(); i > 0; --i) {
+                    stringBuilder.append("[]");
+                }
+                return stringBuilder.toString();
+            case OBJECT:
+            case INTERNAL:
+                return valueBuffer.substring(valueBegin, valueEnd).replace('/', '.');
+            default:
+                throw new AssertionError();
+        }
+    }
+
+    /**
+     * Returns the internal name of the class corresponding to this object or array type. The internal
+     * name of a class is its fully qualified name (as returned by Class.getName(), where '.' are
+     * replaced by '/'). This method should only be used for an object or array type.
+     *
+     * @return the internal name of the class corresponding to this object type.
+     */
+    public String getInternalName() {
+        return valueBuffer.substring(valueBegin, valueEnd);
+    }
+
+    // -----------------------------------------------------------------------------------------------
+    // Direct conversion from classes to type descriptors,
+    // without intermediate Type objects
+    // -----------------------------------------------------------------------------------------------
+
+    /**
+     * Returns the argument types of methods of this type. This method should only be used for method
+     * types.
+     *
+     * @return the argument types of methods of this type.
+     */
+    public Type[] getArgumentTypes() {
+        return getArgumentTypes(getDescriptor());
+    }
+
+    /**
+     * Returns the return type of methods of this type. This method should only be used for method
+     * types.
+     *
+     * @return the return type of methods of this type.
+     */
+    public Type getReturnType() {
+        return getReturnType(getDescriptor());
+    }
+
+    /**
+     * Returns the size of the arguments and of the return value of methods of this type. This method
+     * should only be used for method types.
+     *
+     * @return the size of the arguments of the method (plus one for the implicit this argument),
+     * argumentsSize, and the size of its return value, returnSize, packed into a single int i =
+     * <tt>(argumentsSize &lt;&lt; 2) | returnSize</tt> (argumentsSize is therefore equal to <tt>i
+     * &gt;&gt; 2</tt>, and returnSize to <tt>i &amp; 0x03</tt>).
+     */
+    public int getArgumentsAndReturnSizes() {
+        return getArgumentsAndReturnSizes(getDescriptor());
+    }
+
+    /**
+     * Returns the descriptor corresponding to this type.
+     *
+     * @return the descriptor corresponding to this type.
+     */
+    public String getDescriptor() {
+        if (sort == OBJECT) {
+            return valueBuffer.substring(valueBegin - 1, valueEnd + 1);
+        } else if (sort == INTERNAL) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append('L');
+            stringBuilder.append(valueBuffer, valueBegin, valueEnd);
+            stringBuilder.append(';');
+            return stringBuilder.toString();
+        } else {
+            return valueBuffer.substring(valueBegin, valueEnd);
+        }
+    }
+
+    /**
+     * Appends the descriptor corresponding to this type to the given string buffer.
+     *
+     * @param stringBuilder the string builder to which the descriptor must be appended.
+     */
+    private void appendDescriptor(final StringBuilder stringBuilder) {
+        if (sort == OBJECT) {
+            stringBuilder.append(valueBuffer, valueBegin - 1, valueEnd + 1);
+        } else if (sort == INTERNAL) {
+            stringBuilder.append('L');
+            stringBuilder.append(valueBuffer, valueBegin, valueEnd);
+            stringBuilder.append(';');
+        } else {
+            stringBuilder.append(valueBuffer, valueBegin, valueEnd);
         }
     }
 

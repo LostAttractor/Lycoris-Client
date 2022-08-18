@@ -8,7 +8,6 @@ import rbq.wtf.lycoris.client.module.ModuleCategory;
 import rbq.wtf.lycoris.client.utils.Logger;
 import rbq.wtf.lycoris.client.utils.MovementUtils;
 import rbq.wtf.lycoris.client.value.BooleanValue;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.potion.Potion;
 
 public class KeepSprint extends Module {
@@ -49,7 +48,7 @@ public class KeepSprint extends Module {
                 mc.getPlayer().setSprinting(true);
                 Logger.log("Set Sprint", "SprintModule", Logger.LogLevel.DEBUG);
             }
-            if(noDelay.getValue()) {
+            if (noDelay.getValue()) {
                 mc.getPlayer().setSprintingTicksLeft(0);
             }
         }

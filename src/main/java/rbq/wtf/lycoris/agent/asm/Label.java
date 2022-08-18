@@ -149,51 +149,26 @@ public class Label {
      * #FLAG_SUBROUTINE_END}.
      */
     short flags;
-
-    /**
-     * The source line number corresponding to this label, or 0. If there are several source line
-     * numbers corresponding to this label, the first one is stored in this field, and the remaining
-     * ones are stored in {@link #otherLineNumbers}.
-     */
-    private short lineNumber;
-
-    /**
-     * The source line numbers corresponding to this label, in addition to {@link #lineNumber}, or
-     * null. The first element of this array is the number n of source line numbers it contains, which
-     * are stored between indices 1 and n (inclusive).
-     */
-    private int[] otherLineNumbers;
-
     /**
      * The offset of this label in the bytecode of its method, in bytes. This value is set if and only
      * if the {@link #FLAG_RESOLVED} flag is set.
      */
     int bytecodeOffset;
-
     /**
-     * The forward references to this label. The first element is the number of forward references,
-     * times 2 (this corresponds to the index of the last element actually used in this array). Then,
-     * each forward reference is described with two consecutive integers noted
-     * 'sourceInsnBytecodeOffset' and 'reference':
-     *
-     * <ul>
-     *   <li>'sourceInsnBytecodeOffset' is the bytecode offset of the instruction that contains the
-     *       forward reference,
-     *   <li>'reference' contains the type and the offset in the bytecode where the forward reference
-     *       value must be stored, which can be extracted with {@link #FORWARD_REFERENCE_TYPE_MASK}
-     *       and {@link #FORWARD_REFERENCE_HANDLE_MASK}.
-     * </ul>
-     * <p>
-     * For instance, for an ifnull instruction at bytecode offset x, 'sourceInsnBytecodeOffset' is
-     * equal to x, and 'reference' is of type {@link #FORWARD_REFERENCE_TYPE_SHORT} with value x + 1
-     * (because the ifnull instruction uses a 2 bytes bytecode offset operand stored one byte after
-     * the start of the instruction itself). For the default case of a lookupswitch instruction at
-     * bytecode offset x, 'sourceInsnBytecodeOffset' is equal to x, and 'reference' is of type {@link
-     * #FORWARD_REFERENCE_TYPE_WIDE} with value between x + 1 and x + 4 (because the lookupswitch
-     * instruction uses a 4 bytes bytecode offset operand stored one to four bytes after the start of
-     * the instruction itself).
+     * The number of elements in the input stack of the basic block corresponding to this label. This
+     * field is computed in {@link MethodWriter#computeMaxStackAndLocal}.
      */
-    private int[] forwardReferences;
+    short inputStackSize;
+    /**
+     * The number of elements in the output stack, at the end of the basic block corresponding to this
+     * label. This field is only computed for basic blocks that end with a RET instruction.
+     */
+    short outputStackSize;
+    /**
+     * The maximum height reached by the output stack, relatively to the top of the input stack, in
+     * the basic block corresponding to this label. This maximum is always positive or null.
+     */
+    short outputStackMax;
 
     // -----------------------------------------------------------------------------------------------
 
@@ -218,25 +193,6 @@ public class Label {
     // The algorithm used to compute the maximum stack size only computes the relative output and
     // absolute input stack heights, while the algorithm used to compute stack map frames computes
     // relative output frames and absolute input frames.
-
-    /**
-     * The number of elements in the input stack of the basic block corresponding to this label. This
-     * field is computed in {@link MethodWriter#computeMaxStackAndLocal}.
-     */
-    short inputStackSize;
-
-    /**
-     * The number of elements in the output stack, at the end of the basic block corresponding to this
-     * label. This field is only computed for basic blocks that end with a RET instruction.
-     */
-    short outputStackSize;
-
-    /**
-     * The maximum height reached by the output stack, relatively to the top of the input stack, in
-     * the basic block corresponding to this label. This maximum is always positive or null.
-     */
-    short outputStackMax;
-
     /**
      * The id of the subroutine to which this basic block belongs, or 0. If the basic block belongs to
      * several subroutines, this is the id of the "oldest" subroutine that contains it (with the
@@ -245,14 +201,12 @@ public class Label {
      * instructions.
      */
     short subroutineId;
-
     /**
      * The input and output stack map frames of the basic block corresponding to this label. This
      * field is only used when the {@link MethodWriter#COMPUTE_ALL_FRAMES} or {@link
      * MethodWriter#COMPUTE_INSERTED_FRAMES} option is used.
      */
     Frame frame;
-
     /**
      * The successor of this label, in the order they are visited in {@link MethodVisitor#visitLabel}.
      * This linked list does not include labels used for debug info only. If the {@link
@@ -261,14 +215,12 @@ public class Label {
      * case only the first label appears in this list).
      */
     Label nextBasicBlock;
-
     /**
      * The outgoing edges of the basic block corresponding to this label, in the control flow graph of
      * its method. These edges are stored in a linked list of {@link Edge} objects, linked to each
      * other by their {@link Edge#nextEdge} field.
      */
     Edge outgoingEdges;
-
     /**
      * The next element in the list of labels to which this label belongs, or null if it does not
      * belong to any list. All lists of labels must end with the {@link #EMPTY_LIST} sentinel, in
@@ -285,6 +237,42 @@ public class Label {
      * these methods).
      */
     Label nextListElement;
+    /**
+     * The source line number corresponding to this label, or 0. If there are several source line
+     * numbers corresponding to this label, the first one is stored in this field, and the remaining
+     * ones are stored in {@link #otherLineNumbers}.
+     */
+    private short lineNumber;
+    /**
+     * The source line numbers corresponding to this label, in addition to {@link #lineNumber}, or
+     * null. The first element of this array is the number n of source line numbers it contains, which
+     * are stored between indices 1 and n (inclusive).
+     */
+    private int[] otherLineNumbers;
+    /**
+     * The forward references to this label. The first element is the number of forward references,
+     * times 2 (this corresponds to the index of the last element actually used in this array). Then,
+     * each forward reference is described with two consecutive integers noted
+     * 'sourceInsnBytecodeOffset' and 'reference':
+     *
+     * <ul>
+     *   <li>'sourceInsnBytecodeOffset' is the bytecode offset of the instruction that contains the
+     *       forward reference,
+     *   <li>'reference' contains the type and the offset in the bytecode where the forward reference
+     *       value must be stored, which can be extracted with {@link #FORWARD_REFERENCE_TYPE_MASK}
+     *       and {@link #FORWARD_REFERENCE_HANDLE_MASK}.
+     * </ul>
+     * <p>
+     * For instance, for an ifnull instruction at bytecode offset x, 'sourceInsnBytecodeOffset' is
+     * equal to x, and 'reference' is of type {@link #FORWARD_REFERENCE_TYPE_SHORT} with value x + 1
+     * (because the ifnull instruction uses a 2 bytes bytecode offset operand stored one byte after
+     * the start of the instruction itself). For the default case of a lookupswitch instruction at
+     * bytecode offset x, 'sourceInsnBytecodeOffset' is equal to x, and 'reference' is of type {@link
+     * #FORWARD_REFERENCE_TYPE_WIDE} with value between x + 1 and x + 4 (because the lookupswitch
+     * instruction uses a 4 bytes bytecode offset operand stored one to four bytes after the start of
+     * the instruction itself).
+     */
+    private int[] forwardReferences;
 
     // -----------------------------------------------------------------------------------------------
     // Constructor and accessors

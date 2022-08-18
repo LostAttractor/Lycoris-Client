@@ -102,21 +102,22 @@ public class ClassReader {
      * ClassFile element offsets within this byte array.
      */
     public final byte[] b;
-
+    /**
+     * The offset in bytes, in {@link #b}, of the ClassFile's access_flags field.
+     */
+    public final int header;
     /**
      * The offset in bytes, in {@link #b}, of each cp_info entry of the ClassFile's constant_pool
      * array, <i>plus one</i>. In other words, the offset of constant pool entry i is given by
      * cpInfoOffsets[i] - 1, i.e. its cp_info's tag field is given by b[cpInfoOffsets[i] - 1].
      */
     private final int[] cpInfoOffsets;
-
     /**
      * The value of each cp_info entry of the ClassFile's constant_pool array, <i>for Constant_Utf8
      * and Constant_Dynamic constants only</i>. The value of constant pool entry i is given by
      * cpInfoValues[i]. This cache avoids multiple parsing of those constant pool items.
      */
     private final Object[] cpInfoValues;
-
     /**
      * The start offsets in {@link #b} of each element of the bootstrap_methods array (in the
      * BootstrapMethods attribute).
@@ -125,17 +126,11 @@ public class ClassReader {
      * 4.7.23</a>
      */
     private final int[] bootstrapMethodOffsets;
-
     /**
      * A conservative estimate of the maximum length of the strings contained in the constant pool of
      * the class.
      */
     private final int maxStringLength;
-
-    /**
-     * The offset in bytes, in {@link #b}, of the ClassFile's access_flags field.
-     */
-    public final int header;
 
     // -----------------------------------------------------------------------------------------------
     // Constructors

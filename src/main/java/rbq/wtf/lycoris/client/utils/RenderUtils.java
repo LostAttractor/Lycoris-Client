@@ -30,13 +30,11 @@ public class RenderUtils {
     private static final Minecraft mc = Client.instance.mc;
     private static final List<Integer> csBuffer;
     private static final Consumer<Integer> ENABLE_CLIENT_STATE;
+    private static final Consumer<Integer> DISABLE_CLIENT_STATE;
+    public static float delta;
     private static int lastScale;
     private static int lastScaleWidth;
     private static int lastScaleHeight;
-
-    private static final Consumer<Integer> DISABLE_CLIENT_STATE;
-
-    public static float delta;
 
     static {
         csBuffer = new ArrayList<Integer>();
@@ -771,111 +769,6 @@ public class RenderUtils {
                 (float) c.getBlue() / 255.0F * fade, (float) c.getAlpha() / 255.0F);
     }
 
-    public static class R2DUtils {
-        public static void enableGL2D() {
-            glDisable((int) 2929);
-            glEnable((int) 3042);
-            glDisable((int) 3553);
-            GL11.glBlendFunc((int) 770, (int) 771);
-            GL11.glDepthMask((boolean) true);
-            glEnable((int) 2848);
-            GL11.glHint((int) 3154, (int) 4354);
-            GL11.glHint((int) 3155, (int) 4354);
-        }
-
-        public static void disableGL2D() {
-            glEnable((int) 3553);
-            glDisable((int) 3042);
-            glEnable((int) 2929);
-            glDisable((int) 2848);
-            GL11.glHint((int) 3154, (int) 4352);
-            GL11.glHint((int) 3155, (int) 4352);
-        }
-
-        public static void drawRoundedRect(float x, float y, float x1, float y1, int borderC, int insideC) {
-            R2DUtils.enableGL2D();
-            GL11.glScalef((float) 0.5f, (float) 0.5f, (float) 0.5f);
-            R2DUtils.drawVLine(x *= 2.0f, (y *= 2.0f) + 1.0f, (y1 *= 2.0f) - 2.0f, borderC);
-            R2DUtils.drawVLine((x1 *= 2.0f) - 1.0f, y + 1.0f, y1 - 2.0f, borderC);
-            R2DUtils.drawHLine(x + 2.0f, x1 - 3.0f, y, borderC);
-            R2DUtils.drawHLine(x + 2.0f, x1 - 3.0f, y1 - 1.0f, borderC);
-            R2DUtils.drawHLine(x + 1.0f, x + 1.0f, y + 1.0f, borderC);
-            R2DUtils.drawHLine(x1 - 2.0f, x1 - 2.0f, y + 1.0f, borderC);
-            R2DUtils.drawHLine(x1 - 2.0f, x1 - 2.0f, y1 - 2.0f, borderC);
-            R2DUtils.drawHLine(x + 1.0f, x + 1.0f, y1 - 2.0f, borderC);
-            R2DUtils.drawRect(x + 1.0f, y + 1.0f, x1 - 1.0f, y1 - 1.0f, insideC);
-            GL11.glScalef((float) 2.0f, (float) 2.0f, (float) 2.0f);
-            R2DUtils.disableGL2D();
-            Gui.drawRect(0, 0, 0, 0, 0);
-        }
-
-        public static void drawRect(double x2, double y2, double x1, double y1, int color) {
-            R2DUtils.enableGL2D();
-            R2DUtils.glColor(color, color, color, color);
-//							R2DUtils.drawRect(x2, y2, x1, y1, color);
-            R2DUtils.drawRect(x2, y2, x1, y1);
-            R2DUtils.disableGL2D();
-        }
-
-        private static void drawRect(double x2, double y2, double x1, double y1) {
-            glBegin((int) 7);
-            GL11.glVertex2d((double) x2, (double) y1);
-            GL11.glVertex2d((double) x1, (double) y1);
-            GL11.glVertex2d((double) x1, (double) y2);
-            GL11.glVertex2d((double) x2, (double) y2);
-            GL11.glEnd();
-        }
-
-        public static void drawHLine(float x, float y, float x1, int y1) {
-            if (y < x) {
-                float var5 = x;
-                x = y;
-                y = var5;
-            }
-            R2DUtils.drawRect(x, x1, y + 1.0f, x1 + 1.0f, y1);
-        }
-
-        public static void drawVLine(float x, float y, float x1, int y1) {
-            if (x1 < y) {
-                float var5 = y;
-                y = x1;
-                x1 = var5;
-            }
-            R2DUtils.drawRect(x, y + 1.0f, x + 1.0f, x1, y1);
-        }
-
-        public static void drawHLine(float x, float y, float x1, int y1, int y2) {
-            if (y < x) {
-                float var5 = x;
-                x = y;
-                y = var5;
-            }
-            R2DUtils.drawGradientRect(x, x1, y + 1.0f, x1 + 1.0f, y1, y2);
-        }
-
-        public static void drawGradientRect(float x, float y, float x1, float y1, int topColor, int bottomColor) {
-            R2DUtils.enableGL2D();
-            GL11.glShadeModel((int) 7425);
-            glBegin((int) 7);
-            RenderUtils.glColor(topColor);
-            GL11.glVertex2f((float) x, (float) y1);
-            GL11.glVertex2f((float) x1, (float) y1);
-            RenderUtils.glColor(bottomColor);
-            GL11.glVertex2f((float) x1, (float) y);
-            GL11.glVertex2f((float) x, (float) y);
-            GL11.glEnd();
-            GL11.glShadeModel((int) 7424);
-            R2DUtils.disableGL2D();
-        }
-
-        public static void glColor(float alpha, int redRGB, int greenRGB, int blueRGB) {
-            float red = 0.003921569F * redRGB;
-            float green = 0.003921569F * greenRGB;
-            float blue = 0.003921569F * blueRGB;
-            GL11.glColor4f(red, green, blue, alpha);
-        }
-    }
-
     public static void drawblock(double a, double a2, double a3, int a4, int a5, float a6) {
         float a7 = (float) (a4 >> 24 & 255) / 255.0f;
         float a8 = (float) (a4 >> 16 & 255) / 255.0f;
@@ -964,7 +857,6 @@ public class RenderUtils {
         glDisable((int) 3042);
         GL11.glPopMatrix();
     }
-
 
     public static void enableSmoothLine(float width) {
         glDisable((int) 3008);
@@ -1068,5 +960,110 @@ public class RenderUtils {
     public static void stopGlScissor() {
         glDisable((int) 3089);
         GL11.glPopMatrix();
+    }
+
+    public static class R2DUtils {
+        public static void enableGL2D() {
+            glDisable((int) 2929);
+            glEnable((int) 3042);
+            glDisable((int) 3553);
+            GL11.glBlendFunc((int) 770, (int) 771);
+            GL11.glDepthMask((boolean) true);
+            glEnable((int) 2848);
+            GL11.glHint((int) 3154, (int) 4354);
+            GL11.glHint((int) 3155, (int) 4354);
+        }
+
+        public static void disableGL2D() {
+            glEnable((int) 3553);
+            glDisable((int) 3042);
+            glEnable((int) 2929);
+            glDisable((int) 2848);
+            GL11.glHint((int) 3154, (int) 4352);
+            GL11.glHint((int) 3155, (int) 4352);
+        }
+
+        public static void drawRoundedRect(float x, float y, float x1, float y1, int borderC, int insideC) {
+            R2DUtils.enableGL2D();
+            GL11.glScalef((float) 0.5f, (float) 0.5f, (float) 0.5f);
+            R2DUtils.drawVLine(x *= 2.0f, (y *= 2.0f) + 1.0f, (y1 *= 2.0f) - 2.0f, borderC);
+            R2DUtils.drawVLine((x1 *= 2.0f) - 1.0f, y + 1.0f, y1 - 2.0f, borderC);
+            R2DUtils.drawHLine(x + 2.0f, x1 - 3.0f, y, borderC);
+            R2DUtils.drawHLine(x + 2.0f, x1 - 3.0f, y1 - 1.0f, borderC);
+            R2DUtils.drawHLine(x + 1.0f, x + 1.0f, y + 1.0f, borderC);
+            R2DUtils.drawHLine(x1 - 2.0f, x1 - 2.0f, y + 1.0f, borderC);
+            R2DUtils.drawHLine(x1 - 2.0f, x1 - 2.0f, y1 - 2.0f, borderC);
+            R2DUtils.drawHLine(x + 1.0f, x + 1.0f, y1 - 2.0f, borderC);
+            R2DUtils.drawRect(x + 1.0f, y + 1.0f, x1 - 1.0f, y1 - 1.0f, insideC);
+            GL11.glScalef((float) 2.0f, (float) 2.0f, (float) 2.0f);
+            R2DUtils.disableGL2D();
+            Gui.drawRect(0, 0, 0, 0, 0);
+        }
+
+        public static void drawRect(double x2, double y2, double x1, double y1, int color) {
+            R2DUtils.enableGL2D();
+            R2DUtils.glColor(color, color, color, color);
+//							R2DUtils.drawRect(x2, y2, x1, y1, color);
+            R2DUtils.drawRect(x2, y2, x1, y1);
+            R2DUtils.disableGL2D();
+        }
+
+        private static void drawRect(double x2, double y2, double x1, double y1) {
+            glBegin((int) 7);
+            GL11.glVertex2d((double) x2, (double) y1);
+            GL11.glVertex2d((double) x1, (double) y1);
+            GL11.glVertex2d((double) x1, (double) y2);
+            GL11.glVertex2d((double) x2, (double) y2);
+            GL11.glEnd();
+        }
+
+        public static void drawHLine(float x, float y, float x1, int y1) {
+            if (y < x) {
+                float var5 = x;
+                x = y;
+                y = var5;
+            }
+            R2DUtils.drawRect(x, x1, y + 1.0f, x1 + 1.0f, y1);
+        }
+
+        public static void drawVLine(float x, float y, float x1, int y1) {
+            if (x1 < y) {
+                float var5 = y;
+                y = x1;
+                x1 = var5;
+            }
+            R2DUtils.drawRect(x, y + 1.0f, x + 1.0f, x1, y1);
+        }
+
+        public static void drawHLine(float x, float y, float x1, int y1, int y2) {
+            if (y < x) {
+                float var5 = x;
+                x = y;
+                y = var5;
+            }
+            R2DUtils.drawGradientRect(x, x1, y + 1.0f, x1 + 1.0f, y1, y2);
+        }
+
+        public static void drawGradientRect(float x, float y, float x1, float y1, int topColor, int bottomColor) {
+            R2DUtils.enableGL2D();
+            GL11.glShadeModel((int) 7425);
+            glBegin((int) 7);
+            RenderUtils.glColor(topColor);
+            GL11.glVertex2f((float) x, (float) y1);
+            GL11.glVertex2f((float) x1, (float) y1);
+            RenderUtils.glColor(bottomColor);
+            GL11.glVertex2f((float) x1, (float) y);
+            GL11.glVertex2f((float) x, (float) y);
+            GL11.glEnd();
+            GL11.glShadeModel((int) 7424);
+            R2DUtils.disableGL2D();
+        }
+
+        public static void glColor(float alpha, int redRGB, int greenRGB, int blueRGB) {
+            float red = 0.003921569F * redRGB;
+            float green = 0.003921569F * greenRGB;
+            float blue = 0.003921569F * blueRGB;
+            GL11.glColor4f(red, green, blue, alpha);
+        }
     }
 }

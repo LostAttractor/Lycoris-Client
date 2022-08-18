@@ -555,52 +555,6 @@ public class RenderUtil {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-
-    public void drawCircle(int x, int y, float radius, int color) {
-        float alpha = (float) (color >> 24 & 255) / 255.0F;
-        float red = (float) (color >> 16 & 255) / 255.0F;
-        float green = (float) (color >> 8 & 255) / 255.0F;
-        float blue = (float) (color & 255) / 255.0F;
-        boolean blend = GL11.glIsEnabled(3042);
-        boolean line = GL11.glIsEnabled(2848);
-        boolean texture = GL11.glIsEnabled(3553);
-        if (!blend) {
-            GL11.glEnable(3042);
-        }
-
-        if (!line) {
-            GL11.glEnable(2848);
-        }
-
-        if (texture) {
-            GL11.glDisable(3553);
-        }
-
-        GL11.glBlendFunc(770, 771);
-        GL11.glColor4f(red, green, blue, alpha);
-        GL11.glBegin(9);
-
-        for (int i = 0; i <= 360; ++i) {
-            GL11.glVertex2d((double) x + Math.sin((double) i * 3.141526D / 180.0D) * (double) radius,
-                    (double) y + Math.cos((double) i * 3.141526D / 180.0D) * (double) radius);
-        }
-
-        GL11.glEnd();
-        if (texture) {
-            GL11.glEnable(3553);
-        }
-
-        if (!line) {
-            GL11.glDisable(2848);
-        }
-
-        if (!blend) {
-            GL11.glDisable(3042);
-        }
-
-    }
-
-
     public static void renderTwo() {
         GL11.glStencilFunc(512, 0, 15);
         GL11.glStencilOp(7681, 7681, 7681);
@@ -612,15 +566,6 @@ public class RenderUtil {
         GL11.glStencilOp(7680, 7680, 7680);
         GL11.glPolygonMode(1032, 6913);
     }
-
-//	public static void renderFour() {
-//		setColor(new Color(255, 255, 255));
-//		GL11.glDepthMask(false);
-//		GL11.glDisable(2929);
-//		GL11.glEnable(10754);
-//		GL11.glPolygonOffset(1.0F, -2000000.0F);
-//		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
-//	}
 
     public static void renderFive() {
         GL11.glPolygonOffset(1.0F, 2000000.0F);
@@ -637,11 +582,19 @@ public class RenderUtil {
         GL11.glPopAttrib();
     }
 
+//	public static void renderFour() {
+//		setColor(new Color(255, 255, 255));
+//		GL11.glDepthMask(false);
+//		GL11.glDisable(2929);
+//		GL11.glEnable(10754);
+//		GL11.glPolygonOffset(1.0F, -2000000.0F);
+//		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
+//	}
+
     public static void setColor(Color c) {
         GL11.glColor4d((double) ((float) c.getRed() / 255.0F), (double) ((float) c.getGreen() / 255.0F),
                 (double) ((float) c.getBlue() / 255.0F), (double) ((float) c.getAlpha() / 255.0F));
     }
-
 
     public static void drawOutlinedBoundingBox(AxisAlignedBB aa) {
         Tessellator tessellator = Tessellator.getInstance();
@@ -1268,7 +1221,6 @@ public class RenderUtil {
         drawRect(g - 1.0D, h - 1.0D, g - 0.5D, h - 0.5D, color);
     }
 
-
     public static void pre() {
         GL11.glDisable(2929);
         GL11.glDisable(3553);
@@ -1281,6 +1233,50 @@ public class RenderUtil {
         GL11.glEnable(3553);
         GL11.glEnable(2929);
         GL11.glColor3d(1.0D, 1.0D, 1.0D);
+    }
+
+    public void drawCircle(int x, int y, float radius, int color) {
+        float alpha = (float) (color >> 24 & 255) / 255.0F;
+        float red = (float) (color >> 16 & 255) / 255.0F;
+        float green = (float) (color >> 8 & 255) / 255.0F;
+        float blue = (float) (color & 255) / 255.0F;
+        boolean blend = GL11.glIsEnabled(3042);
+        boolean line = GL11.glIsEnabled(2848);
+        boolean texture = GL11.glIsEnabled(3553);
+        if (!blend) {
+            GL11.glEnable(3042);
+        }
+
+        if (!line) {
+            GL11.glEnable(2848);
+        }
+
+        if (texture) {
+            GL11.glDisable(3553);
+        }
+
+        GL11.glBlendFunc(770, 771);
+        GL11.glColor4f(red, green, blue, alpha);
+        GL11.glBegin(9);
+
+        for (int i = 0; i <= 360; ++i) {
+            GL11.glVertex2d((double) x + Math.sin((double) i * 3.141526D / 180.0D) * (double) radius,
+                    (double) y + Math.cos((double) i * 3.141526D / 180.0D) * (double) radius);
+        }
+
+        GL11.glEnd();
+        if (texture) {
+            GL11.glEnable(3553);
+        }
+
+        if (!line) {
+            GL11.glDisable(2848);
+        }
+
+        if (!blend) {
+            GL11.glDisable(3042);
+        }
+
     }
 
 }

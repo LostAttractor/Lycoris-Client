@@ -66,6 +66,10 @@ public class BlockPos extends Vec3i {
         this(ReflectUtil.construction(BlockPos_Vec, vec.getWrapObject()));
     }
 
+    public static BlockPos wrap(Object o) {
+        return new BlockPos(o);
+    }
+
     public BlockPos offset(Enum facing) {
         return new BlockPos(invoke(offset, facing));
     }
@@ -116,9 +120,5 @@ public class BlockPos extends Vec3i {
 
     public BlockPos add(int x, int y, int z) {
         return new BlockPos(invoke(add_III, x, y, z));
-    }
-
-    public static BlockPos wrap(Object o) {
-        return new BlockPos(o);
     }
 }

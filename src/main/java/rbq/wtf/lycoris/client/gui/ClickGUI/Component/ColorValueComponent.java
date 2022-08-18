@@ -20,6 +20,9 @@ public class ColorValueComponent extends Component {
     private static final float SELECTOR_WIDTH = 1.0f;
     private static final float HALF_WIDTH = 0.5f;
     private static final float OUTLINE_WIDTH = 0.5f;
+    public static Tessellator tessellator = Tessellator.getInstance();
+    public static WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+    public ColorValue value;
     private boolean expanded;
     private float hue;
     private float saturation;
@@ -28,11 +31,6 @@ public class ColorValueComponent extends Component {
     private boolean colorSelectorDragging;
     private boolean hueSelectorDragging;
     private boolean alphaSelectorDragging;
-    public static Tessellator tessellator = Tessellator.getInstance();
-    public static WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-
-
-    public ColorValue value;
     private float x;
     private float y;
 
@@ -45,6 +43,33 @@ public class ColorValueComponent extends Component {
         this.brightness = value.getHSB()[2];
         setHeight(100);
         setWidth(11 - 80);
+    }
+
+    private static void drawCheckeredBackground(float x, float y, float x2, float y2) {
+//        RenderUtil.drawRect(x, y, x2, y2, getColor(16777215));
+        for (boolean offset = false; y < y2; ++y) {
+            for (float x1 = x + (float) ((offset = !offset) ? 1 : 0); x1 < x2; x1 += 2.0F) {
+                if (x1 <= x2 - 1.0F) {
+                    RenderUtil.drawRect(x1, y, x1 + 1.0F, y + 1.0F, getColor(8421504));
+                }
+            }
+        }
+    }
+
+    public static int darker(int color, float factor) {
+        int r = (int) ((color >> 16 & 0xFF) * factor);
+        int g = (int) ((color >> 8 & 0xFF) * factor);
+        int b = (int) ((color & 0xFF) * factor);
+        int a = color >> 24 & 0xFF;
+        return (r & 0xFF) << 16 | (g & 0xFF) << 8 | b & 0xFF | (a & 0xFF) << 24;
+    }
+
+    public static int getColor(int color) {
+        int r = color >> 16 & 0xFF;
+        int g = color >> 8 & 0xFF;
+        int b = color & 0xFF;
+        int a = (int) 255;
+        return (r & 0xFF) << 16 | (g & 0xFF) << 8 | b & 0xFF | (a & 0xFF) << 24;
     }
 
     @Override
@@ -220,25 +245,6 @@ public class ColorValueComponent extends Component {
         }
     }
 
-    private static void drawCheckeredBackground(float x, float y, float x2, float y2) {
-//        RenderUtil.drawRect(x, y, x2, y2, getColor(16777215));
-        for (boolean offset = false; y < y2; ++y) {
-            for (float x1 = x + (float) ((offset = !offset) ? 1 : 0); x1 < x2; x1 += 2.0F) {
-                if (x1 <= x2 - 1.0F) {
-                    RenderUtil.drawRect(x1, y, x1 + 1.0F, y + 1.0F, getColor(8421504));
-                }
-            }
-        }
-    }
-
-    public static int darker(int color, float factor) {
-        int r = (int) ((color >> 16 & 0xFF) * factor);
-        int g = (int) ((color >> 8 & 0xFF) * factor);
-        int b = (int) ((color & 0xFF) * factor);
-        int a = color >> 24 & 0xFF;
-        return (r & 0xFF) << 16 | (g & 0xFF) << 8 | b & 0xFF | (a & 0xFF) << 24;
-    }
-
     public void drawGradientRect(float left, float top, float right, float bottom, int startColor, int endColor) {
         float f = (float) (startColor >> 24 & 255) / 255.0F;
         float f1 = (float) (startColor >> 16 & 255) / 255.0F;
@@ -298,11 +304,9 @@ public class ColorValueComponent extends Component {
         return this.x + 11 - 80.333336f;
     }
 
-
     public float getExpandedY() {
         return this.y + 5;
     }
-
 
     public float getExpandedWidth() {
         float right = x + 11;
@@ -317,13 +321,5 @@ public class ColorValueComponent extends Component {
         int hueBasedColor = Color.HSBtoRGB(this.hue, 1.0F, 1.0F);
         drawGradientRect(left, top, right, bottom, true, getColor(16777215), hueBasedColor);
         drawGradientRect(left, top, right, bottom, 0, getColor(0));
-    }
-
-    public static int getColor(int color) {
-        int r = color >> 16 & 0xFF;
-        int g = color >> 8 & 0xFF;
-        int b = color & 0xFF;
-        int a = (int) 255;
-        return (r & 0xFF) << 16 | (g & 0xFF) << 8 | b & 0xFF | (a & 0xFF) << 24;
     }
 }

@@ -58,11 +58,6 @@ public enum JVMTIError {
         this.value = value;
     }
 
-    public int getValue() {
-        return this.value;
-    }
-
-
     public static String parse(int value) {
         for (JVMTIError error : JVMTIError.values()) {
             if (error.getValue() == value) {
@@ -81,6 +76,10 @@ public enum JVMTIError {
             result = result.concat(firstLetter.concat(nextLetter) + " ");
         }
         return result.trim();
+    }
+
+    public int getValue() {
+        return this.value;
     }
 
     @Override

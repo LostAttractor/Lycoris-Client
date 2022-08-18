@@ -24,11 +24,11 @@ public class ClickGUI extends GuiScreenImpl {
     public static float valueWheel = 0.0F;
     public static float startX = 100;
     public static float startY = 100;
+    public static ArrayList<Component> valueComponentList = new ArrayList<Component>();
     public float moveX = 0.0F;
     public float moveY = 0.0F;
     public ArrayList<CategoryButton> categoryButtonList = new ArrayList<CategoryButton>();
     public ArrayList<ModuleButtonList> moduleButtonList = new ArrayList<ModuleButtonList>();
-    public static ArrayList<Component> valueComponentList = new ArrayList<Component>();
 
     public ClickGUI() {
         currentModuleType = ModuleCategory.Combat;

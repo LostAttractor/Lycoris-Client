@@ -36,13 +36,10 @@ package rbq.wtf.lycoris.agent.asm;
  */
 final class Constants implements Opcodes {
 
-    private Constants() {
-    }
+    static final String CONSTANT_VALUE = "ConstantValue";
 
     // The ClassFile attribute names, in the order they are defined in
     // https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-4.html#jvms-4.7-300.
-
-    static final String CONSTANT_VALUE = "ConstantValue";
     static final String CODE = "Code";
     static final String STACK_MAP_TABLE = "StackMapTable";
     static final String EXCEPTIONS = "Exceptions";
@@ -71,16 +68,12 @@ final class Constants implements Opcodes {
     static final String MODULE_MAIN_CLASS = "ModuleMainClass";
     static final String NEST_HOST = "NestHost";
     static final String NEST_MEMBERS = "NestMembers";
+    static final int ACC_CONSTRUCTOR = 0x40000; // method access flag.
 
     // ASM specific access flags.
     // WARNING: the 16 least significant bits must NOT be used, to avoid conflicts with standard
     // access flags, and also to make sure that these flags are automatically filtered out when
     // written in class files (because access flags are stored using 16 bits only).
-
-    static final int ACC_CONSTRUCTOR = 0x40000; // method access flag.
-
-    // ASM specific stack map frame types, used in {@link ClassVisitor#visitFrame}.
-
     /**
      * A frame inserted between already existing frames. This internal stack map frame type (in
      * addition to the ones declared in {@link Opcodes}) can only be used if the frame content can be
@@ -91,10 +84,11 @@ final class Constants implements Opcodes {
      */
     static final int F_INSERT = 256;
 
+    // ASM specific stack map frame types, used in {@link ClassVisitor#visitFrame}.
+    static final int LDC_W = 19;
+
     // The JVM opcode values which are not part of the ASM public API.
     // See https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-6.html.
-
-    static final int LDC_W = 19;
     static final int LDC2_W = 20;
     static final int ILOAD_0 = 26;
     static final int ILOAD_1 = 27;
@@ -139,24 +133,20 @@ final class Constants implements Opcodes {
     static final int WIDE = 196;
     static final int GOTO_W = 200;
     static final int JSR_W = 201;
-
-    // Constants to convert between normal and wide jump instructions.
-
     // The delta between the GOTO_W and JSR_W opcodes and GOTO and JUMP.
     static final int WIDE_JUMP_OPCODE_DELTA = GOTO_W - GOTO;
 
-    // Constants to convert JVM opcodes to the equivalent ASM specific opcodes, and vice versa.
-
+    // Constants to convert between normal and wide jump instructions.
     // The delta between the ASM_IFEQ, ..., ASM_IF_ACMPNE, ASM_GOTO and ASM_JSR opcodes
     // and IFEQ, ..., IF_ACMPNE, GOTO and JSR.
     static final int ASM_OPCODE_DELTA = 49;
 
+    // Constants to convert JVM opcodes to the equivalent ASM specific opcodes, and vice versa.
     // The delta between the ASM_IFNULL and ASM_IFNONNULL opcodes and IFNULL and IFNONNULL.
     static final int ASM_IFNULL_OPCODE_DELTA = 20;
+    static final int ASM_IFEQ = IFEQ + ASM_OPCODE_DELTA;
 
     // ASM specific opcodes, used for long forward jump instructions.
-
-    static final int ASM_IFEQ = IFEQ + ASM_OPCODE_DELTA;
     static final int ASM_IFNE = IFNE + ASM_OPCODE_DELTA;
     static final int ASM_IFLT = IFLT + ASM_OPCODE_DELTA;
     static final int ASM_IFGE = IFGE + ASM_OPCODE_DELTA;
@@ -175,4 +165,6 @@ final class Constants implements Opcodes {
     static final int ASM_IFNULL = IFNULL + ASM_IFNULL_OPCODE_DELTA;
     static final int ASM_IFNONNULL = IFNONNULL + ASM_IFNULL_OPCODE_DELTA;
     static final int ASM_GOTO_W = 220;
+    private Constants() {
+    }
 }
