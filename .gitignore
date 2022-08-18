@@ -5,3 +5,5 @@ run
 build
 debug
 output
+# 项目忽略文件
+gradle.properties
