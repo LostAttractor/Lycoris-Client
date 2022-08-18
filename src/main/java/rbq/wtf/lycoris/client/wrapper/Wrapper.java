@@ -1,5 +1,6 @@
 package rbq.wtf.lycoris.client.wrapper;
 
+import jline.internal.Log;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.utils.FileUtils;
 import rbq.wtf.lycoris.client.utils.Logger;
@@ -117,7 +118,7 @@ public class Wrapper {
 
     private static void applyMap() throws IllegalAccessException, ClassNotFoundException, NoSuchFieldException, NoSuchMethodException {
         for (Class<? extends IWrapper> wrapper : wrapperList) {
-            Logger.log("Apply wrapper " + wrapper.getCanonicalName(), "Wrapper");
+            Logger.log("Apply wrapper " + wrapper.getCanonicalName(), "Wrapper", Logger.LogLevel.DEBUG);
             for (Annotation declaredAnnotation : wrapper.getDeclaredAnnotations()) {
                 if (declaredAnnotation instanceof WrapperClasses) {
                     for (WrapperClass wrapperClass : ((WrapperClasses) declaredAnnotation).value()) {
@@ -130,7 +131,7 @@ public class Wrapper {
             }
         }
         for (Class<? extends IWrapper> wrapper : wrapperList) {
-            Logger.log("Apply constructor " + wrapper.getCanonicalName(), "Wrapper");
+            Logger.log("Apply constructor " + wrapper.getCanonicalName(), "Wrapper", Logger.LogLevel.DEBUG);
             for (Annotation declaredAnnotation : wrapper.getDeclaredAnnotations()) {
                 if (declaredAnnotation instanceof WrapperClasses) {
                     for (WrapperClass wrapperClass : ((WrapperClasses) declaredAnnotation).value()) {
@@ -266,13 +267,16 @@ public class Wrapper {
                         mapNode = new MapNode(NodeType.Field, "", clazz.getSrg().replace(".", "/") + wrapEnum.customSrgName());
                 }
                 if (mapNode != null) {
-                    declaredField.setAccessible(true);
                     try {
+                        declaredField.setAccessible(true);
                         declaredField.set(null, reflectEnumByMap(mapNode));
-                        Logger.log("Successful Apply Enum: " + wrapperClass.mcpName() + " " + wrapEnum.mcpName() + " -> " + mapNode.getSrg(), "Wrapper");
                     } catch (Exception e) {
+                        Logger.log("Failed to apply Enum: " + wrapperClass.mcpName() + " " + wrapEnum.mcpName() + " -> " + mapNode.getSrg(), "Wrapper", Logger.LogLevel.ERROR);
                         e.printStackTrace();
                     }
+                    Logger.log("Successful apply Enum: " + wrapperClass.mcpName() + " " + wrapEnum.mcpName() + " -> " + mapNode.getSrg(), "Wrapper", Logger.LogLevel.DEBUG);
+                } else {
+                    Logger.log("Failed to find Enum in SrgMaps: " + wrapEnum.mcpName(), "Wrapper", Logger.LogLevel.ERROR);
                 }
             }
         }
@@ -317,7 +321,7 @@ public class Wrapper {
                 if (mapNode != null) {
                     declaredField.setAccessible(true);
                     declaredField.set(null, reflectFieldByMap(mapNode).get(null));
-                    Logger.log("Successful Apply Object: " + wrapperClass.mcpName() + " " + wrapObject.mcpName() + " -> " + mapNode.getSrg(), "Wrapper");
+                    Logger.log("Successful Apply Object: " + wrapperClass.mcpName() + " " + wrapObject.mcpName() + " -> " + mapNode.getSrg(), "Wrapper", Logger.LogLevel.DEBUG);
                 } else {
                     Logger.log("Failed to find Object in SrgMap: " + wrapObject.mcpName(), "Wrapper", Logger.LogLevel.ERROR);
                 }
@@ -338,7 +342,7 @@ public class Wrapper {
                 if (mapNode != null) {
                     declaredField.setAccessible(true);
                     declaredField.set(null, reflectFieldByMap(mapNode));
-                    Logger.log("Successful Apply Field: " + wrapperClass.mcpName() + " " + wrapField.mcpName() + " -> " + mapNode.getSrg(), "Wrapper");
+                    Logger.log("Successful Apply Field: " + wrapperClass.mcpName() + " " + wrapField.mcpName() + " -> " + mapNode.getSrg(), "Wrapper", Logger.LogLevel.DEBUG);
                 } else {
                     Logger.log("Failed to find Field in SrgMap: " + wrapField.mcpName(), "Wrapper", Logger.LogLevel.ERROR);
                 }
@@ -354,7 +358,7 @@ public class Wrapper {
                 if (mapNode != null) {
                     declaredField.setAccessible(true);
                     declaredField.set(null, reflectClassByMap(mapNode));
-                    Logger.log("Successful Apply Class: " + wrapperClass.mcpName() + " " + wrapClass.mcpName() + " -> " + mapNode.getSrg(), "Wrapper");
+                    Logger.log("Successful Apply Class: " + wrapperClass.mcpName() + " " + wrapClass.mcpName() + " -> " + mapNode.getSrg(), "Wrapper", Logger.LogLevel.DEBUG);
                 } else {
                     Logger.log("Failed to find Class in SrgMap: " + wrapClass.mcpName(), "Wrapper", Logger.LogLevel.ERROR);
                 }
@@ -377,11 +381,11 @@ public class Wrapper {
                     try {
                         declaredField.setAccessible(true);
                         declaredField.set(null, reflectMethodByMap(mapNode));
-                        Logger.log("Successful Apply Method: " + wrapperClass.mcpName() + " " + wrapMethod.mcpName() + " -> " + mapNode.getSrg(), "Wrapper");
                     } catch (Exception e) {
                         Logger.log("Failed to apply Method: " + wrapperClass.mcpName() + " " + wrapMethod.mcpName() + " -> " + mapNode.getSrg(), "Wrapper", Logger.LogLevel.ERROR);
                         e.printStackTrace();
                     }
+                    Logger.log("Successful Apply Method: " + wrapperClass.mcpName() + " " + wrapMethod.mcpName() + " -> " + mapNode.getSrg(), "Wrapper", Logger.LogLevel.DEBUG);
                 } else {
                     Logger.log("Failed to find Method in SrgMap: " + wrapMethod.mcpName(), "Wrapper", Logger.LogLevel.ERROR);
                 }

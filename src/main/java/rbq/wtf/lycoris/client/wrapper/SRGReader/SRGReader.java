@@ -1,6 +1,7 @@
 package rbq.wtf.lycoris.client.wrapper.SRGReader;
 
 
+import rbq.wtf.lycoris.client.utils.Logger;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MapNode;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MethodNode;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.NodeType;
@@ -73,9 +74,9 @@ public class SRGReader {
                             arg.add(target);
                         } catch (ClassNotFoundException e) {
                             if (className.toString().contains("net/minecraft/server")) {
-                                System.out.println("Failed to find a Server Class:" + className + ", Ignored");
+                                Logger.log("Failed to find a Server Class:" + className + ", Ignored", "SRGReader", Logger.LogLevel.WARNING);
                             } else {
-                                System.out.println("Failed to find Class:" + className);
+                                Logger.log("Failed to find Class:" + className, "SRGReader", Logger.LogLevel.ERROR);
                                 e.printStackTrace();
                             }
                         }
@@ -114,9 +115,9 @@ public class SRGReader {
                             ret = (Class.forName(className.toString().replace("/", ".")));
                         } catch (ClassNotFoundException e) {
                             if (className.toString().contains("net/minecraft/server")) {
-                                System.out.println("Failed to find a Server Class:" + className + ", Ignored");
+                                Logger.log("Failed to find a Server Class:" + className + ", Ignored", "SRGReader", Logger.LogLevel.WARNING);
                             } else {
-                                System.out.println("Failed to find Class:" + className);
+                                Logger.log("Failed to find Class:" + className, "SRGReader", Logger.LogLevel.ERROR);
                                 e.printStackTrace();
                             }
                         }

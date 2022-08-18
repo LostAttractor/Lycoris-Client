@@ -12,15 +12,14 @@ import rbq.wtf.lycoris.client.utils.Logger;
 import rbq.wtf.lycoris.client.wrapper.Wrapper;
 import rbq.wtf.lycoris.client.wrapper.bridge.BridgeUtil;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 
 public class Client {
     public static Client instance;
 
     public static boolean isVanilla = true;
     public static String game_version = "1.8.9";
+    public static final boolean enabledLog = true;
+    public static final boolean showDebugLevelLog = true;
 
     public final ModuleManager moduleManager;
     public final ConfigManager configManager;
