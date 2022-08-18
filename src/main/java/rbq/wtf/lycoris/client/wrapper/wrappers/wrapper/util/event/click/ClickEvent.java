@@ -1,4 +1,4 @@
-package rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.click;
+package rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.click;
 
 
 import rbq.wtf.lycoris.client.wrapper.MapEnum;

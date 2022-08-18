@@ -1,4 +1,4 @@
-package rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils;
+package rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util;
 
 import rbq.wtf.lycoris.client.wrapper.MapEnum;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapMethod;

@@ -1,6 +1,5 @@
 package rbq.wtf.lycoris.client.wrapper;
 
-import jline.internal.Log;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.utils.FileUtils;
 import rbq.wtf.lycoris.client.utils.Logger;
@@ -15,16 +14,18 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.KeyBinding;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.Entity;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityLivingBase;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayer;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayerSP;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.AbstractTexture;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.DynamicTexture;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.*;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.HoverEvent;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.click.ClickEvent;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.event.click.ClickEventAction;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.text.IChatComponent;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.*;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.HoverEvent;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.click.ClickEvent;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.click.ClickEventAction;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.text.IChatComponent;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -71,6 +72,8 @@ public class Wrapper {
         classes.add(GameSettings.class);
         //entity
         classes.add(Entity.class);
+        classes.add(EntityLivingBase.class);
+        classes.add(EntityPlayer.class);
         classes.add(EntityPlayerSP.class);
         //gui
         classes.add(Gui.class);
@@ -90,18 +93,19 @@ public class Wrapper {
         //render.texture
         classes.add(AbstractTexture.class);
         classes.add(DynamicTexture.class);
-        //utils
+        //util
         classes.add(AxisAlignedBB.class);
         classes.add(BlockPos.class);
         classes.add(Vec3i.class);
         classes.add(Vec3.class);
         classes.add(ChatAllowedCharacters.class);
         classes.add(ChatStyle.class);
-        //utils.event
+        classes.add(FoodStats.class);
+        //util.event
         classes.add(ClickEvent.class);
         classes.add(ClickEventAction.class);
         classes.add(HoverEvent.class);
-        //utils.text
+        //util.text
         classes.add(IChatComponent.class);
 
         for (Class<?> aClass : classes) {

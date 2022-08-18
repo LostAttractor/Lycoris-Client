@@ -6,9 +6,7 @@ import rbq.wtf.lycoris.client.event.api.EventManager;
 import rbq.wtf.lycoris.client.event.api.events.Event;
 import rbq.wtf.lycoris.client.event.events.EventMotionUpdate;
 import rbq.wtf.lycoris.client.transformer.ClassTransformer;
-import rbq.wtf.lycoris.client.utils.Logger;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayerSP;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.AxisAlignedBB;
 
 public class EntityPlayerSPTransformer extends ClassTransformer {
     @Override

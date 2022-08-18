@@ -1,4 +1,4 @@
-package rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils;
+package rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util;
 
 
 import rbq.wtf.lycoris.client.wrapper.MapEnum;
@@ -8,11 +8,12 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 @WrapperClass(mcpName = "net.minecraft.util.AxisAlignedBB", targetMap = MapEnum.VANILLA189)
 public class AxisAlignedBB extends IWrapper {
+    @WrapClass(mcpName = "net.minecraft.util.AxisAlignedBB", targetMap = MapEnum.VANILLA189)
+    public static Class AxisAlignedBBClass;
     @WrapField(mcpName = "minX", targetMap = MapEnum.VANILLA189)
     public static Field minX;
     @WrapField(mcpName = "minY", targetMap = MapEnum.VANILLA189)
@@ -25,8 +26,6 @@ public class AxisAlignedBB extends IWrapper {
     public static Field maxY;
     @WrapField(mcpName = "maxZ", targetMap = MapEnum.VANILLA189)
     public static Field maxZ;
-    @WrapClass(mcpName = "net.minecraft.util.AxisAlignedBB", targetMap = MapEnum.VANILLA189)
-    public static Class AxisAlignedBBClass;
     @WrapMethod(mcpName = "offset", targetMap = MapEnum.VANILLA189)
     public static Method offset_3d;
     @WrapConstructor(targetMap = MapEnum.VANILLA189, signature = {double.class, double.class, double.class, double.class, double.class, double.class})

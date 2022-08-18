@@ -5,10 +5,9 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapClass;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapField;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapMethod;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapperClass;
-import rbq.wtf.lycoris.client.wrapper.wrappers.utils.ReflectUtil;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.AxisAlignedBB;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.Vec3;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.AxisAlignedBB;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.Vec3;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

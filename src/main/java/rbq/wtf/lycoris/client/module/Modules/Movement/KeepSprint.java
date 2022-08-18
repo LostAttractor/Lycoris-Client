@@ -24,12 +24,16 @@ public class KeepSprint extends Module {
 
     }
 
+
+    // 应当使用EventMove，但是暂时还没想好该事件如何实现
     @EventTarget
     public void EventMotionUpdate(EventMotionUpdate e) {
-        //if (e.isPre()) {
-        //    mc.getPlayer().setSprinting(true);
-        //    mc.getPlayer().setSprintingTicksLeft(0);
-        //    Logger.log("Set Sprint");
-        //}
+        if (e.isPre()) {
+            if (mc.getPlayer().isMoving() && mc.getPlayer().getEntityPlayerInstance().getFoodStats().getFoodLevel() > 6) {
+                mc.getPlayer().setSprinting(true);
+                mc.getPlayer().setSprintingTicksLeft(0);
+                Logger.log("Set Sprint", "SprintModule", Logger.LogLevel.DEBUG);
+            }
+        }
     }
 }

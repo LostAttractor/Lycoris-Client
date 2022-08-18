@@ -112,12 +112,12 @@ public class Minecraft extends IWrapper {
     }
 
     public GameSettings getGameSettings() {
-        return new GameSettings(ReflectUtil.getField(gameSettings, getWrapObject()));
+        return new GameSettings(getField(gameSettings));
     }
 
     public void displayGuiScreenBypass(GuiScreen screen) {
-        ReflectUtil.setField(currentScreen, screen.getWrapObject(), getWrapObject());
-        ReflectUtil.invoke(setIngameNotInFocus, getWrapObject());
+        setField(currentScreen, screen.getWrapObject());
+        invoke(setIngameNotInFocus);
         ScaledResolution scaledresolution = new ScaledResolution(this);
         int i = scaledresolution.getScaledWidth();
         int j = scaledresolution.getScaledHeight();

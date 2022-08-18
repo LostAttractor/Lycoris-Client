@@ -5,7 +5,7 @@ import rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI;
 import rbq.wtf.lycoris.client.gui.ClickGUI.Utils.RenderUtil;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.value.TextValue;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.ChatAllowedCharacters;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.ChatAllowedCharacters;
 
 import java.awt.*;
 

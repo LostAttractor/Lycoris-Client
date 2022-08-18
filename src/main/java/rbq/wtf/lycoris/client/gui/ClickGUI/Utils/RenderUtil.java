@@ -9,7 +9,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.GlStateManager;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.OpenGlHelper;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.Tessellator;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.WorldRenderer;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.utils.AxisAlignedBB;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.AxisAlignedBB;
 
 import java.awt.*;
 

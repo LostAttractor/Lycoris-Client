@@ -21,7 +21,6 @@ public class ReflectUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        throw new NullPointerException("Can't set Field " + f.getName() + " in " + o.getClass().getName());
     }
 
     public static Object invoke(Method m, Object o, Object... args) {
