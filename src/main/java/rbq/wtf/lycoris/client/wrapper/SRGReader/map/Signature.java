@@ -1,16 +1,16 @@
 package rbq.wtf.lycoris.client.wrapper.SRGReader.map;
 
 public class Signature {
-    Class<?>[] args;
-    Class<?> ret;
+    private final Class<?>[] args;
+    private final Class<?> returnType;
 
-    public Signature(Class<?>[] args, Class<?> ret) {
+    public Signature(Class<?>[] args, Class<?> returnType) {
         this.args = args;
-        this.ret = ret;
+        this.returnType = returnType;
     }
 
-    public Class<?> getRet() {
-        return ret;
+    public Class<?> getReturnType() {
+        return returnType;
     }
 
     public Class<?>[] getArgs() {

@@ -165,6 +165,7 @@ final class Constants implements Opcodes {
     static final int ASM_IFNULL = IFNULL + ASM_IFNULL_OPCODE_DELTA;
     static final int ASM_IFNONNULL = IFNONNULL + ASM_IFNULL_OPCODE_DELTA;
     static final int ASM_GOTO_W = 220;
+
     private Constants() {
     }
 }

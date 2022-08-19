@@ -2,11 +2,11 @@ package rbq.wtf.lycoris.client.wrapper.SRGReader;
 
 
 import rbq.wtf.lycoris.client.utils.Logger;
+import rbq.wtf.lycoris.client.utils.StringStream;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MapNode;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MethodNode;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.NodeType;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.map.Signature;
-import rbq.wtf.lycoris.client.wrapper.SRGReader.utils.StringStream;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,12 +44,12 @@ public class SRGReader {
     }
 
     public Class<?> getClassNative(String name) throws ClassNotFoundException {
-        //return SRGReader.class.getClassLoader().loadClass(name);
+        return this.getClass().getClassLoader().loadClass(name);
         //return ClassLoader.getSystemClassLoader().loadClass(name);
         //return Class.forName(name, false, ClassLoader.getSystemClassLoader());
         //return Loader.instance().getModClassLoader().loadClass(name);
         //return Launch.classLoader.loadClass(name);
-        return ClassLoader.getSystemClassLoader().loadClass(name);
+        //return ClassLoader.getSystemClassLoader().loadClass(name);
     }
 
     private Signature genSignature(String sig) {
@@ -68,7 +68,7 @@ public class SRGReader {
             if (onReadingClassName) {
                 if (t.equals(";")) { // 一个ClassName阅读到末尾了,开始解析
                     try {
-                        Logger.log("Finding Class: " + className.toString().replace("/", "."), "SRGReader", Logger.LogLevel.DEBUG);
+                        // Logger.log("Finding Class: " + className.toString().replace("/", "."), "SRGReader", Logger.LogLevel.DEBUG);
                         Class<?> target = Class.forName(className.toString().replace("/", "."));
                         if (onReadingArgs)
                             args.add(target);

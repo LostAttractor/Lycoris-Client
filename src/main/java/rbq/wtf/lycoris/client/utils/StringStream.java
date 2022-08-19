@@ -1,4 +1,4 @@
-package rbq.wtf.lycoris.client.wrapper.SRGReader.utils;
+package rbq.wtf.lycoris.client.utils;
 
 public class StringStream {
     private String buf;

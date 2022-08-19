@@ -1,5 +1,6 @@
 package rbq.wtf.lycoris.client.wrapper;
 
+import net.minecraft.util.Vec3;
 import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.utils.FileUtils;
@@ -36,6 +37,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Wrapper {
@@ -442,23 +444,18 @@ public class Wrapper {
         return reader.getClassNative(srg.replace("/", "."));
     }
 
-    private static Method reflectMethodByMap(MapNode mapNode) throws ClassNotFoundException, NoSuchFieldException, NoSuchMethodException {
+    private static Method reflectMethodByMap(MapNode mapNode) throws ClassNotFoundException, NoSuchMethodException {
         if (mapNode instanceof MethodNode) {
             String srg = useMapObf ? mapNode.getSrg() : mapNode.getMcp();
             String method = srg.split("/")[srg.split("/").length - 1];
             String clazz = srg.replace("/", ".").replace("." + method, "");
-            for (Class<?> arg : ((MethodNode) mapNode).getSignature().getArgs()) {
-                if (arg == null) {
-                    Logger.log("arg is null: " + mapNode.getSrg(), "Wrapper", Logger.LogLevel.ERROR);
-                    throw new NullPointerException("arg is null: " + mapNode.getSrg());
-                }
-            }
             Class<?> c = reader.getClassNative(clazz);
+            Logger.log("Try Get Method: " + clazz + " " + method + " " + Arrays.toString(((MethodNode) mapNode).getSignature().getArgs()), "Wrapper", Logger.LogLevel.DEBUG);
             Method m = c.getDeclaredMethod(method, ((MethodNode) mapNode).getSignature().getArgs());
             m.setAccessible(true);
             return m;
         }
-        throw new NullPointerException("Can't wrap: " + mapNode.getMcp());
+        throw new NoSuchMethodException("Can't wrap: " + mapNode.getMcp());
     }
 
     public static MapNode readField(String clazz, String field) {
