@@ -1,10 +1,26 @@
-plugins {
-    id "java"
-    id "idea"
-    id "org.jetbrains.kotlin.jvm"
-    id "net.minecraftforge.gradle.forge"
-    id "com.gorylenko.gradle-git-properties" version "2.4.0"
+buildscript {
+    ext.kotlin_version = '1.7.10'
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "https://maven.minecraftforge.net/"
+        }
+        maven {
+            name = "jitpack"
+            url = "https://jitpack.io/"
+        }
+    }
+    dependencies {
+        classpath "net.minecraftforge.gradle:ForgeGradle:${forgegradle_version}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
+
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'idea'
+apply plugin: 'net.minecraftforge.gradle.forge'
 
 repositories {
     mavenLocal()
@@ -15,8 +31,7 @@ repositories {
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
-
-sourceCompatibility = targetCompatibility = 1.8
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava.options.encoding = "UTF-8"
 
 compileKotlin {
@@ -43,23 +58,28 @@ configurations {
 }
 
 dependencies {
-    include 'org.projectlombok:lombok:1.18.4'
-    //compileOnly 'org.projectlombok:lombok:1.18.4'
+    compileOnly 'org.projectlombok:lombok:1.18.4'
     annotationProcessor 'org.projectlombok:lombok:1.18.4'
-    //testCompileOnly 'org.projectlombok:lombok:1.18.4'
+    testCompileOnly 'org.projectlombok:lombok:1.18.4'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.4'
-
-    include "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    //implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
 processResources {
+    // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
-    filesMatching("mcmod.info") {
-        expand "version": project.version, "mcversion": project.minecraft.version
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
     }
 
-    rename "(.+_at.cfg)", "META-INF/\$1"
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
 }
