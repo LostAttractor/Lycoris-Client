@@ -7,3 +7,9 @@ debug
 output
 # 项目忽略文件
 gradle.properties
+Lycoris.api.iml
+Lycoris.main.iml
+Lycoris.test.iml
+Lycoris.iml
+Lycoris.ipr
+Lycoris.iws

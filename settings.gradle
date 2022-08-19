@@ -1,1 +1,24 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url = "https://maven.minecraftforge.net/" }
+        maven { url = "https://jitpack.io/" }
+    }
+    resolutionStrategy {
+        eachPlugin {
+            switch (requested.id.id) {
+                case "net.minecraftforge.gradle.forge":
+                    //useModule("com.github.xcfrg:ForgeGradle:${forgegradle_version}")
+                    useModule("com.github.LostAttractor:ForgeGradle:${forgegradle_version}")
+                    break
+            }
+        }
+    }
+    plugins {
+        id "org.jetbrains.kotlin.jvm" version kotlin_version
+        id "io.gitlab.arturbosch.detekt" version detekt_version
+    }
+}
+
 rootProject.name = 'Lycoris'

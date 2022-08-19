@@ -1,26 +1,10 @@
-buildscript {
-    ext.kotlin_version = '1.7.10'
-    repositories {
-        jcenter()
-        maven {
-            name = "forge"
-            url = "https://maven.minecraftforge.net/"
-        }
-        maven {
-            name = "jitpack"
-            url = "https://jitpack.io/"
-        }
-    }
-    dependencies {
-        classpath "net.minecraftforge.gradle:ForgeGradle:${forgegradle_version}"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
+plugins {
+    id "java"
+    id "idea"
+    id "org.jetbrains.kotlin.jvm"
+    id "net.minecraftforge.gradle.forge"
+    id "com.gorylenko.gradle-git-properties" version "2.4.0"
 }
-
-apply plugin: 'java'
-apply plugin: 'kotlin'
-apply plugin: 'idea'
-apply plugin: 'net.minecraftforge.gradle.forge'
 
 repositories {
     mavenLocal()
@@ -48,13 +32,8 @@ compileTestKotlin {
 minecraft {
     version = "1.8.9-11.15.1.2318-1.8.9"
     runDir = "run"
-    mappings = "stable_22"
+    mappings = "stable_20"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-}
-
-configurations {
-    include
-    implementation.extendsFrom(include)
 }
 
 dependencies {
