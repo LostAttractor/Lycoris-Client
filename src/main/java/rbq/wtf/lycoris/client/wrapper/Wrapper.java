@@ -438,9 +438,8 @@ public class Wrapper {
 
     private static Class<?> reflectClassByMap(MapNode mapNode) throws ClassNotFoundException {
         String srg = useMapObf ? mapNode.getSrg() : mapNode.getMcp();
-        // Logger.log("reflectClassByMap: " + mapNode.getSrg() + " / " + mapNode.getMcp(), "Wrapper", Logger.LogLevel.DEBUG);
-        Class<?> c = reader.getClassNative(srg.replace("/", "."));
-        return c;
+        Logger.log("reflectClassByMap: " + mapNode.getSrg() + " / " + mapNode.getMcp(), "Wrapper", Logger.LogLevel.DEBUG);
+        return reader.getClassNative(srg.replace("/", "."));
     }
 
     private static Method reflectMethodByMap(MapNode mapNode) throws ClassNotFoundException, NoSuchFieldException, NoSuchMethodException {

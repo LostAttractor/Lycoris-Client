@@ -44,7 +44,12 @@ public class SRGReader {
     }
 
     public Class<?> getClassNative(String name) throws ClassNotFoundException {
-        return SRGReader.class.getClassLoader().loadClass(name);
+        //return SRGReader.class.getClassLoader().loadClass(name);
+        //return ClassLoader.getSystemClassLoader().loadClass(name);
+        //return Class.forName(name, false, ClassLoader.getSystemClassLoader());
+        //return Loader.instance().getModClassLoader().loadClass(name);
+        //return Launch.classLoader.loadClass(name);
+        return ClassLoader.getSystemClassLoader().loadClass(name);
     }
 
     private Signature genSignature(String sig) {

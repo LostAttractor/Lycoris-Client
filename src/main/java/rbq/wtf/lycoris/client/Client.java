@@ -20,9 +20,10 @@ import java.nio.file.Paths;
 public class Client {
     public static final boolean enabledLog = true;
     public static final boolean showDebugLevelLog = true;
+    public static boolean developEnv = true;
+
     public static Client instance;
     public static boolean isVanilla = true;
-    public static boolean developEnv = true;
     public static String game_version = "1.8.9";
     public static Path runPath = Paths.get("").toAbsolutePath();
 
