@@ -12,12 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SRGReader {
-    //private final String srgMap;
-    private List<MapNode> mapNodes;
+    private final List<MapNode> mapNodes;
     //private List<Class<?>> loadedClasses = new ArrayList<>();
 
     public SRGReader(String srgMap) {
-        // srgMap = Mcp2SrgMap;
         mapNodes = readMap(srgMap);
     }
 
