@@ -26,10 +26,6 @@ public class HUD extends Module {
 
     public HUD() {
         super("HUD", ModuleCategory.Render, 0);
-        this.addModeValue(rainbowMode);
-        this.addBooleanValue(waterMark);
-        this.addBooleanValue(arrayList);
-        this.addNumberValue(rainbowSpeed);
     }
 
     @Override

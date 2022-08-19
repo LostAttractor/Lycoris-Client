@@ -11,7 +11,7 @@ public class BooleanValue extends Value<Boolean> {
         this.name = name;
         this.value = state;
         this.module = module;
-        module.addBooleanValue(this);
+        module.addValue(this);
     }
 
     @Override

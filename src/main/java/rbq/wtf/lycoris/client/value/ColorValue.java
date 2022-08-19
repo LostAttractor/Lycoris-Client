@@ -18,7 +18,7 @@ public class ColorValue extends Value<Color> {
         this.name = name;
         this.awtvalue = color;
         this.module = module;
-        module.addColorValue(this);
+        module.addValue(this);
     }
 
     @Override

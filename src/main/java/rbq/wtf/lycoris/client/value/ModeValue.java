@@ -15,7 +15,7 @@ public class ModeValue extends Value<String> {
         this.selection = selection;
         this.selectionAmount = amount;
         this.module = module;
-        module.addModeValue(this);
+        module.addValue(this);
     }
 
     @Override

@@ -11,7 +11,7 @@ public class TextValue extends Value<String> {
         this.name = name;
         this.module = module;
         this.value = value;
-        module.addTextValue(this);
+        module.addValue(this);
     }
 
     @Override

@@ -21,9 +21,6 @@ public class ClickGUI extends Module {
 
     public ClickGUI() {
         super("ClickGUI", ModuleCategory.Render, 210); // Insert Key
-        this.addModeValue(rainbowMode);
-        this.addBooleanValue(waterMark);
-        this.addBooleanValue(arrayList);
     }
 
     @Override

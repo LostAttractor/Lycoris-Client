@@ -7,17 +7,18 @@ import rbq.wtf.lycoris.client.value.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Module {
     public final ModuleCategory category;
     public final String name;
     protected final Client client = Client.instance;
     protected final Minecraft mc = client.mc;
-    private final ArrayList<BooleanValue> booleanValues = new ArrayList<>();
-    private final ArrayList<NumberValue> numberValues = new ArrayList<>();
-    private final ArrayList<ModeValue> modeValues = new ArrayList<>();
-    private final ArrayList<ColorValue> colorValues = new ArrayList<>();
-    private final ArrayList<TextValue> textValues = new ArrayList<>();
+    private final List<BooleanValue> booleanValues = new ArrayList<>();
+    private final List<NumberValue> numberValues = new ArrayList<>();
+    private final List<ModeValue> modeValues = new ArrayList<>();
+    private final List<ColorValue> colorValues = new ArrayList<>();
+    private final List<TextValue> textValues = new ArrayList<>();
     public boolean state;
     public int key;
 
@@ -37,8 +38,8 @@ public class Module {
 
     }
 
-    public ArrayList<Value> getValues() {
-        ArrayList<Value> Values = new ArrayList<>();
+    public List<Value<?>> getValues() {
+        List<Value<?>> Values = new ArrayList<>();
         Values.addAll(booleanValues);
         Values.addAll(modeValues);
         Values.addAll(numberValues);
@@ -48,49 +49,37 @@ public class Module {
     }
 
 
-    public ArrayList<BooleanValue> getBooleanValues() {
+    public List<BooleanValue> getBooleanValues() {
         return booleanValues;
     }
 
-    public ArrayList<ModeValue> getModeValues() {
+    public List<ModeValue> getModeValues() {
         return modeValues;
     }
 
-    public ArrayList<NumberValue> getNumberValues() {
+    public List<NumberValue> getNumberValues() {
         return numberValues;
     }
 
-    public ArrayList<TextValue> getTextValues() {
+    public List<TextValue> getTextValues() {
         return textValues;
     }
 
-    public ArrayList<ColorValue> getColorValues() {
+    public List<ColorValue> getColorValues() {
         return colorValues;
     }
 
-    public void addNumberValue(NumberValue value) {
-        value.setModule(this);
-        this.numberValues.add(value);
-    }
-
-    public void addModeValue(ModeValue value) {
-        value.setModule(this);
-        this.modeValues.add(value);
-    }
-
-    public void addBooleanValue(BooleanValue value) {
-        value.setModule(this);
-        this.booleanValues.add(value);
-    }
-
-    public void addColorValue(ColorValue value) {
-        value.setModule(this);
-        this.colorValues.add(value);
-    }
-
-    public void addTextValue(TextValue value) {
-        value.setModule(this);
-        this.textValues.add(value);
+    public void addValue(Value<?> value) {
+        if (value instanceof NumberValue)
+            this.numberValues.add((NumberValue) value);
+        else if (value instanceof ModeValue)
+            this.modeValues.add((ModeValue) value);
+        else if (value instanceof BooleanValue)
+            this.booleanValues.add((BooleanValue) value);
+        else if (value instanceof ColorValue)
+            this.colorValues.add((ColorValue) value);
+        else if (value instanceof TextValue)
+            this.textValues.add((TextValue) value);
     }
 
     public boolean isState() {

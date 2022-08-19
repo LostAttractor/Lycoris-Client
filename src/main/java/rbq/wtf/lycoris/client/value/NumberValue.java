@@ -17,7 +17,7 @@ public class NumberValue extends Value<Float> {
         this.max = Max;
         this.increase = Increase;
         this.module = module;
-        module.addNumberValue(this);
+        module.addValue(this);
     }
 
     @Override
