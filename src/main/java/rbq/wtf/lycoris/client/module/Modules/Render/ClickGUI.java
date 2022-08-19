@@ -43,7 +43,7 @@ public class ClickGUI extends Module {
         }
         GuiScreen guiScreenWrapper = Minecraft.getMinecraft().getCurrentScreen();
         if (Objects.isNull(guiScreenWrapper.getWrapObject())) {
-            Minecraft.getMinecraft().displayGuiScreenBypass(BridgeUtil.createGuiScreen(new rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI()));
+            Minecraft.getMinecraft().displayGuiScreenBypass(BridgeUtil.createGuiScreen(client.clickGUI));
         }
         this.toggle();
     }

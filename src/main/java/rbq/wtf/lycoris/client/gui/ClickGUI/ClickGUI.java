@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 
 public class ClickGUI extends GuiScreenImpl {
-    public static ModuleCategory currentModuleType;
+    public static ModuleCategory currentModuleType = ModuleCategory.Combat;
     public static Module currentModule;
     public static Module currentBindModule;
     public static Component currentActiveTextValue;
@@ -31,7 +31,6 @@ public class ClickGUI extends GuiScreenImpl {
     public ArrayList<ModuleButtonList> moduleButtonList = new ArrayList<ModuleButtonList>();
 
     public ClickGUI() {
-        currentModuleType = ModuleCategory.Combat;
         for (ModuleCategory c : ModuleCategory.values()) {
             categoryButtonList.add(new CategoryButton(c));
             moduleButtonList.add(new ModuleButtonList(c));
