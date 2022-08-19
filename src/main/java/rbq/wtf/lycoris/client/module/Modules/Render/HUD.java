@@ -18,11 +18,9 @@ import java.util.Comparator;
 
 public class HUD extends Module {
     public final BooleanValue waterMark = new BooleanValue("WaterMark", true, this);
-    ;
     public final BooleanValue arrayList = new BooleanValue("ArrayList", true, this);
     public final ModeValue rainbowMode = new ModeValue("Rainbow Mode", new String[]{"Rainbow", "Astolfo", "Static", "StaticRainbow"}, 0, 3, this);
     public final NumberValue rainbowSpeed = new NumberValue("RainbowSpeed", 100.0F, 0.0F, 2000.0F, 0.1F, this);
-    ;
 
     public HUD() {
         super("HUD", ModuleCategory.Render, 0);
