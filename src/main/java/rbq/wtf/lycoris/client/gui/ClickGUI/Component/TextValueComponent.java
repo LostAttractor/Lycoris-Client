@@ -10,12 +10,12 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.ChatAllowedCharacter
 import java.awt.*;
 
 public class TextValueComponent extends Component {
-    public TextValue Value;
+    public TextValue value;
     private float x;
     private float y;
 
     public TextValueComponent(TextValue value) {
-        this.Value = value;
+        this.value = value;
         this.setHeight(35);
     }
 
@@ -28,7 +28,7 @@ public class TextValueComponent extends Component {
 
     @Override
     public void render() {
-        FontLoaders.default20.drawString(Value.getName(),
+        FontLoaders.default20.drawString(value.getName(),
                 x,
                 y,
                 new Color(255, 255, 255).getRGB());
@@ -40,7 +40,7 @@ public class TextValueComponent extends Component {
                 2,
                 new Color(38, 38, 38).getRGB()
         );
-        FontLoaders.default20.drawCenteredString(Value.getValue(),
+        FontLoaders.default20.drawCenteredString(value.get(),
                 x + 260,
                 y + 16,
                 new Color(255, 255, 255).getRGB()
@@ -68,12 +68,12 @@ public class TextValueComponent extends Component {
     @Override
     public void keyTyped(char typedChar, int keyCode) {
         if (keyCode == Keyboard.KEY_BACK) {
-            if (Value.getValue().length() != 0) {
-                Value.setValue(Value.getValue().substring(0, Value.getValue().length() - 1));
+            if (value.get().length() != 0) {
+                value.set(value.get().substring(0, value.get().length() - 1));
             }
         } else {
             if (ChatAllowedCharacters.isAllowedCharacter(typedChar)) {
-                Value.setValue(Value.getValue() + typedChar);
+                value.set(value.get() + typedChar);
             }
         }
 

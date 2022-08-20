@@ -17,7 +17,7 @@ import java.util.Objects;
 public class ClickGUI extends Module {
     public final BooleanValue waterMark = new BooleanValue("WaterMark", true, this);
     public final BooleanValue arrayList = new BooleanValue("ArrayList", true, this);
-    public final ModeValue rainbowMode = new ModeValue("Rainbow Mode", new String[]{"Rainbow", "Astolfo", "Static", "StaticRainbow"}, 0, 3, this);
+    public final ModeValue rainbowMode = new ModeValue("Rainbow Mode", new String[]{"Rainbow", "Astolfo", "Static", "StaticRainbow"}, 0, this);
 
     public ClickGUI() {
         super("ClickGUI", ModuleCategory.Render, 210); // Insert Key

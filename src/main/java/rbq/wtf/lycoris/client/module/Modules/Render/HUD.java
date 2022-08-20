@@ -19,7 +19,7 @@ import java.util.Comparator;
 public class HUD extends Module {
     public final BooleanValue waterMark = new BooleanValue("WaterMark", true, this);
     public final BooleanValue arrayList = new BooleanValue("ArrayList", true, this);
-    public final ModeValue rainbowMode = new ModeValue("Rainbow Mode", new String[]{"Rainbow", "Astolfo", "Static", "StaticRainbow"}, 0, 3, this);
+    public final ModeValue rainbowMode = new ModeValue("Rainbow Mode", new String[]{"Rainbow", "Astolfo", "Static", "StaticRainbow"}, 0, this);
     public final NumberValue rainbowSpeed = new NumberValue("RainbowSpeed", 100.0F, 0.0F, 2000.0F, 0.1F, this);
 
     public HUD() {
@@ -33,13 +33,13 @@ public class HUD extends Module {
     @EventTarget
     public void onRender2D(EventRender2D e) {
         ScaledResolution sc = new ScaledResolution(Minecraft.getMinecraft());
-        if (waterMark.getValue()) {
+        if (waterMark.get()) {
             FontLoaders.default25.drawStringWithShadow("Dimples.love",
                     5,
                     5,
                     new Color(0, 200, 100).getRGB());
         }
-        if (arrayList.getValue()) {
+        if (arrayList.get()) {
             ArrayList<Module> sorted = new ArrayList<>();
             for (Module m : client.moduleManager.getModules()) {
                 if (!m.isState()) continue;

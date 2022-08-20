@@ -21,30 +21,30 @@ public class TransformManager {
     public static List<ClassTransformer> transformers = new ArrayList<ClassTransformer>();
 
     public static void init() {
-        Logger.log("Start Initialize Transforms", "Transformer");
+        Logger.info("Start Initialize Transforms", "Transformer");
         transformers.add(new GuiIngameTransformer());
         transformers.add(new KeyBindingTransformer());
         transformers.add(new MinecraftTransformer());
         transformers.add(new EntityPlayerSPTransformer());
         doTransform();
-        Logger.log("Transforms Initialized Successful", "Transformer");
+        Logger.info("Transforms Initialized Successful", "Transformer");
     }
 
     public static void doTransform() {
         for (ClassTransformer classTransformer : transformers) {
-            Logger.log("Start Transformer " + classTransformer.getTargetClass().getCanonicalName(), "Transformer");
+            Logger.info("Start Transformer " + classTransformer.getTargetClass().getCanonicalName(), "Transformer");
             int error = LycorisAgent.retransformclass(new InstrumentationImpl(), classTransformer.getTargetClass());
-            Logger.log("Transformed Class " + classTransformer.getTargetClass().getCanonicalName() + " " + JVMTIError.parse(error), "Transformer");
+            Logger.info("Transformed Class " + classTransformer.getTargetClass().getCanonicalName() + " " + JVMTIError.parse(error), "Transformer");
         }
     }
 
     public static byte[] onTransform(Class<?> clazz, byte[] original_class_bytes) {
         if (clazz == null || clazz.getCanonicalName().equals("null")) {
-            Logger.log("NULL Class", "Transformer");
+            Logger.warning("NULL Class", "Transformer");
             return original_class_bytes;
         }
         if (original_class_bytes == null) {
-            Logger.log("NULL Class Bytes", "Transformer");
+            Logger.warning("NULL Class Bytes", "Transformer");
             return null;
         }
         byte[] class_bytes = null;
@@ -55,7 +55,7 @@ public class TransformManager {
             }
         }
         if (class_bytes == null) {
-            Logger.log("Transform " + clazz.getCanonicalName() + " return null", "Transformer");
+            Logger.warning("Transform " + clazz.getCanonicalName() + " return null", "Transformer");
             return original_class_bytes;
         }
 //        if (LycorisClient.debug) {{

@@ -1,8 +1,8 @@
 package rbq.wtf.lycoris.client.gui.ClickGUI.Component;
 
 public class Component {
-    private float Height = 0;
-    private float Width = 0;
+    private float height = 0;
+    private float width = 0;
 
     public Component() {
     }
@@ -20,19 +20,19 @@ public class Component {
     }
 
     public float getHeight() {
-        return Height;
+        return height;
     }
 
     public void setHeight(float height) {
-        Height = height;
+        this.height = height;
     }
 
     public float getWidth() {
-        return Width;
+        return width;
     }
 
     public void setWidth(float width) {
-        Width = width;
+        this.width = width;
     }
 
     public boolean isHovered(float x, float y, float x2, float y2, int mouseX, int mouseY) {

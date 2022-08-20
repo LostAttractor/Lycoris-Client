@@ -5,7 +5,6 @@ import rbq.wtf.lycoris.client.event.api.EventTarget;
 import rbq.wtf.lycoris.client.event.events.EventMotionUpdate;
 import rbq.wtf.lycoris.client.module.Module;
 import rbq.wtf.lycoris.client.module.ModuleCategory;
-import rbq.wtf.lycoris.client.utils.Logger;
 import rbq.wtf.lycoris.client.utils.MovementUtils;
 import rbq.wtf.lycoris.client.value.BooleanValue;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.potion.Potion;
@@ -37,18 +36,18 @@ public class KeepSprint extends Module {
     public void EventMotionUpdate(EventMotionUpdate e) {
         if (e.isPre()) {
             if (!MovementUtils.isMoving() || mc.getPlayer().isSneaking() ||
-                    (blindness.getValue() && mc.getPlayer().getEntityPlayerInstance().getEntityLivingBaseInstance().isPotionActive(Potion.getBlindness())) ||
-                    (food.getValue() && !(mc.getPlayer().getEntityPlayerInstance().getFoodStats().getFoodLevel() > 6.0F || mc.getPlayer().getEntityPlayerInstance().getCapabilities().isAllowFlying()))
+                    (blindness.get() && mc.getPlayer().getEntityPlayerInstance().getEntityLivingBaseInstance().isPotionActive(Potion.getBlindness())) ||
+                    (food.get() && !(mc.getPlayer().getEntityPlayerInstance().getFoodStats().getFoodLevel() > 6.0F || mc.getPlayer().getEntityPlayerInstance().getCapabilities().isAllowFlying()))
                     /*|| (checkServerSide.get() && (mc.thePlayer.onGround || !checkServerSideGround.get())
                     && !allDirectionsValue.get() && RotationUtils.targetRotation != null &&
                     RotationUtils.getRotationDifference(new Rotation(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch)) > 30)*/) {
                 mc.getPlayer().setSprinting(false);
-                Logger.log("Set Sprint false", "SprintModule", Logger.LogLevel.DEBUG);
-            } else if (allDirections.getValue() || mc.getPlayer().getMovementInput().getMoveForward() >= 0.8F) {
+                //Logger.debug("Set Sprint false", "SprintModule");
+            } else if (allDirections.get() || mc.getPlayer().getMovementInput().getMoveForward() >= 0.8F) {
                 mc.getPlayer().setSprinting(true);
-                Logger.log("Set Sprint", "SprintModule", Logger.LogLevel.DEBUG);
+                //Logger.debug("Set Sprint", "SprintModule");
             }
-            if (noDelay.getValue()) {
+            if (noDelay.get()) {
                 mc.getPlayer().setSprintingTicksLeft(0);
             }
         }

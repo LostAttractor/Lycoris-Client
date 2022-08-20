@@ -7,12 +7,12 @@ import rbq.wtf.lycoris.client.value.BooleanValue;
 import java.awt.*;
 
 public class BooleanValueComponent extends Component {
-    private BooleanValue Value;
+    private final BooleanValue value;
     private float x;
     private float y;
 
     public BooleanValueComponent(BooleanValue value) {
-        this.Value = value;
+        this.value = value;
         this.setHeight(25);
     }
 
@@ -26,12 +26,12 @@ public class BooleanValueComponent extends Component {
     @Override
     public void render() {
 //        RenderUtil.startGlScissor((int) (NewClickGUI.startX), (int) (NewClickGUI.startY + 50.0F),445, (int)277);
-        FontLoaders.default20.drawString(Value.getName(),
+        FontLoaders.default20.drawString(value.getName(),
                 x,
                 y,
                 new Color(255, 255, 255).getRGB());
 //        RenderUtil.stopGlScissor();
-        if (Value.getValue()) {
+        if (value.get()) {
             //Draw Switch Background
             /*Render Glow*/
 //            RenderUtil.startGlScissor((int) (x + 287), (int) (y + 15),26, 8);
@@ -103,7 +103,7 @@ public class BooleanValueComponent extends Component {
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if (this.isHovered(x + 295 - 5, y + 3, x + 295 + 10,
                 y + 17, mouseX, mouseY)) {
-            Value.setValue(!Value.getValue());
+            value.set(!value.get());
         }
     }
 }

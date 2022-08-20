@@ -13,8 +13,6 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.WorldRenderer;
 import java.awt.*;
 
 public class ColorValueComponent extends Component {
-
-
     private static final int MARGIN = 3;
     private static final int SLIDER_THICKNESS = 8;
     private static final float SELECTOR_WIDTH = 1.0f;
@@ -34,10 +32,10 @@ public class ColorValueComponent extends Component {
     private float x;
     private float y;
 
-    public ColorValueComponent(ColorValue Value) {
+    public ColorValueComponent(ColorValue value) {
         tessellator = Tessellator.getInstance();
         worldrenderer = tessellator.getWorldRenderer();
-        this.value = Value;
+        this.value = value;
         this.hue = value.getHSB()[0];
         this.saturation = value.getHSB()[1];
         this.brightness = value.getHSB()[2];
@@ -47,12 +45,14 @@ public class ColorValueComponent extends Component {
 
     private static void drawCheckeredBackground(float x, float y, float x2, float y2) {
 //        RenderUtil.drawRect(x, y, x2, y2, getColor(16777215));
-        for (boolean offset = false; y < y2; ++y) {
-            for (float x1 = x + (float) ((offset = !offset) ? 1 : 0); x1 < x2; x1 += 2.0F) {
+        boolean offset = false;
+        for (float y1 = y; y1 < y2; ++y1) {
+            for (float x1 = x + (offset ? 1F : 0F); x1 < x2; x1 += 2.0F) {
                 if (x1 <= x2 - 1.0F) {
-                    RenderUtil.drawRect(x1, y, x1 + 1.0F, y + 1.0F, getColor(8421504));
+                    RenderUtil.drawRect(x1, y1, x1 + 1.0F, y1 + 1.0F, getColor(8421504));
                 }
             }
+            offset = !offset;
         }
     }
 
@@ -88,7 +88,7 @@ public class ColorValueComponent extends Component {
         int black = new Color(0, 0, 0).getRGB();
 //        RenderUtil.drawRect(x2 - 0.5f, y2 - 0.5f, (x2 + width) + 0.5f, (y2 + height) + 0.5f, black);
         int guiAlpha = (int) 255;
-        int color = this.value.getValue().getRGB();
+        int color = this.value.get().getRGB();
         int colorAlpha = color >> 24 & 0xFF;
         int minAlpha = Math.min(guiAlpha, colorAlpha);
 
@@ -239,9 +239,9 @@ public class ColorValueComponent extends Component {
 
     private void updateColor(final int hex, final boolean hasAlpha) {
         if (hasAlpha) {
-            this.value.setValue(new Color(hex));
+            this.value.set(new Color(hex));
         } else {
-            this.value.setValue(new Color(hex >> 16 & 0xFF, hex >> 8 & 0xFF, hex & 0xFF, (int) (this.alpha * 255.0f)));
+            this.value.set(new Color(hex >> 16 & 0xFF, hex >> 8 & 0xFF, hex & 0xFF, (int) (this.alpha * 255.0f)));
         }
     }
 

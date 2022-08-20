@@ -14,11 +14,7 @@ public class Module {
     public final String name;
     protected final Client client = Client.instance;
     protected final Minecraft mc = client.mc;
-    private final List<BooleanValue> booleanValues = new ArrayList<>();
-    private final List<NumberValue> numberValues = new ArrayList<>();
-    private final List<ModeValue> modeValues = new ArrayList<>();
-    private final List<ColorValue> colorValues = new ArrayList<>();
-    private final List<TextValue> textValues = new ArrayList<>();
+    private final List<Value<?>> values = new ArrayList<>();
     public boolean state;
     public int key;
 
@@ -39,47 +35,57 @@ public class Module {
     }
 
     public List<Value<?>> getValues() {
-        List<Value<?>> Values = new ArrayList<>();
-        Values.addAll(booleanValues);
-        Values.addAll(modeValues);
-        Values.addAll(numberValues);
-        Values.addAll(colorValues);
-        Values.addAll(textValues);
-        return Values;
+        return values;
     }
 
 
     public List<BooleanValue> getBooleanValues() {
+        List<BooleanValue> booleanValues = new ArrayList<>();
+        for (Value<?> value : values) {
+            if (value instanceof BooleanValue)
+                booleanValues.add((BooleanValue) value);
+        }
         return booleanValues;
     }
 
     public List<ModeValue> getModeValues() {
+        List<ModeValue> modeValues = new ArrayList<>();
+        for (Value<?> value : values) {
+            if (value instanceof ModeValue)
+                modeValues.add((ModeValue) value);
+        }
         return modeValues;
     }
 
     public List<NumberValue> getNumberValues() {
+        List<NumberValue> numberValues = new ArrayList<>();
+        for (Value<?> value : values) {
+            if (value instanceof NumberValue)
+                numberValues.add((NumberValue) value);
+        }
         return numberValues;
     }
 
     public List<TextValue> getTextValues() {
+        List<TextValue> textValues = new ArrayList<>();
+        for (Value<?> value : values) {
+            if (value instanceof TextValue)
+                textValues.add((TextValue) value);
+        }
         return textValues;
     }
 
     public List<ColorValue> getColorValues() {
+        List<ColorValue> colorValues = new ArrayList<>();
+        for (Value<?> value : values) {
+            if (value instanceof ColorValue)
+                colorValues.add((ColorValue) value);
+        }
         return colorValues;
     }
 
     public void addValue(Value<?> value) {
-        if (value instanceof NumberValue)
-            this.numberValues.add((NumberValue) value);
-        else if (value instanceof ModeValue)
-            this.modeValues.add((ModeValue) value);
-        else if (value instanceof BooleanValue)
-            this.booleanValues.add((BooleanValue) value);
-        else if (value instanceof ColorValue)
-            this.colorValues.add((ColorValue) value);
-        else if (value instanceof TextValue)
-            this.textValues.add((TextValue) value);
+        values.add(value);
     }
 
     public boolean isState() {

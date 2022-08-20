@@ -37,7 +37,7 @@ public class Client {
 
     public Client() {
         instance = this;
-        Logger.log("Start Initialize Client");
+        Logger.info("Start Initialize Client");
         Wrapper.init();
         BridgeUtil.init();
         InstrumentationImpl.init();
@@ -48,6 +48,6 @@ public class Client {
         commandManager = new CommandManager();
         keyBindManager = new KeyBindManager();
         clickGUI = new ClickGUI();
-        Logger.log("Client Initialized Successful");
+        Logger.info("Client Initialized Successful");
     }
 }

@@ -8,7 +8,7 @@ import rbq.wtf.lycoris.client.module.ModuleCategory;
 import java.awt.*;
 
 public class CategoryButton extends Component {
-    private ModuleCategory category;
+    private final ModuleCategory category;
     private float x;
     private float y;
 

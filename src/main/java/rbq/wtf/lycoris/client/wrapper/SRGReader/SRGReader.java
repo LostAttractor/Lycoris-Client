@@ -76,11 +76,11 @@ public class SRGReader {
                             returnType = target;
                     } catch (Exception e) {
                         if (className.toString().contains("net/minecraft/server")) {
-                            Logger.log("Failed to find a Server Class: " + className + ", Ignored", "SRGReader", Logger.LogLevel.WARNING);
+                            Logger.warning("Failed to find a Server Class: " + className + ", Ignored", "SRGReader");
                         } else {
                             e.printStackTrace();
-                            Logger.log("Failed to find Class: " + className, "SRGReader", Logger.LogLevel.ERROR);
-                            Logger.log("Failed to Generate Signature: " + sig, "SRGReader", Logger.LogLevel.ERROR);
+                            Logger.error("Failed to find Class: " + className, "SRGReader");
+                            Logger.error("Failed to Generate Signature: " + sig, "SRGReader");
                         }
                     }
                     onReadingClassName = false;
@@ -152,8 +152,10 @@ public class SRGReader {
                     if (!onReadingArgs)
                         returnType = void.class;
                     break;
+                case "[":
+                    break;
                 default:
-                    Logger.log("Found a Unknown Identifier: " + t, "SRGReader", Logger.LogLevel.ERROR);
+                    Logger.error("Found a Unknown Identifier: " + t, "SRGReader");
             }
         }
         Class<?>[] classes = new Class[args.size()];

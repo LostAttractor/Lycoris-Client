@@ -10,12 +10,12 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class NumberValueComponent extends Component {
-    public NumberValue Value;
+    public NumberValue value;
     private float x;
     private float y;
 
     public NumberValueComponent(NumberValue value) {
-        this.Value = value;
+        this.value = value;
         this.setHeight(45);
     }
 
@@ -31,26 +31,24 @@ public class NumberValueComponent extends Component {
                 y + 30,
                 mouseX,
                 mouseY) && Mouse.isButtonDown(0)) {
-            float current = (((mouseX - (x + 10)) / 295.0F) * (Value.getMax() - Value.getMin())) + Value.getMin();
+            float current = (((mouseX - (x + 10)) / 295.0F) * (value.getMaximum() - value.getMinimum())) + value.getMinimum();
 
-            if (Value.getIncrease() >= 1) {
-                Value.setValue((float) round(current, 0));
-
+            if (value.getIncrease() >= 1) {
+                value.set(round(current, 0));
             } else {
-                String str = "" + Value.getIncrease();
-                Value.setValue((float) round(current, str.length() - (str.indexOf(".") + 1)));
+                String str = String.valueOf(value.getIncrease());
+                value.set(round(current, str.length() - (str.indexOf(".") + 1)));
             }
         }
     }
 
     @Override
     public void render() {
-        FontLoaders.default20.drawString(Value.getName() + "[" + Value.getValue() + "]",
+        FontLoaders.default20.drawString(value.getName() + "[" + value.get() + "]",
                 x,
                 y,
                 new Color(255, 255, 255).getRGB());
-
-        double currentX = 295 * ((Value.getValue() - Value.getMin()) / (Value.getMax() - Value.getMin()));
+        float currentX = 295 * ((value.get() - value.getMinimum()) / (value.getMaximum() - value.getMinimum()));
 
         RenderUtil.drawFilledCircle(x + 5, y + 25, 6,
                 new Color(45, 37, 104).getRGB(), 5);
@@ -78,12 +76,12 @@ public class NumberValueComponent extends Component {
 
     }
 
-    private double round(double value, int places) {
+    private float round(double value, int places) {
         if (places < 0) {
             throw new IllegalArgumentException();
         }
         BigDecimal bd = new BigDecimal(value);
         bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
+        return bd.floatValue();
     }
 }

@@ -2,6 +2,7 @@ package rbq.wtf.lycoris.client.manager;
 
 import rbq.wtf.lycoris.client.module.Module;
 import rbq.wtf.lycoris.client.module.ModuleCategory;
+import rbq.wtf.lycoris.client.module.Modules.Combat.AutoClicker;
 import rbq.wtf.lycoris.client.module.Modules.Movement.KeepSprint;
 import rbq.wtf.lycoris.client.module.Modules.Render.ClickGUI;
 import rbq.wtf.lycoris.client.module.Modules.Render.HUD;
@@ -13,7 +14,11 @@ public class ModuleManager {
     private final ArrayList<Module> modules = new ArrayList<>();
 
     public ModuleManager() {
+        //Combat
+        modules.add(new AutoClicker());
+        //Movement
         modules.add(new KeepSprint());
+        //Render
         modules.add(new HUD());
         modules.add(new ClickGUI());
     }
