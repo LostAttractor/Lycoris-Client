@@ -1,5 +1,3 @@
-package test;
-
 import net.minecraftforge.fml.common.Mod;
 import rbq.wtf.lycoris.client.Client;
 
