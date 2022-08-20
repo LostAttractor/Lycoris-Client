@@ -15,7 +15,7 @@ repositories {
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 compileJava.options.encoding = "UTF-8"
 
 compileKotlin {
@@ -33,32 +33,44 @@ minecraft {
     version = "1.8.9-11.15.1.2318-1.8.9"
     runDir = "run"
     mappings = "stable_22"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+}
+
+configurations {
+    include
+    includeTest
+    implementation.extendsFrom(include)
+    implementationTest.extendsFrom(includeTest)
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok:1.18.4'
+    include 'org.projectlombok:lombok:1.18.4'
     annotationProcessor 'org.projectlombok:lombok:1.18.4'
-    testCompileOnly 'org.projectlombok:lombok:1.18.4'
+    includeTest 'org.projectlombok:lombok:1.18.4'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.4'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    include "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    //include fileTree(include: ["*.jar"], dir: "libs")
 }
 
 processResources {
-    // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+    filesMatching("mcmod.info") {
+        expand "version": project.version, "mcversion": project.minecraft.version
     }
 
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+    rename "(.+_at.cfg)", "META-INF/\$1"
+}
+
+task moveResources {
+    doLast {
+        ant.move file: "${buildDir}/resources/main",
+                todir: "${buildDir}/classes/java"
     }
 }
+
+moveResources.dependsOn(processResources)
+classes.dependsOn(moveResources)
