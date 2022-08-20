@@ -10,11 +10,12 @@ import rbq.wtf.lycoris.client.value.*;
 import java.awt.*;
 
 public class ModuleButtonList extends Component {
-    public ModuleCategory category;
+    public final ModuleCategory category;
     private float x;
     private float y;
 
-    public ModuleButtonList(ModuleCategory Category) {
+    public ModuleButtonList(ModuleCategory Category, ClickGUI clickGUI) {
+        super(clickGUI);
         this.category = Category;
     }
 
@@ -23,7 +24,6 @@ public class ModuleButtonList extends Component {
         this.x = X;
         this.y = Y;
         render();
-
     }
 
     @Override
@@ -63,28 +63,28 @@ public class ModuleButtonList extends Component {
                         module.toggle();
                         break;
                     case 1:
-                        ClickGUI.currentModule = module;
-                        ClickGUI.valueWheel = 0;
-                        ClickGUI.valueComponentList.clear();
-                        ClickGUI.currentActiveTextValue = null;
+                        clickGUI.currentModule = module;
+                        clickGUI.valueWheel = 0;
+                        clickGUI.valueComponentList.clear();
+                        clickGUI.currentActiveTextValue = null;
                         for (Value<?> value : module.getValues()) {
                             if (value instanceof BooleanValue) {
-                                ClickGUI.valueComponentList.add(new BooleanValueComponent((BooleanValue) value));
+                                clickGUI.valueComponentList.add(new BooleanValueComponent((BooleanValue) value, clickGUI));
                             }
                             if (value instanceof NumberValue) {
-                                ClickGUI.valueComponentList.add(new NumberValueComponent((NumberValue) value));
+                                clickGUI.valueComponentList.add(new NumberValueComponent((NumberValue) value, clickGUI));
                             }
                             if (value instanceof ModeValue) {
-                                ClickGUI.valueComponentList.add(new ModeValueComponent((ModeValue) value));
+                                clickGUI.valueComponentList.add(new ModeValueComponent((ModeValue) value, clickGUI));
                             }
                             if (value instanceof ColorValue) {
-                                ClickGUI.valueComponentList.add(new ColorValueComponent((ColorValue) value));
+                                clickGUI.valueComponentList.add(new ColorValueComponent((ColorValue) value, clickGUI));
                             }
                             if (value instanceof TextValue) {
-                                ClickGUI.valueComponentList.add(new TextValueComponent((TextValue) value));
+                                clickGUI.valueComponentList.add(new TextValueComponent((TextValue) value, clickGUI));
                             }
                         }
-                        ClickGUI.valueComponentList.add(new ModuleBindComponent(module));
+                        clickGUI.valueComponentList.add(new ModuleBindComponent(module, clickGUI));
                         break;
                     default:
                         break;

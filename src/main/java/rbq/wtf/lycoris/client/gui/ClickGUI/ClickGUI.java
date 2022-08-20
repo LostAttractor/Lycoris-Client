@@ -16,43 +16,42 @@ import java.util.ArrayList;
 
 
 public class ClickGUI extends GuiScreenImpl {
-    public static ModuleCategory currentModuleType = ModuleCategory.Combat;
-    public static Module currentModule;
-    public static Module currentBindModule;
-    public static Component currentActiveTextValue;
-    public static float moduleWheel = 0.0F;
-    public static float valueWheel = 0.0F;
-    public static float startX = 100;
-    public static float startY = 100;
-    public static ArrayList<Component> valueComponentList = new ArrayList<Component>();
-    public float moveX = 0.0F;
-    public float moveY = 0.0F;
-    public ArrayList<CategoryButton> categoryButtonList = new ArrayList<CategoryButton>();
-    public ArrayList<ModuleButtonList> moduleButtonList = new ArrayList<ModuleButtonList>();
+    public ModuleCategory currentModuleType = ModuleCategory.Combat;
+    public Module currentModule;
+    public Component currentActiveTextValue;
+    public float moduleWheel = 0.0F;
+    public float valueWheel = 0.0F;
+    private float startX = 100;
+    private float startY = 100;
+    public ArrayList<Component> valueComponentList = new ArrayList<Component>();
+    private boolean onMoving = false;
+    private float moveOffsetX = 0.0F;
+    private float moveOffsetY = 0.0F;
+    private final ArrayList<CategoryButton> categoryButtonList = new ArrayList<CategoryButton>();
+    private final ArrayList<ModuleButtonList> moduleButtonList = new ArrayList<ModuleButtonList>();
 
     public ClickGUI() {
         for (ModuleCategory c : ModuleCategory.values()) {
-            categoryButtonList.add(new CategoryButton(c));
-            moduleButtonList.add(new ModuleButtonList(c));
+            categoryButtonList.add(new CategoryButton(c, this));
+            moduleButtonList.add(new ModuleButtonList(c, this));
         }
     }
 
     @Override
+    public void initGui() {
+        super.initGui();
+        onMoving = false;
+        moveOffsetX = 0F;
+        moveOffsetY = 0F;
+        moduleWheel = 0.0F;
+        valueWheel = 0.0F;
+    }
+
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-
-        if (this.isHovered(startX, startY - 10.0F, startX + 400.0F, startY + 15.0F, mouseX, mouseY)
-                && Mouse.isButtonDown(0)) {
-            if (this.moveX == 0.0F && this.moveY == 0.0F) {
-                this.moveX = (float) mouseX - startX;
-                this.moveY = (float) mouseY - startY;
-            } else {
-                startX = (float) mouseX - this.moveX;
-                startY = (float) mouseY - this.moveY;
-            }
-
-        } else if (this.moveX != 0.0F || this.moveY != 0.0F) {
-            this.moveX = 0.0F;
-            this.moveY = 0.0F;
+        if (onMoving) {
+            startX = mouseX - this.moveOffsetX;
+            startY = mouseY - this.moveOffsetY;
         }
 
         //draw bg
@@ -94,7 +93,7 @@ public class ClickGUI extends GuiScreenImpl {
         }
 
         //DrawModules
-        RenderUtil.startGlScissor((int) (ClickGUI.startX), (int) (ClickGUI.startY + 50.0F), 445, (int) 277);
+        RenderUtil.startGlScissor((int) (startX), (int) (startY + 50.0F), 445, (int) 277);
 
         float moduleY = startY + 45;
         for (ModuleButtonList list : moduleButtonList) {
@@ -147,10 +146,19 @@ public class ClickGUI extends GuiScreenImpl {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        System.out.println(mouseX);
-        System.out.println(mouseY);
-        System.out.println(mouseX - startX);
-        System.out.println(mouseY - startY);
+//        System.out.println(mouseX);
+//        System.out.println(mouseY);
+//        System.out.println(mouseX - startX);
+//        System.out.println(mouseY - startY);
+        //ClickGui Move
+        if (onMoving)
+            return;
+        if (this.isHovered(startX, startY - 10.0F, startX + 400.0F, startY + 15.0F, mouseX, mouseY)
+                && mouseButton == 0) {
+            moveOffsetX = mouseX - startX;
+            moveOffsetY = mouseY - startY;
+            onMoving = true;
+        }
         //Module Click
         if (this.isHovered(startX + 1.0F, startY + 40.0F, startX + 100.0F, startY + 327.0F, mouseX, mouseY)) {
             for (ModuleButtonList list : moduleButtonList) {
@@ -174,14 +182,20 @@ public class ClickGUI extends GuiScreenImpl {
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int state) {
+        super.mouseReleased(mouseX,mouseY,state);
+        //ClickGui Move Reset
+        if (onMoving) {
+            onMoving = false;
+            this.moveOffsetX = 0.0F;
+            this.moveOffsetY = 0.0F;
+        }
         if (this.isHovered(startX + 110, startY + 35.0F, startX + 440.0F, startY + 330.0F, mouseX, mouseY)) {
-            float valueY = startY + 50;
             if (currentModule != null) {
+                float valueY = startY + 50;
                 for (Component component : valueComponentList) {
                     component.mouseReleased(state);
                     valueY += component.getHeight();
                 }
-
             }
         }
     }

@@ -14,7 +14,8 @@ public class TextValueComponent extends Component {
     private float x;
     private float y;
 
-    public TextValueComponent(TextValue value) {
+    public TextValueComponent(TextValue value, ClickGUI clickGUI) {
+        super(clickGUI);
         this.value = value;
         this.setHeight(35);
     }
@@ -55,11 +56,11 @@ public class TextValueComponent extends Component {
                 y + 30,
                 mouseX,
                 mouseY)) {
-            ClickGUI.currentActiveTextValue = this;
+            clickGUI.currentActiveTextValue = this;
         } else {
-            if (ClickGUI.currentActiveTextValue != null) {
-                if (ClickGUI.currentActiveTextValue == this) {
-                    ClickGUI.currentActiveTextValue = null;
+            if (clickGUI.currentActiveTextValue != null) {
+                if (clickGUI.currentActiveTextValue == this) {
+                    clickGUI.currentActiveTextValue = null;
                 }
             }
         }

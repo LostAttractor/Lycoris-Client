@@ -8,14 +8,14 @@ import rbq.wtf.lycoris.client.module.ModuleCategory;
 import java.awt.*;
 
 public class CategoryButton extends Component {
-    private final ModuleCategory category;
+    public final ModuleCategory category;
     private float x;
     private float y;
 
-    public CategoryButton(ModuleCategory Category) {
+    public CategoryButton(ModuleCategory Category, ClickGUI clickGUI) {
+        super(clickGUI);
         this.category = Category;
     }
-
 
     @Override
     public void updateComponent(float X, float Y, int mouseX, int mouseY) {
@@ -30,18 +30,18 @@ public class CategoryButton extends Component {
                 mouseX,
                 mouseY
         ) && Mouse.isButtonDown(0)) {
-            ClickGUI.currentModuleType = category;
-            ClickGUI.valueComponentList.clear();
-            ClickGUI.currentModule = null;
-            ClickGUI.moduleWheel = 0;
-            ClickGUI.valueWheel = 0;
-            ClickGUI.currentActiveTextValue = null;
+            clickGUI.currentModuleType = category;
+            clickGUI.valueComponentList.clear();
+            clickGUI.currentModule = null;
+            clickGUI.moduleWheel = 0;
+            clickGUI.valueWheel = 0;
+            clickGUI.currentActiveTextValue = null;
         }
     }
 
     @Override
     public void render() {
-        if (category != ClickGUI.currentModuleType) {
+        if (category != clickGUI.currentModuleType) {
             FontLoaders.default20.drawString(category.toString(),
                     x,
                     y,

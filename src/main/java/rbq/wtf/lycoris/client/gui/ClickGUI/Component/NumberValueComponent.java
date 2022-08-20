@@ -1,6 +1,7 @@
 package rbq.wtf.lycoris.client.gui.ClickGUI.Component;
 
 import org.lwjgl.input.Mouse;
+import rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI;
 import rbq.wtf.lycoris.client.gui.ClickGUI.Utils.RenderUtil;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.value.NumberValue;
@@ -14,7 +15,8 @@ public class NumberValueComponent extends Component {
     private float x;
     private float y;
 
-    public NumberValueComponent(NumberValue value) {
+    public NumberValueComponent(NumberValue value, ClickGUI clickGUI) {
+        super(clickGUI);
         this.value = value;
         this.setHeight(45);
     }

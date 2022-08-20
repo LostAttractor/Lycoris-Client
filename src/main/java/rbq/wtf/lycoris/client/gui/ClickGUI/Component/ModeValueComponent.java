@@ -1,5 +1,6 @@
 package rbq.wtf.lycoris.client.gui.ClickGUI.Component;
 
+import rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI;
 import rbq.wtf.lycoris.client.gui.ClickGUI.Utils.RenderUtil;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.value.ModeValue;
@@ -11,7 +12,8 @@ public class ModeValueComponent extends Component {
     private float x;
     private float y;
 
-    public ModeValueComponent(ModeValue value) {
+    public ModeValueComponent(ModeValue value, ClickGUI clickGUI) {
+        super(clickGUI);
         this.value = value;
         this.setHeight(35);
     }

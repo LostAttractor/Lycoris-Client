@@ -1,10 +1,14 @@
 package rbq.wtf.lycoris.client.gui.ClickGUI.Component;
 
+import rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI;
+
 public class Component {
+    protected final ClickGUI clickGUI;
     private float height = 0;
     private float width = 0;
 
-    public Component() {
+    public Component(ClickGUI clickGUI) {
+        this.clickGUI = clickGUI;
     }
 
     public void render() {

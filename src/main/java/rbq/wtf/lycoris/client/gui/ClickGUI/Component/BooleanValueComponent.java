@@ -1,5 +1,6 @@
 package rbq.wtf.lycoris.client.gui.ClickGUI.Component;
 
+import rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI;
 import rbq.wtf.lycoris.client.gui.ClickGUI.Utils.RenderUtil;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.value.BooleanValue;
@@ -11,7 +12,8 @@ public class BooleanValueComponent extends Component {
     private float x;
     private float y;
 
-    public BooleanValueComponent(BooleanValue value) {
+    public BooleanValueComponent(BooleanValue value, ClickGUI clickGUI) {
+        super(clickGUI);
         this.value = value;
         this.setHeight(25);
     }

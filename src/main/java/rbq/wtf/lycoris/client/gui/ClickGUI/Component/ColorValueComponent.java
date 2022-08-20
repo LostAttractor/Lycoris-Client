@@ -2,6 +2,7 @@ package rbq.wtf.lycoris.client.gui.ClickGUI.Component;
 
 
 import org.lwjgl.opengl.GL11;
+import rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI;
 import rbq.wtf.lycoris.client.gui.ClickGUI.Utils.RenderUtil;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.value.ColorValue;
@@ -32,7 +33,8 @@ public class ColorValueComponent extends Component {
     private float x;
     private float y;
 
-    public ColorValueComponent(ColorValue value) {
+    public ColorValueComponent(ColorValue value, ClickGUI clickGUI) {
+        super(clickGUI);
         tessellator = Tessellator.getInstance();
         worldrenderer = tessellator.getWorldRenderer();
         this.value = value;

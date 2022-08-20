@@ -11,7 +11,8 @@ public class ModuleBindComponent extends Component {
     float x;
     float y;
 
-    public ModuleBindComponent(Module module) {
+    public ModuleBindComponent(Module module, ClickGUI clickGUI) {
+        super(clickGUI);
         this.module = module;
         this.setHeight(15);
     }
@@ -25,8 +26,8 @@ public class ModuleBindComponent extends Component {
 
     @Override
     public void render() {
-        if (ClickGUI.currentActiveTextValue != null) {
-            if (ClickGUI.currentActiveTextValue == this) {
+        if (clickGUI.currentActiveTextValue != null) {
+            if (clickGUI.currentActiveTextValue == this) {
                 FontLoaders.default18.drawStringWithShadow("Bind to",
                         x,
                         y,
@@ -56,14 +57,14 @@ public class ModuleBindComponent extends Component {
                 mouseX,
                 mouseY)) {
             if (Mouse.isButtonDown(0)) {
-                ClickGUI.currentActiveTextValue = this;
+                clickGUI.currentActiveTextValue = this;
             } else if (Mouse.isButtonDown(3)) {
                 module.setKey(0);
             }
         } else {
-            if (ClickGUI.currentActiveTextValue != null) {
-                if (ClickGUI.currentActiveTextValue == this) {
-                    ClickGUI.currentActiveTextValue = null;
+            if (clickGUI.currentActiveTextValue != null) {
+                if (clickGUI.currentActiveTextValue == this) {
+                    clickGUI.currentActiveTextValue = null;
                 }
             }
         }
@@ -72,6 +73,6 @@ public class ModuleBindComponent extends Component {
     @Override
     public void keyTyped(char typedChar, int keyCode) {
         this.module.setKey(keyCode);
-        ClickGUI.currentActiveTextValue = null;
+        clickGUI.currentActiveTextValue = null;
     }
 }
