@@ -1,5 +1,6 @@
 package rbq.wtf.lycoris.client.module.Modules.Combat
 
+import net.minecraft.init.Blocks
 import rbq.wtf.lycoris.client.module.Module
 import rbq.wtf.lycoris.client.module.ModuleCategory
 import rbq.wtf.lycoris.client.utils.TimeUtils
@@ -37,14 +38,14 @@ class AutoClicker : Module("AutoClicker", ModuleCategory.Combat, 0) {
     private var isBreakingBlock = false
     private var wasBreakingBlock = false
 
-//    fun leftCanAutoClick(currentTime: Long): Boolean {
-//        return !isBreakingBlock
-//                && !(currentTime - blockLastBroken < blockBrokenDelay &&
-//                mc.objectMouseOver != null && mc.objectMouseOver!!.blockPos != null && mc.theWorld != null &&
-//                mc.theWorld.getBlockState(mc.objectMouseOver.blockPos).block != Blocks.air)
-//    }
-//
-//    fun rightCanAutoClick(): Boolean {
-//        return !mc.thePlayer!!.isUsingItem
-//    }
+    fun leftCanAutoClick(currentTime: Long): Boolean {
+        return !isBreakingBlock
+                && !(currentTime - blockLastBroken < blockBrokenDelay &&
+                mc.objectMouseOver.blockPos != null &&
+                mc.world.worldInstance.getBlockState(mc.objectMouseOver.blockPos).block != Blocks.air)
+    }
+
+    fun rightCanAutoClick(): Boolean {
+        return !mc.player.entityPlayerInstance.isUsingItem
+    }
 }

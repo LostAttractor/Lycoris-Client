@@ -15,11 +15,15 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.GameSettings;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.KeyBinding;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.block.Block;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.block.state.IBlockState;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.Entity;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityLivingBase;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayer;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayerSP;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.*;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.init.Blocks;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.multiplayer.WorldClient;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.potion.Potion;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.AbstractTexture;
@@ -29,6 +33,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.HoverEvent;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.click.ClickEvent;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.click.ClickEventAction;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.text.IChatComponent;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.world.World;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -70,6 +75,8 @@ public class Wrapper {
     public static void loadWrappers() {
         Logger.info("Loading wrappers", "Wrapper");
         List<Class<?>> classes = new ArrayList<Class<?>>();
+        //init
+        classes.add(Blocks.class);
         //client
         classes.add(Minecraft.class);
         classes.add(KeyBinding.class);
@@ -79,6 +86,14 @@ public class Wrapper {
         classes.add(EntityLivingBase.class);
         classes.add(EntityPlayer.class);
         classes.add(EntityPlayerSP.class);
+        //multiplayer
+        classes.add(WorldClient.class);
+        //world
+        classes.add(World.class);
+        //block
+        classes.add(Block.class);
+        //block.state
+        classes.add(IBlockState.class);
         //potion
         classes.add(Potion.class);
         //gui
@@ -108,6 +123,7 @@ public class Wrapper {
         classes.add(ChatStyle.class);
         classes.add(FoodStats.class);
         classes.add(MovementInput.class);
+        classes.add(MovingObjectPosition.class);
         //util.event
         classes.add(ClickEvent.class);
         classes.add(ClickEventAction.class);

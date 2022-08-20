@@ -1,5 +1,6 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.wrapper;
 
+import com.google.common.util.concurrent.ListenableFuture;
 import rbq.wtf.lycoris.client.wrapper.MapEnum;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapClass;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapField;
@@ -9,14 +10,17 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.utils.ReflectUtil;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayerSP;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.GuiScreen;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.multiplayer.WorldClient;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.MovingObjectPosition;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.concurrent.Callable;
 
 @WrapperClass(mcpName = "net.minecraft.client.Minecraft", targetMap = MapEnum.VANILLA189)
 public class Minecraft extends IWrapper {
     @WrapClass(mcpName = "net.minecraft.client.Minecraft", targetMap = MapEnum.VANILLA189)
-    public static Class MinecraftClass;
+    public static Class<?> MinecraftClass;
     @WrapField(mcpName = "theMinecraft", targetMap = MapEnum.VANILLA189)
     public static Field theMinecraft;
     @WrapMethod(mcpName = "getMinecraft", targetMap = MapEnum.VANILLA189)
@@ -26,9 +30,9 @@ public class Minecraft extends IWrapper {
     @WrapMethod(mcpName = "displayGuiScreen", targetMap = MapEnum.VANILLA189)
     public static Method displayGuiScreen;
     @WrapField(mcpName = "theWorld", targetMap = MapEnum.VANILLA189)
-    public static Field theWorld;
+    public static Field world;
     @WrapField(mcpName = "thePlayer", targetMap = MapEnum.VANILLA189)
-    public static Field thePlayer;
+    public static Field player;
     @WrapField(mcpName = "currentScreen", targetMap = MapEnum.VANILLA189)
     public static Field currentScreen;
     @WrapField(mcpName = "ingameGUI", targetMap = MapEnum.VANILLA189)
@@ -39,6 +43,8 @@ public class Minecraft extends IWrapper {
     public static Field serverPort;
     @WrapField(mcpName = "gameSettings", targetMap = MapEnum.VANILLA189)
     public static Field gameSettings;
+    @WrapField(mcpName = "objectMouseOver", targetMap = MapEnum.VANILLA189)
+    public static Field objectMouseOver;
     @WrapField(mcpName = "playerController", targetMap = MapEnum.VANILLA189)
     public static Field playerController;
     @WrapField(mcpName = "leftClickCounter", targetMap = MapEnum.VANILLA189)
@@ -67,8 +73,6 @@ public class Minecraft extends IWrapper {
     public static Method getNetHandler;
     @WrapField(mcpName = "currentServerData", targetMap = MapEnum.VANILLA189)
     public static Field currentServerData;
-    @WrapField(mcpName = "objectMouseOver", targetMap = MapEnum.VANILLA189)
-    public static Field objectMouseOver;
     @WrapField(mcpName = "fontRendererObj", targetMap = MapEnum.VANILLA189)
     public static Field fontRendererObj;
     @WrapField(mcpName = "pointedEntity", targetMap = MapEnum.VANILLA189)
@@ -105,14 +109,23 @@ public class Minecraft extends IWrapper {
     }
 
     public EntityPlayerSP getPlayer() {
-        return new EntityPlayerSP(getField(thePlayer));
+        return new EntityPlayerSP(getField(player));
     }
 
-    public void addScheduledTask(Object o) {
+    public WorldClient getWorld() {
+        return new WorldClient(getField(world));
+    }
+
+    public <V> ListenableFuture<V> addScheduledTask(Callable<V> p_addScheduledTask_1_) {
+        return (ListenableFuture<V>) invoke(addScheduledTask, p_addScheduledTask_1_);
     }
 
     public GameSettings getGameSettings() {
         return new GameSettings(getField(gameSettings));
+    }
+
+    public MovingObjectPosition getObjectMouseOver() {
+        return new MovingObjectPosition(getField(objectMouseOver));
     }
 
     public void displayGuiScreenBypass(GuiScreen screen) {
