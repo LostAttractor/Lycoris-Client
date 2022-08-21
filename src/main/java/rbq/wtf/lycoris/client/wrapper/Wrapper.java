@@ -1,6 +1,5 @@
 package rbq.wtf.lycoris.client.wrapper;
 
-import net.minecraft.util.Vec3;
 import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.utils.FileUtils;
@@ -25,6 +24,8 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.init.Blocks;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.multiplayer.PlayerControllerMP;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.multiplayer.WorldClient;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.network.NetworkManager;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.network.Packet;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.potion.Potion;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.AbstractTexture;
@@ -92,6 +93,9 @@ public class Wrapper {
         classes.add(WorldClient.class);
         //world
         classes.add(World.class);
+        //network
+        classes.add(Packet.class);
+        classes.add(NetworkManager.class);
         //block
         classes.add(Block.class);
         //block.state

@@ -16,7 +16,7 @@ public class KeyBindManager implements Listenable {
     @EventTarget
     public void EventKeyPress(KeyEvent e) {
         for (Module module : Client.moduleManager.getModules()) {
-            Logger.debug("Key Pressed: " + e.getKey(), "Key");
+            //Logger.debug("Key Pressed: " + e.getKey(), "Key");
             if (module.getKey() == e.getKey()) {
                 module.toggle();
             }

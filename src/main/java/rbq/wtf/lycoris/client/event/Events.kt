@@ -1,6 +1,6 @@
 package rbq.wtf.lycoris.client.event
 
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.network.Packet
 
 /**
  * Called in "runGameLoop"
@@ -67,6 +67,11 @@ class Render3DEvent(val partialTicks: Float) : Event()
 class KeyEvent(val key: Int) : Event()
 
 /**
- * Called when receive or send a packet
+ * Called when send a packet
  */
-//class PacketEvent(val packet: Packet<*>) : CancellableEvent()
+class PacketSendEvent(val packet: Packet) : CancellableEvent()
+
+/**
+ * Called when receive a packet
+ */
+class PacketReceiveEvent(val packet: Packet) : CancellableEvent()

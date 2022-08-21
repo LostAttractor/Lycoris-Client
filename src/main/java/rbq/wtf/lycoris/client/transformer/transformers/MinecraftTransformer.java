@@ -29,6 +29,7 @@ public class MinecraftTransformer extends ClassTransformer {
         for (MethodNode method : classNode.methods) {
             if (method.name.equalsIgnoreCase(Minecraft.runTick.getName())) {
                 InsnList insnList = new InsnList();
+                // {this} | {}
                 insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client.class), "eventManager", "L" + Type.getInternalName(EventManager.class) + ";"));
                 //获取Client.eventManager
                 // {this} | {eventManager}
@@ -48,6 +49,7 @@ public class MinecraftTransformer extends ClassTransformer {
             }
             if (method.name.equalsIgnoreCase(Minecraft.runGameLoop.getName())) {
                 InsnList insnList = new InsnList();
+                // {this} | {}
                 insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client.class), "eventManager", "L" + Type.getInternalName(EventManager.class) + ";"));
                 //获取Client.eventManager
                 // {this} | {eventManager}

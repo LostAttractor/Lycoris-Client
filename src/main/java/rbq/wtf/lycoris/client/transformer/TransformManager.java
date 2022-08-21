@@ -24,6 +24,7 @@ public class TransformManager {
         transformers.add(new KeyBindingTransformer());
         transformers.add(new EntityPlayerSPTransformer());
         transformers.add(new EntityRendererTransformer());
+        transformers.add(new NetworkManagerTransformer());
         doTransform();
         Logger.info("Transforms Initialized Successful", "Transformer");
     }

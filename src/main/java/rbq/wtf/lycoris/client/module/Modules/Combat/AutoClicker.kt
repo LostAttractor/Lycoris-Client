@@ -1,8 +1,6 @@
 package rbq.wtf.lycoris.client.module.Modules.Combat
 
-import rbq.wtf.lycoris.client.event.EventTarget
-import rbq.wtf.lycoris.client.event.Render3DEvent
-import rbq.wtf.lycoris.client.event.UpdateEvent
+import rbq.wtf.lycoris.client.event.*
 import rbq.wtf.lycoris.client.module.Module
 import rbq.wtf.lycoris.client.module.ModuleCategory
 import rbq.wtf.lycoris.client.utils.Logger

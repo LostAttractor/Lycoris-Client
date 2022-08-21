@@ -1,13 +1,11 @@
 package rbq.wtf.lycoris.client.transformer.transformers;
 
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
+import org.objectweb.asm.*;
 import org.objectweb.asm.tree.*;
 import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.event.*;
 import rbq.wtf.lycoris.client.transformer.ClassTransformer;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.Entity;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayerSP;
 
 public class EntityPlayerSPTransformer extends ClassTransformer {
@@ -78,50 +76,46 @@ public class EntityPlayerSPTransformer extends ClassTransformer {
     }
 
     /* 用于在EntityPlayerSP中加入moveEntity方法的asm transform
-    @Override
-    public byte[] transform(byte[] bytes) {
-        ClassReader cr = new ClassReader(bytes);
-        ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS + ClassWriter.COMPUTE_FRAMES);
-        cr.accept(cw, 0);
-        MethodVisitor methodVisitor = cw.visitMethod(Opcodes.ACC_PUBLIC, "moveEntity", "(DDD)V", null, null);
-        methodVisitor.visitCode();
-        Label label0 = new Label();
-        methodVisitor.visitLabel(label0);
-        methodVisitor.visitTypeInsn(Opcodes.NEW, Type.getInternalName(EventMove.class));
-        methodVisitor.visitInsn(Opcodes.DUP);
-        insnList.add(new VarInsnNode(Opcodes.DLOAD, 1);
-        insnList.add(new VarInsnNode(Opcodes.DLOAD, 3);
-        insnList.add(new VarInsnNode(Opcodes.DLOAD, 5);
-        insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(EventMove.class), "<init>", "(DDD)V", false);
-        insnList.add(new VarInsnNode(Opcodes.ASTORE, 7);
-        Label label1 = new Label();
-        methodVisitor.visitLabel(label1);
-        insnList.add(new VarInsnNode(Opcodes.ALOAD, 7);
-        insnList.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(EventManager.class), "call", "(L" + Type.getInternalName(Event.class) + ";)L" + Type.getInternalName(Event.class) + ";", false);
-        methodVisitor.visitInsn(Opcodes.POP);
-        Label label2 = new Label();
-        methodVisitor.visitLabel(label2);
-        insnList.add(new VarInsnNode(Opcodes.ALOAD, 0);
-        insnList.add(new VarInsnNode(Opcodes.ALOAD, 7);
-        insnList.add(new FieldInsnNode(Opcodes.GETFIELD, Type.getInternalName(EventMove.class), "x", "D");
-        insnList.add(new VarInsnNode(Opcodes.ALOAD, 7);
-        insnList.add(new FieldInsnNode(Opcodes.GETFIELD, Type.getInternalName(EventMove.class), "y", "D");
-        insnList.add(new VarInsnNode(Opcodes.ALOAD, 7);
-        insnList.add(new FieldInsnNode(Opcodes.GETFIELD, Type.getInternalName(EventMove.class), "z", "D");
-        insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(Entity.EntityClass), "moveEntity", "(DDD)V", false);
-        Label label3 = new Label();
-        methodVisitor.visitLabel(label3);
-        methodVisitor.visitInsn(Opcodes.RETURN);
-        Label label4 = new Label();
-        methodVisitor.visitLabel(label4);
-        methodVisitor.visitLocalVariable("this", "L" + Type.getInternalName(EntityPlayerSP.class) + ";", null, label0, label4, 0);
-        methodVisitor.visitLocalVariable("x", "D", null, label0, label4, 1);
-        methodVisitor.visitLocalVariable("y", "D", null, label0, label4, 3);
-        methodVisitor.visitLocalVariable("z", "D", null, label0, label4, 5);
-        methodVisitor.visitLocalVariable("event", "L" + Type.getInternalName(EventMove.class) + ";", null, label1, label4, 7);
-        methodVisitor.visitMaxs(8, 8);
-        methodVisitor.visitEnd();
-        return cw.toByteArray();
-    }
+    MethodVisitor methodVisitor = cw.visitMethod(Opcodes.ACC_PUBLIC, "moveEntity", "(DDD)V", null, null);
+    methodVisitor.visitCode();
+    methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
+    methodVisitor.visitLdcInsn("MoveEntity_SP");
+    methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
+    Label label0 = new Label();
+    methodVisitor.visitLabel(label0);
+    methodVisitor.visitTypeInsn(Opcodes.NEW, Type.getInternalName(MoveEvent.class));
+    methodVisitor.visitInsn(Opcodes.DUP);
+    methodVisitor.visitVarInsn(Opcodes.DLOAD, 1);
+    methodVisitor.visitVarInsn(Opcodes.DLOAD, 3);
+    methodVisitor.visitVarInsn(Opcodes.DLOAD, 5);
+    methodVisitor.visitMethodInsn(Opcodes.INVOKESPECIAL, Type.getInternalName(MoveEvent.class), "<init>", "(DDD)V", false);
+    methodVisitor.visitVarInsn(Opcodes.ASTORE, 7);
+    Label label1 = new Label();
+    methodVisitor.visitLabel(label1);
+    methodVisitor.visitVarInsn(Opcodes.ALOAD, 7);
+    methodVisitor.visitMethodInsn(Opcodes.INVOKESTATIC, Type.getInternalName(EventManager.class), "call", "(L" + Type.getInternalName(Event.class) + ";)L" + Type.getInternalName(Event.class) + ";", false);
+    methodVisitor.visitInsn(Opcodes.POP);
+    Label label2 = new Label();
+    methodVisitor.visitLabel(label2);
+    methodVisitor.visitVarInsn(Opcodes.ALOAD, 0);
+    methodVisitor.visitVarInsn(Opcodes.ALOAD, 7);
+    methodVisitor.visitFieldInsn(Opcodes.GETFIELD, Type.getInternalName(MoveEvent.class), "x", "D");
+    methodVisitor.visitVarInsn(Opcodes.ALOAD, 7);
+    methodVisitor.visitFieldInsn(Opcodes.GETFIELD, Type.getInternalName(MoveEvent.class), "y", "D");
+    methodVisitor.visitVarInsn(Opcodes.ALOAD, 7);
+    methodVisitor.visitFieldInsn(Opcodes.GETFIELD, Type.getInternalName(MoveEvent.class), "z", "D");
+    methodVisitor.visitMethodInsn(Opcodes.INVOKESPECIAL, Type.getInternalName(Entity.EntityClass), "moveEntity", "(DDD)V", false);
+    Label label3 = new Label();
+    methodVisitor.visitLabel(label3);
+    methodVisitor.visitInsn(Opcodes.RETURN);
+    Label label4 = new Label();
+    methodVisitor.visitLabel(label4);
+    methodVisitor.visitLocalVariable("this", "L" + Type.getInternalName(EntityPlayerSP.class) + ";", null, label0, label4, 0);
+    methodVisitor.visitLocalVariable("x", "D", null, label0, label4, 1);
+    methodVisitor.visitLocalVariable("y", "D", null, label0, label4, 3);
+    methodVisitor.visitLocalVariable("z", "D", null, label0, label4, 5);
+    methodVisitor.visitLocalVariable("event", "L" + Type.getInternalName(MoveEvent.class) + ";", null, label1, label4, 7);
+    methodVisitor.visitMaxs(8, 8);
+    methodVisitor.visitEnd();
      */
 }
