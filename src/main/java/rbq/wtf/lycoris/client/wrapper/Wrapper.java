@@ -23,6 +23,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayer;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayerSP;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.init.Blocks;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.multiplayer.PlayerControllerMP;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.multiplayer.WorldClient;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.potion.Potion;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.*;
@@ -87,6 +88,7 @@ public class Wrapper {
         classes.add(EntityPlayer.class);
         classes.add(EntityPlayerSP.class);
         //multiplayer
+        classes.add(PlayerControllerMP.class);
         classes.add(WorldClient.class);
         //world
         classes.add(World.class);
@@ -110,6 +112,7 @@ public class Wrapper {
         classes.add(Tessellator.class);
         classes.add(VertexFormat.class);
         classes.add(WorldRenderer.class);
+        classes.add(EntityRenderer.class);
         classes.add(FontLoaders.class);
         //render.texture
         classes.add(AbstractTexture.class);

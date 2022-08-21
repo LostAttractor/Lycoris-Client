@@ -1,8 +1,8 @@
 package rbq.wtf.lycoris.client.module.Modules.Render;
 
-
-import rbq.wtf.lycoris.client.event.api.EventTarget;
-import rbq.wtf.lycoris.client.event.events.EventRender2D;
+import rbq.wtf.lycoris.client.Client;
+import rbq.wtf.lycoris.client.event.EventTarget;
+import rbq.wtf.lycoris.client.event.Render2DEvent;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.module.Module;
 import rbq.wtf.lycoris.client.module.ModuleCategory;
@@ -31,7 +31,7 @@ public class HUD extends Module {
     }
 
     @EventTarget
-    public void onRender2D(EventRender2D e) {
+    public void onRender2D(Render2DEvent e) {
         ScaledResolution sc = new ScaledResolution(Minecraft.getMinecraft());
         if (waterMark.get()) {
             FontLoaders.default25.drawStringWithShadow("Dimples.love",
@@ -41,7 +41,7 @@ public class HUD extends Module {
         }
         if (arrayList.get()) {
             ArrayList<Module> sorted = new ArrayList<>();
-            for (Module m : client.moduleManager.getModules()) {
+            for (Module m : Client.moduleManager.getModules()) {
                 if (!m.isState()) continue;
                 sorted.add(m);
             }

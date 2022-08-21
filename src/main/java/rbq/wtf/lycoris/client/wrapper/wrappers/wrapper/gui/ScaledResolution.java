@@ -13,7 +13,7 @@ import java.lang.reflect.Field;
 @WrapperClass(mcpName = "net.minecraft.client.gui.ScaledResolution", targetMap = MapEnum.VANILLA189)
 public class ScaledResolution extends IWrapper {
     @WrapClass(mcpName = "net.minecraft.client.gui.ScaledResolution", targetMap = MapEnum.VANILLA189)
-    public static Class ScaledResolution;
+    public static Class<?> ScaledResolution;
     @WrapField(mcpName = "scaledWidthD", targetMap = MapEnum.VANILLA189)
     public static Field scaledWidthD;
     @WrapField(mcpName = "scaledHeightD", targetMap = MapEnum.VANILLA189)

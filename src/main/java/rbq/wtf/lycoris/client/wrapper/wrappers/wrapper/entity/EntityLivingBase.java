@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 @WrapperClass(mcpName = "net.minecraft.entity.EntityLivingBase", targetMap = MapEnum.VANILLA189)
-public class EntityLivingBase extends IWrapper {
+public class EntityLivingBase extends Entity {
 
     @WrapClass(mcpName = "net.minecraft.entity.EntityLivingBase", targetMap = MapEnum.VANILLA189)
     public static Class<?> EntityLivingBaseClass;
@@ -26,14 +26,6 @@ public class EntityLivingBase extends IWrapper {
     public EntityLivingBase(Object obj) {
         super(obj);
     }
-
-    public Entity getEntityInstance() {
-        return new Entity(getWrapObject());
-    }
-
-    //public boolean isMoving() {
-    //    return ((float) getField(moveForward)) != 0.0f || ((float) getField(moveStrafing)) != 0.0f;
-    //}
 
     public float getMoveForward() {
         return (float) getField(moveForward);

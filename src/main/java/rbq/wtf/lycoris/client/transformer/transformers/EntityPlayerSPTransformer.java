@@ -1,13 +1,12 @@
 package rbq.wtf.lycoris.client.transformer.transformers;
 
-import rbq.wtf.lycoris.agent.asm.ClassReader;
-import rbq.wtf.lycoris.agent.asm.ClassWriter;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
-import rbq.wtf.lycoris.agent.asm.Type;
-import rbq.wtf.lycoris.agent.asm.tree.*;
-import rbq.wtf.lycoris.client.event.api.EventManager;
-import rbq.wtf.lycoris.client.event.api.events.Event;
-import rbq.wtf.lycoris.client.event.events.EventMotionUpdate;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Type;
+import org.objectweb.asm.tree.*;
+import rbq.wtf.lycoris.client.Client;
+import rbq.wtf.lycoris.client.event.*;
 import rbq.wtf.lycoris.client.transformer.ClassTransformer;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayerSP;
 
@@ -24,47 +23,53 @@ public class EntityPlayerSPTransformer extends ClassTransformer {
         cr.accept(classNode, 0);
         for (MethodNode method : classNode.methods) {
             if (method.name.equals(EntityPlayerSP.onUpdateWalkingPlayer.getName())) {
-                InsnList insnListPre = new InsnList();
-                insnListPre.add(new TypeInsnNode(Opcodes.NEW, Type.getInternalName(EventMotionUpdate.class)));
-                insnListPre.add(new InsnNode(Opcodes.DUP));
-                insnListPre.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                insnListPre.add(new FieldInsnNode(Opcodes.GETFIELD, Type.getInternalName(EntityPlayerSP.EntityPlayerSPClass), "posX", "D"));
-                insnListPre.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                insnListPre.add(new FieldInsnNode(Opcodes.GETFIELD, Type.getInternalName(EntityPlayerSP.EntityPlayerSPClass), "posY", "D"));
-                insnListPre.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                insnListPre.add(new FieldInsnNode(Opcodes.GETFIELD, Type.getInternalName(EntityPlayerSP.EntityPlayerSPClass), "posZ", "D"));
-                insnListPre.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                insnListPre.add(new FieldInsnNode(Opcodes.GETFIELD, Type.getInternalName(EntityPlayerSP.EntityPlayerSPClass), "rotationYaw", "F"));
-                insnListPre.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                insnListPre.add(new FieldInsnNode(Opcodes.GETFIELD, Type.getInternalName(EntityPlayerSP.EntityPlayerSPClass), "rotationPitch", "F"));
-                insnListPre.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                insnListPre.add(new FieldInsnNode(Opcodes.GETFIELD, Type.getInternalName(EntityPlayerSP.EntityPlayerSPClass), "onGround", "Z"));
-                insnListPre.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(EventMotionUpdate.class) + "$Type", "PRE", "L" + Type.getInternalName(EventMotionUpdate.class) + "$Type;"));
-                insnListPre.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(EventMotionUpdate.class), "<init>", "(DDDFFZL" + Type.getInternalName(EventMotionUpdate.class) + "$Type;)V", false));
-                insnListPre.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(EventManager.class), "call", "(L" + Type.getInternalName(Event.class) + ";)L" + Type.getInternalName(Event.class) + ";", false));
-                insnListPre.add(new InsnNode(Opcodes.POP));
-                method.instructions.insert(insnListPre);
-
-                InsnList insnListPost = new InsnList();
-                insnListPost.add(new TypeInsnNode(Opcodes.NEW, Type.getInternalName(EventMotionUpdate.class)));
-                insnListPost.add(new InsnNode(Opcodes.DUP));
-                insnListPost.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                insnListPost.add(new FieldInsnNode(Opcodes.GETFIELD, Type.getInternalName(EntityPlayerSP.EntityPlayerSPClass), "posX", "D"));
-                insnListPost.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                insnListPost.add(new FieldInsnNode(Opcodes.GETFIELD, Type.getInternalName(EntityPlayerSP.EntityPlayerSPClass), "posY", "D"));
-                insnListPost.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                insnListPost.add(new FieldInsnNode(Opcodes.GETFIELD, Type.getInternalName(EntityPlayerSP.EntityPlayerSPClass), "posZ", "D"));
-                insnListPost.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                insnListPost.add(new FieldInsnNode(Opcodes.GETFIELD, Type.getInternalName(EntityPlayerSP.EntityPlayerSPClass), "rotationYaw", "F"));
-                insnListPost.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                insnListPost.add(new FieldInsnNode(Opcodes.GETFIELD, Type.getInternalName(EntityPlayerSP.EntityPlayerSPClass), "rotationPitch", "F"));
-                insnListPost.add(new VarInsnNode(Opcodes.ALOAD, 0));
-                insnListPost.add(new FieldInsnNode(Opcodes.GETFIELD, Type.getInternalName(EntityPlayerSP.EntityPlayerSPClass), "onGround", "Z"));
-                insnListPost.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(EventMotionUpdate.class) + "$Type", "POST", "L" + Type.getInternalName(EventMotionUpdate.class) + "$Type;"));
-                insnListPost.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(EventMotionUpdate.class), "<init>", "(DDDFFZL" + Type.getInternalName(EventMotionUpdate.class) + "$Type;)V", false));
-                insnListPost.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(EventManager.class), "call", "(L" + Type.getInternalName(Event.class) + ";)L" + Type.getInternalName(Event.class) + ";", false));
-                insnListPost.add(new InsnNode(Opcodes.POP));
-                method.instructions.add(insnListPost);
+                InsnList insnList = new InsnList();
+                // {this} | {}
+                insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client.class), "eventManager", "L" + Type.getInternalName(EventManager.class) + ";"));
+                // {this} | {eventManager}
+                insnList.add(new TypeInsnNode(Opcodes.NEW, Type.getInternalName(MotionEvent.class)));
+                // {this} | {eventManager, uninitialized_MotionEvent}
+                insnList.add(new InsnNode(Opcodes.DUP));
+                // {this} | {eventManager, uninitialized_MotionEvent, uninitialized_MotionEvent}
+                insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(EventState.class), "PRE", "L" + Type.getInternalName(EventState.class) + ";"));
+                // {this} | {eventManager, uninitialized_MotionEvent, uninitialized_MotionEvent, EventState.PRE}
+                insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(MotionEvent.class), "<init>", "(L" + Type.getInternalName(EventState.class) + ";)V", false));
+                // {this} | {eventManager, MotionEvent}
+                insnList.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager.class), "callEvent", "(L" + Type.getInternalName(Event.class) + ";)V", false));
+                // {this} | {}
+                method.instructions.insert(insnList);
+            }
+            if (method.name.equals(EntityPlayerSP.onUpdateWalkingPlayer.getName())) {
+                InsnList insnList = new InsnList();
+                // {this} | {}
+                insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client.class), "eventManager", "L" + Type.getInternalName(EventManager.class) + ";"));
+                // {this} | {eventManager}
+                insnList.add(new TypeInsnNode(Opcodes.NEW, Type.getInternalName(MotionEvent.class)));
+                // {this} | {eventManager, uninitialized_MotionEvent}
+                insnList.add(new InsnNode(Opcodes.DUP));
+                // {this} | {eventManager, uninitialized_MotionEvent, uninitialized_MotionEvent}
+                insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(EventState.class), "POST", "L" + Type.getInternalName(EventState.class) + ";"));
+                // {this} | {eventManager, uninitialized_MotionEvent, uninitialized_MotionEvent, EventState.PRE}
+                insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(MotionEvent.class), "<init>", "(L" + Type.getInternalName(EventState.class) + ";)V", false));
+                // {this} | {eventManager, MotionEvent}
+                insnList.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager.class), "callEvent", "(L" + Type.getInternalName(Event.class) + ";)V", false));
+                // {this} | {}
+                method.instructions.add(insnList);
+            }
+            if (method.name.equalsIgnoreCase(EntityPlayerSP.onLivingUpdate.getName())) {
+                InsnList insnList = new InsnList();
+                // {this} | {}
+                insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client.class), "eventManager", "L" + Type.getInternalName(EventManager.class) + ";"));
+                // {this} | {eventManager}
+                insnList.add(new TypeInsnNode(Opcodes.NEW, Type.getInternalName(UpdateEvent.class)));
+                // {this} | {eventManager, uninitialized_UpdateEvent}
+                insnList.add(new InsnNode(Opcodes.DUP));
+                // {this} | {eventManager, uninitialized_UpdateEvent, uninitialized_UpdateEvent}
+                insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(UpdateEvent.class), "<init>", "()V", false));
+                // {this} | {eventManager, UpdateEvent}
+                insnList.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager.class), "callEvent", "(L" + Type.getInternalName(Event.class) + ";)V", false));
+                // {this} | {}
+                method.instructions.insert(insnList);
             }
         }
         ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS + ClassWriter.COMPUTE_FRAMES);

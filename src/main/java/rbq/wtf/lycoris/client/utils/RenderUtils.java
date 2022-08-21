@@ -26,8 +26,7 @@ import java.util.function.Consumer;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class RenderUtils {
-    private static final Minecraft mc = Client.instance.mc;
+public class RenderUtils extends MinecraftInstance{
     private static final List<Integer> csBuffer;
     private static final Consumer<Integer> ENABLE_CLIENT_STATE;
     private static final Consumer<Integer> DISABLE_CLIENT_STATE;

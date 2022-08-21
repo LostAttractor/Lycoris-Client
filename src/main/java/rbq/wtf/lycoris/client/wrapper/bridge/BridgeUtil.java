@@ -1,6 +1,6 @@
 package rbq.wtf.lycoris.client.wrapper.bridge;
 
-import rbq.wtf.lycoris.agent.asm.*;
+import org.objectweb.asm.*;
 import rbq.wtf.lycoris.client.detector.MargeleAntiCheatDetector;
 import rbq.wtf.lycoris.client.wrapper.wrappers.impl.GuiScreenImpl;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.GuiChat;

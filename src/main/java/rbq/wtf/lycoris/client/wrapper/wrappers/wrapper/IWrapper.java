@@ -20,7 +20,7 @@ public class IWrapper {
             return targetField.get(getWrapObject());
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            throw new NullPointerException("Can't get Field: " + e.getMessage());
         }
     }
 
@@ -43,15 +43,15 @@ public class IWrapper {
             return targetMethod.invoke(getWrapObject(), args);
         } catch (Exception e) {
             e.printStackTrace();
+            throw new NullPointerException("Can't get Invoke Method: " + e.getMessage());
         }
-        throw new NullPointerException("Can't invoke " + getWrapObject().getClass().getName() + " to " + targetMethod.getName());
     }
 
-    protected boolean isNull() {
+    public boolean isNull() {
         return Objects.isNull(object);
     }
 
-    protected boolean equals(IWrapper wrapper) {
+    public boolean equals(IWrapper wrapper) {
         return Objects.equals(object, wrapper.object);
     }
 }

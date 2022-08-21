@@ -48,6 +48,16 @@ public class ClickGUI extends GuiScreenImpl {
     }
 
     @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+        onMoving = false;
+        moveOffsetX = 0F;
+        moveOffsetY = 0F;
+        moduleWheel = 0.0F;
+        valueWheel = 0.0F;
+    }
+
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         if (onMoving) {
             startX = mouseX - this.moveOffsetX;
@@ -139,8 +149,6 @@ public class ClickGUI extends GuiScreenImpl {
                 valueWheel = valueWheel + 7;
             }
         }
-
-
     }
 
     @Override

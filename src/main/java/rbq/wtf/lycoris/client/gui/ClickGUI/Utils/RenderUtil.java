@@ -3,6 +3,7 @@ package rbq.wtf.lycoris.client.gui.ClickGUI.Utils;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 import rbq.wtf.lycoris.client.Client;
+import rbq.wtf.lycoris.client.utils.MinecraftInstance;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.Gui;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution;
@@ -16,8 +17,7 @@ import java.awt.*;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class RenderUtil {
-    private static final Minecraft mc = Client.instance.mc;
+public class RenderUtil extends MinecraftInstance {
 
     public static void drawGradientRect(float x, float y, float x1, float y1, int topColor, int bottomColor) {
         R2DUtils.drawGradientRect(x, y, x1, y1, topColor, bottomColor);

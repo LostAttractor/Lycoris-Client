@@ -1,4 +1,4 @@
-package test;
+package tests;
 
 public class EntityPlayerSPTest1 extends Entity {
     @Override

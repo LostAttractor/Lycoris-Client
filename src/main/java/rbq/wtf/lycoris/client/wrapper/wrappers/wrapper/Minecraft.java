@@ -1,7 +1,6 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.wrapper;
 
 import com.google.common.util.concurrent.ListenableFuture;
-import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.wrapper.MapEnum;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapClass;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapField;
@@ -11,6 +10,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.utils.ReflectUtil;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayerSP;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.GuiScreen;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.multiplayer.PlayerControllerMP;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.multiplayer.WorldClient;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.MovingObjectPosition;
 
@@ -94,7 +94,7 @@ public class Minecraft extends IWrapper {
     }
 
     public static int getDebugFPS() {
-        return (int) Client.instance.mc.getField(debugFPS);
+        return (int) ReflectUtil.getFieldStatic(debugFPS);
     }
 
     public static Minecraft getMinecraft() {
@@ -115,6 +115,10 @@ public class Minecraft extends IWrapper {
 
     public WorldClient getWorld() {
         return new WorldClient(getField(world));
+    }
+
+    public PlayerControllerMP getPlayerController() {
+        return new PlayerControllerMP(getField(playerController));
     }
 
     public <V> ListenableFuture<V> addScheduledTask(Callable<V> p_addScheduledTask_1_) {

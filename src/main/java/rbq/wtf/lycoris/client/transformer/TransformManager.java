@@ -2,10 +2,7 @@ package rbq.wtf.lycoris.client.transformer;
 
 import rbq.wtf.lycoris.agent.LycorisAgent;
 import rbq.wtf.lycoris.agent.instrument.impl.InstrumentationImpl;
-import rbq.wtf.lycoris.client.transformer.transformers.EntityPlayerSPTransformer;
-import rbq.wtf.lycoris.client.transformer.transformers.GuiIngameTransformer;
-import rbq.wtf.lycoris.client.transformer.transformers.KeyBindingTransformer;
-import rbq.wtf.lycoris.client.transformer.transformers.MinecraftTransformer;
+import rbq.wtf.lycoris.client.transformer.transformers.*;
 import rbq.wtf.lycoris.client.utils.Logger;
 
 import java.io.BufferedOutputStream;
@@ -22,10 +19,11 @@ public class TransformManager {
 
     public static void init() {
         Logger.info("Start Initialize Transforms", "Transformer");
+        transformers.add(new MinecraftTransformer());
         transformers.add(new GuiIngameTransformer());
         transformers.add(new KeyBindingTransformer());
-        transformers.add(new MinecraftTransformer());
         transformers.add(new EntityPlayerSPTransformer());
+        transformers.add(new EntityRendererTransformer());
         doTransform();
         Logger.info("Transforms Initialized Successful", "Transformer");
     }

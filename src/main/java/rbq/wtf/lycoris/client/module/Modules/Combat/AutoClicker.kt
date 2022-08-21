@@ -1,31 +1,36 @@
 package rbq.wtf.lycoris.client.module.Modules.Combat
 
-import net.minecraft.init.Blocks
+import rbq.wtf.lycoris.client.event.EventTarget
+import rbq.wtf.lycoris.client.event.Render3DEvent
+import rbq.wtf.lycoris.client.event.UpdateEvent
 import rbq.wtf.lycoris.client.module.Module
 import rbq.wtf.lycoris.client.module.ModuleCategory
+import rbq.wtf.lycoris.client.utils.Logger
+import rbq.wtf.lycoris.client.utils.RandomUtils
 import rbq.wtf.lycoris.client.utils.TimeUtils
 import rbq.wtf.lycoris.client.value.BooleanValue
 import rbq.wtf.lycoris.client.value.NumberValue
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.KeyBinding
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.init.Blocks
+import kotlin.random.Random
 
 class AutoClicker : Module("AutoClicker", ModuleCategory.Combat, 0) {
     val maxCPS : NumberValue = object : NumberValue("Max CPS", 8.0f, 1.0f, 20.0f, 0.5f, this) {
         override fun onChanged(oldValue: Float, newValue: Float) {
-            val minCPS = minCPS.get()
-            if (minCPS > newValue)
-                set(minCPS)
+            if (minCPS.get() > newValue)
+                minCPS.set(newValue)
         }
     }
 
     val minCPS : NumberValue = object : NumberValue("Min CPS", 8.0f, 1.0f, 20.0f, 0.5f, this) {
         override fun onChanged(oldValue: Float, newValue: Float) {
-            val maxCPS = maxCPS.get()
-            if (maxCPS < newValue)
-                set(maxCPS)
+            if (maxCPS.get() < newValue)
+                maxCPS.set(newValue)
         }
     }
-    val Left = BooleanValue("Left", true, this)
-    val Right = BooleanValue("Right", true, this)
-    val Jitter = BooleanValue("Jitter", false, this)
+    val left = BooleanValue("Left", true, this)
+    val right = BooleanValue("Right", true, this)
+    val jitter = BooleanValue("Jitter", false, this)
 
     private var rightDelay = TimeUtils.randomClickDelay(minCPS.get(), maxCPS.get())
     private var rightLastSwing = 0L
@@ -41,11 +46,63 @@ class AutoClicker : Module("AutoClicker", ModuleCategory.Combat, 0) {
     fun leftCanAutoClick(currentTime: Long): Boolean {
         return !isBreakingBlock
                 && !(currentTime - blockLastBroken < blockBrokenDelay &&
-                mc.objectMouseOver.blockPos != null &&
-                mc.world.worldInstance.getBlockState(mc.objectMouseOver.blockPos).block != Blocks.air)
+                mc.world.getBlockState(mc.objectMouseOver.blockPos).block.equals(Blocks.getAir()))
     }
 
     fun rightCanAutoClick(): Boolean {
-        return !mc.player.entityPlayerInstance.isUsingItem
+        return !mc.player.isUsingItem
+    }
+
+    // BUG: There is no delay between breaking blocks in creative mode
+    fun leftClick(currentTime: Long) {
+        if (left.get() && mc.gameSettings.keyBindAttack.isKeyDown) {
+            Logger.debug("DoLeftClick", "AutoClicker")
+            isBreakingBlock = mc.playerController.curBlockDamageMP != 0F
+            if (!isBreakingBlock && wasBreakingBlock) {
+                blockLastBroken = currentTime
+            }
+            wasBreakingBlock = isBreakingBlock
+            if (currentTime - leftLastSwing >= leftDelay && leftCanAutoClick(currentTime)) {
+                KeyBinding.onTick(mc.gameSettings.keyBindAttack.keyCode) // Minecraft Click Handling
+
+                leftLastSwing = currentTime
+                blockLastBroken = 0L
+                leftDelay = TimeUtils.randomClickDelay(minCPS.get(), maxCPS.get())
+            }
+        }
+    }
+
+    fun rightClick(currentTime: Long) {
+        if (right.get() && mc.gameSettings.keyBindUseItem.isKeyDown && currentTime - rightLastSwing >= rightDelay && rightCanAutoClick()) {
+            KeyBinding.onTick(mc.gameSettings.keyBindUseItem.keyCode) // Minecraft Click Handling
+
+            rightLastSwing = currentTime
+            rightDelay = TimeUtils.randomClickDelay(minCPS.get(), maxCPS.get())
+        }
+    }
+
+    @EventTarget
+    fun onRender(event: Render3DEvent) {
+        val currentTime = System.currentTimeMillis()
+        leftClick(currentTime)
+        rightClick(currentTime)
+    }
+
+    @EventTarget
+    fun onUpdate(event: UpdateEvent) {
+        if (jitter.get() && ((left.get() && mc.gameSettings.keyBindAttack.isKeyDown && leftCanAutoClick(System.currentTimeMillis()))
+                    || (right.get() && mc.gameSettings.keyBindUseItem.isKeyDown && rightCanAutoClick()))) {
+            if (Random.nextBoolean()) mc.player.rotationYaw += if (Random.nextBoolean()) -RandomUtils.nextFloat(0F, 1F) else RandomUtils.nextFloat(0F, 1F)
+
+            if (Random.nextBoolean()) {
+                mc.player.rotationPitch += if (Random.nextBoolean()) -RandomUtils.nextFloat(0F, 1F) else RandomUtils.nextFloat(0F, 1F)
+
+                // Make sure pitch is not going into unlegit values
+                if (mc.player.rotationPitch > 90)
+                    mc.player.rotationPitch = 90F
+                else if (mc.player.rotationPitch < -90)
+                    mc.player.rotationPitch = -90F
+            }
+        }
     }
 }

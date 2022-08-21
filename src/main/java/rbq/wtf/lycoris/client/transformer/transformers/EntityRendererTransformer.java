@@ -1,15 +1,17 @@
 package rbq.wtf.lycoris.client.transformer.transformers;
 
 
-import rbq.wtf.lycoris.agent.asm.ClassReader;
-import rbq.wtf.lycoris.agent.asm.ClassWriter;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
-import rbq.wtf.lycoris.agent.asm.Type;
-import rbq.wtf.lycoris.agent.asm.tree.*;
-import rbq.wtf.lycoris.client.event.events.EventRender3D;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Type;
+import org.objectweb.asm.tree.*;
+import rbq.wtf.lycoris.client.Client;
+import rbq.wtf.lycoris.client.event.Event;
+import rbq.wtf.lycoris.client.event.EventManager;
+import rbq.wtf.lycoris.client.event.Render3DEvent;
 import rbq.wtf.lycoris.client.transformer.ClassTransformer;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.EntityRenderer;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.GlStateManager;
 
 public class EntityRendererTransformer extends ClassTransformer {
     @Override
@@ -24,34 +26,21 @@ public class EntityRendererTransformer extends ClassTransformer {
         cr.accept(classNode, 0);
         for (MethodNode method : classNode.methods) {
             if (method.name.equals(EntityRenderer.renderWorldPass.getName()) && method.desc.equals("(IFJ)V")) {
-                System.out.println("transform renderWorldPass");
-                InsnList render3D = new InsnList();
                 InsnList insnList = new InsnList();
-                //GETSTATIC al/nya/reflect/Reflect.Instance : Lal/nya/reflect/Reflect;
-                //GETFIELD al/nya/reflect/Reflect.eventBus : Lal/nya/reflect/events/EventBus;
-                //NEW al/nya/reflect/events/events/EventRender3D
-                //DUP
-                //FLOAD 1
-                //INVOKESPECIAL al/nya/reflect/events/events/EventRender3D.<init> (F)V
-                //INVOKEVIRTUAL al/nya/reflect/events/EventBus.callEvent (Lal/nya/reflect/events/events/Event;)V
-                rbq.wtf.lycoris.agent.asm.tree.InsnList insns = new rbq.wtf.lycoris.agent.asm.tree.InsnList();
-                insns.add(new TypeInsnNode(Opcodes.NEW, Type.getInternalName(EventRender3D.class)));
-                insns.add(new VarInsnNode(Opcodes.FLOAD, 0));
-                insns.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(EventRender3D.class), "<init>", "(F)V", false));
-                method.instructions.insert(insns);
-                boolean transformed = false;
-                for (AbstractInsnNode instruction : method.instructions.toArray()) {
-                    insnList.add(instruction);
-                    if (instruction instanceof MethodInsnNode && (!transformed)) {
-                        if (((MethodInsnNode) instruction).owner.equals(Type.getInternalName(GlStateManager.GlStateManagerClass))
-                                && ((MethodInsnNode) instruction).name.equals(GlStateManager.alphaFunc.getName()) && ((MethodInsnNode) instruction).desc.equals("(IF)V")) {
-                            insnList.add(render3D);
-                            transformed = true;
-                        }
-                    }
-                }
-                method.instructions = insnList;
-                method.maxLocals++;
+                // {this, scaledResolution, partialTicks} | {}
+                insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client.class), "eventManager", "L" + Type.getInternalName(EventManager.class) + ";"));
+                // {this, scaledResolution, partialTicks} | {eventManager}
+                insnList.add(new TypeInsnNode(Opcodes.NEW, Type.getInternalName(Render3DEvent.class)));
+                // {this, scaledResolution, partialTicks} | {eventManager, uninitialized_Render3DEvent}
+                insnList.add(new InsnNode(Opcodes.DUP));
+                // {this, scaledResolution, partialTicks} | {eventManager, uninitialized_Render3DEvent, uninitialized_Render3DEvent}
+                insnList.add(new VarInsnNode(Opcodes.FLOAD, 2));
+                // {this, scaledResolution, partialTicks} | {eventManager, uninitialized_Render3DEvent, uninitialized_Render3DEvent, float_partialTicks}
+                insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(Render3DEvent.class), "<init>", "(F)V", false));
+                // {this, scaledResolution, partialTicks} | {eventManager, Render3DEvent}
+                insnList.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager.class), "callEvent", "(L" + Type.getInternalName(Event.class) + ";)V", false));
+                // {this, scaledResolution, partialTicks} | {}
+                method.instructions.insert(insnList);
             }
         }
         ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS + ClassWriter.COMPUTE_FRAMES);

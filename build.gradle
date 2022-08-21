@@ -44,13 +44,27 @@ configurations {
     implementationTest.extendsFrom(includeTest)
 }
 
+// remove dependencies
+//configurations.all {
+//    exclude group:'org.ow2.asm', module:'asm-debug-all'
+//}
+//configurations.compile {
+//    exclude group:'org.apache.commons', module: 'commons-lang3'
+//}
+
 dependencies {
-    include 'org.projectlombok:lombok:1.18.4'
-    annotationProcessor 'org.projectlombok:lombok:1.18.4'
-    includeTest 'org.projectlombok:lombok:1.18.4'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.4'
+    include 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    includeTest 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 
     include "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+//    include 'org.ow2.asm:asm:9.3'
+//    include 'org.ow2.asm:asm-commons:9.3'
+//    include 'org.ow2.asm:asm-util:9.3'
+//    include 'org.ow2.asm:asm-tree:9.3'
+//    include 'org.ow2.asm:asm-analysis:9.3'
 
     //include fileTree(include: ["*.jar"], dir: "libs")
 }

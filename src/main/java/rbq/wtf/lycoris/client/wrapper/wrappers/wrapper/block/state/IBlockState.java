@@ -5,6 +5,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapMethod;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapperClass;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.block.Block;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.init.Blocks;
 
 import java.lang.reflect.Method;
 

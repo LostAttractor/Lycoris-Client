@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
 @WrapperClass(mcpName = "net.minecraft.client.renderer.EntityRenderer", targetMap = MapEnum.VANILLA189)
 public class EntityRenderer extends IWrapper {
     @WrapClass(mcpName = "net.minecraft.client.renderer.EntityRenderer", targetMap = MapEnum.VANILLA189)
-    public static Class EntityRendererClass;
+    public static Class<?> EntityRendererClass;
     @WrapMethod(mcpName = "renderWorldPass", targetMap = MapEnum.VANILLA189)
     public static Method renderWorldPass;
     @WrapMethod(mcpName = "getMouseOver", targetMap = MapEnum.VANILLA189)

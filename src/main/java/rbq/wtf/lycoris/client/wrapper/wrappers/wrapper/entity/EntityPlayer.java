@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 @WrapperClass(mcpName = "net.minecraft.entity.player.EntityPlayer", targetMap = MapEnum.VANILLA189)
-public class EntityPlayer extends IWrapper {
+public class EntityPlayer extends EntityLivingBase {
     @WrapClass(mcpName = "net.minecraft.entity.player.EntityPlayer", targetMap = MapEnum.VANILLA189)
     public static Class<?> EntityPlayerClass;
     @WrapField(mcpName = "foodStats", targetMap = MapEnum.VANILLA189)
@@ -25,10 +25,6 @@ public class EntityPlayer extends IWrapper {
 
     public EntityPlayer(Object obj) {
         super(obj);
-    }
-
-    public EntityLivingBase getEntityLivingBaseInstance() {
-        return new EntityLivingBase(getWrapObject());
     }
 
     public PlayerCapabilities getCapabilities() {

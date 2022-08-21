@@ -10,7 +10,7 @@ public class Loader {
         new Thread(() -> {
             if (Client.developEnv)
                 JOptionPane.showConfirmDialog(null, "Wait");
-            new Client();
+            Client.INSTANCE.start();
         }).start();
     }
 }

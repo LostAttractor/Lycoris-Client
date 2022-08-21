@@ -2,18 +2,16 @@ package rbq.wtf.lycoris.client.module;
 
 
 import rbq.wtf.lycoris.client.Client;
-import rbq.wtf.lycoris.client.event.api.EventManager;
+import rbq.wtf.lycoris.client.event.Listenable;
+import rbq.wtf.lycoris.client.utils.MinecraftInstance;
 import rbq.wtf.lycoris.client.value.*;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Module {
+public class Module extends MinecraftInstance implements Listenable {
     public final ModuleCategory category;
     public final String name;
-    protected final Client client = Client.instance;
-    protected final Minecraft mc = client.mc;
     private final List<Value<?>> values = new ArrayList<>();
     public boolean state;
     public int key;
@@ -96,10 +94,10 @@ public class Module {
         this.state = state;
         if (state) {
             this.onEnable();
-            EventManager.register(this);
+            Client.eventManager.registerListener(this);
         } else {
             this.onDisable();
-            EventManager.unregister(this);
+            Client.eventManager.unregisterListener(this);
         }
     }
 
@@ -121,5 +119,10 @@ public class Module {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean handleEvents() {
+        return true;
     }
 }

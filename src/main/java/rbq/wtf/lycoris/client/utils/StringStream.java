@@ -1,7 +1,7 @@
 package rbq.wtf.lycoris.client.utils;
 
 public class StringStream {
-    private String buf;
+    private final String buf;
     private int count = 0;
 
     public StringStream(String s) {

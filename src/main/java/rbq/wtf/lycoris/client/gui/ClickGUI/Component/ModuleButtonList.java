@@ -29,7 +29,7 @@ public class ModuleButtonList extends Component {
     @Override
     public void render() {
         float moduleY = 0;
-        for (Module module : Client.instance.moduleManager.getModulesInType(category)) {
+        for (Module module : Client.moduleManager.getModulesInType(category)) {
             if (module.isState()) {
                 FontLoaders.default20.drawString(module.getName(),
                         x,
@@ -49,7 +49,7 @@ public class ModuleButtonList extends Component {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         float moduleY = 0;
-        for (Module module : Client.instance.moduleManager.getModulesInType(category)) {
+        for (Module module : Client.moduleManager.getModulesInType(category)) {
             if (this.isHovered(
                     x,
                     y + moduleY,

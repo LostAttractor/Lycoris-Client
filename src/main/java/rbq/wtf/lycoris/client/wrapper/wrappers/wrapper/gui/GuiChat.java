@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 @WrapperClass(mcpName = "net.minecraft.client.gui.GuiChat", targetMap = MapEnum.VANILLA189)
 public class GuiChat extends GuiScreen {
     @WrapClass(mcpName = "net.minecraft.client.gui.GuiChat", targetMap = MapEnum.VANILLA189)
-    public static Class GuiChatClass;
+    public static Class<?> GuiChatClass;
     @WrapField(mcpName = "inputField", targetMap = MapEnum.VANILLA189)
     public static Field inputField;
     @WrapField(mcpName = "sentHistoryCursor", targetMap = MapEnum.VANILLA189)

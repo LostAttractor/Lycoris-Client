@@ -3,6 +3,7 @@ package rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.init;
 import rbq.wtf.lycoris.client.wrapper.MapEnum;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapField;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapperClass;
+import rbq.wtf.lycoris.client.wrapper.wrappers.utils.ReflectUtil;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.block.Block;
 
@@ -17,7 +18,7 @@ public class Blocks extends IWrapper {
         super(obj);
     }
 
-    public Block getAir() {
-        return new Block(getField(air));
+    public static Block getAir() {
+        return new Block(ReflectUtil.getFieldStatic(air));
     }
 }

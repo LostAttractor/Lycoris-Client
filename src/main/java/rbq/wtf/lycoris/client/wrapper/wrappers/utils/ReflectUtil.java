@@ -16,7 +16,7 @@ public class ReflectUtil {
             return targetField.get(targetObject);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            throw new NullPointerException("Can't get Field: " + e.getMessage());
         }
     }
 
@@ -25,7 +25,7 @@ public class ReflectUtil {
             return targetField.get(null);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            throw new NullPointerException("Can't get Static Field: " + e.getMessage());
         }
     }
 
@@ -52,7 +52,7 @@ public class ReflectUtil {
             return targetMethod.invoke(targetObject, args);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            throw new NullPointerException("Can't get Invoke Method: " + e.getMessage());
         }
     }
 
@@ -65,7 +65,7 @@ public class ReflectUtil {
             return targetMethod.invoke(null, args);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            throw new NullPointerException("Can't get Invoke Static Method: " + e.getMessage());
         }
     }
 
@@ -81,7 +81,7 @@ public class ReflectUtil {
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
                  IllegalAccessException e) {
             e.printStackTrace();
-            return null;
+            throw new NullPointerException("Can't get Construction Class: " + e.getMessage());
         }
     }
 
@@ -90,7 +90,7 @@ public class ReflectUtil {
             return constructor.newInstance(args);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            throw new NullPointerException("Can't get Construction Class: " + e.getMessage());
         }
     }
 }

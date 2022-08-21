@@ -1,5 +1,6 @@
 package rbq.wtf.lycoris.client.module.Modules.Render;
 
+import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.detector.MargeleAntiCheatDetector;
 import rbq.wtf.lycoris.client.module.Module;
 import rbq.wtf.lycoris.client.module.ModuleCategory;
@@ -40,8 +41,7 @@ public class ClickGUI extends Module {
         }
         GuiScreen guiScreenWrapper = Minecraft.getMinecraft().getCurrentScreen();
         if (Objects.isNull(guiScreenWrapper.getWrapObject())) {
-            Minecraft.getMinecraft().displayGuiScreenBypass(BridgeUtil.createGuiScreen(client.clickGUI));
+            Minecraft.getMinecraft().displayGuiScreenBypass(BridgeUtil.createGuiScreen(Client.clickGUI));
         }
-        this.toggle();
     }
 }
