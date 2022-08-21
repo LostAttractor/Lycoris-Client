@@ -35,15 +35,15 @@ public class Vec3i extends IWrapper {
     }
 
     public int getX() {
-        return (int) ReflectUtil.getField(x, getWrapObject());
+        return (int) getField(x);
     }
 
     public int getY() {
-        return (int) ReflectUtil.getField(y, getWrapObject());
+        return (int) getField(y);
     }
 
     public int getZ() {
-        return (int) ReflectUtil.getField(z, getWrapObject());
+        return (int) getField(z);
     }
 
     public double distanceTo(double posX, double posY, double posZ) {

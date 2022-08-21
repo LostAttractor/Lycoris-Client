@@ -22,6 +22,6 @@ public class OpenGlHelper extends IWrapper {
     }
 
     public static void glBlendFunc(int i1, int i2, int i3, int i4) {
-        ReflectUtil.invoke(glBlendFunc, null, i1, i2, i3, i4);
+        ReflectUtil.invokeStatic(glBlendFunc, i1, i2, i3, i4);
     }
 }

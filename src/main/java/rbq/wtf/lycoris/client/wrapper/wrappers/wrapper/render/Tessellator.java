@@ -22,7 +22,7 @@ public class Tessellator extends IWrapper {
     }
 
     public static Tessellator getInstance() {
-        return new Tessellator(ReflectUtil.invoke(getInstance, null));
+        return new Tessellator(ReflectUtil.invokeStatic(getInstance));
     }
 
     public WorldRenderer getWorldRenderer() {

@@ -1,6 +1,7 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.wrapper;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.wrapper.MapEnum;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapClass;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapField;
@@ -93,11 +94,11 @@ public class Minecraft extends IWrapper {
     }
 
     public static int getDebugFPS() {
-        return (int) getMinecraft().getField(debugFPS);
+        return (int) Client.instance.mc.getField(debugFPS);
     }
 
     public static Minecraft getMinecraft() {
-        return new Minecraft(ReflectUtil.getField(theMinecraft, null));
+        return new Minecraft(ReflectUtil.getFieldStatic(theMinecraft));
     }
 
     public int getDisplayHeight() {

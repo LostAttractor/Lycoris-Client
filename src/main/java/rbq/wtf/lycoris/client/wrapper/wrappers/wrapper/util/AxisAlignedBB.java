@@ -29,9 +29,9 @@ public class AxisAlignedBB extends IWrapper {
     @WrapMethod(mcpName = "offset", targetMap = MapEnum.VANILLA189)
     public static Method offset_3d;
     @WrapConstructor(targetMap = MapEnum.VANILLA189, signature = {double.class, double.class, double.class, double.class, double.class, double.class})
-    public static Constructor AxisAlignedBB_Constructor_DDDDDD;
+    public static Constructor<?> AxisAlignedBB_Constructor_DDDDDD;
     @WrapConstructor(targetMap = MapEnum.VANILLA189, signature = {BlockPos.class, BlockPos.class})
-    public static Constructor AxisAlignedBB_Constructor_BlockPos;
+    public static Constructor<?> AxisAlignedBB_Constructor_BlockPos;
     @WrapMethod(mcpName = "expand", targetMap = MapEnum.VANILLA189)
     public static Method expand;
     @WrapMethod(mcpName = "addCoord", targetMap = MapEnum.VANILLA189)

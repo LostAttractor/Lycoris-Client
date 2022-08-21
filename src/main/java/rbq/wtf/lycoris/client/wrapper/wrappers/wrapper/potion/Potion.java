@@ -19,6 +19,6 @@ public class Potion extends IWrapper {
     }
 
     public static Potion getBlindness() {
-        return new Potion(ReflectUtil.getField(blindness, null));
+        return new Potion(ReflectUtil.getFieldStatic(blindness));
     }
 }

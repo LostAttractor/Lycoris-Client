@@ -15,37 +15,43 @@ public class IWrapper {
         return object;
     }
 
-    public Object getField(Field f) {
+    protected Object getField(Field targetField) {
         try {
-            return f.get(getWrapObject());
+            return targetField.get(getWrapObject());
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        throw new NullPointerException("Can't get Field " + f.getName() + " in " + getWrapObject().getClass().getName());
-    }
-
-    public void setField(Field f, Object v) {
-        try {
-            f.set(getWrapObject(), v);
-        } catch (Exception e) {
-            e.printStackTrace();
+            return null;
         }
     }
 
-    public Object invoke(Method m, Object... args) {
+    protected void setField(Field targetField, Object value) {
         try {
-            return m.invoke(getWrapObject(), args);
+            value = value instanceof IWrapper ?
+                    ((IWrapper) value).getWrapObject() : value;
+            targetField.set(getWrapObject(), value);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        throw new NullPointerException("Can't invoke " + getWrapObject().getClass().getName() + " to " + m.getName());
     }
 
-    public boolean isNull() {
+    protected Object invoke(Method targetMethod, Object... args) {
+        try {
+            for (int i = 0; i < args.length; i++) {
+                if (args[i] instanceof IWrapper)
+                    args[i] = ((IWrapper) args[i]).getWrapObject();
+            }
+            return targetMethod.invoke(getWrapObject(), args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        throw new NullPointerException("Can't invoke " + getWrapObject().getClass().getName() + " to " + targetMethod.getName());
+    }
+
+    protected boolean isNull() {
         return Objects.isNull(object);
     }
 
-    public boolean equals(IWrapper wrapper) {
+    protected boolean equals(IWrapper wrapper) {
         return Objects.equals(object, wrapper.object);
     }
 }

@@ -21,10 +21,10 @@ public class Gui extends IWrapper {
     }
 
     public static void drawModalRectWithCustomSizedTexture(int x, int y, float u, float v, int width, int height, float textureWidth, float textureHeight) {
-        ReflectUtil.invoke(drawModalRectWithCustomSizedTexture, null, x, y, u, v, width, height, textureWidth, textureHeight);
+        ReflectUtil.invokeStatic(drawModalRectWithCustomSizedTexture, x, y, u, v, width, height, textureWidth, textureHeight);
     }
 
     public static void drawRect(int left, int top, int right, int bottom, int color) {
-        ReflectUtil.invoke(drawRect, null, left, top, right, bottom, color);
+        ReflectUtil.invokeStatic(drawRect, left, top, right, bottom, color);
     }
 }

@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
 @WrapperClass(mcpName = "net.minecraft.client.renderer.WorldRenderer", targetMap = MapEnum.VANILLA189)
 public class WorldRenderer extends IWrapper {
     @WrapClass(mcpName = "net.minecraft.client.renderer.WorldRenderer", targetMap = MapEnum.VANILLA189)
-    public static Class WorldRendererClass;
+    public static Class<?> WorldRendererClass;
     @WrapMethod(mcpName = "begin", targetMap = MapEnum.VANILLA189)
     public static Method begin;
     @WrapMethod(mcpName = "pos", targetMap = MapEnum.VANILLA189)
@@ -46,17 +46,14 @@ public class WorldRenderer extends IWrapper {
     }
 
     public WorldRenderer color(float red, float green, float blue, float alpha) {
-        invoke(color_4f, red, green, blue, alpha);
-        return this;
+        return new WorldRenderer(invoke(color_4f, red, green, blue, alpha));
     }
 
     public WorldRenderer color(int i1, int i2, int i3, int i4) {
-        invoke(color_4I, i1, i2, i3, i4);
-        return this;
+        return new WorldRenderer(invoke(color_4I, i1, i2, i3, i4));
     }
 
     public WorldRenderer tex(double u2, double v1) {
-        invoke(tex, u2, v1);
-        return this;
+        return new WorldRenderer(invoke(tex, u2, v1));
     }
 }

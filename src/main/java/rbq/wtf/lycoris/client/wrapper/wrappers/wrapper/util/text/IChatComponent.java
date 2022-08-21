@@ -23,11 +23,11 @@ public class IChatComponent extends IWrapper {
     }
 
     public String getUnformattedText() {
-        return (String) ReflectUtil.invoke(getUnformattedText, getWrapObject());
+        return (String) invoke(getUnformattedText);
     }
 
     public String getFormattedText() {
-        return (String) ReflectUtil.invoke(getFormattedText, getWrapObject());
+        return (String) invoke(getFormattedText);
     }
 
     public ChatStyle getChatStyle() {

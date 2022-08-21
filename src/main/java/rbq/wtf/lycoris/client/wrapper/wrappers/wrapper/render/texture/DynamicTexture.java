@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 @WrapperClass(mcpName = "net.minecraft.client.renderer.texture.DynamicTexture", targetMap = MapEnum.VANILLA189)
 public class DynamicTexture extends AbstractTexture {
     @WrapClass(mcpName = "net.minecraft.client.renderer.texture.DynamicTexture", targetMap = MapEnum.VANILLA189)
-    public static Class DynamicTextureClass;
+    public static Class<?> DynamicTextureClass;
 
     public DynamicTexture(Object obj) {
         super(obj);

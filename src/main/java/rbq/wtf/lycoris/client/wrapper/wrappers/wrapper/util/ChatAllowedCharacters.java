@@ -15,6 +15,6 @@ public class ChatAllowedCharacters {
     public static Method filterAllowedCharacters;
 
     public static boolean isAllowedCharacter(char chars) {
-        return (boolean) ReflectUtil.invoke(isAllowedCharacter, null, chars);
+        return (boolean) ReflectUtil.invokeStatic(isAllowedCharacter, chars);
     }
 }

@@ -18,7 +18,7 @@ public class World extends IWrapper {
         super(obj);
     }
 
-    public IBlockState getBlockState(BlockPos p_getBlockState_1_) {
-        return new IBlockState(invoke(getBlockState, p_getBlockState_1_.getWrapObject()));
+    public IBlockState getBlockState(BlockPos blockPos) {
+        return new IBlockState(invoke(getBlockState, blockPos));
     }
 }

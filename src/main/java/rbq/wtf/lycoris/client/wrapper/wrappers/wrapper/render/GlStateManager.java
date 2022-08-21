@@ -13,7 +13,7 @@ import java.nio.FloatBuffer;
 @WrapperClass(mcpName = "net.minecraft.client.renderer.GlStateManager", targetMap = MapEnum.VANILLA189)
 public class GlStateManager {
     @WrapClass(mcpName = "net.minecraft.client.renderer.GlStateManager", targetMap = MapEnum.VANILLA189)
-    public static Class GlStateManagerClass;
+    public static Class<?> GlStateManagerClass;
     @WrapMethod(mcpName = "alphaFunc", targetMap = MapEnum.VANILLA189)
     public static Method alphaFunc;
     @WrapMethod(mcpName = "bindTexture", targetMap = MapEnum.VANILLA189)
@@ -166,134 +166,134 @@ public class GlStateManager {
     }
 
     public static void enableColorMaterial() {
-        ReflectUtil.invoke(enableColorMaterial, null);
+        ReflectUtil.invokeStatic(enableColorMaterial);
     }
 
     public static void disableRescaleNormal() {
-        ReflectUtil.invoke(disableRescaleNormal, null);
+        ReflectUtil.invokeStatic(disableRescaleNormal);
     }
 
     public static void color(float f1, float f2, float f3, float f4) {
-        ReflectUtil.invoke(color_FFFF, null, f1, f2, f3, f4);
+        ReflectUtil.invokeStatic(color_FFFF, f1, f2, f3, f4);
     }
 
     public static void disableCull() {
-        ReflectUtil.invoke(disableCull, null);
+        ReflectUtil.invokeStatic(disableCull);
     }
 
     public static void disableDepth() {
-        ReflectUtil.invoke(disableDepth, null);
+        ReflectUtil.invokeStatic(disableDepth);
     }
 
     public static void depthMask(boolean flag) {
-        ReflectUtil.invoke(depthMask, null, flag);
+        ReflectUtil.invokeStatic(depthMask, flag);
     }
 
     public static void disableLighting() {
-        ReflectUtil.invoke(disableLighting, null);
+        ReflectUtil.invokeStatic(disableLighting);
     }
 
     public static void enableAlpha() {
-        ReflectUtil.invoke(enableAlpha, null);
+        ReflectUtil.invokeStatic(enableAlpha);
     }
 
     public static void disableAlpha() {
-        ReflectUtil.invoke(disableAlpha, null);
+        ReflectUtil.invokeStatic(disableAlpha);
     }
 
     public static void disableBlend() {
-        ReflectUtil.invoke(disableBlend, null);
+        ReflectUtil.invokeStatic(disableBlend);
     }
 
     public static void enableBlend() {
-        ReflectUtil.invoke(enableBlend, null);
+        ReflectUtil.invokeStatic(enableBlend);
     }
 
     public static void bindTexture(int texture) {
-        ReflectUtil.invoke(bindTexture, null, texture);
+        ReflectUtil.invokeStatic(bindTexture, texture);
     }
 
     public static void blendFunc(int srcFactor, int dstFactor) {
-        ReflectUtil.invoke(blendFunc, null, srcFactor, dstFactor);
+        ReflectUtil.invokeStatic(blendFunc, srcFactor, dstFactor);
     }
 
     public static void enableDepth() {
-        ReflectUtil.invoke(enableDepth, null);
+        ReflectUtil.invokeStatic(enableDepth);
     }
 
     public static void clear(int mask) {
-        ReflectUtil.invoke(clear, null, mask);
+        ReflectUtil.invokeStatic(clear, mask);
     }
 
     public static void pushMatrix() {
-        ReflectUtil.invoke(pushMatrix, null);
+        ReflectUtil.invokeStatic(pushMatrix);
     }
 
     public static void popMatrix() {
-        ReflectUtil.invoke(popMatrix, null);
+        ReflectUtil.invokeStatic(popMatrix);
     }
 
     public static void rotate(float angle, float x, float y, float z) {
-        ReflectUtil.invoke(rotate, null, angle, x, y, z);
+        ReflectUtil.invokeStatic(rotate, angle, x, y, z);
     }
 
     public static void setActiveTexture(int texture) {
-        ReflectUtil.invoke(setActiveTexture, null, texture);
+        ReflectUtil.invokeStatic(setActiveTexture, texture);
     }
 
     public static void scale(double x, double y, double z) {
-        ReflectUtil.invoke(scale_DDD, null, x, y, z);
+        ReflectUtil.invokeStatic(scale_DDD, x, y, z);
     }
 
     public static void translate(float x, float y, float z) {
-        ReflectUtil.invoke(translate_FFF, null, x, y, z);
+        ReflectUtil.invokeStatic(translate_FFF, x, y, z);
     }
 
     public static void translate(double x, double y, double z) {
-        ReflectUtil.invoke(translate_DDD, null, x, y, z);
+        ReflectUtil.invokeStatic(translate_DDD, x, y, z);
     }
 
     public static void multMatrix(FloatBuffer matrix) {
-        ReflectUtil.invoke(multMatrix, null, matrix);
+        ReflectUtil.invokeStatic(multMatrix, matrix);
     }
 
     public static void enableTexture2D() {
-        ReflectUtil.invoke(enableTexture2D, null);
+        ReflectUtil.invokeStatic(enableTexture2D);
     }
 
     public static void disableTexture2D() {
-        ReflectUtil.invoke(disableTexture2D, null);
+        ReflectUtil.invokeStatic(disableTexture2D);
     }
 
     public static void resetColor() {
-        ReflectUtil.invoke(resetColor, null);
+        ReflectUtil.invokeStatic(resetColor);
     }
 
     public static void tryBlendFuncSeparate(int srcFactor, int dstFactor, int srcFactorAlpha, int dstFactorAlpha) {
-        ReflectUtil.invoke(tryBlendFuncSeparate, null, srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
+        ReflectUtil.invokeStatic(tryBlendFuncSeparate, srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
     }
 
     public static void shadeModel(int mode) {
-        ReflectUtil.invoke(shadeModel, null, mode);
+        ReflectUtil.invokeStatic(shadeModel, mode);
     }
 
     public static void disableLight(int light) {
-        ReflectUtil.invoke(disableLight, null, light);
+        ReflectUtil.invokeStatic(disableLight, light);
     }
 
     public static void disableColorMaterial() {
-        ReflectUtil.invoke(disableColorMaterial, null);
+        ReflectUtil.invokeStatic(disableColorMaterial);
     }
 
     public static void color(float i, float i1, float i2) {
-        ReflectUtil.invoke(color_FFF, null, i, i1, i2);
+        ReflectUtil.invokeStatic(color_FFF, i, i1, i2);
     }
 
     public static void alphaFunc(int func, float ref) {
-        ReflectUtil.invoke(alphaFunc, null, func, ref);
+        ReflectUtil.invokeStatic(alphaFunc, func, ref);
     }
 
     public static void enableLighting() {
-        ReflectUtil.invoke(enableLighting, null);
+        ReflectUtil.invokeStatic(enableLighting);
     }
 }

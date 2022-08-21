@@ -26,7 +26,7 @@ public class KeyBinding extends IWrapper {
     }
 
     public static void onTick(int keyCode) {
-        ReflectUtil.invoke(onTick, null, keyCode);
+        ReflectUtil.invokeStatic(onTick, keyCode);
     }
 
     public boolean isKeyDown() {
