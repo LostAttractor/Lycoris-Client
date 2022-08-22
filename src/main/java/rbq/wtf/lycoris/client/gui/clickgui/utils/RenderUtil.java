@@ -1,4 +1,4 @@
-package rbq.wtf.lycoris.client.gui.ClickGUI.Utils;
+package rbq.wtf.lycoris.client.gui.clickgui.utils;
 
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
@@ -92,8 +92,7 @@ public class RenderUtil extends MinecraftInstance {
         float f6 = x1 - radius;
         float f7 = y0 + radius;
         GL11.glVertex2f(f6, f7);
-        int j = 0;
-        for (j = 0; j <= Semicircle; ++j) {
+        for (int j = 0; j <= Semicircle; ++j) {
             final float f8 = j * f;
             GL11.glVertex2f((float) (f6 + radius * Math.cos(Math.toRadians(f8))), (float) (f7 - radius * Math.sin(Math.toRadians(f8))));
         }
@@ -102,7 +101,7 @@ public class RenderUtil extends MinecraftInstance {
         f6 = x0 + radius;
         f7 = y0 + radius;
         GL11.glVertex2f(f6, f7);
-        for (j = 0; j <= Semicircle; ++j) {
+        for (int j = 0; j <= Semicircle; ++j) {
             final float f9 = j * f;
             GL11.glVertex2f((float) (f6 - radius * Math.cos(Math.toRadians(f9))), (float) (f7 - radius * Math.sin(Math.toRadians(f9))));
         }
@@ -111,7 +110,7 @@ public class RenderUtil extends MinecraftInstance {
         f6 = x0 + radius;
         f7 = y1 - radius;
         GL11.glVertex2f(f6, f7);
-        for (j = 0; j <= Semicircle; ++j) {
+        for (int j = 0; j <= Semicircle; ++j) {
             final float f10 = j * f;
             GL11.glVertex2f((float) (f6 - radius * Math.cos(Math.toRadians(f10))), (float) (f7 + radius * Math.sin(Math.toRadians(f10))));
         }
@@ -120,7 +119,7 @@ public class RenderUtil extends MinecraftInstance {
         f6 = x1 - radius;
         f7 = y1 - radius;
         GL11.glVertex2f(f6, f7);
-        for (j = 0; j <= Semicircle; ++j) {
+        for (int j = 0; j <= Semicircle; ++j) {
             final float f11 = j * f;
             GL11.glVertex2f((float) (f6 + radius * Math.cos(Math.toRadians(f11))), (float) (f7 + radius * Math.sin(Math.toRadians(f11))));
         }
@@ -525,14 +524,14 @@ public class RenderUtil extends MinecraftInstance {
         }
     }
 
-    public static void drawBorderRect(double x, double y, double x1, double y1, int color, double lwidth) {
-        drawHLine(x, y, x1, y, (float) lwidth, color);
-        drawHLine(x1, y, x1, y1, (float) lwidth, color);
-        drawHLine(x, y1, x1, y1, (float) lwidth, color);
-        drawHLine(x, y1, x, y, (float) lwidth, color);
+    public static void drawBorderRect(float x, float y, float x1, float y1, int color, float lwidth) {
+        drawHLine(x, y, x1, y, lwidth, color);
+        drawHLine(x1, y, x1, y1, lwidth, color);
+        drawHLine(x, y1, x1, y1, lwidth, color);
+        drawHLine(x, y1, x, y, lwidth, color);
     }
 
-    public static void drawHLine(double x, double y, double x1, double y1, float width, int color) {
+    public static void drawHLine(float x, float y, float x1, float y1, float width, int color) {
         float var11 = (float) (color >> 24 & 255) / 255.0F;
         float var6 = (float) (color >> 16 & 255) / 255.0F;
         float var7 = (float) (color >> 8 & 255) / 255.0F;
@@ -544,8 +543,8 @@ public class RenderUtil extends MinecraftInstance {
         GL11.glPushMatrix();
         GL11.glLineWidth(width);
         GL11.glBegin(3);
-        GL11.glVertex2d(x, y);
-        GL11.glVertex2d(x1, y1);
+        GL11.glVertex2f(x, y);
+        GL11.glVertex2f(x1, y1);
         GL11.glEnd();
         GL11.glLineWidth(1.0F);
         GL11.glPopMatrix();
@@ -922,9 +921,9 @@ public class RenderUtil extends MinecraftInstance {
     public static void startGlScissor(int x, int y, int width, int height) {
         int scaleFactor = new ScaledResolution(mc).getScaleFactor();
         GL11.glPushMatrix();
-        glEnable((int) 3089);
-        GL11.glScissor((int) (x * scaleFactor), (int) (mc.getDisplayHeight() - (y + height) * scaleFactor),
-                (int) (width * scaleFactor), (int) ((height + 14) * scaleFactor));
+        glEnable(3089);
+        GL11.glScissor((x * scaleFactor), (mc.getDisplayHeight() - (y + height) * scaleFactor),
+                (width * scaleFactor), ((height + 14) * scaleFactor));
     }
 
     public static void stopGlScissor() {

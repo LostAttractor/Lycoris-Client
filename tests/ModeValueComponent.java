@@ -1,7 +1,7 @@
-package rbq.wtf.lycoris.client.gui.ClickGUI.Component;
+package rbq.wtf.lycoris.client.gui.clickgui.component;
 
-import rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI;
-import rbq.wtf.lycoris.client.gui.ClickGUI.Utils.RenderUtil;
+import rbq.wtf.lycoris.client.gui.clickgui.ClickGUI;
+import rbq.wtf.lycoris.client.gui.clickgui.utils.RenderUtil;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.value.ModeValue;
 

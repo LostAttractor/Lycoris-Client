@@ -1,8 +1,8 @@
-package rbq.wtf.lycoris.client.gui.ClickGUI.Component;
+package rbq.wtf.lycoris.client.gui.clickgui.component;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI;
+import rbq.wtf.lycoris.client.gui.clickgui.ClickGUI;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.module.Module;
 
