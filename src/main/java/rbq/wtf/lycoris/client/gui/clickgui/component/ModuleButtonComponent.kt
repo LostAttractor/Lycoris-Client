@@ -9,8 +9,6 @@ import rbq.wtf.lycoris.client.module.ModuleCategory
 import java.awt.Color
 
 class ModuleButtonListComponent(
-    override var startX: Float,
-    override var startY: Float,
     override var offsetX: Float,
     override var offsetY: Float,
     override var width: Float,
@@ -45,8 +43,6 @@ class ModuleButtonListComponent(
         Client.moduleManager.getModulesInType(category).forEach {
             moduleButtons.add(
                 ModuleButtonComponent(
-                    startX,
-                    startY,
                     offsetX,
                     moduleY,
                     width,
@@ -91,11 +87,6 @@ class ModuleButtonListComponent(
         }
     }
 
-    override fun updateStart(startX: Float, startY: Float) {
-        super.updateStart(startX, startY)
-        moduleButtons.forEach { it.updateStart(startX, startY) }
-    }
-
     override fun mouseClicked(mouseX: Int, mouseY: Int, mouseButton: Int) {
         moduleButtons.forEach { it.mouseClicked(mouseX, mouseY, mouseButton) }
     }
@@ -103,8 +94,6 @@ class ModuleButtonListComponent(
 
 
 class ModuleButtonComponent(
-    override var startX: Float,
-    override var startY: Float,
     override var offsetX: Float,
     override var offsetY: Float,
     override var width: Float,

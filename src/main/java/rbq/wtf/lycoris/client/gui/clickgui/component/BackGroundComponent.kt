@@ -5,9 +5,7 @@ import rbq.wtf.lycoris.client.gui.clickgui.ClickGUI
 import rbq.wtf.lycoris.client.gui.clickgui.utils.RenderUtil
 import java.awt.Color
 
-class BackGroundCompoent(
-    override var startX: Float,
-    override var startY: Float,
+class BackGroundComponent(
     override var offsetX: Float,
     override var offsetY: Float,
     override var width: Float,

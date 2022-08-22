@@ -4,12 +4,16 @@ import rbq.wtf.lycoris.client.gui.Font.FontLoaders
 import rbq.wtf.lycoris.client.gui.clickgui.ClickGUI
 import rbq.wtf.lycoris.client.gui.clickgui.utils.RenderUtil
 import rbq.wtf.lycoris.client.module.Module
+import rbq.wtf.lycoris.client.utils.Logger
+import rbq.wtf.lycoris.client.utils.MathUtils
 import rbq.wtf.lycoris.client.value.BooleanValue
+import rbq.wtf.lycoris.client.value.NumberValue
 import java.awt.Color
+import java.math.BigDecimal
+import java.math.RoundingMode
+import kotlin.math.roundToInt
 
 class ValueListComponent(
-    override var startX: Float,
-    override var startY: Float,
     override var offsetX: Float,
     override var offsetY: Float,
     override var width: Float,
@@ -47,8 +51,6 @@ class ValueListComponent(
                 var offsetY = 0F
                 if (it is BooleanValue) {
                     val component = BooleanValueComponent(
-                        startX,
-                        startY,
                         offsetX,
                         valueY,
                         width,
@@ -61,10 +63,28 @@ class ValueListComponent(
                     valueComponents.add(component)
                     offsetY = component.height + BooleanValueComponent.OFFSET_Y
                 }
+                if (it is NumberValue) {
+                    val component = NumberValueComponent(
+                        offsetX,
+                        valueY,
+                        width,
+                        NumberValueComponent.HEIGHT.toFloat(),
+                        NumberValueComponent.HOVER_OFFSET_X,
+                        NumberValueComponent.HOVER_OFFSET_Y,
+                        it,
+                        clickGUI
+                    )
+                    valueComponents.add(component)
+                    offsetY = component.height /*+ NumberValueComponent.OFFSET_Y*/
+                }
                 valueY += offsetY
                 listPixel += offsetY
             }
         }
+    }
+
+    override fun updateComponent(mouseX: Int, mouseY: Int) {
+        valueComponents.forEach { it.updateComponent(mouseX, mouseY) }
     }
 
     override fun mouseWheelScroll(mouseX: Int, mouseY: Int, mouseWheel: Int) {
@@ -92,13 +112,12 @@ class ValueListComponent(
         }
     }
 
-    override fun updateStart(startX: Float, startY: Float) {
-        super.updateStart(startX, startY)
-        valueComponents.forEach { it.updateStart(startX, startY) }
-    }
-
     override fun mouseClicked(mouseX: Int, mouseY: Int, mouseButton: Int) {
         valueComponents.forEach { it.mouseClicked(mouseX, mouseY, mouseButton) }
+    }
+
+    override fun mouseReleased(mouseX: Int, mouseY: Int, mouseButton: Int) {
+        valueComponents.forEach { it.mouseReleased(mouseX, mouseY, mouseButton) }
     }
 
     override fun render(mouseX: Int, mouseY: Int, partialTicks: Float) {
@@ -111,8 +130,6 @@ class ValueListComponent(
 abstract class ValueComponent(clickGUI: ClickGUI) : ClickableComponent(clickGUI)
 
 class BooleanValueComponent(
-    override var startX: Float,
-    override var startY: Float,
     override var offsetX: Float,
     override var offsetY: Float,
     override var width: Float,
@@ -206,5 +223,114 @@ class BooleanValueComponent(
             ) && mouseButton == 0
         )
             value.set(!value.get())
+    }
+}
+
+class NumberValueComponent(
+    override var offsetX: Float,
+    override var offsetY: Float,
+    override var width: Float,
+    override var height: Float,
+    override var hoverOffsetX: Int,
+    override var hoverOffsetY: Int,
+    val value: NumberValue,
+    clickGUI: ClickGUI
+) : ValueComponent(clickGUI) {
+//    private override var x = 0f
+//    private override var y = 0f
+
+//    init {
+//        height = 45
+//    }
+
+    companion object {
+        const val HEIGHT = 45
+        const val HOVER_OFFSET_X = 0
+        const val HOVER_OFFSET_Y = 0
+        const val BUTTON_WEIGHT = 305 //295
+        const val BUTTON_OFFSET_Y = 19
+        const val BUTTON_CIRCLE_RADIUS = 6.0
+        const val BUTTON_CIRCLE_RADIUS_S = 5.0
+        const val BUTTON_CIRCLE_OFFSET_Y = BUTTON_OFFSET_Y + BUTTON_CIRCLE_RADIUS
+        const val BUTTON_END_Y = BUTTON_OFFSET_Y + BUTTON_CIRCLE_RADIUS * 2
+    }
+
+    var onSetting = false
+
+    override fun updateComponent(mouseX: Int, mouseY: Int) {
+        if (onSetting) {
+            Logger.debug("1")
+            if ((mouseX - (x + 8)) in 0F..BUTTON_WEIGHT - 8F) {
+                Logger.debug("2 ${mouseX - (x + 8)}")
+                val current = (mouseX - (this.x + 8)) / (BUTTON_WEIGHT - 8) * (value.maximum - value.minimum) + value.minimum
+                Logger.debug("3 $current")
+                if (current in value.minimum..value.maximum) value.set(MathUtils.round(current, value.increase))
+            }
+        }
+    }
+
+    override fun mouseClicked(mouseX: Int, mouseY: Int, mouseButton: Int) {
+        if (this.isHovered(
+                (this.x).toInt(),
+                (this.y + BUTTON_OFFSET_Y).toInt(),
+                (this.endX).toInt(),
+                (this.endY).toInt(),
+                mouseX,
+                mouseY
+            ) && mouseButton == 0
+        ) onSetting = true
+    }
+
+    override fun mouseReleased(mouseX: Int, mouseY: Int, mouseButton: Int) {
+        if (mouseButton == 0 && onSetting) onSetting = false
+    }
+
+    override fun render(mouseX: Int, mouseY: Int, partialTicks: Float) {
+        FontLoaders.default20.drawString(
+            value.name + "[" + value.get() + "]",
+            x,
+            y,
+            Color(255, 255, 255).rgb
+        )
+        val buttonOffsetX = (BUTTON_WEIGHT - 8) * ((value.get() - value.minimum) / (value.maximum - value.minimum)) //295
+        RenderUtil.drawFilledCircle(
+            (x + BUTTON_CIRCLE_RADIUS - 1), (y + BUTTON_CIRCLE_OFFSET_Y), BUTTON_CIRCLE_RADIUS,
+            Color(45, 37, 104).rgb, 5
+        )
+        RenderUtil.drawRect(
+            (x + BUTTON_CIRCLE_RADIUS).toFloat(), y + BUTTON_OFFSET_Y, x + BUTTON_WEIGHT + 1,
+            y + BUTTON_END_Y.toFloat(),
+            Color(45, 36, 104).rgb
+        )
+        RenderUtil.drawFilledCircle(
+            (x + BUTTON_WEIGHT).toDouble(), (y + BUTTON_CIRCLE_OFFSET_Y), BUTTON_CIRCLE_RADIUS,
+            Color(45, 37, 104).rgb, 5
+        )
+        RenderUtil.drawFilledCircle(
+            (x + BUTTON_CIRCLE_RADIUS_S), (y + BUTTON_CIRCLE_OFFSET_Y), BUTTON_CIRCLE_RADIUS_S,
+            Color(45, 45, 45).rgb, 5
+        )
+        RenderUtil.drawRect(
+            x + BUTTON_CIRCLE_RADIUS_S.toFloat(), y + BUTTON_OFFSET_Y + 1, x + BUTTON_WEIGHT,
+            (y + BUTTON_END_Y - 1).toFloat(),
+            Color(45, 45, 45).rgb
+        )
+        RenderUtil.drawFilledCircle(
+            (x + BUTTON_CIRCLE_RADIUS_S), y + BUTTON_CIRCLE_OFFSET_Y, BUTTON_CIRCLE_RADIUS_S,
+            Color(45, 45, 45).rgb, 5
+        )
+        RenderUtil.drawFilledCircle(
+            (x + BUTTON_CIRCLE_RADIUS - 1), y + BUTTON_CIRCLE_OFFSET_Y, BUTTON_CIRCLE_RADIUS,
+            Color(97, 79, 237).rgb, 5
+        )
+        RenderUtil.drawRect(
+            (x + 8 - 1), y + BUTTON_OFFSET_Y, (x + 8 + 1 + buttonOffsetX),
+            y + 31,
+            Color(97, 79, 237).rgb
+        )
+        RenderUtil.drawFilledCircle(
+            (x + 8 + buttonOffsetX).toDouble(), (y + BUTTON_CIRCLE_OFFSET_Y), 8.0,
+            Color(97, 79, 237).rgb, 5
+        )
     }
 }

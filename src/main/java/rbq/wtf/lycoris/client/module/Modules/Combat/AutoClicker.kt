@@ -23,15 +23,17 @@ import kotlin.random.Random
 class AutoClicker : Module() {
     val maxCPS: NumberValue = object : NumberValue("Max CPS", 8.0f, 1.0f, 20.0f, 0.5f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
-            if (minCPS.get() > newValue)
-                minCPS.set(newValue)
+            val minCPS = minCPS.get()
+            if (minCPS > newValue)
+                set(minCPS)
         }
     }
 
     val minCPS: NumberValue = object : NumberValue("Min CPS", 8.0f, 1.0f, 20.0f, 0.5f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
-            if (maxCPS.get() < newValue)
-                maxCPS.set(newValue)
+            val maxCPS = maxCPS.get()
+            if (maxCPS < newValue)
+                set(maxCPS)
         }
     }
     val left = BooleanValue("Left", true)

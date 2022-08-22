@@ -6,8 +6,6 @@ import rbq.wtf.lycoris.client.module.ModuleCategory
 import java.awt.Color
 
 class CategoryButtonListComponent(
-    override var startX: Float,
-    override var startY: Float,
     override var offsetX: Float,
     override var offsetY: Float,
     override var width: Float,
@@ -33,7 +31,6 @@ class CategoryButtonListComponent(
         ModuleCategory.values().forEach {
             categoryButtons.add(
                 CategoryButtonComponent(
-                    startX, startY,
                     categoryX + TEXT_OFFSET_X, offsetY + TEXT_OFFSET_Y,
                     FontLoaders.default20.getStringWidth(it.name).toFloat(),
                     FontLoaders.default20.height.toFloat(),
@@ -46,11 +43,6 @@ class CategoryButtonListComponent(
 
     override fun render(mouseX: Int, mouseY: Int, partialTicks: Float) {
         categoryButtons.forEach { it.render(mouseX, mouseY, partialTicks) }
-    }
-
-    override fun updateStart(startX: Float, startY: Float) {
-        super.updateStart(startX, startY)
-        categoryButtons.forEach { it.updateStart(startX, startY) }
     }
 
     override fun mouseClicked(mouseX: Int, mouseY: Int, mouseButton: Int) {
@@ -75,8 +67,6 @@ class CategoryButtonListComponent(
 }
 
 class CategoryButtonComponent(
-    override var startX: Float,
-    override var startY: Float,
     override var offsetX: Float,
     override var offsetY: Float,
     override var width: Float,

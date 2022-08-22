@@ -1,5 +1,6 @@
 package rbq.wtf.lycoris.client.gui.clickgui.component
 
+import rbq.wtf.lycoris.client.Client
 import rbq.wtf.lycoris.client.gui.clickgui.ClickGUI
 
 abstract class Component(val clickGUI: ClickGUI) : IComponent
@@ -22,8 +23,10 @@ interface IClickableComponent : IComponent {
 }
 
 interface IComponent {
-    var startX: Float
-    var startY: Float
+    val startX: Float
+        get() = Client.clickGUI.startX
+    val startY: Float
+        get() = Client.clickGUI.startY
     var offsetX: Float
     var offsetY: Float
     var width: Float
@@ -56,15 +59,15 @@ interface IComponent {
 
     fun render(mouseX: Int, mouseY: Int, partialTicks: Float)
     fun keyTyped(typedChar: Char, keyCode: Int) {}
-    fun updateComponent(x: Float, y: Float, mouseX: Int, mouseY: Int) {}
+    fun updateComponent(mouseX: Int, mouseY: Int) {}
     fun mouseClicked(mouseX: Int, mouseY: Int, mouseButton: Int) {}
     fun mouseReleased(mouseX: Int, mouseY: Int, mouseButton: Int) {}
     fun mouseWheelScroll(mouseX: Int, mouseY: Int, mouseWheel: Int) {}
 
-    fun updateStart(startX: Float, startY: Float) {
-        this.startX = startX
-        this.startY = startY
-    }
+//    fun updateStart(startX: Float, startY: Float) {
+//        this.startX = startX
+//        this.startY = startY
+//    }
 
     fun updateOffset(offsetX: Float, offsetY: Float) {
         this.offsetX = offsetX

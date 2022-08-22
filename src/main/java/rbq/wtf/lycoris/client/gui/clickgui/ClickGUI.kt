@@ -16,60 +16,48 @@ class ClickGUI : GuiScreenImpl() {
 
     private val componentList = ArrayList<Component>()
 
-    private val backGroundComponent: BackGroundCompoent
-    private val categoryButtonListComponent: CategoryButtonListComponent
-    private val moduleButtonListComponent: ModuleButtonListComponent
-    private val valueListComponent: ValueListComponent
-
     var currentModuleType = ModuleCategory.values()[0]
     var currentModule: Module? = if (Client.moduleManager.getModulesInType(currentModuleType)
             .isNotEmpty()
     ) Client.moduleManager.getModulesInType(currentModuleType)[0] else null
     var currentActiveTextValue: Component? = null
-    
-    private var startX = 100F
-    private var startY = 100F
+
+    private val backGroundComponent: BackGroundComponent = BackGroundComponent(
+        BackGroundComponent.OFFSET_X, BackGroundComponent.OFFSET_Y,
+        BackGroundComponent.WEIGHT, BackGroundComponent.HEIGHT,
+        this
+    )
+    private val categoryButtonListComponent: CategoryButtonListComponent = CategoryButtonListComponent(
+        CategoryButtonListComponent.OFFSET_X,
+        CategoryButtonListComponent.OFFSET_Y,
+        CategoryButtonListComponent.WEIGHT,
+        CategoryButtonListComponent.HEIGHT,
+        this
+    )
+    private val moduleButtonListComponent: ModuleButtonListComponent = ModuleButtonListComponent(
+        ModuleButtonListComponent.OFFSET_X,
+        ModuleButtonListComponent.OFFSET_Y,
+        ModuleButtonListComponent.WEIGHT,
+        ModuleButtonListComponent.HEIGHT,
+        currentModuleType,
+        this
+    )
+    private val valueListComponent: ValueListComponent = ValueListComponent(
+        ValueListComponent.OFFSET_X,
+        ValueListComponent.OFFSET_Y,
+        ValueListComponent.WEIGHT,
+        ValueListComponent.HEIGHT,
+        Client.moduleManager.getModulesInType(currentModuleType)[0],
+        this
+    )
+
+    var startX = 100F
+    var startY = 100F
     var onMoving = false
     var moveOffsetX = 0F
     var moveOffsetY = 0F
 
     init {
-        backGroundComponent = BackGroundCompoent(
-            startX,
-            startY,
-            BackGroundCompoent.OFFSET_X, BackGroundCompoent.OFFSET_Y,
-            BackGroundCompoent.WEIGHT, BackGroundCompoent.HEIGHT,
-            this
-        )
-        categoryButtonListComponent = CategoryButtonListComponent(
-            startX,
-            startY,
-            CategoryButtonListComponent.OFFSET_X,
-            CategoryButtonListComponent.OFFSET_Y,
-            CategoryButtonListComponent.WEIGHT,
-            CategoryButtonListComponent.HEIGHT,
-            this
-        )
-        moduleButtonListComponent = ModuleButtonListComponent(
-            startX,
-            startY,
-            ModuleButtonListComponent.OFFSET_X,
-            ModuleButtonListComponent.OFFSET_Y,
-            ModuleButtonListComponent.WEIGHT,
-            ModuleButtonListComponent.HEIGHT,
-            currentModuleType,
-            this
-        )
-        valueListComponent = ValueListComponent(
-            startX,
-            startY,
-            ValueListComponent.OFFSET_X,
-            ValueListComponent.OFFSET_Y,
-            ValueListComponent.WEIGHT,
-            ValueListComponent.HEIGHT,
-            Client.moduleManager.getModulesInType(currentModuleType)[0],
-            this
-        )
         componentList.add(backGroundComponent)
         componentList.add(categoryButtonListComponent)
         componentList.add(moduleButtonListComponent)
@@ -112,10 +100,11 @@ class ClickGUI : GuiScreenImpl() {
         if (onMoving) {
             startX = mouseX - moveOffsetX
             startY = mouseY - moveOffsetY
-            componentList.forEach { it.updateStart(startX, startY) }
         }
 
         componentList.forEach { it.render(mouseX, mouseY, partialTicks) }
+
+        componentList.forEach { it.updateComponent(mouseX, mouseY) }
 
         val mouseWheel: Int = Mouse.getDWheel()
         if (mouseWheel != 0)
@@ -181,9 +170,10 @@ class ClickGUI : GuiScreenImpl() {
 
     override fun keyTyped(typedChar: Char, keyCode: Int): Boolean {
         super.keyTyped(typedChar, keyCode)
-        if (currentActiveTextValue != null) {
-            currentActiveTextValue!!.keyTyped(typedChar, keyCode)
-        }
+        componentList.forEach { it.keyTyped(typedChar, keyCode) }
+//        if (currentActiveTextValue != null) {
+//            currentActiveTextValue!!.keyTyped(typedChar, keyCode)
+//        }
         return true
     }
 }
