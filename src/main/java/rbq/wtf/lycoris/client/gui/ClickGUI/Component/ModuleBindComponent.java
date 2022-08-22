@@ -33,13 +33,13 @@ public class ModuleBindComponent extends Component {
                         y,
                         -1);
             } else {
-                FontLoaders.default18.drawStringWithShadow("Bind:" + Keyboard.getKeyName(module.getKey()),
+                FontLoaders.default18.drawStringWithShadow("Bind:" + Keyboard.getKeyName(module.getKeyBind()),
                         x,
                         y,
                         -1);
             }
         } else {
-            FontLoaders.default18.drawStringWithShadow("Bind:" + Keyboard.getKeyName(module.getKey()),
+            FontLoaders.default18.drawStringWithShadow("Bind:" + Keyboard.getKeyName(module.getKeyBind()),
                     x,
                     y,
                     -1);
@@ -52,14 +52,14 @@ public class ModuleBindComponent extends Component {
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if (this.isHovered(x,
                 y - 5.0F,
-                x + FontLoaders.default18.getStringWidth("Bind:" + Keyboard.getKeyName(module.getKey())),
+                x + FontLoaders.default18.getStringWidth("Bind:" + Keyboard.getKeyName(module.getKeyBind())),
                 y + 5.0F,
                 mouseX,
                 mouseY)) {
             if (Mouse.isButtonDown(0)) {
                 clickGUI.currentActiveTextValue = this;
             } else if (Mouse.isButtonDown(3)) {
-                module.setKey(0);
+                module.setKeyBind(Keyboard.CHAR_NONE);
             }
         } else {
             if (clickGUI.currentActiveTextValue != null) {
@@ -72,7 +72,7 @@ public class ModuleBindComponent extends Component {
 
     @Override
     public void keyTyped(char typedChar, int keyCode) {
-        this.module.setKey(keyCode);
+        this.module.setKeyBind(keyCode);
         clickGUI.currentActiveTextValue = null;
     }
 }

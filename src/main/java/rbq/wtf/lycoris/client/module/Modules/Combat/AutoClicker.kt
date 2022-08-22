@@ -1,8 +1,11 @@
-package rbq.wtf.lycoris.client.module.Modules.Combat
+package rbq.wtf.lycoris.client.module.modules.combat
 
-import rbq.wtf.lycoris.client.event.*
+import rbq.wtf.lycoris.client.event.EventTarget
+import rbq.wtf.lycoris.client.event.Render3DEvent
+import rbq.wtf.lycoris.client.event.UpdateEvent
 import rbq.wtf.lycoris.client.module.Module
 import rbq.wtf.lycoris.client.module.ModuleCategory
+import rbq.wtf.lycoris.client.module.ModuleInfo
 import rbq.wtf.lycoris.client.utils.Logger
 import rbq.wtf.lycoris.client.utils.RandomUtils
 import rbq.wtf.lycoris.client.utils.TimeUtils
@@ -12,23 +15,28 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.KeyBinding
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.init.Blocks
 import kotlin.random.Random
 
-class AutoClicker : Module("AutoClicker", ModuleCategory.Combat, 0) {
-    val maxCPS : NumberValue = object : NumberValue("Max CPS", 8.0f, 1.0f, 20.0f, 0.5f, this) {
+@ModuleInfo(
+    name = "AutoClicker",
+    description = "Constantly clicks when holding down a mouse button.",
+    category = ModuleCategory.Combat
+)
+class AutoClicker : Module() {
+    val maxCPS: NumberValue = object : NumberValue("Max CPS", 8.0f, 1.0f, 20.0f, 0.5f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
             if (minCPS.get() > newValue)
                 minCPS.set(newValue)
         }
     }
 
-    val minCPS : NumberValue = object : NumberValue("Min CPS", 8.0f, 1.0f, 20.0f, 0.5f, this) {
+    val minCPS: NumberValue = object : NumberValue("Min CPS", 8.0f, 1.0f, 20.0f, 0.5f) {
         override fun onChanged(oldValue: Float, newValue: Float) {
             if (maxCPS.get() < newValue)
                 maxCPS.set(newValue)
         }
     }
-    val left = BooleanValue("Left", true, this)
-    val right = BooleanValue("Right", true, this)
-    val jitter = BooleanValue("Jitter", false, this)
+    val left = BooleanValue("Left", true)
+    val right = BooleanValue("Right", true)
+    val jitter = BooleanValue("Jitter", false)
 
     private var rightDelay = TimeUtils.randomClickDelay(minCPS.get(), maxCPS.get())
     private var rightLastSwing = 0L
@@ -36,6 +44,7 @@ class AutoClicker : Module("AutoClicker", ModuleCategory.Combat, 0) {
     private var leftLastSwing = 0L
 
     private var blockBrokenDelay = 1000L / 20 * (6 + 2) // 6 ticks and 2 more, so autoclicker
+
     // won't click between breaking blocks for sure
     private var blockLastBroken = 0L
     private var isBreakingBlock = false
@@ -89,11 +98,18 @@ class AutoClicker : Module("AutoClicker", ModuleCategory.Combat, 0) {
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         if (jitter.get() && ((left.get() && mc.gameSettings.keyBindAttack.isKeyDown && leftCanAutoClick(System.currentTimeMillis()))
-                    || (right.get() && mc.gameSettings.keyBindUseItem.isKeyDown && rightCanAutoClick()))) {
-            if (Random.nextBoolean()) mc.player.rotationYaw += if (Random.nextBoolean()) -RandomUtils.nextFloat(0F, 1F) else RandomUtils.nextFloat(0F, 1F)
+                    || (right.get() && mc.gameSettings.keyBindUseItem.isKeyDown && rightCanAutoClick()))
+        ) {
+            if (Random.nextBoolean()) mc.player.rotationYaw += if (Random.nextBoolean()) -RandomUtils.nextFloat(
+                0F,
+                1F
+            ) else RandomUtils.nextFloat(0F, 1F)
 
             if (Random.nextBoolean()) {
-                mc.player.rotationPitch += if (Random.nextBoolean()) -RandomUtils.nextFloat(0F, 1F) else RandomUtils.nextFloat(0F, 1F)
+                mc.player.rotationPitch += if (Random.nextBoolean()) -RandomUtils.nextFloat(
+                    0F,
+                    1F
+                ) else RandomUtils.nextFloat(0F, 1F)
 
                 // Make sure pitch is not going into unlegit values
                 if (mc.player.rotationPitch > 90)

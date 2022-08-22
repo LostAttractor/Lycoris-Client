@@ -1,11 +1,13 @@
 package rbq.wtf.lycoris.client.transformer.transformers;
 
-import org.objectweb.asm.*;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.*;
 import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.event.*;
 import rbq.wtf.lycoris.client.transformer.ClassTransformer;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.Entity;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayerSP;
 
 public class EntityPlayerSPTransformer extends ClassTransformer {

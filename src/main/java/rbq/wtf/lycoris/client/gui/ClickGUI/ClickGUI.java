@@ -16,19 +16,19 @@ import java.util.ArrayList;
 
 
 public class ClickGUI extends GuiScreenImpl {
+    private final ArrayList<CategoryButton> categoryButtonList = new ArrayList<CategoryButton>();
+    private final ArrayList<ModuleButtonList> moduleButtonList = new ArrayList<ModuleButtonList>();
     public ModuleCategory currentModuleType = ModuleCategory.Combat;
     public Module currentModule;
     public Component currentActiveTextValue;
     public float moduleWheel = 0.0F;
     public float valueWheel = 0.0F;
+    public ArrayList<Component> valueComponentList = new ArrayList<Component>();
     private float startX = 100;
     private float startY = 100;
-    public ArrayList<Component> valueComponentList = new ArrayList<Component>();
     private boolean onMoving = false;
     private float moveOffsetX = 0.0F;
     private float moveOffsetY = 0.0F;
-    private final ArrayList<CategoryButton> categoryButtonList = new ArrayList<CategoryButton>();
-    private final ArrayList<ModuleButtonList> moduleButtonList = new ArrayList<ModuleButtonList>();
 
     public ClickGUI() {
         for (ModuleCategory c : ModuleCategory.values()) {
@@ -190,7 +190,7 @@ public class ClickGUI extends GuiScreenImpl {
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int state) {
-        super.mouseReleased(mouseX,mouseY,state);
+        super.mouseReleased(mouseX, mouseY, state);
         //ClickGui Move Reset
         if (onMoving) {
             onMoving = false;

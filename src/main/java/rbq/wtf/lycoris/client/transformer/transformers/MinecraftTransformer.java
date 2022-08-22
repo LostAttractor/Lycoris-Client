@@ -9,8 +9,8 @@ import org.objectweb.asm.tree.*;
 import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.event.Event;
 import rbq.wtf.lycoris.client.event.EventManager;
-import rbq.wtf.lycoris.client.event.TickEvent;
 import rbq.wtf.lycoris.client.event.LoopEvent;
+import rbq.wtf.lycoris.client.event.TickEvent;
 import rbq.wtf.lycoris.client.transformer.ClassTransformer;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 

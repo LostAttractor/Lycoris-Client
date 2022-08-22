@@ -40,7 +40,7 @@ public class NetworkManagerTransformer extends ClassTransformer {
                 // {this, Packet} | {uninitialized_PacketSendEvent, uninitialized_PacketSendEvent, uninitialized_PacketWrapper, uninitialized_PacketWrapper, Packet}
                 insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(Packet.class), "<init>", "(Ljava/lang/Object;)V", false));
                 // {this, Packet} | {uninitialized_PacketSendEvent, uninitialized_PacketSendEvent, PacketWrapper}
-                insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(PacketSendEvent.class), "<init>", "(L" + Type.getInternalName(Packet.class) +";)V", false));
+                insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(PacketSendEvent.class), "<init>", "(L" + Type.getInternalName(Packet.class) + ";)V", false));
                 // {this, Packet} | {PacketSendEvent}
                 insnList.add(new VarInsnNode(Opcodes.ASTORE, 2));
                 // {this, Packet, PacketSendEvent} | {}
@@ -78,7 +78,7 @@ public class NetworkManagerTransformer extends ClassTransformer {
                 // {this, ChannelHandlerContext, Packet} | {uninitialized_PacketReceiveEvent, uninitialized_PacketReceiveEvent, uninitialized_PacketWrapper, uninitialized_PacketWrapper, Packet}
                 insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(Packet.class), "<init>", "(Ljava/lang/Object;)V", false));
                 // {this, ChannelHandlerContext, Packet} | {uninitialized_PacketReceiveEvent, uninitialized_PacketReceiveEvent, PacketWrapper}
-                insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(PacketReceiveEvent.class), "<init>", "(L" + Type.getInternalName(Packet.class) +";)V", false));
+                insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(PacketReceiveEvent.class), "<init>", "(L" + Type.getInternalName(Packet.class) + ";)V", false));
                 // {this, ChannelHandlerContext, Packet} | {PacketReceiveEvent}
                 insnList.add(new VarInsnNode(Opcodes.ASTORE, 3));
                 // {this, ChannelHandlerContext, Packet, PacketReceiveEvent} | {}

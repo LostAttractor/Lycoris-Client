@@ -9,9 +9,9 @@ import java.lang.reflect.Field;
 
 @WrapperClass(mcpName = "net.minecraft.client.multiplayer.PlayerControllerMP", targetMap = MapEnum.VANILLA189)
 public class PlayerControllerMP extends IWrapper {
-
     @WrapField(mcpName = "curBlockDamageMP", targetMap = MapEnum.VANILLA189)
     public static Field curBlockDamageMP;
+
     public PlayerControllerMP(Object obj) {
         super(obj);
     }

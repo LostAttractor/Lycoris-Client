@@ -1,4 +1,4 @@
-package rbq.wtf.lycoris.client.module.Modules.Render;
+package rbq.wtf.lycoris.client.module.modules.render;
 
 import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.event.EventTarget;
@@ -6,6 +6,7 @@ import rbq.wtf.lycoris.client.event.Render2DEvent;
 import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
 import rbq.wtf.lycoris.client.module.Module;
 import rbq.wtf.lycoris.client.module.ModuleCategory;
+import rbq.wtf.lycoris.client.module.ModuleInfo;
 import rbq.wtf.lycoris.client.value.BooleanValue;
 import rbq.wtf.lycoris.client.value.ModeValue;
 import rbq.wtf.lycoris.client.value.NumberValue;
@@ -16,15 +17,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+@ModuleInfo(name = "HUD", description = "Toggles visibility of the HUD.", category = ModuleCategory.Render, array = false)
 public class HUD extends Module {
-    public final BooleanValue waterMark = new BooleanValue("WaterMark", true, this);
-    public final BooleanValue arrayList = new BooleanValue("ArrayList", true, this);
-    public final ModeValue rainbowMode = new ModeValue("Rainbow Mode", new String[]{"Rainbow", "Astolfo", "Static", "StaticRainbow"}, 0, this);
-    public final NumberValue rainbowSpeed = new NumberValue("RainbowSpeed", 100.0F, 0.0F, 2000.0F, 0.1F, this);
-
-    public HUD() {
-        super("HUD", ModuleCategory.Render, 0);
-    }
+    public final BooleanValue waterMark = new BooleanValue("WaterMark", true);
+    public final BooleanValue arrayList = new BooleanValue("ArrayList", true);
+    public final ModeValue rainbowMode = new ModeValue("Rainbow Mode", new String[]{"Rainbow", "Astolfo", "Static", "StaticRainbow"}, 0);
+    public final NumberValue rainbowSpeed = new NumberValue("RainbowSpeed", 100.0F, 0.0F, 2000.0F, 0.1F);
 
     @Override
     public void onEnable() {
@@ -42,7 +40,7 @@ public class HUD extends Module {
         if (arrayList.get()) {
             ArrayList<Module> sorted = new ArrayList<>();
             for (Module m : Client.moduleManager.getModules()) {
-                if (!m.isState()) continue;
+                if (!m.getState()) continue;
                 sorted.add(m);
             }
             sorted.sort(Comparator.comparingInt(mm -> -(FontLoaders.default16.getStringWidth(mm.getName()))));

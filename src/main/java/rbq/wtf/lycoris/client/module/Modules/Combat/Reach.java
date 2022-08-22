@@ -1,4 +1,4 @@
-package rbq.wtf.lycoris.client.module.Modules.Combat;
+package rbq.wtf.lycoris.client.module.modules.combat;
 
 public class Reach {
 }

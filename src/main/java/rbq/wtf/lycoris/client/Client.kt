@@ -5,22 +5,23 @@ import rbq.wtf.lycoris.client.event.EventManager
 import rbq.wtf.lycoris.client.gui.ClickGUI.ClickGUI
 import rbq.wtf.lycoris.client.manager.CommandManager
 import rbq.wtf.lycoris.client.manager.ConfigManager
-import rbq.wtf.lycoris.client.manager.KeyBindManager
 import rbq.wtf.lycoris.client.manager.ModuleManager
 import rbq.wtf.lycoris.client.transformer.TransformManager
 import rbq.wtf.lycoris.client.utils.Logger
 import rbq.wtf.lycoris.client.wrapper.Wrapper
 import rbq.wtf.lycoris.client.wrapper.bridge.BridgeUtil
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft
 import java.nio.file.Path
 import java.nio.file.Paths
 
 object Client {
+    const val CLIENT_NAME = "Lycoris"
+    const val GAME_VERSION = "1.8.9"
     const val enabledLog = true
     const val showDebugLevelLog = true
     const val developEnv = true
     var isVanilla = true
-    var game_version = "1.8.9"
+    var isStarting = false
+
     @JvmField
     var runPath: Path = Paths.get("").toAbsolutePath()
 
@@ -29,22 +30,25 @@ object Client {
     lateinit var moduleManager: ModuleManager
     lateinit var configManager: ConfigManager
     lateinit var commandManager: CommandManager
-    lateinit var keyBindManager: KeyBindManager
     lateinit var clickGUI: ClickGUI
 
     fun start() {
+        isStarting = true
         Logger.info("Start Initialize Client")
         Wrapper.init() // Load Wrappers
         BridgeUtil.init()
         InstrumentationImpl.init() // Load Native
         TransformManager.init() // Load Transformers
-        moduleManager = ModuleManager()
         configManager = ConfigManager()
+        moduleManager = ModuleManager()
         commandManager = CommandManager()
-        keyBindManager = KeyBindManager()
+
+        // Load configs
+        configManager.loadConfigs(configManager.modulesConfig, configManager.valuesConfig)
+
         clickGUI = ClickGUI()
 
-        eventManager.registerListener(keyBindManager)
+        isStarting = false
 
         Logger.info("Client Initialized Successful")
     }

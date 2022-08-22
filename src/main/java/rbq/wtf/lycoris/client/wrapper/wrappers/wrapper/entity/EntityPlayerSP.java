@@ -5,7 +5,6 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapClass;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapField;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapMethod;
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.WrapperClass;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.MovementInput;
 
 import java.lang.reflect.Field;

@@ -30,7 +30,7 @@ public class ModuleButtonList extends Component {
     public void render() {
         float moduleY = 0;
         for (Module module : Client.moduleManager.getModulesInType(category)) {
-            if (module.isState()) {
+            if (module.getState()) {
                 FontLoaders.default20.drawString(module.getName(),
                         x,
                         y + moduleY,
