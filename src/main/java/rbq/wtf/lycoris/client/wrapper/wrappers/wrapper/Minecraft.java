@@ -12,6 +12,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.GuiScreen;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.multiplayer.PlayerControllerMP;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.multiplayer.WorldClient;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.resources.IResourceManager;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.MovingObjectPosition;
 
 import java.lang.reflect.Field;
@@ -22,8 +23,8 @@ import java.util.concurrent.Callable;
 public class Minecraft extends IWrapper {
     @WrapClass(mcpName = "net.minecraft.client.Minecraft", targetMap = MapEnum.VANILLA189)
     public static Class<?> MinecraftClass;
-    @WrapField(mcpName = "theMinecraft", targetMap = MapEnum.VANILLA189)
-    public static Field theMinecraft;
+//    @WrapField(mcpName = "theMinecraft", targetMap = MapEnum.VANILLA189)
+//    public static Field theMinecraft;
     @WrapMethod(mcpName = "getMinecraft", targetMap = MapEnum.VANILLA189)
     public static Method getMinecraft;
     @WrapField(mcpName = "timer", targetMap = MapEnum.VANILLA189)
@@ -50,12 +51,18 @@ public class Minecraft extends IWrapper {
     public static Field playerController;
     @WrapField(mcpName = "leftClickCounter", targetMap = MapEnum.VANILLA189)
     public static Field leftClickCounter;
+//    @WrapField(mcpName = "mcResourceManager", targetMap = MapEnum.VANILLA189)
+//    public static Field mcResourceManager;
+    @WrapMethod(mcpName = "getResourceManager", targetMap = MapEnum.VANILLA189)
+    public static Method getResourceManager;
     @WrapMethod(mcpName = "runTick", targetMap = MapEnum.VANILLA189)
     public static Method runTick;
     @WrapMethod(mcpName = "dispatchKeypresses", targetMap = MapEnum.VANILLA189)
     public static Method dispatchKeypresses;
-    @WrapField(mcpName = "debugFPS", targetMap = MapEnum.VANILLA189)
-    public static Field debugFPS;
+//    @WrapField(mcpName = "debugFPS", targetMap = MapEnum.VANILLA189)
+//    public static Field debugFPS;
+    @WrapMethod(mcpName = "getDebugFPS", targetMap = MapEnum.VANILLA189)
+    public static Method getDebugFPS;
     @WrapField(mcpName = "renderManager", targetMap = MapEnum.VANILLA189)
     public static Field renderManager;
     @WrapField(mcpName = "renderEngine", targetMap = MapEnum.VANILLA189)
@@ -94,11 +101,11 @@ public class Minecraft extends IWrapper {
     }
 
     public static int getDebugFPS() {
-        return (int) ReflectUtil.getFieldStatic(debugFPS);
+        return (int) ReflectUtil.invokeStatic(getDebugFPS);
     }
 
     public static Minecraft getMinecraft() {
-        return new Minecraft(ReflectUtil.getFieldStatic(theMinecraft));
+        return new Minecraft(ReflectUtil.invokeStatic(getMinecraft));
     }
 
     public int getDisplayHeight() {
@@ -119,6 +126,10 @@ public class Minecraft extends IWrapper {
 
     public PlayerControllerMP getPlayerController() {
         return new PlayerControllerMP(getField(playerController));
+    }
+
+    public IResourceManager getResourceManager() {
+        return new IResourceManager(invoke(getResourceManager));
     }
 
     public <V> ListenableFuture<V> addScheduledTask(Callable<V> p_addScheduledTask_1_) {

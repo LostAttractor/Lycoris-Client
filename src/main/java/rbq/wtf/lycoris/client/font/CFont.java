@@ -53,7 +53,6 @@ public class CFont
 
     protected BufferedImage generateFontImage(Font font, boolean antiAlias, boolean fractionalMetrics, CharData[] chars)
     {
-        Logger.debug(String.valueOf(chars.length), "CFONTER");
         BufferedImage bufferedImage = new BufferedImage(imgSize, imgSize, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) bufferedImage.getGraphics();
         g.setFont(font);
@@ -70,7 +69,6 @@ public class CFont
 
         for (int i = 0; i < chars.length; i++) {
             char ch = unicode && i >= 256 ? unicodeChars[i - 256] : ((char) i);
-            Logger.debug(i + ": " + String.valueOf(ch), "CFONTER");
             CharData charData = new CharData();
             Rectangle2D dimensions = fontMetrics.getStringBounds(String.valueOf(ch), g);
             charData.width = dimensions.getBounds().width + 8;
@@ -97,8 +95,6 @@ public class CFont
             }
 
             chars[i] = charData;
-
-            Logger.debug(charData.width + " " + charData.height, "CFONTER");
 
             g.drawString(String.valueOf(ch), positionX + 2, positionY + fontMetrics.getAscent());
             positionX += charData.width;

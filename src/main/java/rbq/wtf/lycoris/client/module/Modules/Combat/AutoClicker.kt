@@ -64,14 +64,14 @@ class AutoClicker : Module() {
 
     // BUG: There is no delay between breaking blocks in creative mode
     fun leftClick(currentTime: Long) {
-        if (left.get() && mc.gameSettings.keyBindAttack.isKeyDown) {
+        if (left.get() && mc.gameSettings.keyBindAttack.isKeyDown()) {
             isBreakingBlock = mc.playerController.curBlockDamageMP != 0F
             if (!isBreakingBlock && wasBreakingBlock) {
                 blockLastBroken = currentTime
             }
             wasBreakingBlock = isBreakingBlock
             if (currentTime - leftLastSwing >= leftDelay && leftCanAutoClick(currentTime)) {
-                KeyBinding.onTick(mc.gameSettings.keyBindAttack.keyCode) // Minecraft Click Handling
+                KeyBinding.onTick(mc.gameSettings.keyBindAttack.getKeyCode()) // Minecraft Click Handling
 
                 leftLastSwing = currentTime
                 blockLastBroken = 0L
@@ -81,8 +81,8 @@ class AutoClicker : Module() {
     }
 
     fun rightClick(currentTime: Long) {
-        if (right.get() && mc.gameSettings.keyBindUseItem.isKeyDown && currentTime - rightLastSwing >= rightDelay && rightCanAutoClick()) {
-            KeyBinding.onTick(mc.gameSettings.keyBindUseItem.keyCode) // Minecraft Click Handling
+        if (right.get() && mc.gameSettings.keyBindUseItem.isKeyDown() && currentTime - rightLastSwing >= rightDelay && rightCanAutoClick()) {
+            KeyBinding.onTick(mc.gameSettings.keyBindUseItem.getKeyCode()) // Minecraft Click Handling
 
             rightLastSwing = currentTime
             rightDelay = TimeUtils.randomClickDelay(minCPS.get(), maxCPS.get())
@@ -98,8 +98,8 @@ class AutoClicker : Module() {
 
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
-        if (jitter.get() && ((left.get() && mc.gameSettings.keyBindAttack.isKeyDown && leftCanAutoClick(System.currentTimeMillis()))
-                    || (right.get() && mc.gameSettings.keyBindUseItem.isKeyDown && rightCanAutoClick()))
+        if (jitter.get() && ((left.get() && mc.gameSettings.keyBindAttack.isKeyDown() && leftCanAutoClick(System.currentTimeMillis()))
+                    || (right.get() && mc.gameSettings.keyBindUseItem.isKeyDown() && rightCanAutoClick()))
         ) {
             if (Random.nextBoolean()) mc.player.rotationYaw += if (Random.nextBoolean()) -RandomUtils.nextFloat(
                 0F,

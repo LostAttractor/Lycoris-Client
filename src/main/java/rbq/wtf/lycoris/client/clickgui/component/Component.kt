@@ -1,7 +1,7 @@
-package rbq.wtf.lycoris.client.gui.clickgui.component
+package rbq.wtf.lycoris.client.clickgui.component
 
 import rbq.wtf.lycoris.client.Client
-import rbq.wtf.lycoris.client.gui.clickgui.ClickGUI
+import rbq.wtf.lycoris.client.clickgui.ClickGUI
 
 abstract class Component(val clickGUI: ClickGUI) : IComponent
 
