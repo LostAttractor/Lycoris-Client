@@ -30,6 +30,9 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.potion.Potion;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.AbstractTexture;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.DynamicTexture;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.resources.IReloadableResourceManager;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.resources.IResource;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.resources.IResourceManager;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.*;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.HoverEvent;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.click.ClickEvent;
@@ -121,8 +124,13 @@ public class Wrapper {
         //render.texture
         classes.add(AbstractTexture.class);
         classes.add(DynamicTexture.class);
+        //resource
+        classes.add(IResource.class);
+        classes.add(IResourceManager.class);
+        classes.add(IReloadableResourceManager.class);
         //util
         classes.add(AxisAlignedBB.class);
+        classes.add(ResourceLocation.class);
         classes.add(BlockPos.class);
         classes.add(Vec3i.class);
         classes.add(Vec3.class);

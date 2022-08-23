@@ -26,21 +26,17 @@ public class CFont
         this.font = font;
         this.antiAlias = antiAlias;
         this.fractionalMetrics = fractionalMetrics;
-        this.unicode = unicode;
+        if (unicode) {
+            this.unicode = true;
+            this.imgSize = 4096;
+            this.charData = new CharData[256 + 62976];
+            this.unicodeChars = findCharactersInUnicodeBlock(Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS);
+        }
         tex = setupTexture(font, antiAlias, fractionalMetrics, charData);
     }
 
     public DynamicTexture setupTexture(Font font, boolean antiAlias, boolean fractionalMetrics, CharData[] chars)
     {
-        if (unicode) {
-            this.imgSize = 4096;
-            this.charData = new CharData[256 + 62976];
-            this.unicodeChars = findCharactersInUnicodeBlock(Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS);
-        } else {
-            this.imgSize = 512;
-            this.charData = new CharData[256];
-        }
-
         BufferedImage img = generateFontImage(font, antiAlias, fractionalMetrics, chars);
 
         try
@@ -57,7 +53,6 @@ public class CFont
 
     protected BufferedImage generateFontImage(Font font, boolean antiAlias, boolean fractionalMetrics, CharData[] chars)
     {
-        //Logger.debug(String.valueOf(chars.length), "CFONTER");
         BufferedImage bufferedImage = new BufferedImage(imgSize, imgSize, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) bufferedImage.getGraphics();
         g.setFont(font);
@@ -73,7 +68,7 @@ public class CFont
         int positionY = 1;
 
         for (int i = 0; i < chars.length; i++) {
-            char ch = unicode && i > 255 ? unicodeChars[i - 256] : ((char) i);
+            char ch = unicode && i >= 256 ? unicodeChars[i - 256] : ((char) i);
             CharData charData = new CharData();
             Rectangle2D dimensions = fontMetrics.getStringBounds(String.valueOf(ch), g);
             charData.width = dimensions.getBounds().width + 8;
@@ -100,6 +95,7 @@ public class CFont
             }
 
             chars[i] = charData;
+
             g.drawString(String.valueOf(ch), positionX + 2, positionY + fontMetrics.getAscent());
             positionX += charData.width;
         }
@@ -180,7 +176,8 @@ public class CFont
 
     public void setAntiAlias(boolean antiAlias)
     {
-        if (this.antiAlias != antiAlias) {
+        if (this.antiAlias != antiAlias)
+        {
             this.antiAlias = antiAlias;
             tex = setupTexture(this.font, antiAlias, this.fractionalMetrics, this.charData);
         }

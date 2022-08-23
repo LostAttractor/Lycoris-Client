@@ -1,4 +1,4 @@
-package rbq.wtf.lycoris.client.gui.clickgui.utils;
+package rbq.wtf.lycoris.client.clickgui.utils;
 
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;

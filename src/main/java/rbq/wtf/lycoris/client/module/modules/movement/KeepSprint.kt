@@ -22,7 +22,7 @@ class KeepSprint : Module() {
 
     @EventTarget
     fun onUpdate(e: UpdateEvent) {
-        if (!MovementUtils.isMoving() || mc.player.isSneaking || blindness.get() && mc.player.isPotionActive(
+        if (!MovementUtils.isMoving || mc.player.isSneaking || blindness.get() && mc.player.isPotionActive(
                 Potion.getBlindness()
             ) || food.get() && !(mc.player.foodStats.foodLevel > 6.0f || mc.player.capabilities.isAllowFlying) /*|| (checkServerSide.get() && (mc.thePlayer.onGround || !checkServerSideGround.get())
                 && !allDirectionsValue.get() && RotationUtils.targetRotation != null &&

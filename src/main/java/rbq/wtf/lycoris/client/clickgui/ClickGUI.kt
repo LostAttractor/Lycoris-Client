@@ -1,8 +1,8 @@
-package rbq.wtf.lycoris.client.gui.clickgui
+package rbq.wtf.lycoris.client.clickgui
 
 import org.lwjgl.input.Mouse
 import rbq.wtf.lycoris.client.Client
-import rbq.wtf.lycoris.client.gui.clickgui.component.*
+import rbq.wtf.lycoris.client.clickgui.component.*
 import rbq.wtf.lycoris.client.module.Module
 import rbq.wtf.lycoris.client.module.ModuleCategory
 import rbq.wtf.lycoris.client.module.modules.render.ClickGUI
