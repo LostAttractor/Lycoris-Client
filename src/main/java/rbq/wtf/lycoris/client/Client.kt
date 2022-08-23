@@ -50,8 +50,6 @@ object Client {
 
         isStarting = false
 
-        //FontLoaders.loadUnicode()
-
         Logger.info("Client Initialized Successful")
     }
 }
