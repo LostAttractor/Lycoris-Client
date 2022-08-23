@@ -15,6 +15,6 @@ class Blocks(obj: Any) : IWrapper(obj) {
         lateinit var airBlock: Field
 
         val air: Block
-            get() = Block(ReflectUtil.getFieldStatic(airBlock))
+            get() = Block(ReflectUtil.getFieldStatic(airBlock)!!)
     }
 }

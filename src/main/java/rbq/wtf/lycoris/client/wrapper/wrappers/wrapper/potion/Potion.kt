@@ -15,7 +15,7 @@ class Potion(obj: Any) : IWrapper(obj) {
 
         @JvmStatic
         fun getBlindness(): Potion {
-            return Potion(ReflectUtil.getFieldStatic(blindness))
+            return Potion(ReflectUtil.getFieldStatic(blindness)!!)
         }
     }
 }

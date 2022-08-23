@@ -136,7 +136,7 @@ class Minecraft(obj: Any) : IWrapper(obj) {
         val debugFPS: Int
             get() = ReflectUtil.invokeStatic(getDebugFPS) as Int
         val minecraft: Minecraft
-            get() = Minecraft(ReflectUtil.invokeStatic(getMinecraft))
+            get() = Minecraft(ReflectUtil.invokeStatic(getMinecraft)!!)
     }
 
     val displayHeight: Int
