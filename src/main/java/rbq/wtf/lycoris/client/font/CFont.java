@@ -26,21 +26,17 @@ public class CFont
         this.font = font;
         this.antiAlias = antiAlias;
         this.fractionalMetrics = fractionalMetrics;
-        this.unicode = unicode;
+        if (unicode) {
+            this.unicode = true;
+            this.imgSize = 4096;
+            this.charData = new CharData[256 + 62976];
+            this.unicodeChars = findCharactersInUnicodeBlock(Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS);
+        }
         tex = setupTexture(font, antiAlias, fractionalMetrics, charData);
     }
 
     public DynamicTexture setupTexture(Font font, boolean antiAlias, boolean fractionalMetrics, CharData[] chars)
     {
-        if (unicode) {
-            this.imgSize = 4096;
-            this.charData = new CharData[256 + 62976];
-            this.unicodeChars = findCharactersInUnicodeBlock(Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS);
-        } else {
-            this.imgSize = 512;
-            this.charData = new CharData[256];
-        }
-
         BufferedImage img = generateFontImage(font, antiAlias, fractionalMetrics, chars);
 
         try
@@ -180,7 +176,8 @@ public class CFont
 
     public void setAntiAlias(boolean antiAlias)
     {
-        if (this.antiAlias != antiAlias) {
+        if (this.antiAlias != antiAlias)
+        {
             this.antiAlias = antiAlias;
             tex = setupTexture(this.font, antiAlias, this.fractionalMetrics, this.charData);
         }
