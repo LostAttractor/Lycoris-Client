@@ -2,6 +2,7 @@ package rbq.wtf.lycoris.client
 
 import rbq.wtf.lycoris.agent.instrument.impl.InstrumentationImpl
 import rbq.wtf.lycoris.client.event.EventManager
+import rbq.wtf.lycoris.client.font.FontLoaders
 import rbq.wtf.lycoris.client.gui.clickgui.ClickGUI
 import rbq.wtf.lycoris.client.manager.CommandManager
 import rbq.wtf.lycoris.client.manager.ConfigManager
@@ -49,6 +50,8 @@ object Client {
         clickGUI = ClickGUI()
 
         isStarting = false
+
+        //FontLoaders.loadUnicode()
 
         Logger.info("Client Initialized Successful")
     }

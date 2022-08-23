@@ -303,7 +303,10 @@ class NumberValueComponent(
                 mouseX,
                 mouseY
             ) && mouseButton == 0
-        ) onSetting = true
+        ) {
+            settingValue = currentValue;
+            onSetting = true
+        }
     }
 
     override fun mouseReleased(mouseX: Int, mouseY: Int, mouseButton: Int) {
