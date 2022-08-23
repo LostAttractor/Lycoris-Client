@@ -48,15 +48,14 @@ class ClickGUI : Module() {
                     hyGui.getConstructor(Int::class.javaPrimitiveType, MargeleAntiCheatDetector.getGuiTab())
                 constructor.isAccessible = true
                 val gui = constructor.newInstance(0, MargeleAntiCheatDetector.getHyTab())
-                Minecraft.getMinecraft().displayGuiScreenBypass(IGuiScreen(gui))
+                Minecraft.minecraft.displayGuiScreenBypass(IGuiScreen(gui))
             } catch (e: Exception) {
                 e.printStackTrace()
             }
             return
         }
-        val guiScreenWrapper = Minecraft.getMinecraft().currentScreen
-        if (Objects.isNull(guiScreenWrapper.wrapObject)) {
-            Minecraft.getMinecraft().displayGuiScreenBypass(BridgeUtil.createGuiScreen(Client.clickGUI))
+        if (Objects.isNull(Minecraft.minecraft.currentScreen)) {
+            Minecraft.minecraft.displayGuiScreenBypass(BridgeUtil.createGuiScreen(Client.clickGUI))
         }
     }
 }

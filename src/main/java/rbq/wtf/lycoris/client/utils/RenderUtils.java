@@ -41,11 +41,11 @@ public class RenderUtils extends MinecraftInstance {
     }
 
     public static int width() {
-        return new ScaledResolution(Minecraft.getMinecraft()).getScaledWidth();
+        return new ScaledResolution(mc).getScaledWidth();
     }
 
     public static int height() {
-        return new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight();
+        return new ScaledResolution(mc).getScaledHeight();
     }
 
     public static int getHexRGB(final int hex) {

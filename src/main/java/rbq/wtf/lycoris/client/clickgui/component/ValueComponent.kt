@@ -137,9 +137,9 @@ class ValueListComponent(
     }
 
     override fun render(mouseX: Int, mouseY: Int, partialTicks: Float) {
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.startGlScissor(x.toInt(), y.toInt() + 10, width.toInt(), height.toInt() - 10)
+        RenderUtil.startGlScissor(x.toInt() - 10, y.toInt() + 10, width.toInt() + 10, height.toInt() - 10)
         valueComponents.forEach { it.render(mouseX, mouseY, partialTicks) }
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.stopGlScissor()
+        RenderUtil.stopGlScissor()
     }
 }
 
@@ -179,60 +179,60 @@ class BooleanValueComponent(
     override fun render(mouseX: Int, mouseY: Int, partialTicks: Float) {
         FontLoaders.default20.drawString(value.name, x, y, Color(255, 255, 255).rgb)
         if (value.get()) { //
-            rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+            RenderUtil.drawFilledCircle(
                 (x + BUTTON_OFFSET_X + 1).toDouble(), (y + BUTTON_CIRCLE_OFFSET_Y).toDouble(), 6.0,
                 Color(79, 66, 184).rgb, 5
             )
-            rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawRect(
+            RenderUtil.drawRect(
                 x + BUTTON_OFFSET_X, y + 4, x + BUTTON_END_X + 1, y + 16,
                 Color(79, 66, 184).rgb
             )
-            rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+            RenderUtil.drawFilledCircle(
                 (x + BUTTON_END_X).toDouble(), (y + BUTTON_CIRCLE_OFFSET_Y).toDouble(), 6.0,
                 Color(79, 66, 184).rgb, 5
             )
-            rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+            RenderUtil.drawFilledCircle(
                 (x + BUTTON_OFFSET_X + 1).toDouble(), (y + BUTTON_CIRCLE_OFFSET_Y).toDouble(), 5.0,
                 Color(26, 16, 46).rgb, 5
             )
-            rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawRect(
+            RenderUtil.drawRect(
                 x + BUTTON_OFFSET_X, y + 4 + 1, x + BUTTON_END_X + 1, y + 16 - 1,
                 Color(26, 16, 46).rgb
             )
-            rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+            RenderUtil.drawFilledCircle(
                 (x + BUTTON_END_X).toDouble(), (y + BUTTON_CIRCLE_OFFSET_Y).toDouble(), 5.0,
                 Color(26, 16, 46).rgb, 5
             )
-            rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+            RenderUtil.drawFilledCircle(
                 (x + BUTTON_END_X).toDouble(), (y + BUTTON_CIRCLE_OFFSET_Y).toDouble(), 3.0,
                 Color(98, 96, 207).rgb, 5
             )
         } else {
-            rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+            RenderUtil.drawFilledCircle(
                 (x + BUTTON_OFFSET_X + 1).toDouble(), (y + BUTTON_CIRCLE_OFFSET_Y).toDouble(), 6.0,
                 Color(83, 69, 193).rgb, 5
             )
-            rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawRect(
+            RenderUtil.drawRect(
                 x + BUTTON_OFFSET_X, y + 4, x + BUTTON_END_X + 1, y + 16,
                 Color(83, 69, 193).rgb
             )
-            rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+            RenderUtil.drawFilledCircle(
                 (x + BUTTON_END_X).toDouble(), (y + BUTTON_CIRCLE_OFFSET_Y).toDouble(), 6.0,
                 Color(83, 69, 193).rgb, 5
             )
-            rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+            RenderUtil.drawFilledCircle(
                 (x + BUTTON_OFFSET_X + 1).toDouble(), (y + BUTTON_CIRCLE_OFFSET_Y).toDouble(), 5.0,
                 Color(25, 25, 25).rgb, 5
             )
-            rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawRect(
+            RenderUtil.drawRect(
                 x + BUTTON_OFFSET_X, y + 4 + 1, x + BUTTON_END_X + 1, y + 15,
                 Color(25, 25, 25).rgb
             )
-            rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+            RenderUtil.drawFilledCircle(
                 (x + BUTTON_END_X).toDouble(), (y + BUTTON_CIRCLE_OFFSET_Y).toDouble(), 5.0,
                 Color(25, 25, 25).rgb, 5
             )
-            rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+            RenderUtil.drawFilledCircle(
                 (x + BUTTON_OFFSET_X + 1).toDouble(), (y + BUTTON_CIRCLE_OFFSET_Y).toDouble(), 3.0,
                 Color(80, 81, 81).rgb, 5
             )
@@ -315,7 +315,7 @@ class NumberValueComponent(
     }
 
     override fun mouseReleased(mouseX: Int, mouseY: Int, mouseButton: Int) {
-        if (mouseButton == 0 && onSetting) {
+        if (onSetting) {
             value.set(settingValue)
             onSetting = false
         }
@@ -330,42 +330,42 @@ class NumberValueComponent(
         )
         val buttonOffsetX =
             (BUTTON_WEIGHT - 8) * ((currentValue - value.minimum) / (value.maximum - value.minimum)) //295
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+        RenderUtil.drawFilledCircle(
             (x + BUTTON_CIRCLE_RADIUS - 1), (y + BUTTON_CIRCLE_OFFSET_Y), BUTTON_CIRCLE_RADIUS,
             Color(45, 37, 104).rgb, 5
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawRect(
+        RenderUtil.drawRect(
             (x + BUTTON_CIRCLE_RADIUS).toFloat(), y + BUTTON_OFFSET_Y, x + BUTTON_WEIGHT + 1,
             y + BUTTON_END_Y.toFloat(),
             Color(45, 36, 104).rgb
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+        RenderUtil.drawFilledCircle(
             (x + BUTTON_WEIGHT).toDouble(), (y + BUTTON_CIRCLE_OFFSET_Y), BUTTON_CIRCLE_RADIUS,
             Color(45, 37, 104).rgb, 5
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+        RenderUtil.drawFilledCircle(
             (x + BUTTON_CIRCLE_RADIUS_S), (y + BUTTON_CIRCLE_OFFSET_Y), BUTTON_CIRCLE_RADIUS_S,
             Color(45, 45, 45).rgb, 5
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawRect(
+        RenderUtil.drawRect(
             x + BUTTON_CIRCLE_RADIUS_S.toFloat(), y + BUTTON_OFFSET_Y + 1, x + BUTTON_WEIGHT,
             (y + BUTTON_END_Y - 1).toFloat(),
             Color(45, 45, 45).rgb
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+        RenderUtil.drawFilledCircle(
             (x + BUTTON_CIRCLE_RADIUS_S), y + BUTTON_CIRCLE_OFFSET_Y, BUTTON_CIRCLE_RADIUS_S,
             Color(45, 45, 45).rgb, 5
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+        RenderUtil.drawFilledCircle(
             (x + BUTTON_CIRCLE_RADIUS - 1), y + BUTTON_CIRCLE_OFFSET_Y, BUTTON_CIRCLE_RADIUS,
             Color(97, 79, 237).rgb, 5
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawRect(
+        RenderUtil.drawRect(
             (x + 8 - 1), y + BUTTON_OFFSET_Y, (x + 8 + 1 + buttonOffsetX),
             y + 31,
             Color(97, 79, 237).rgb
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFilledCircle(
+        RenderUtil.drawFilledCircle(
             (x + 8 + buttonOffsetX).toDouble(), (y + BUTTON_CIRCLE_OFFSET_Y), 8.0,
             Color(97, 79, 237).rgb, 5
         )
@@ -410,7 +410,7 @@ class ModeValueComponent(
             y,
             Color(255, 255, 255).rgb
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFastRoundedRect(
+        RenderUtil.drawFastRoundedRect(
             x + BUTTON_OFFSET_X,
             y + BUTTON_OFFSET_Y,
             x + BUTTON_END_X,
@@ -418,7 +418,7 @@ class ModeValueComponent(
             2f,
             Color(83, 69, 193).rgb
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFastRoundedRect(
+        RenderUtil.drawFastRoundedRect(
             x + BUTTON_OFFSET_X + 1,
             y + BUTTON_OFFSET_Y + 1,
             x + BUTTON_END_X - 1,
@@ -426,7 +426,6 @@ class ModeValueComponent(
             2f,
             Color(27, 27, 27).rgb
         )
-        println(value.modeName)
         FontLoaders.default20.drawCenteredString(
             value.modeName,
             x + BUTTON_OFFSET_X + 45,

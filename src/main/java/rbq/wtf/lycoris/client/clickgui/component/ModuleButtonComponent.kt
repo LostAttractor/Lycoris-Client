@@ -58,9 +58,9 @@ class ModuleButtonListComponent(
     }
 
     override fun render(mouseX: Int, mouseY: Int, partialTicks: Float) {
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.startGlScissor(x.toInt(), y.toInt() + 10, width.toInt(), height.toInt() - 10) //45
+        RenderUtil.startGlScissor(x.toInt(), y.toInt() + 10, width.toInt(), height.toInt() - 10) //45
         moduleButtons.forEach { it.render(mouseX, mouseY, partialTicks) }
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.stopGlScissor()
+        RenderUtil.stopGlScissor()
     }
 
     override fun mouseWheelScroll(mouseX: Int, mouseY: Int, mouseWheel: Int) {
