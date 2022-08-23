@@ -8,7 +8,7 @@ public class Loader {
 
     public Loader() {
         new Thread(() -> {
-            if (Client.developEnv)
+            //if (Client.developEnv)
                 JOptionPane.showConfirmDialog(null, "Wait");
             Client.INSTANCE.start();
         }).start();

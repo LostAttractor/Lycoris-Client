@@ -10,7 +10,7 @@ import java.lang.reflect.Field
 import java.lang.reflect.Method
 
 @WrapperClass(mcpName = "net.minecraft.client.settings.KeyBinding", targetMap = MapEnum.VANILLA189)
-class KeyBinding(obj: Any?) : IWrapper(obj) {
+class KeyBinding(obj: Any) : IWrapper(obj) {
     companion object {
         @WrapClass(mcpName = "net.minecraft.client.settings.KeyBinding", targetMap = MapEnum.VANILLA189)
         lateinit var KeyBindingClass: Class<*>

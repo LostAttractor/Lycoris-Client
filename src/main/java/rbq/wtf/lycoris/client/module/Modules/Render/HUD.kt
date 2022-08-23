@@ -31,7 +31,7 @@ class HUD : Module() {
 
     @EventTarget
     fun onRender2D(e: Render2DEvent?) {
-        val sc = ScaledResolution(Minecraft.getMinecraft())
+        val sc = ScaledResolution(Minecraft.minecraft)
         if (waterMark.get()) {
             val text = if (waterMarkMode.get() == 0) "Dimples.love" else ColorUtils.randomMagicText("Dimples.love")
             FontLoaders.default30.drawStringWithShadow(

@@ -1,8 +1,10 @@
 package rbq.wtf.lycoris.client.font;
 
 import org.lwjgl.opengl.GL11;
+import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.GlStateManager;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.DynamicTexture;
+import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.ResourceLocation;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -25,11 +27,11 @@ public class FontRenderer extends CFont {
         setupBoldItalicIDs();
     }
 
-//    public FontRenderer(String NameFontTTF, int size, int fonttype, boolean antiAlias, boolean fractionalMetrics) {
-//        super(FontUtil.getFontFromTTF(new ResourceLocation("YourClientAssetsFolder/Fonts" + NameFontTTF+".ttf"), size,fonttype), antiAlias, fractionalMetrics);
-//        setupMinecraftColorcodes();
-//        setupBoldItalicIDs();
-//    }
+    public FontRenderer(String NameFontTTF, int size, int fonttype, boolean antiAlias, boolean fractionalMetrics, boolean unicode) {
+        super(FontUtil.getFontFromTTF(new ResourceLocation(Client.CLIENT_NAME + "/Fonts/" + NameFontTTF+".ttf"), size,fonttype), antiAlias, fractionalMetrics, unicode);
+        setupMinecraftColorcodes();
+        setupBoldItalicIDs();
+    }
 
     public float drawString(String text, float x, float y, int color) {
         return drawString(text, x, y, color, false);

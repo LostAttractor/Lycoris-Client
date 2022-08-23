@@ -21,26 +21,26 @@ class BackGroundComponent(
     }
 
     override fun render(mouseX: Int, mouseY: Int, partialTicks: Float) {
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFastRoundedRect(
+        RenderUtil.drawFastRoundedRect(
             (startX - 1f), (startY - 1f), (startX + ClickGUI.WEIGHT + 1f),
             (startY + ClickGUI.HEIGHT + 1f), 5f, Color(15, 15, 15, 33).rgb
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFastRoundedRect(
+        RenderUtil.drawFastRoundedRect(
             startX - 1.5f, startY - 1.5f, startX + ClickGUI.WEIGHT + 1.5f,
             startY + ClickGUI.HEIGHT + 1.5f, 5f, Color(15, 15, 15, 31).rgb
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFastRoundedRect(
+        RenderUtil.drawFastRoundedRect(
             startX - 2f, startY - 2f, startX + ClickGUI.WEIGHT + 2f,
             startY + ClickGUI.HEIGHT + 2f, 5f, Color(15, 15, 15, 29).rgb
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawFastRoundedRect(
+        RenderUtil.drawFastRoundedRect(
             startX, startY, startX + ClickGUI.WEIGHT, startY + ClickGUI.HEIGHT, 5f, Color(15, 15, 15).rgb
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawHLine(
+        RenderUtil.drawHLine(
             startX, startY + 35f, startX + ClickGUI.WEIGHT, startY + 35, 4f,
             Color(69, 78, 238).rgb
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawHLine(
+        RenderUtil.drawHLine(
             startX + 110f,
             startY + 35f,
             startX + 110f,
@@ -48,7 +48,7 @@ class BackGroundComponent(
             4f,
             Color(69, 78, 238).rgb
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawHLine(
+        RenderUtil.drawHLine(
             startX + 107f,
             startY + 36f,
             startX + 107f,
@@ -56,7 +56,7 @@ class BackGroundComponent(
             4f,
             Color(38, 38, 38).rgb
         )
-        rbq.wtf.lycoris.client.clickgui.utils.RenderUtil.drawHLine(
+        RenderUtil.drawHLine(
             startX + 107f,
             startY + 37f,
             startX + 107f,

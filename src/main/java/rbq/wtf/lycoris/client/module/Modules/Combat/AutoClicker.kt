@@ -54,8 +54,8 @@ class AutoClicker : Module() {
 
     fun leftCanAutoClick(currentTime: Long): Boolean {
         return !isBreakingBlock
-                && !(currentTime - blockLastBroken < blockBrokenDelay &&
-                mc.world.getBlockState(mc.objectMouseOver.blockPos).block.equals(Blocks.getAir()))
+                && !(currentTime - blockLastBroken < blockBrokenDelay && mc.objectMouseOver != null &&
+                mc.world!!.getBlockState(mc.objectMouseOver!!.blockPos).block.equals(Blocks.air)) //equals重写了，请勿替换为==
     }
 
     fun rightCanAutoClick(): Boolean {

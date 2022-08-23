@@ -33,8 +33,6 @@ public class BridgeUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     public static IGuiScreen createGuiScreen(GuiScreenImpl guiScreen) {

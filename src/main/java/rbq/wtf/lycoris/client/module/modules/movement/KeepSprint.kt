@@ -27,10 +27,10 @@ class KeepSprint : Module() {
             ) || food.get() && !(mc.player.foodStats.foodLevel > 6.0f || mc.player.capabilities.isAllowFlying) /*|| (checkServerSide.get() && (mc.thePlayer.onGround || !checkServerSideGround.get())
                 && !allDirectionsValue.get() && RotationUtils.targetRotation != null &&
                 RotationUtils.getRotationDifference(new Rotation(mc.thePlayer.rotationYaw, mc.thePlayer.rotationPitch)) > 30)*/) {
-            mc.player.isSprinting = false
+            mc.player.setSprinting(false)
             //Logger.debug("Set Sprint false", "SprintModule");
         } else if (allDirections.get() || mc.player.movementInput.moveForward >= 0.8f) {
-            mc.player.isSprinting = true
+            mc.player.setSprinting(true)
             //Logger.debug("Set Sprint", "SprintModule");
         }
         if (noDelay.get()) {

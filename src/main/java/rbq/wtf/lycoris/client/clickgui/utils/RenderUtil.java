@@ -3,7 +3,6 @@ package rbq.wtf.lycoris.client.clickgui.utils;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 import rbq.wtf.lycoris.client.utils.MinecraftInstance;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.Gui;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.GlStateManager;
@@ -23,38 +22,38 @@ public class RenderUtil extends MinecraftInstance {
     }
 
     public static void enableSmoothLine(float width) {
-        glDisable((int) 3008);
-        glEnable((int) 3042);
-        GL11.glBlendFunc((int) 770, (int) 771);
-        glDisable((int) 3553);
-        glDisable((int) 2929);
-        GL11.glDepthMask((boolean) false);
-        glEnable((int) 2884);
-        glEnable((int) 2848);
-        GL11.glHint((int) 3154, (int) 4354);
-        GL11.glHint((int) 3155, (int) 4354);
-        GL11.glLineWidth((float) width);
+        glDisable(3008);
+        glEnable(3042);
+        GL11.glBlendFunc(770, 771);
+        glDisable(3553);
+        glDisable(2929);
+        GL11.glDepthMask(false);
+        glEnable(2884);
+        glEnable(2848);
+        GL11.glHint(3154, 4354);
+        GL11.glHint(3155, 4354);
+        GL11.glLineWidth(width);
     }
 
     public static void disableSmoothLine() {
-        glEnable((int) 3553);
-        glEnable((int) 2929);
-        glDisable((int) 3042);
-        glEnable((int) 3008);
-        GL11.glDepthMask((boolean) true);
-        GL11.glCullFace((int) 1029);
-        glDisable((int) 2848);
-        GL11.glHint((int) 3154, (int) 4352);
-        GL11.glHint((int) 3155, (int) 4352);
+        glEnable(3553);
+        glEnable(2929);
+        glDisable(3042);
+        glEnable(3008);
+        GL11.glDepthMask(true);
+        GL11.glCullFace(1029);
+        glDisable(2848);
+        GL11.glHint(3154, 4352);
+        GL11.glHint(3155, 4352);
     }
 
 
     public static int width() {
-        return (new ScaledResolution(Minecraft.getMinecraft())).getScaledWidth();
+        return (new ScaledResolution(mc)).getScaledWidth();
     }
 
     public static int height() {
-        return (new ScaledResolution(Minecraft.getMinecraft())).getScaledHeight();
+        return (new ScaledResolution(mc)).getScaledHeight();
     }
 
     public static void drawFastRoundedRect(final float x0, final float y0, final float x1, final float y1, final float radius, final int color) {
@@ -217,8 +216,8 @@ public class RenderUtil extends MinecraftInstance {
         float ldy;
         float ldx;
         float i;
-        GlStateManager.color((float) 0.0f, (float) 0.0f, (float) 0.0f);
-        GL11.glColor4f((float) 0.0f, (float) 0.0f, (float) 0.0f, (float) 0.0f);
+        GlStateManager.color(0.0f, 0.0f, 0.0f);
+        GL11.glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
         float temp = 0.0f;
         if (start > end) {
             temp = end;
@@ -233,28 +232,28 @@ public class RenderUtil extends MinecraftInstance {
         WorldRenderer var10 = var9.getWorldRenderer();
         GlStateManager.enableBlend();
         GlStateManager.disableTexture2D();
-        GlStateManager.tryBlendFuncSeparate((int) 770, (int) 771, (int) 1, (int) 0);
-        GlStateManager.color((float) var6, (float) var7, (float) var8, (float) var11);
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        GlStateManager.color(var6, var7, var8, var11);
         if (var11 > 0.5f) {
-            GL11.glEnable((int) 2848);
-            GL11.glLineWidth((float) 2.0f);
-            GL11.glBegin((int) 3);
+            GL11.glEnable(2848);
+            GL11.glLineWidth(2.0f);
+            GL11.glBegin(3);
             i = end;
             while (i >= start) {
-                ldx = (float) Math.cos((double) ((double) i * 3.141592653589793 / 180.0)) * (w * 1.001f);
-                ldy = (float) Math.sin((double) ((double) i * 3.141592653589793 / 180.0)) * (h * 1.001f);
-                GL11.glVertex2f((float) (x + ldx), (float) (y + ldy));
+                ldx = (float) Math.cos((double) i * 3.141592653589793 / 180.0) * (w * 1.001f);
+                ldy = (float) Math.sin((double) i * 3.141592653589793 / 180.0) * (h * 1.001f);
+                GL11.glVertex2f(x + ldx, y + ldy);
                 i -= 4.0f;
             }
             GL11.glEnd();
-            GL11.glDisable((int) 2848);
+            GL11.glDisable(2848);
         }
-        GL11.glBegin((int) 6);
+        GL11.glBegin(6);
         i = end;
         while (i >= start) {
-            ldx = (float) Math.cos((double) ((double) i * 3.141592653589793 / 180.0)) * w;
-            ldy = (float) Math.sin((double) ((double) i * 3.141592653589793 / 180.0)) * h;
-            GL11.glVertex2f((float) (x + ldx), (float) (y + ldy));
+            ldx = (float) Math.cos((double) i * 3.141592653589793 / 180.0) * w;
+            ldy = (float) Math.sin((double) i * 3.141592653589793 / 180.0) * h;
+            GL11.glVertex2f(x + ldx, y + ldy);
             i -= 4.0f;
         }
         GL11.glEnd();
@@ -590,8 +589,8 @@ public class RenderUtil extends MinecraftInstance {
 //	}
 
     public static void setColor(Color c) {
-        GL11.glColor4d((double) ((float) c.getRed() / 255.0F), (double) ((float) c.getGreen() / 255.0F),
-                (double) ((float) c.getBlue() / 255.0F), (double) ((float) c.getAlpha() / 255.0F));
+        GL11.glColor4d((float) c.getRed() / 255.0F, (float) c.getGreen() / 255.0F,
+                (float) c.getBlue() / 255.0F, (float) c.getAlpha() / 255.0F);
     }
 
     public static void drawOutlinedBoundingBox(AxisAlignedBB aa) {
@@ -927,7 +926,7 @@ public class RenderUtil extends MinecraftInstance {
     }
 
     public static void stopGlScissor() {
-        glDisable((int) 3089);
+        glDisable(3089);
         GL11.glPopMatrix();
     }
 
@@ -1172,13 +1171,13 @@ public class RenderUtil extends MinecraftInstance {
         if (d < g) {
             f3 = (int) d;
             d = g;
-            g = (double) f3;
+            g = f3;
         }
 
         if (e < h) {
             f3 = (int) e;
             e = h;
-            h = (double) f3;
+            h = f3;
         }
 
         float f31 = (float) (color >> 24 & 255) / 255.0F;

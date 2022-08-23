@@ -5,7 +5,6 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.Gui;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.GlStateManager;
@@ -41,11 +40,11 @@ public class RenderUtils extends MinecraftInstance {
     }
 
     public static int width() {
-        return new ScaledResolution(Minecraft.getMinecraft()).getScaledWidth();
+        return new ScaledResolution(mc).getScaledWidth();
     }
 
     public static int height() {
-        return new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight();
+        return new ScaledResolution(mc).getScaledHeight();
     }
 
     public static int getHexRGB(final int hex) {
