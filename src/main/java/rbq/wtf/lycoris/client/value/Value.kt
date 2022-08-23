@@ -87,10 +87,13 @@ open class NumberValue(
 }
 
 
-open class ModeValue(name: String, val modes: Array<String>, var selection: Int) :
+open class ModeValue(name: String, private val modes: Array<String>, selection: Int) :
     Value<Int>(name, selection) {
     val modeName: String
-        get() = modes[selection]
+        get() {
+            println("NAME: $value ${modes[value]}")
+            return modes[value]
+        }
 
     operator fun contains(string: String?): Boolean {
         return Arrays.stream(modes).anyMatch { s: String -> s.equals(string, ignoreCase = true) }
@@ -112,7 +115,7 @@ open class ModeValue(name: String, val modes: Array<String>, var selection: Int)
     }
 
     fun incrementSelection() {
-        set(if (get() + 1 < modes.size) get() + 1 else 0)
+        set(if (get() + 1 in modes.indices) get() + 1 else 0)
     }
 }
 

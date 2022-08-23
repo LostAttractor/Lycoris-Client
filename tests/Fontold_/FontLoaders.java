@@ -11,4 +11,6 @@ public class FontLoaders {
     public static CFontRenderer default18 = new CFontRenderer(new Font("default", Font.PLAIN, 18), true, true, false);
     public static CFontRenderer default20 = new CFontRenderer(new Font("default", Font.PLAIN, 20), true, true, false);
     public static CFontRenderer default25 = new CFontRenderer(new Font("default", Font.PLAIN, 25), true, true, false);
+
+    public static CFontRenderer default30 = new CFontRenderer(new Font("default", Font.PLAIN, 30), true, true, false);
 }

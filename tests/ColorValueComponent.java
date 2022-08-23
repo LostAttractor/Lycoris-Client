@@ -4,7 +4,7 @@ package rbq.wtf.lycoris.client.gui.clickgui.component;
 import org.lwjgl.opengl.GL11;
 import rbq.wtf.lycoris.client.gui.clickgui.ClickGUI;
 import rbq.wtf.lycoris.client.gui.clickgui.utils.RenderUtil;
-import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
+import rbq.wtf.lycoris.client.font.FontLoaders;
 import rbq.wtf.lycoris.client.value.ColorValue;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.DefaultVertexFormats;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.GlStateManager;

@@ -65,7 +65,6 @@ class AutoClicker : Module() {
     // BUG: There is no delay between breaking blocks in creative mode
     fun leftClick(currentTime: Long) {
         if (left.get() && mc.gameSettings.keyBindAttack.isKeyDown) {
-            Logger.debug("DoLeftClick", "AutoClicker")
             isBreakingBlock = mc.playerController.curBlockDamageMP != 0F
             if (!isBreakingBlock && wasBreakingBlock) {
                 blockLastBroken = currentTime

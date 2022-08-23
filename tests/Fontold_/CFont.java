@@ -23,7 +23,7 @@ public class CFont {
     protected int fontHeight = -1;
     protected int charOffset = 0;
     protected DynamicTexture tex;
-    protected HashMap<Character, Character> charmap = new HashMap();
+    protected HashMap<Character, Character> charmap = new HashMap<>();
     private float imgSize = 512.0f;
     private boolean hasDone;
     private boolean unicode;

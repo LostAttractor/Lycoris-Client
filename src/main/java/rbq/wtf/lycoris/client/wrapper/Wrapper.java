@@ -1,7 +1,7 @@
 package rbq.wtf.lycoris.client.wrapper;
 
 import rbq.wtf.lycoris.client.Client;
-import rbq.wtf.lycoris.client.gui.Font.FontLoaders;
+import rbq.wtf.lycoris.client.font.FontLoaders;
 import rbq.wtf.lycoris.client.utils.FileUtils;
 import rbq.wtf.lycoris.client.utils.Logger;
 import rbq.wtf.lycoris.client.wrapper.SRGReader.SRGReader;

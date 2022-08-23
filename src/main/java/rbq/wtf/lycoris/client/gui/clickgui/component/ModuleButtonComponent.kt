@@ -1,7 +1,7 @@
 package rbq.wtf.lycoris.client.gui.clickgui.component
 
 import rbq.wtf.lycoris.client.Client
-import rbq.wtf.lycoris.client.gui.Font.FontLoaders
+import rbq.wtf.lycoris.client.font.FontLoaders
 import rbq.wtf.lycoris.client.gui.clickgui.ClickGUI
 import rbq.wtf.lycoris.client.gui.clickgui.utils.RenderUtil
 import rbq.wtf.lycoris.client.module.Module
@@ -58,7 +58,7 @@ class ModuleButtonListComponent(
     }
 
     override fun render(mouseX: Int, mouseY: Int, partialTicks: Float) {
-        RenderUtil.startGlScissor(x.toInt(), y.toInt(), width.toInt(), height.toInt()) //45
+        RenderUtil.startGlScissor(x.toInt(), y.toInt() + 10, width.toInt(), height.toInt() - 10) //45
         moduleButtons.forEach { it.render(mouseX, mouseY, partialTicks) }
         RenderUtil.stopGlScissor()
     }
