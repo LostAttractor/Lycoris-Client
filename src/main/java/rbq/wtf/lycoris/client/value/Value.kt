@@ -90,10 +90,7 @@ open class NumberValue(
 open class ModeValue(name: String, private val modes: Array<String>, selection: Int) :
     Value<Int>(name, selection) {
     val modeName: String
-        get() {
-            println("NAME: $value ${modes[value]}")
-            return modes[value]
-        }
+        get() = modes[value]
 
     operator fun contains(string: String?): Boolean {
         return Arrays.stream(modes).anyMatch { s: String -> s.equals(string, ignoreCase = true) }
