@@ -5,7 +5,6 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.Gui;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.GlStateManager;

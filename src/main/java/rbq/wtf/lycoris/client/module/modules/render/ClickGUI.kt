@@ -41,13 +41,13 @@ class ClickGUI : Module() {
     val arrayList18 = BooleanValue("ArrayList18", true)
 
     override fun onEnable() {
-        if (MargeleAntiCheatDetector.getHyGui() != null) {
-            val hyGui = MargeleAntiCheatDetector.getHyGui()
+        if (MargeleAntiCheatDetector.hyGui != null) {
+            val hyGui = MargeleAntiCheatDetector.hyGui
             try {
                 val constructor =
-                    hyGui.getConstructor(Int::class.javaPrimitiveType, MargeleAntiCheatDetector.getGuiTab())
+                    hyGui!!.getConstructor(Int::class.javaPrimitiveType, MargeleAntiCheatDetector.guiTab)
                 constructor.isAccessible = true
-                val gui = constructor.newInstance(0, MargeleAntiCheatDetector.getHyTab())
+                val gui = constructor.newInstance(0, MargeleAntiCheatDetector.hyTab)
                 Minecraft.minecraft.displayGuiScreenBypass(IGuiScreen(gui))
             } catch (e: Exception) {
                 e.printStackTrace()

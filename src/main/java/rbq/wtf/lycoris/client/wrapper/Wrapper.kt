@@ -3,13 +3,14 @@ package rbq.wtf.lycoris.client.wrapper
 import rbq.wtf.lycoris.client.Client
 import rbq.wtf.lycoris.client.font.FontLoaders
 import rbq.wtf.lycoris.client.utils.FileUtils
+import rbq.wtf.lycoris.client.utils.Logger
 import rbq.wtf.lycoris.client.utils.Logger.debug
 import rbq.wtf.lycoris.client.utils.Logger.error
 import rbq.wtf.lycoris.client.utils.Logger.info
-import rbq.wtf.lycoris.client.wrapper.SRGReader.SRGReader
-import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MapNode
-import rbq.wtf.lycoris.client.wrapper.SRGReader.map.MethodNode
-import rbq.wtf.lycoris.client.wrapper.SRGReader.map.NodeType
+import rbq.wtf.lycoris.client.wrapper.srgreader.SRGReader
+import rbq.wtf.lycoris.client.wrapper.srgreader.map.ClassNode
+import rbq.wtf.lycoris.client.wrapper.srgreader.map.FieldNode
+import rbq.wtf.lycoris.client.wrapper.srgreader.map.MethodNode
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.*
 import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.repeat.*
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.GameSettings
@@ -46,23 +47,22 @@ import java.lang.reflect.Field
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
 import java.nio.file.Path
-import java.util.*
 
 object Wrapper {
-    private val wrapperList: MutableList<Class<out IWrapper?>> = ArrayList()
-    var MapEnv: MapEnum? = null
-    var useMapObf = false
-    var srgMap: String? = null
-    var srgPath: Path? = null
-    private var reader: SRGReader? = null
+    private val wrapperList: ArrayList<Class<out IWrapper?>> = ArrayList()
+    lateinit var MapEnv: MapEnum
+    lateinit var srgMap: String
+    lateinit var srgPath: Path
+    lateinit private var reader: SRGReader
+    var useMapObf: Boolean = !Client.developEnv //是否使用混淆后的名称，在MDK环境下需设为false
+
     fun init() {
         info("Start Initialize Wrapper", "Wrapper")
         try {
             MapEnv = MapEnum.VANILLA189
-            useMapObf = !Client.developEnv //是否使用混淆后的名称，在MDK环境下需设为false
             srgPath =
-                if (Client.developEnv) Client.runPath.parent.resolve("maps/" + MapEnv.toString() + ".srg") else Client.runPath.resolve(
-                    MapEnv.toString() + ".srg"
+                if (Client.developEnv) Client.runPath.parent.resolve("maps/$MapEnv.srg") else Client.runPath.resolve(
+                    "$MapEnv.srg"
                 )
             srgMap = FileUtils.readFileByPath(srgPath)
             reader = SRGReader(srgMap)
@@ -152,10 +152,6 @@ object Wrapper {
         }
     }
 
-    fun getWrapperList(): List<Class<out IWrapper?>> {
-        return wrapperList
-    }
-
     @Throws(
         IllegalAccessException::class,
         ClassNotFoundException::class,
@@ -226,14 +222,14 @@ object Wrapper {
                             if (declaredAnnotation is WrapperClasses) {
                                 for (target in declaredAnnotation.value) {
                                     if (target.targetMap == MapEnv) {
-                                        val mapNode = readClass(target.mcpName)
+                                        val mapNode = reader.getClass(target.mcpName, false)
                                         classes.add(reflectClassByMap(mapNode))
                                     }
                                 }
                             } else if (declaredAnnotation is WrapperClass) {
                                 val target: WrapperClass = declaredAnnotation
                                 if (target.targetMap == MapEnv) {
-                                    val mapNode = readClass(target.mcpName)
+                                    val mapNode = reader.getClass(target.mcpName, false)
                                     classes.add(reflectClassByMap(mapNode))
                                 }
                             }
@@ -242,7 +238,7 @@ object Wrapper {
                         classes.add(aClass.java)
                     }
                 }
-                val mapNode = readClass(wrapperClass.mcpName)
+                val mapNode = reader.getClass(wrapperClass.mcpName, false)
                 val target = reflectClassByMap(mapNode)
                 val constructor: Constructor<*> = if (classes.size == 0) {
                     target.constructors[0]
@@ -308,88 +304,76 @@ object Wrapper {
         if (wrapEnum.targetMap == MapEnv) {
             if (Modifier.isStatic(declaredField.modifiers)) {
                 //ReadMap
-                var mapNode = readField(wrapperClass.mcpName, wrapEnum.mcpName)
+                var mapNode = reader.getField(wrapperClass.mcpName, wrapEnum.mcpName, false)
                 if (wrapEnum.customSrgName != "none") {
-                    val clazz = readClass(wrapperClass.mcpName)
-                    if (clazz != null) mapNode =
-                        MapNode(NodeType.Field, "", clazz.srg.replace(".", "/") + wrapEnum.customSrgName)
+//                    val clazz = reader.getClass(wrapperClass.mcpName)
+                    mapNode = FieldNode(
+                        mapNode.nodeType,
+                        mapNode.mcpName,
+                        mapNode.mcpClassName,
+                        mapNode.mcpFieldName,
+                        mapNode.srgName.replace(mapNode.srgFieldName, wrapEnum.customSrgName),
+                        mapNode.srgClassName,
+                        wrapEnum.customSrgName
+                    )
+//                    mapNode =
+//                        MapNode(NodeType.Field, "", clazz.srg.replace(".", "/") + wrapEnum.customSrgName)
                 }
-                if (mapNode != null) {
-                    try {
-                        declaredField.isAccessible = true
-                        declaredField[null] = reflectEnumByMap(mapNode)
-                    } catch (e: Exception) {
-                        error(
-                            "Failed to apply Enum: " + wrapperClass.mcpName + " " + wrapEnum.mcpName + " -> " + mapNode.srg,
-                            "Wrapper"
-                        )
-                        e.printStackTrace()
-                    }
+                try {
+                    declaredField.isAccessible = true
+                    declaredField[null] = reflectEnumByMap(mapNode)
                     debug(
-                        "Successful apply Enum: " + wrapperClass.mcpName + " " + wrapEnum.mcpName + " -> " + mapNode.srg,
+                        "Successful apply Enum: " + wrapperClass.mcpName + " " + wrapEnum.mcpName + " -> " + mapNode.getFieldName(
+                            useMapObf
+                        ),
                         "Wrapper"
                     )
-                } else {
-                    error("Failed to find Enum in SrgMaps: " + wrapEnum.mcpName, "Wrapper")
+                } catch (e: Exception) {
+                    error(
+                        "Failed to apply Enum: " + wrapperClass.mcpName + " " + wrapEnum.mcpName + " -> " + mapNode.getFieldName(
+                            useMapObf
+                        ),
+                        "Wrapper"
+                    )
+                    e.printStackTrace()
                 }
             }
         }
-    }
-
-    @Throws(ClassNotFoundException::class)
-    private fun reflectEnumByMap(mapNode: MapNode): Enum<*> {
-        val srg = mapNode.srg
-        val field = srg.split("/".toRegex()).dropLastWhile { it.isEmpty() }
-            .toTypedArray()[srg.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().size - 1]
-        val clazz = srg.replace("/", ".").replace(".$field", "")
-        val c = reader!!.getClassNative(clazz)
-        for (enumConstant in c.enumConstants) {
-            if (enumConstant is Enum<*>) {
-                if (enumConstant.name == field) return enumConstant
-            }
-        }
-        return reflectEnumByMapMcp(mapNode, c)
-    }
-
-    private fun reflectEnumByMapMcp(mapNode: MapNode, c: Class<*>): Enum<*> {
-        val srg = mapNode.mcp
-        val field = srg.split("/".toRegex()).dropLastWhile { it.isEmpty() }
-            .toTypedArray()[srg.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().size - 1]
-        for (enumConstant in c.enumConstants) {
-            if (enumConstant is Enum<*>) {
-                if (enumConstant.name == field) return enumConstant
-            }
-        }
-        throw NullPointerException("Can't wrap: " + mapNode.mcp + " -> " + c.canonicalName + "." + field + "]")
     }
 
     private fun applyObject(wrapperClass: WrapperClass, wrapObject: WrapObject, declaredField: Field) {
         if (wrapObject.targetMap == MapEnv) {
             if (Modifier.isStatic(declaredField.modifiers)) {
                 //ReadMap
-                var mapNode = readField(wrapperClass.mcpName, wrapObject.mcpName)
+                var mapNode = reader.getField(wrapperClass.mcpName, wrapObject.mcpName, false)
                 if (wrapObject.customSrgName != "none") {
-                    val clazz = readClass(wrapperClass.mcpName)
-                    if (clazz != null) mapNode =
-                        MapNode(NodeType.Field, "", clazz.srg.replace(".", "/") + wrapObject.customSrgName)
+                    mapNode = FieldNode(
+                        mapNode.nodeType,
+                        mapNode.mcpName,
+                        mapNode.mcpClassName,
+                        mapNode.mcpFieldName,
+                        mapNode.srgName.replace(mapNode.srgFieldName, wrapObject.customSrgName),
+                        mapNode.srgClassName,
+                        wrapObject.customSrgName
+                    )
                 }
-                if (mapNode != null) {
-                    try {
-                        declaredField.isAccessible = true
-                        declaredField[null] = reflectFieldByMap(mapNode)[null]
-                        debug(
-                            "Successful Apply Object: " + wrapperClass.mcpName + " " + wrapObject.mcpName + " -> " + mapNode.srg,
-                            "Wrapper"
-                        )
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        error(
-                            "Failed to Apply Object: " + wrapperClass.mcpName + " " + wrapObject.mcpName + " -> " + mapNode.srg,
-                            "Wrapper"
-                        )
-                    }
-                } else {
-                    error("Failed to find Object in SrgMap: " + wrapObject.mcpName, "Wrapper")
+                try {
+                    declaredField.isAccessible = true
+                    declaredField[null] = reflectFieldByMap(mapNode)[null]
+                    debug(
+                        "Successful Apply Object: " + wrapperClass.mcpName + " " + wrapObject.mcpName + " -> " + mapNode.getName(
+                            useMapObf
+                        ),
+                        "Wrapper"
+                    )
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    error(
+                        "Failed to Apply Object: " + wrapperClass.mcpName + " " + wrapObject.mcpName + " -> " + mapNode.getName(
+                            useMapObf
+                        ),
+                        "Wrapper"
+                    )
                 }
             }
         }
@@ -399,29 +383,35 @@ object Wrapper {
         if (wrapField.targetMap == MapEnv) {
             if (Modifier.isStatic(declaredField.modifiers)) {
                 //ReadMap
-                var mapNode = readField(wrapperClass.mcpName, wrapField.mcpName)
+                var mapNode = reader.getField(wrapperClass.mcpName, wrapField.mcpName, false)
                 if (wrapField.customSrgName != "none") {
-                    val clazz = readClass(wrapperClass.mcpName)
-                    if (clazz != null) mapNode =
-                        MapNode(NodeType.Field, "", clazz.srg.replace(".", "/") + wrapField.customSrgName)
+                    mapNode = FieldNode(
+                        mapNode.nodeType,
+                        mapNode.mcpName,
+                        mapNode.mcpClassName,
+                        mapNode.mcpFieldName,
+                        mapNode.srgName.replace(mapNode.srgFieldName, wrapField.customSrgName),
+                        mapNode.srgClassName,
+                        wrapField.customSrgName
+                    )
                 }
-                if (mapNode != null) {
-                    try {
-                        declaredField.isAccessible = true
-                        declaredField[null] = reflectFieldByMap(mapNode)
-                        debug(
-                            "Successful Apply Field: " + wrapperClass.mcpName + " " + wrapField.mcpName + " -> " + mapNode.srg,
-                            "Wrapper"
-                        )
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        error(
-                            "Failed to Apply Field: " + wrapperClass.mcpName + " " + wrapField.mcpName + " -> " + mapNode.srg,
-                            "Wrapper"
-                        )
-                    }
-                } else {
-                    error("Failed to find Field in SrgMap: " + wrapField.mcpName, "Wrapper")
+                try {
+                    declaredField.isAccessible = true
+                    declaredField[null] = reflectFieldByMap(mapNode)
+                    debug(
+                        "Successful Apply Field: " + wrapperClass.mcpName + " " + wrapField.mcpName + " -> " + mapNode.getName(
+                            useMapObf
+                        ),
+                        "Wrapper"
+                    )
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    error(
+                        "Failed to Apply Field: " + wrapperClass.mcpName + " " + wrapField.mcpName + " -> " + mapNode.getName(
+                            useMapObf
+                        ),
+                        "Wrapper"
+                    )
                 }
             }
         }
@@ -431,24 +421,24 @@ object Wrapper {
         if (wrapClass.targetMap == MapEnv) {
             if (Modifier.isStatic(declaredField.modifiers)) {
                 //ReadMap
-                val mapNode = readClass(wrapClass.mcpName)
-                if (mapNode != null) {
-                    try {
-                        declaredField.isAccessible = true
-                        declaredField[null] = reflectClassByMap(mapNode)
-                        debug(
-                            "Successful Apply Class: " + wrapperClass.mcpName + " " + wrapClass.mcpName + " -> " + mapNode.srg,
-                            "Wrapper"
-                        )
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        error(
-                            "Failed to Apply Class: " + wrapperClass.mcpName + " " + wrapClass.mcpName + " -> " + mapNode.srg,
-                            "Wrapper"
-                        )
-                    }
-                } else {
-                    error("Failed to find Class in SrgMap: " + wrapClass.mcpName, "Wrapper")
+                val mapNode = reader.getClass(wrapClass.mcpName, false)
+                try {
+                    declaredField.isAccessible = true
+                    declaredField[null] = reflectClassByMap(mapNode)
+                    debug(
+                        "Successful Apply Class: " + wrapperClass.mcpName + " " + wrapClass.mcpName + " -> " + mapNode.getName(
+                            useMapObf
+                        ),
+                        "Wrapper"
+                    )
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    error(
+                        "Failed to Apply Class: " + wrapperClass.mcpName + " " + wrapClass.mcpName + " -> " + mapNode.getName(
+                            useMapObf
+                        ),
+                        "Wrapper"
+                    )
                 }
             }
         }
@@ -457,118 +447,80 @@ object Wrapper {
     private fun applyMethod(wrapperClass: WrapperClass, wrapMethod: WrapMethod, declaredField: Field) {
         if (wrapMethod.targetMap == MapEnv) {
             if (Modifier.isStatic(declaredField.modifiers)) {
-                val mapNode = if (wrapMethod.signature == "none") readMethod(
+                val mapNode = reader.getMethod(
                     wrapperClass.mcpName,
                     wrapMethod.mcpName,
-                    null
-                ) else readMethod(wrapperClass.mcpName, wrapMethod.mcpName, wrapMethod.signature)
-                if (mapNode != null) {
-                    if (mapNode.srg == null) {
-                        error("null" + " " + wrapperClass.mcpName + " " + wrapMethod.mcpName, "Wrapper")
-                    }
-                    try {
-                        declaredField.isAccessible = true
-                        declaredField[null] = reflectMethodByMap(mapNode)
-                    } catch (e: Exception) {
-                        error(
-                            "Failed to Apply Method: " + wrapperClass.mcpName + " " + wrapMethod.mcpName + " -> " + mapNode.srg,
-                            "Wrapper"
-                        )
-                        e.printStackTrace()
-                    }
+                    if (wrapMethod.signature == "none") null else wrapMethod.signature,
+                    false
+                )
+                try {
+                    declaredField.isAccessible = true
+                    declaredField[null] = reflectMethodByMap(mapNode)
                     debug(
-                        "Successful Apply Method: " + wrapperClass.mcpName + " " + wrapMethod.mcpName + " -> " + mapNode.srg,
+                        "Successful Apply Method: " + wrapperClass.mcpName + " " + wrapMethod.mcpName + " -> " + mapNode.getName(
+                            useMapObf
+                        ),
                         "Wrapper"
                     )
-                } else {
-                    error("Failed to find Method in SrgMap: " + wrapMethod.mcpName, "Wrapper")
+                } catch (e: Exception) {
+                    error(
+                        "Failed to Apply Method: " + wrapperClass.mcpName + " " + wrapMethod.mcpName + " -> " + mapNode.getName(
+                            useMapObf
+                        ),
+                        "Wrapper"
+                    )
+                    e.printStackTrace()
                 }
             }
         }
     }
 
     @Throws(ClassNotFoundException::class)
-    private fun reflectFieldByMap(mapNode: MapNode): Field {
-        val srg = if (useMapObf) mapNode.srg else mapNode.mcp
-        val field = srg.split("/".toRegex()).dropLastWhile { it.isEmpty() }
-            .toTypedArray()[srg.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().size - 1]
-        val clazz = srg.replace("/", ".").replace(".$field", "")
-        val c = reader!!.getClassNative(clazz)
-        for (cField in c.fields) {
-            if (cField.name == field) {
-                cField.isAccessible = true
-                return cField
+    private fun reflectEnumByMap(mapNode: FieldNode): Enum<*> {
+        val fieldName = mapNode.getFieldName(useMapObf)
+        val className = mapNode.getClassName(useMapObf)
+        debug("reflectEnumByMap: $className", "Wrapper")
+        val c = getClassNative(className)
+        for (enumConstant in c.enumConstants) {
+            if (enumConstant is Enum<*>) {
+                if (enumConstant.name == fieldName) return enumConstant
             }
         }
-        for (declaredField in c.declaredFields) {
-            if (declaredField.name == field) {
-                declaredField.isAccessible = true
-                return declaredField
-            }
-        }
-        throw NullPointerException("Can't wrap: " + mapNode.mcp + " -> " + c.canonicalName + "." + field + "]")
+        throw NoSuchFieldException("Can't Found Enum: " + mapNode.getName(false) + " -> " + mapNode.getName(true))
     }
 
-    @Throws(ClassNotFoundException::class)
-    private fun reflectClassByMap(mapNode: MapNode?): Class<*> {
-        val srg = if (useMapObf) mapNode!!.srg else mapNode!!.mcp
-        debug("reflectClassByMap: " + mapNode.srg + " / " + mapNode.mcp, "Wrapper")
-        return reader!!.getClassNative(srg.replace("/", "."))
+    @Throws(ClassNotFoundException::class, NoSuchFieldException::class)
+    private fun reflectFieldByMap(mapNode: FieldNode): Field {
+        val className = mapNode.getClassName(useMapObf)
+        val fieldName = mapNode.getFieldName(useMapObf)
+        debug("reflectFieldByMap: $className, $fieldName", "Wrapper")
+        val c = getClassNative(className)
+        val f = c.getDeclaredField(fieldName)
+        f.isAccessible = true
+        return f
     }
 
     @Throws(ClassNotFoundException::class, NoSuchMethodException::class)
-    private fun reflectMethodByMap(mapNode: MapNode): Method {
-        if (mapNode is MethodNode) {
-            val srg = if (useMapObf) mapNode.getSrg() else mapNode.getMcp()
-            val method = srg.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[srg.split("/".toRegex())
-                .dropLastWhile { it.isEmpty() }.toTypedArray().size - 1]
-            val clazz = srg.replace("/", ".").replace(".$method", "")
-            val c = reader!!.getClassNative(clazz)
-            debug(
-                "Try Get Method: " + clazz + " " + method + " " + Arrays.toString(
-                    mapNode.signature.args
-                ), "Wrapper"
-            )
-            val m = c.getDeclaredMethod(method, *mapNode.signature.args)
-            m.isAccessible = true
-            return m
-        }
-        throw NoSuchMethodException("Can't wrap: " + mapNode.mcp)
+    private fun reflectMethodByMap(mapNode: MethodNode): Method {
+        val className = mapNode.getClassName(useMapObf)
+        val methodName = mapNode.getMethodName(useMapObf)
+        val signature = mapNode.getSignature(useMapObf)
+        val c = getClassNative(className)
+        val m = c.getDeclaredMethod(methodName, *signature.args)
+        m.isAccessible = true
+        return m
     }
 
-    fun readField(clazz: String, field: String): MapNode? {
-        val map = clazz.replace(".", "/") + "/" + field
-        for (mapNode in reader!!.mapNodes) {
-            if (mapNode.nodeType == NodeType.Field && mapNode.mcp == map) {
-                return mapNode
-            }
-        }
-        return null
+    @Throws(ClassNotFoundException::class)
+    private fun reflectClassByMap(mapNode: ClassNode): Class<*> {
+        val className = mapNode.getClassName(useMapObf).replace("/", ".")
+        debug("reflectClassByMap: $className", "Wrapper")
+        return getClassNative(className) //declaringClass
     }
 
-    fun readClass(clazz: String): MapNode? {
-        val map = clazz.replace(".", "/")
-        for (mapNode in reader!!.mapNodes) {
-            if (mapNode.nodeType == NodeType.Class && mapNode.mcp == map) {
-                return mapNode
-            }
-        }
-        return null
-    }
-
-    fun readMethod(clazz: String, method: String, customSig: String?): MapNode? {
-        val map = clazz.replace(".", "/") + "/" + method
-        for (mapNode in reader!!.mapNodes) {
-            if (mapNode.nodeType == NodeType.Method && mapNode.mcp == map) {
-                if (customSig != null) {
-                    if (customSig == (mapNode as MethodNode).deobfSig) {
-                        return mapNode
-                    }
-                } else {
-                    return mapNode
-                }
-            }
-        }
-        return null
+    @Throws(ClassNotFoundException::class)
+    fun getClassNative(name: String): Class<*> {
+        Logger.debug("Try to get Class: $name", "Wrapper")
+        return this.javaClass.classLoader.loadClass(name)
     }
 }
