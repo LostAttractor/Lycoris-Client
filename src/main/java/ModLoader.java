@@ -8,8 +8,7 @@ public class ModLoader {
 
     public ModLoader() {
         new Thread(() -> {
-            if (Client.developEnv)
-                JOptionPane.showConfirmDialog(null, "Wait");
+            JOptionPane.showConfirmDialog(null, "Please wait for minecraft launch...");
             Client.INSTANCE.start();
         }).start();
     }
