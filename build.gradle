@@ -53,10 +53,10 @@ configurations {
 //}
 
 dependencies {
-    include 'org.projectlombok:lombok:1.18.24'
-    annotationProcessor 'org.projectlombok:lombok:1.18.24'
-    includeTest 'org.projectlombok:lombok:1.18.24'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+//    include 'org.projectlombok:lombok:1.18.24'
+//    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+//    includeTest 'org.projectlombok:lombok:1.18.24'
+//    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 
     include "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 

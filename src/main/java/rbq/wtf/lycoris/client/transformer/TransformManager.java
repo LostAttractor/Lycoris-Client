@@ -2,6 +2,7 @@ package rbq.wtf.lycoris.client.transformer;
 
 import rbq.wtf.lycoris.agent.LycorisAgent;
 import rbq.wtf.lycoris.agent.instrument.impl.InstrumentationImpl;
+import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.transformer.transformers.*;
 import rbq.wtf.lycoris.client.utils.Logger;
 
@@ -57,9 +58,9 @@ public class TransformManager {
             Logger.warning("Transform " + clazz.getCanonicalName() + " return null", "Transformer");
             return original_class_bytes;
         }
-//        if (LycorisClient.debug) {{
-        writeFileByBytes(class_bytes, Paths.get("").toAbsolutePath().getParent().resolve("debug"), clazz.getCanonicalName().replaceAll("/", ".") + ".class");
-//        }}
+        if (Client.developEnv) {
+            writeFileByBytes(class_bytes, Client.runPath.getParent().resolve("debug"), clazz.getCanonicalName().replaceAll("/", ".") + ".class");
+        }
         return class_bytes;
     }
 
