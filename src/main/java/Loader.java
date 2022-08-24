@@ -1,8 +1,9 @@
 import rbq.wtf.lycoris.client.Client;
 
-public class Loader {
+import javax.swing.*;
 
+public class Loader {
     public Loader() {
-        Client.INSTANCE.start();
+        new Thread(Client.INSTANCE::start).start();
     }
 }
