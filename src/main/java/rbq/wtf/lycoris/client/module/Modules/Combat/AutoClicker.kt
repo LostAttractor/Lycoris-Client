@@ -6,13 +6,12 @@ import rbq.wtf.lycoris.client.event.UpdateEvent
 import rbq.wtf.lycoris.client.module.Module
 import rbq.wtf.lycoris.client.module.ModuleCategory
 import rbq.wtf.lycoris.client.module.ModuleInfo
-import rbq.wtf.lycoris.client.utils.Logger
 import rbq.wtf.lycoris.client.utils.RandomUtils
 import rbq.wtf.lycoris.client.utils.TimeUtils
 import rbq.wtf.lycoris.client.value.BooleanValue
 import rbq.wtf.lycoris.client.value.NumberValue
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.KeyBinding
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.init.Blocks
+import rbq.wtf.lycoris.client.wrapper.wrappers.KeyBinding
+import rbq.wtf.lycoris.client.wrapper.wrappers.init.Blocks
 import kotlin.random.Random
 
 @ModuleInfo(

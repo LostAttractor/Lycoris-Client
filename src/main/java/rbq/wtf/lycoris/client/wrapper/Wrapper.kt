@@ -7,63 +7,55 @@ import rbq.wtf.lycoris.client.utils.Logger
 import rbq.wtf.lycoris.client.utils.Logger.debug
 import rbq.wtf.lycoris.client.utils.Logger.error
 import rbq.wtf.lycoris.client.utils.Logger.info
+import rbq.wtf.lycoris.client.wrapper.annotation.*
+import rbq.wtf.lycoris.client.wrapper.annotation.repeat.*
 import rbq.wtf.lycoris.client.wrapper.srgreader.SRGReader
 import rbq.wtf.lycoris.client.wrapper.srgreader.map.ClassNode
 import rbq.wtf.lycoris.client.wrapper.srgreader.map.FieldNode
 import rbq.wtf.lycoris.client.wrapper.srgreader.map.MethodNode
-import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.*
-import rbq.wtf.lycoris.client.wrapper.wrappers.annotation.repeat.*
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.GameSettings
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.IWrapper
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.KeyBinding
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.block.Block
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.block.state.IBlockState
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.Entity
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityLivingBase
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayer
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayerSP
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.*
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.init.Blocks
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.multiplayer.PlayerControllerMP
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.multiplayer.WorldClient
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.network.NetworkManager
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.network.Packet
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.potion.Potion
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.*
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.AbstractTexture
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.DynamicTexture
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.resources.IReloadableResourceManager
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.resources.IResource
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.resources.IResourceManager
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.*
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.HoverEvent
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.click.ClickEvent
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.event.click.ClickEventAction
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.text.IChatComponent
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.world.World
+import rbq.wtf.lycoris.client.wrapper.wrappers.GameSettings
+import rbq.wtf.lycoris.client.wrapper.wrappers.KeyBinding
+import rbq.wtf.lycoris.client.wrapper.wrappers.Minecraft
+import rbq.wtf.lycoris.client.wrapper.wrappers.block.Block
+import rbq.wtf.lycoris.client.wrapper.wrappers.block.state.IBlockState
+import rbq.wtf.lycoris.client.wrapper.wrappers.entity.Entity
+import rbq.wtf.lycoris.client.wrapper.wrappers.entity.EntityLivingBase
+import rbq.wtf.lycoris.client.wrapper.wrappers.entity.EntityPlayer
+import rbq.wtf.lycoris.client.wrapper.wrappers.entity.EntityPlayerSP
+import rbq.wtf.lycoris.client.wrapper.wrappers.gui.*
+import rbq.wtf.lycoris.client.wrapper.wrappers.init.Blocks
+import rbq.wtf.lycoris.client.wrapper.wrappers.multiplayer.PlayerControllerMP
+import rbq.wtf.lycoris.client.wrapper.wrappers.multiplayer.WorldClient
+import rbq.wtf.lycoris.client.wrapper.wrappers.network.NetworkManager
+import rbq.wtf.lycoris.client.wrapper.wrappers.network.Packet
+import rbq.wtf.lycoris.client.wrapper.wrappers.potion.Potion
+import rbq.wtf.lycoris.client.wrapper.wrappers.render.*
+import rbq.wtf.lycoris.client.wrapper.wrappers.render.texture.AbstractTexture
+import rbq.wtf.lycoris.client.wrapper.wrappers.render.texture.DynamicTexture
+import rbq.wtf.lycoris.client.wrapper.wrappers.resources.IReloadableResourceManager
+import rbq.wtf.lycoris.client.wrapper.wrappers.resources.IResource
+import rbq.wtf.lycoris.client.wrapper.wrappers.resources.IResourceManager
+import rbq.wtf.lycoris.client.wrapper.wrappers.util.*
+import rbq.wtf.lycoris.client.wrapper.wrappers.util.event.HoverEvent
+import rbq.wtf.lycoris.client.wrapper.wrappers.util.event.click.ClickEvent
+import rbq.wtf.lycoris.client.wrapper.wrappers.util.event.click.ClickEventAction
+import rbq.wtf.lycoris.client.wrapper.wrappers.util.text.IChatComponent
+import rbq.wtf.lycoris.client.wrapper.wrappers.world.World
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
-import java.nio.file.Path
 
 object Wrapper {
     private val wrapperList: ArrayList<Class<out IWrapper?>> = ArrayList()
-    lateinit var MapEnv: MapEnum
-    lateinit var srgMap: String
-    lateinit var srgPath: Path
-    lateinit private var reader: SRGReader
-    var useMapObf: Boolean = !Client.developEnv //是否使用混淆后的名称，在MDK环境下需设为false
+    lateinit var MapEnv: MapEnum //由RuntimeManager进行赋值
+    var useMapObf: Boolean = true //由RuntimeManager进行赋值
+    private lateinit var reader: SRGReader
 
     fun init() {
         info("Start Initialize Wrapper", "Wrapper")
         try {
-            MapEnv = MapEnum.VANILLA189
-            srgPath =
-                if (Client.developEnv) Client.runPath.parent.resolve("SRGMaps/$MapEnv.srg") else Client.runPath.resolve("$MapEnv.srg")
-            srgMap = FileUtils.readFileByPath(srgPath)
-            reader = SRGReader(srgMap)
+            reader = SRGReader(Client.srgMap.context)
             loadWrappers()
             applyMap()
             //ReflectLoading.loadingProgress.setString("Loading Wrapper");
@@ -493,7 +485,7 @@ object Wrapper {
         val fieldName = mapNode.getFieldName(useMapObf)
         debug("reflectFieldByMap: $className, $fieldName", "Wrapper")
         val c = getClassNative(className)
-        val f = c.getDeclaredField(fieldName)
+        val f = c.getDeclaredField(fieldName) //无法访问继承类的元素!!
         f.isAccessible = true
         return f
     }

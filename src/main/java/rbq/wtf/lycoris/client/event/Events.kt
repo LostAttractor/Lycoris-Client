@@ -1,6 +1,6 @@
 package rbq.wtf.lycoris.client.event
 
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.network.Packet
+import rbq.wtf.lycoris.client.wrapper.wrappers.network.Packet
 
 /**
  * Called in "runGameLoop"

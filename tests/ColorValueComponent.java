@@ -6,10 +6,10 @@ import rbq.wtf.lycoris.client.gui.clickgui.ClickGUI;
 import rbq.wtf.lycoris.client.gui.clickgui.utils.RenderUtil;
 import rbq.wtf.lycoris.client.font.FontLoaders;
 import rbq.wtf.lycoris.client.value.ColorValue;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.DefaultVertexFormats;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.GlStateManager;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.Tessellator;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.WorldRenderer;
+import rbq.wtf.lycoris.client.wrapper.wrappers.render.DefaultVertexFormats;
+import rbq.wtf.lycoris.client.wrapper.wrappers.render.GlStateManager;
+import rbq.wtf.lycoris.client.wrapper.wrappers.render.Tessellator;
+import rbq.wtf.lycoris.client.wrapper.wrappers.render.WorldRenderer;
 
 import java.awt.*;
 

@@ -10,8 +10,8 @@ import rbq.wtf.lycoris.client.event.Event;
 import rbq.wtf.lycoris.client.event.EventManager;
 import rbq.wtf.lycoris.client.event.Render2DEvent;
 import rbq.wtf.lycoris.client.transformer.ClassTransformer;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.GuiIngame;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution;
+import rbq.wtf.lycoris.client.wrapper.wrappers.gui.GuiIngame;
+import rbq.wtf.lycoris.client.wrapper.wrappers.gui.ScaledResolution;
 
 public class GuiIngameTransformer extends ClassTransformer {
     @Override

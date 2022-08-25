@@ -12,7 +12,7 @@ import rbq.wtf.lycoris.client.event.EventManager;
 import rbq.wtf.lycoris.client.event.LoopEvent;
 import rbq.wtf.lycoris.client.event.TickEvent;
 import rbq.wtf.lycoris.client.transformer.ClassTransformer;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft;
+import rbq.wtf.lycoris.client.wrapper.wrappers.Minecraft;
 
 
 public class MinecraftTransformer extends ClassTransformer {

@@ -8,15 +8,13 @@ import rbq.wtf.lycoris.client.config.configs.ModulesConfig
 import rbq.wtf.lycoris.client.config.configs.ValuesConfig
 import rbq.wtf.lycoris.client.utils.Logger
 import rbq.wtf.lycoris.client.utils.MinecraftInstance
-import java.io.File
 import java.lang.reflect.Field
 
 class ConfigManager : MinecraftInstance() {
-    val dir: File = Client.runPath.resolve(Client.CLIENT_NAME + "-" + Client.GAME_VERSION).toFile()
-    val fontsDir = File(dir, "fonts")
-    val settingsDir = File(dir, "settings")
-    val modulesConfig: FileConfig = ModulesConfig(File(dir, "modules.json"))
-    val valuesConfig: FileConfig = ValuesConfig(File(dir, "values.json"))
+    val fontsPath = Client.configPath.resolve("fonts")
+    val settingsPath = Client.configPath.resolve("settings")
+    val modulesConfig: FileConfig = ModulesConfig(Client.configPath.resolve("modules.json"))
+    val valuesConfig: FileConfig = ValuesConfig(Client.configPath.resolve("values.json"))
 
     //val clickGuiConfig: FileConfig = ClickGuiConfig(File(dir, "clickgui.json"))
     //val accountsConfig: AccountsConfig = AccountsConfig(File(dir, "accounts.json"))
@@ -25,7 +23,6 @@ class ConfigManager : MinecraftInstance() {
     //val hudConfig: FileConfig = HudConfig(File(dir, "hud.json"))
     //val shortcutsConfig: FileConfig = ShortcutsConfig(File(dir, "shortcuts.json"))
     //val backgroundFile = File(dir, "userbackground.png")
-    var firstStart = false
 
     /**
      * Constructor of file manager
@@ -39,13 +36,9 @@ class ConfigManager : MinecraftInstance() {
     /**
      * Setup folder
      */
-    fun setupFolder() {
-        if (!dir.exists()) {
-            dir.mkdir()
-            firstStart = true
-        }
-        if (!fontsDir.exists()) fontsDir.mkdir()
-        if (!settingsDir.exists()) settingsDir.mkdir()
+    private fun setupFolder() {
+        if (!fontsPath.exists()) fontsPath.mkdir()
+        if (!settingsPath.exists()) settingsPath.mkdir()
     }
 
     /**

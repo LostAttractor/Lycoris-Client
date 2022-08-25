@@ -1,9 +1,5 @@
 package rbq.wtf.lycoris.client.wrapper.srgreader.map
 
-import rbq.wtf.lycoris.client.utils.Logger
-import rbq.wtf.lycoris.client.wrapper.Wrapper
-import java.util.StringJoiner
-
 abstract class MapNode(val nodeType: NodeType, val mcpName: String, val srgName: String) {
     fun getName(obfuscation: Boolean) = if (obfuscation) srgName else mcpName
 //    val useObf: Boolean

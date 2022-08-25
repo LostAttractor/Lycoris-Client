@@ -11,8 +11,8 @@ import rbq.wtf.lycoris.client.utils.ColorUtils
 import rbq.wtf.lycoris.client.value.BooleanValue
 import rbq.wtf.lycoris.client.value.ModeValue
 import rbq.wtf.lycoris.client.value.NumberValue
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution
+import rbq.wtf.lycoris.client.wrapper.wrappers.Minecraft
+import rbq.wtf.lycoris.client.wrapper.wrappers.gui.ScaledResolution
 import java.awt.Color
 
 @ModuleInfo(

@@ -8,7 +8,7 @@ import org.objectweb.asm.tree.*;
 import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.event.*;
 import rbq.wtf.lycoris.client.transformer.ClassTransformer;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.entity.EntityPlayerSP;
+import rbq.wtf.lycoris.client.wrapper.wrappers.entity.EntityPlayerSP;
 
 public class EntityPlayerSPTransformer extends ClassTransformer {
     @Override

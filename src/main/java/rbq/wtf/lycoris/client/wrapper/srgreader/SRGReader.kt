@@ -1,6 +1,5 @@
 package rbq.wtf.lycoris.client.wrapper.srgreader
 
-import rbq.wtf.lycoris.client.utils.Logger
 import rbq.wtf.lycoris.client.utils.Logger.error
 import rbq.wtf.lycoris.client.utils.Logger.warning
 import rbq.wtf.lycoris.client.utils.StringStream

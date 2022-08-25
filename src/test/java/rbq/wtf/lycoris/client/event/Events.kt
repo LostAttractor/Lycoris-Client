@@ -1,6 +1,6 @@
 package rbq.wtf.lycoris.event.rbq.wtf.lycoris.client.event
 
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution
+import rbq.wtf.lycoris.client.wrapper.wrappers.gui.ScaledResolution
 
 /**
  * Called in "runGameLoop"

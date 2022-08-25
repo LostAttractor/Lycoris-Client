@@ -35,7 +35,12 @@ public class TransformManager {
     }
 
     public static void doTransform() {
-        InstrumentationImpl.init(); //Load Native to use JVMTI to call onTransform
+        //Load Native to use JVMTI to call onTransform
+        Logger.info("Start Initialize Native", "Native");
+        Logger.info("Load Native: " + Client.JVMTILib.getFile().getName(), "Native");
+        System.load(Client.JVMTILib.getFile().toString());
+        Logger.info("Native Initialized Successful", "Native");
+        //re-transform Class
         if (!transformed) {
             for (ClassTransformer classTransformer : transformers) {
                 Logger.info("Start Transformer " + classTransformer.getTargetClass().getCanonicalName(), "Transformer");

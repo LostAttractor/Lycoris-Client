@@ -5,11 +5,11 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.Gui;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.ScaledResolution;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.GlStateManager;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.Tessellator;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.WorldRenderer;
+import rbq.wtf.lycoris.client.wrapper.wrappers.gui.Gui;
+import rbq.wtf.lycoris.client.wrapper.wrappers.gui.ScaledResolution;
+import rbq.wtf.lycoris.client.wrapper.wrappers.render.GlStateManager;
+import rbq.wtf.lycoris.client.wrapper.wrappers.render.Tessellator;
+import rbq.wtf.lycoris.client.wrapper.wrappers.render.WorldRenderer;
 
 import java.awt.*;
 import java.io.BufferedReader;

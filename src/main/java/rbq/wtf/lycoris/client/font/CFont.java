@@ -1,8 +1,7 @@
 package rbq.wtf.lycoris.client.font;
 
 import org.lwjgl.opengl.GL11;
-import rbq.wtf.lycoris.client.utils.Logger;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.DynamicTexture;
+import rbq.wtf.lycoris.client.wrapper.wrappers.render.texture.DynamicTexture;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

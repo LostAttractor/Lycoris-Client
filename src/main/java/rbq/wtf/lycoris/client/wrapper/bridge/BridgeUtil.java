@@ -2,10 +2,10 @@ package rbq.wtf.lycoris.client.wrapper.bridge;
 
 import org.objectweb.asm.*;
 import rbq.wtf.lycoris.client.detector.MargeleAntiCheatDetector;
-import rbq.wtf.lycoris.client.wrapper.wrappers.impl.GuiScreenImpl;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.GuiChat;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.GuiScreen;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.IGuiScreen;
+import rbq.wtf.lycoris.client.wrapper.impl.GuiScreenImpl;
+import rbq.wtf.lycoris.client.wrapper.wrappers.gui.GuiChat;
+import rbq.wtf.lycoris.client.wrapper.wrappers.gui.GuiScreen;
+import rbq.wtf.lycoris.client.wrapper.wrappers.gui.IGuiScreen;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

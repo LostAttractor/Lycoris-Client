@@ -2,9 +2,9 @@ package rbq.wtf.lycoris.client.font;
 
 import org.lwjgl.opengl.GL11;
 import rbq.wtf.lycoris.client.Client;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.GlStateManager;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.texture.DynamicTexture;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.ResourceLocation;
+import rbq.wtf.lycoris.client.wrapper.wrappers.render.GlStateManager;
+import rbq.wtf.lycoris.client.wrapper.wrappers.render.texture.DynamicTexture;
+import rbq.wtf.lycoris.client.wrapper.wrappers.util.ResourceLocation;
 
 import java.awt.*;
 import java.util.ArrayList;

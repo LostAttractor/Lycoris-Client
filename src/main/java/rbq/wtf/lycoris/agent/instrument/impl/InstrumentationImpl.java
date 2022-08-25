@@ -9,17 +9,6 @@ import rbq.wtf.lycoris.client.utils.Logger;
 
 
 public class InstrumentationImpl implements Instrumentation {
-    public static String NativeLibPath;
-
-    public static void init() {
-        Logger.info("Start Initialize Native", "Native");
-        NativeLibPath = (Client.developEnv ? Client.runPath.getParent().resolve("Lycoris-Native-Loader/x64/Release/Lycoris-Native-Loader.dll")
-                : Client.runPath.resolve("Lycoris-Native-Loader.dll")).toString();
-        Logger.info("Load Native: " + NativeLibPath, "Native");
-        System.load(NativeLibPath);
-        Logger.info("Native Initialized Successful", "Native");
-    }
-
     @Override
     public ClassTransformer[] getTransformers() {
         return Access.getTransformersAsArray();

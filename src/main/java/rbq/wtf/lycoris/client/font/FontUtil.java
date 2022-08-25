@@ -1,7 +1,7 @@
 package rbq.wtf.lycoris.client.font;
 
 import rbq.wtf.lycoris.client.utils.MinecraftInstance;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.util.ResourceLocation;
+import rbq.wtf.lycoris.client.wrapper.wrappers.util.ResourceLocation;
 
 import java.awt.*;
 

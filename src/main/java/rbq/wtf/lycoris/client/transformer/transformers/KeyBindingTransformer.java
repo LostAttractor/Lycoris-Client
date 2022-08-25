@@ -10,7 +10,7 @@ import rbq.wtf.lycoris.client.event.Event;
 import rbq.wtf.lycoris.client.event.EventManager;
 import rbq.wtf.lycoris.client.event.KeyEvent;
 import rbq.wtf.lycoris.client.transformer.ClassTransformer;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.KeyBinding;
+import rbq.wtf.lycoris.client.wrapper.wrappers.KeyBinding;
 
 
 public class KeyBindingTransformer extends ClassTransformer {

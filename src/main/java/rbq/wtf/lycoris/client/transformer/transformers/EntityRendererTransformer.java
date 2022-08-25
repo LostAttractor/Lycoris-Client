@@ -11,7 +11,7 @@ import rbq.wtf.lycoris.client.event.Event;
 import rbq.wtf.lycoris.client.event.EventManager;
 import rbq.wtf.lycoris.client.event.Render3DEvent;
 import rbq.wtf.lycoris.client.transformer.ClassTransformer;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.render.EntityRenderer;
+import rbq.wtf.lycoris.client.wrapper.wrappers.render.EntityRenderer;
 
 public class EntityRendererTransformer extends ClassTransformer {
     @Override

@@ -6,7 +6,7 @@ import rbq.wtf.lycoris.client.clickgui.component.*
 import rbq.wtf.lycoris.client.module.Module
 import rbq.wtf.lycoris.client.module.ModuleCategory
 import rbq.wtf.lycoris.client.module.modules.render.ClickGUI
-import rbq.wtf.lycoris.client.wrapper.wrappers.impl.GuiScreenImpl
+import rbq.wtf.lycoris.client.wrapper.impl.GuiScreenImpl
 
 class ClickGUI : GuiScreenImpl() {
     companion object {

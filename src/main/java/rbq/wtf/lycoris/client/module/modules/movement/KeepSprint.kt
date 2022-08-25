@@ -7,7 +7,7 @@ import rbq.wtf.lycoris.client.module.ModuleCategory
 import rbq.wtf.lycoris.client.module.ModuleInfo
 import rbq.wtf.lycoris.client.utils.MovementUtils
 import rbq.wtf.lycoris.client.value.BooleanValue
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.potion.Potion
+import rbq.wtf.lycoris.client.wrapper.wrappers.potion.Potion
 
 
 @ModuleInfo(

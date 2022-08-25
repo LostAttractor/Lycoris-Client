@@ -1,6 +1,6 @@
 import rbq.wtf.lycoris.client.event.EventManager;
 import rbq.wtf.lycoris.client.event.PacketSendEvent;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.network.Packet;
+import rbq.wtf.lycoris.client.wrapper.wrappers.network.Packet;
 
 public class test {
     public void onUpdateWalkingPlayer(Packet packet) {

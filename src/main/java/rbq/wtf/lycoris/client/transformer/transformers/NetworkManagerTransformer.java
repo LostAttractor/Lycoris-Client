@@ -13,8 +13,8 @@ import rbq.wtf.lycoris.client.event.PacketReceiveEvent;
 import rbq.wtf.lycoris.client.event.PacketSendEvent;
 import rbq.wtf.lycoris.client.transformer.ClassTransformer;
 import rbq.wtf.lycoris.client.transformer.TransformManager;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.network.NetworkManager;
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.network.Packet;
+import rbq.wtf.lycoris.client.wrapper.wrappers.network.NetworkManager;
+import rbq.wtf.lycoris.client.wrapper.wrappers.network.Packet;
 
 public class NetworkManagerTransformer extends ClassTransformer {
     @Override

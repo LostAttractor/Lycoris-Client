@@ -8,8 +8,8 @@ import rbq.wtf.lycoris.client.module.ModuleCategory
 import rbq.wtf.lycoris.client.module.ModuleInfo
 import rbq.wtf.lycoris.client.value.BooleanValue
 import rbq.wtf.lycoris.client.wrapper.bridge.BridgeUtil
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.Minecraft
-import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.gui.IGuiScreen
+import rbq.wtf.lycoris.client.wrapper.wrappers.Minecraft
+import rbq.wtf.lycoris.client.wrapper.wrappers.gui.IGuiScreen
 import java.util.*
 
 @ModuleInfo(
