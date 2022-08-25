@@ -11,11 +11,8 @@ import java.lang.reflect.Field
 class Potion(obj: Any) : IWrapper(obj) {
     companion object {
         @WrapField(mcpName = "blindness", targetMap = MapEnum.VANILLA189)
-        lateinit var blindness: Field
-
-        @JvmStatic
-        fun getBlindness(): Potion {
-            return Potion(ReflectUtil.getFieldStatic(blindness)!!)
-        }
+        lateinit var blindnessPotion: Field
+        val blindness: Potion
+            get() = Potion(ReflectUtil.getFieldStatic(blindnessPotion)!!)
     }
 }

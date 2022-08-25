@@ -41,7 +41,7 @@ class ClickGUI : Module() {
     val arrayList18 = BooleanValue("ArrayList18", true)
 
     override fun onEnable() {
-        if (MargeleAntiCheatDetector.hyGui != null) {
+        if (MargeleAntiCheatDetector.isMAC) {
             val hyGui = MargeleAntiCheatDetector.hyGui
             try {
                 val constructor =

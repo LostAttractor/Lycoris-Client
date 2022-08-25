@@ -4,3 +4,6 @@
 [submodule "ForgeGradle"]
 	path = ForgeGradle
 	url = https://github.com/LostAttractor/ForgeGradle.git
+[submodule "SRGMaps"]
+	path = SRGMaps
+	url = https://github.com/LostAttractor/SRGMaps

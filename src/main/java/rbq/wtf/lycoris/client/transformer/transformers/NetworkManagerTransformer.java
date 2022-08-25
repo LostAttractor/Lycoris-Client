@@ -12,6 +12,7 @@ import rbq.wtf.lycoris.client.event.EventManager;
 import rbq.wtf.lycoris.client.event.PacketReceiveEvent;
 import rbq.wtf.lycoris.client.event.PacketSendEvent;
 import rbq.wtf.lycoris.client.transformer.ClassTransformer;
+import rbq.wtf.lycoris.client.transformer.TransformManager;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.network.NetworkManager;
 import rbq.wtf.lycoris.client.wrapper.wrappers.wrapper.network.Packet;
 
@@ -23,6 +24,7 @@ public class NetworkManagerTransformer extends ClassTransformer {
 
     @Override
     public byte[] transform(byte[] bytes) {
+        TransformManager.backTransformers.add(new BackTransformer(getTargetClass(), bytes));
         ClassReader cr = new ClassReader(bytes);
         ClassNode classNode = new ClassNode();
         cr.accept(classNode, 0);
@@ -108,5 +110,4 @@ public class NetworkManagerTransformer extends ClassTransformer {
         classNode.accept(cw);
         return cw.toByteArray();
     }
-
 }

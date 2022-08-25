@@ -61,9 +61,7 @@ object Wrapper {
         try {
             MapEnv = MapEnum.VANILLA189
             srgPath =
-                if (Client.developEnv) Client.runPath.parent.resolve("maps/$MapEnv.srg") else Client.runPath.resolve(
-                    "$MapEnv.srg"
-                )
+                if (Client.developEnv) Client.runPath.parent.resolve("SRGMaps/$MapEnv.srg") else Client.runPath.resolve("$MapEnv.srg")
             srgMap = FileUtils.readFileByPath(srgPath)
             reader = SRGReader(srgMap)
             loadWrappers()

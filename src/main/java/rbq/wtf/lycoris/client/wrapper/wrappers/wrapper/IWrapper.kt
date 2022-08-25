@@ -40,8 +40,8 @@ open class IWrapper(val wrapObject: Any) {
     val isNull: Boolean
         get() = Objects.isNull(wrapObject)
 
-    override fun equals(other: Any?): Boolean {
-        return if (other is IWrapper) wrapObject == other.wrapObject else super.equals(other)
+    override fun equals(other: Any?): Boolean { //只会判断WrapObject
+        return if (other is IWrapper) wrapObject == other.wrapObject else wrapObject == other
     }
 
     override fun hashCode(): Int {

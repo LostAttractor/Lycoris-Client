@@ -35,9 +35,9 @@ object Client {
     fun start() {
         isStarting = true
         Logger.info("Start Initialize Client")
+        Logger.info("Running in .minecraft Path: $runPath")
         Wrapper.init() // Load Wrappers
         BridgeUtil.init()
-        InstrumentationImpl.init() // Load Native
         TransformManager.init() // Load Transformers
         configManager = ConfigManager()
         moduleManager = ModuleManager()

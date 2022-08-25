@@ -11,14 +11,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TransformManager {
-    public static List<ClassTransformer> transformers = new ArrayList<ClassTransformer>();
+    public static List<ClassTransformer> transformers = new ArrayList<>();
+    public static List<BackTransformer> backTransformers = new ArrayList<>();
+
+    public static boolean transformed = false;
 
     public static void init() {
+        if (transformed)
+            throw new RuntimeException("Classes has been transformed");
         Logger.info("Start Initialize Transforms", "Transformer");
         transformers.add(new MinecraftTransformer());
         transformers.add(new GuiIngameTransformer());
@@ -31,10 +35,22 @@ public class TransformManager {
     }
 
     public static void doTransform() {
-        for (ClassTransformer classTransformer : transformers) {
-            Logger.info("Start Transformer " + classTransformer.getTargetClass().getCanonicalName(), "Transformer");
-            int error = LycorisAgent.retransformclass(new InstrumentationImpl(), classTransformer.getTargetClass());
-            Logger.info("Transformed Class " + classTransformer.getTargetClass().getCanonicalName() + " " + JVMTIError.parse(error), "Transformer");
+        InstrumentationImpl.init(); //Load Native to use JVMTI to call onTransform
+        if (!transformed) {
+            for (ClassTransformer classTransformer : transformers) {
+                Logger.info("Start Transformer " + classTransformer.getTargetClass().getCanonicalName(), "Transformer");
+                int error = LycorisAgent.retransformclass(new InstrumentationImpl(), classTransformer.getTargetClass());
+                Logger.info("Transformed Class " + classTransformer.getTargetClass().getCanonicalName() + " " + JVMTIError.parse(error), "Transformer");
+            }
+            transformed = true;
+        } else {
+            for (ClassTransformer classTransformer : backTransformers) {
+                Logger.info("Start Transformer " + classTransformer.getTargetClass().getCanonicalName(), "TransformBack");
+                int error = LycorisAgent.retransformclass(new InstrumentationImpl(), classTransformer.getTargetClass());
+                Logger.info("Transformed Class " + classTransformer.getTargetClass().getCanonicalName() + " " + JVMTIError.parse(error), "TransformBack");
+            }
+            backTransformers.clear();
+            transformed = false;
         }
     }
 
@@ -48,10 +64,20 @@ public class TransformManager {
             return null;
         }
         byte[] class_bytes = null;
-        for (ClassTransformer transformer : transformers) {
-            if (transformer.getTargetClass().equals(clazz)) {
-                class_bytes = transformer.transform(original_class_bytes);
-                // Logger.log("Transform " + clazz.getCanonicalName() + " Successful", "Transformer");
+        if (!transformed) {
+            for (ClassTransformer transformer : transformers) {
+                if (transformer.getTargetClass().equals(clazz)) {
+                    class_bytes = transformer.transform(original_class_bytes);
+                    backTransformers.add(new BackTransformer(clazz, original_class_bytes));
+                    Logger.debug("Transform" + clazz.getCanonicalName() + " Successful", "Transformer");
+                }
+            }
+        } else {
+            for (ClassTransformer transformer : backTransformers) {
+                if (transformer.getTargetClass().equals(clazz)) {
+                    class_bytes = transformer.transform(original_class_bytes);
+                    Logger.debug("Transform Back" + clazz.getCanonicalName() + " Successful", "Transformer");
+                }
             }
         }
         if (class_bytes == null) {
@@ -59,7 +85,7 @@ public class TransformManager {
             return original_class_bytes;
         }
         if (Client.developEnv) {
-            writeFileByBytes(class_bytes, Client.runPath.getParent().resolve("debug"), clazz.getCanonicalName().replaceAll("/", ".") + ".class");
+            writeFileByBytes(class_bytes, Client.runPath.getParent().resolve("debug"), clazz.getCanonicalName().replaceAll("/", ".") + (transformed ? "_back" : "") + ".class");
         }
         return class_bytes;
     }

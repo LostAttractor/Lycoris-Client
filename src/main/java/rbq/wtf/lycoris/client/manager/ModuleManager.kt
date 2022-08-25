@@ -8,6 +8,7 @@ import rbq.wtf.lycoris.client.module.Module
 import rbq.wtf.lycoris.client.module.ModuleCategory
 import rbq.wtf.lycoris.client.module.modules.combat.AutoClicker
 import rbq.wtf.lycoris.client.module.modules.movement.KeepSprint
+import rbq.wtf.lycoris.client.module.modules.msic.SelfDestruct
 import rbq.wtf.lycoris.client.module.modules.render.ClickGUI
 import rbq.wtf.lycoris.client.module.modules.render.HUD
 import rbq.wtf.lycoris.client.utils.Logger
@@ -33,7 +34,8 @@ class ModuleManager : Listenable {
             AutoClicker::class.java,
             KeepSprint::class.java,
             HUD::class.java,
-            ClickGUI::class.java
+            ClickGUI::class.java,
+            SelfDestruct::class.java
         )
 
 //        registerModule(NoScoreboard)
