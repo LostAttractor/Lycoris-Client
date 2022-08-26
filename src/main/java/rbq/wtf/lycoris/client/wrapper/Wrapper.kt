@@ -55,7 +55,7 @@ object Wrapper {
     fun init() {
         info("Start Initialize Wrapper", "Wrapper")
         try {
-            reader = SRGReader(Client.srgMap.context)
+            reader = SRGReader(Client.srgMap.file)
             loadWrappers()
             applyMap()
             //ReflectLoading.loadingProgress.setString("Loading Wrapper");

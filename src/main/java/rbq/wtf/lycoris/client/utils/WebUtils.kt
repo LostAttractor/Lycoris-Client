@@ -8,27 +8,39 @@ import java.nio.channels.ReadableByteChannel
 import java.util.stream.Collectors
 
 object WebUtils {
-    fun getContext(url: String): String {
+    fun getContextByte(url: String): ByteArray {
+        Logger.debug("Try to Get WebContext: $url")
         val connection = createConnection(url)
-        val reader = BufferedReader(InputStreamReader(connection.inputStream))
-        return reader.lines().collect(Collectors.joining(System.lineSeparator()))
+        val stream = connection.inputStream
+        val byteStream = ByteArrayOutputStream()
+        val buffer = ByteArray(1024)
+        var count: Int
+        while (stream.read(buffer, 0, 1024).also { count = it } != -1) {
+            byteStream.write(buffer, 0, count)
+        }
+        stream.close();
+        return byteStream.toByteArray()
+        //val reader = BufferedReader(InputStreamReader(connection.inputStream))
+        //return reader.lines().collect(Collectors.joining(System.lineSeparator()))
+    }
+
+    fun getContextString(url: String): String {
+        return String(getContextByte(url))
     }
 
     @Throws(IOException::class)
-    fun downloadFileWithHashCheck(url: String, file: File, hashCode: String, hashMode: MathUtils.HashAlgorithm) : String {
+    fun downloadFileWithHashCheck(url: String, file: File, hashCode: String, hashMode: MathUtils.HashAlgorithm) {
         for (i in 1..10) {
             Logger.info("Try to download ${file.name}...")
-            val connection = createConnection(url)
-            val reader = BufferedReader(InputStreamReader(connection.inputStream))
-            val context: String = reader.lines().collect(Collectors.joining(System.lineSeparator()))
+            val context = getContextByte(url)
             val contextHash = MathUtils.getHashCode(context, hashMode)
+            Logger.info("Checking Hash...\nInput Hash:$hashCode, Downloaded File Hash: $contextHash, Hash algorithm:${hashMode.modeName}")
             if (contextHash == hashCode) {
-                val writer = FileWriter(file)
-                writer.write(context)
+                FileUtils.writeFile(file, context)
                 Logger.info("Download ${file.name} Successful")
-                return context
+                return
             } else {
-                Logger.warning("HashCode Check Failed!\nInput Hash:$hashCode, Downloaded File Hash: $contextHash, Hash algorithm:${hashMode.modeName}, Trying times: $i")
+                Logger.warning("HashCode Check Failed! Trying times: $i")
             }
         }
         throw FileNotFoundException("Failed to Download File:${file.name}, HashCheck Failed!")

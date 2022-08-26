@@ -28,8 +28,13 @@ object MathUtils {
 
     fun getHashCode(input: String, mode: HashAlgorithm): String {
         val digest = MessageDigest.getInstance(mode.modeName)
-        digest.reset()
         digest.update(input.toByteArray(charset("utf8")))
+        return BigInteger(1, digest.digest()).toString(digest.digestLength)
+    }
+
+    fun getHashCode(input: ByteArray, mode: HashAlgorithm): String {
+        val digest = MessageDigest.getInstance(mode.modeName)
+        digest.update(input)
         return BigInteger(1, digest.digest()).toString(digest.digestLength)
     }
 

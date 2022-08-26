@@ -1,7 +1,5 @@
 package rbq.wtf.lycoris.client
 
-import OnlineContext
-import OnlineResource
 import rbq.wtf.lycoris.client.clickgui.ClickGUI
 import rbq.wtf.lycoris.client.event.EventManager
 import rbq.wtf.lycoris.client.manager.CommandManager
@@ -10,6 +8,7 @@ import rbq.wtf.lycoris.client.manager.ModuleManager
 import rbq.wtf.lycoris.client.manager.RuntimeManager
 import rbq.wtf.lycoris.client.transformer.TransformManager
 import rbq.wtf.lycoris.client.utils.Logger
+import rbq.wtf.lycoris.client.utils.OnlineResource
 import rbq.wtf.lycoris.client.wrapper.Wrapper
 import rbq.wtf.lycoris.client.wrapper.bridge.BridgeUtil
 import java.io.File
@@ -28,12 +27,13 @@ object Client {
     @JvmField
     var runPath: Path = Paths.get("").toAbsolutePath()
     val configPath: File = runPath.resolve("$CLIENT_NAME-$GAME_VERSION").toFile()
-    val runtimePath = configPath.resolve(".runtime")
+    @JvmField
+    val runtimePath: File = configPath.resolve(".runtime")
     val mapsPath = runtimePath.resolve("maps")
     @JvmField
     val JVMTILoaderPath = runtimePath.resolve("Lycoris-Native-Loader.dll")
     lateinit var srgPath: File
-    lateinit var srgMap: OnlineContext
+    lateinit var srgMap: OnlineResource
     lateinit var JVMTILib: OnlineResource
 
     @JvmField

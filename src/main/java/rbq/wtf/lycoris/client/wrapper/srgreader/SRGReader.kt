@@ -1,23 +1,25 @@
 package rbq.wtf.lycoris.client.wrapper.srgreader
 
+import rbq.wtf.lycoris.client.utils.FileUtils
 import rbq.wtf.lycoris.client.utils.Logger.error
 import rbq.wtf.lycoris.client.utils.Logger.warning
 import rbq.wtf.lycoris.client.utils.StringStream
 import rbq.wtf.lycoris.client.wrapper.srgreader.map.*
+import java.io.File
 
-class SRGReader(srgMap: String) {
+class SRGReader(srgMap: File) {
     private val mapNodes: List<MapNode>
 
     //private List<Class<?>> loadedClasses = new ArrayList<>();
     init {
-        mapNodes = readMap(srgMap)
+        mapNodes = readMap(FileUtils.readFileString(srgMap))
     }
 
     private fun readMap(srgMap: String): List<MapNode> {
         val mapNodes: ArrayList<MapNode> = ArrayList()
-        for (s in srgMap.split("\\n".toRegex()).dropLastWhile { it.isEmpty() }) {
+        for (s in srgMap.split(System.lineSeparator()).dropLastWhile { it.isEmpty() }) {
             try {
-                val strings = s.dropLastWhile { it.code == 13 }.split(" ")
+                val strings = s.split(" ")
                 if (strings.isNotEmpty()) {
                     when(val type = getNodeType(strings[0])) {
                         NodeType.Class -> {
