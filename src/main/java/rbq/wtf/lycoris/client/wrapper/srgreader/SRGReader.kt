@@ -1,8 +1,7 @@
 package rbq.wtf.lycoris.client.wrapper.srgreader
 
 import rbq.wtf.lycoris.client.utils.FileUtils
-import rbq.wtf.lycoris.client.utils.Logger.error
-import rbq.wtf.lycoris.client.utils.Logger.warning
+import rbq.wtf.lycoris.client.utils.Logger
 import rbq.wtf.lycoris.client.utils.StringStream
 import rbq.wtf.lycoris.client.wrapper.srgreader.map.*
 import java.io.File
@@ -17,7 +16,10 @@ class SRGReader(srgMap: File) {
 
     private fun readMap(srgMap: String): List<MapNode> {
         val mapNodes: ArrayList<MapNode> = ArrayList()
-        for (s in srgMap.split(System.lineSeparator()).dropLastWhile { it.isEmpty() }) {
+        // ASCII 10: 换行符 \n
+        // ASCII 13： LE 回车符
+        // System.lineSeparator(): ASCII 10 + ASCII 13 (两个字符)
+        for (s in srgMap.split(10.toChar()).dropLastWhile { it.isEmpty() }) {
             try {
                 val strings = s.split(" ")
                 if (strings.isNotEmpty()) {
@@ -88,11 +90,11 @@ class SRGReader(srgMap: File) {
                         if (onReadingArgs) args.add(target) else returnType = target
                     } catch (e: Exception) {
                         if (className.toString().contains("net/minecraft/server")) {
-                            warning("Failed to find a Server Class: $className, Ignored", "SRGReader")
+                            Logger.warning("Failed to find a Server Class: $className, Ignored", "SRGReader")
                         } else {
                             e.printStackTrace()
-                            error("Failed to find Class: $className", "SRGReader")
-                            error("Failed to Generate Signature: $sig", "SRGReader")
+                            Logger.error("Failed to find Class: $className", "SRGReader")
+                            Logger.error("Failed to Generate Signature: $sig", "SRGReader")
                         }
                     }
                     onReadingClassName = false
@@ -135,7 +137,7 @@ class SRGReader(srgMap: File) {
 
                 "V" -> if (!onReadingArgs) returnType = Void.TYPE
                 "[" -> {}
-                else -> error("Found a Unknown Identifier: $t", "SRGReader")
+                else -> Logger.error("Found a Unknown Identifier: $t", "SRGReader")
             }
         }
         val classes = args.toArray(emptyArray<Class<*>>())
