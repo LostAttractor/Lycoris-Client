@@ -23,6 +23,7 @@ object Client {
     const val developEnv = false
     var isVanilla = true
     var isStarting = false
+    var isLoaded = false
 
     @JvmField
     var runPath: Path = Paths.get("").toAbsolutePath()
@@ -46,9 +47,17 @@ object Client {
     lateinit var clickGUI: ClickGUI
 
     fun start() {
-        isStarting = true
         Logger.info("Start Initialize Client")
         Logger.info("Running in .minecraft Path: $runPath")
+        if (isLoaded) {
+            if (!TransformManager.transformed) {
+                Logger.info("Re-Transforming Class...")
+                TransformManager.doTransform()
+                Logger.info("Client Initialized Successful")
+            }
+            return
+        }
+        isStarting = true
         RuntimeManager.init() // 加载/检测运行环境状态，补全运行时
         Wrapper.init() // Load Wrappers
         BridgeUtil.init()
@@ -63,6 +72,7 @@ object Client {
         clickGUI = ClickGUI()
 
         isStarting = false
+        isLoaded = true
 
         Logger.info("Client Initialized Successful")
     }

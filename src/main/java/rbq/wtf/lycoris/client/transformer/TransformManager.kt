@@ -80,7 +80,7 @@ object TransformManager {
             for (transformer in backTransformers) {
                 if (transformer.targetClass == clazz) {
                     classBytes = transformer.transform(original_class_bytes)
-                    Logger.debug("Transform Back" + clazz.canonicalName + " Successful", "Transformer")
+                    Logger.debug("Transform" + clazz.canonicalName + " Successful", "TransformBack")
                 }
             }
         }
