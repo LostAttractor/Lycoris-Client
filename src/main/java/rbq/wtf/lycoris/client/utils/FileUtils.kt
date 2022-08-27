@@ -16,13 +16,18 @@ object FileUtils {
     @Throws(IOException::class)
     fun readFileByte(file: File): ByteArray {
         val stream = file.inputStream()
+        val byteStream = getByteArrayOutputStream(stream)
+        return byteStream.toByteArray()
+    }
+
+    fun getByteArrayOutputStream(stream: InputStream): ByteArrayOutputStream {
         val byteStream = ByteArrayOutputStream()
         val buffer = ByteArray(1024)
         var count: Int
         while (stream.read(buffer, 0, 1024).also { count = it } != -1) {
             byteStream.write(buffer, 0, count)
         }
-        return byteStream.toByteArray()
+        return byteStream
     }
 
     @Throws(IOException::class)

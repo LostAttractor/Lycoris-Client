@@ -12,20 +12,15 @@ object WebUtils {
         Logger.debug("Try to Get WebContext: $url")
         val connection = createConnection(url)
         val stream = connection.inputStream
-        val byteStream = ByteArrayOutputStream()
-        val buffer = ByteArray(1024)
-        var count: Int
-        while (stream.read(buffer, 0, 1024).also { count = it } != -1) {
-            byteStream.write(buffer, 0, count)
-        }
+        val byteStream = FileUtils.getByteArrayOutputStream(stream)
         stream.close();
         return byteStream.toByteArray()
-        //val reader = BufferedReader(InputStreamReader(connection.inputStream))
-        //return reader.lines().collect(Collectors.joining(System.lineSeparator()))
     }
 
     fun getContextString(url: String): String {
         return String(getContextByte(url))
+        //val reader = BufferedReader(InputStreamReader(connection.inputStream))
+        //return reader.lines().collect(Collectors.joining(System.lineSeparator()))
     }
 
     @Throws(IOException::class)
