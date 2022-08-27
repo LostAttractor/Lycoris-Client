@@ -9,7 +9,6 @@ import rbq.wtf.lycoris.client.utils.MovementUtils
 import rbq.wtf.lycoris.client.value.BooleanValue
 import rbq.wtf.lycoris.client.wrapper.wrappers.potion.Potion
 
-
 @ModuleInfo(
     name = "KeepSprint",
     description = "Automatically sprints all the time.",

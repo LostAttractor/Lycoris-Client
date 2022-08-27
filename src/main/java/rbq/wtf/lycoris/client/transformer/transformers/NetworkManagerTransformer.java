@@ -1,11 +1,10 @@
 package rbq.wtf.lycoris.client.transformer.transformers;
 
-
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.*;
+import rbq.wtf.lycoris.agent.asm.ClassReader;
+import rbq.wtf.lycoris.agent.asm.ClassWriter;
+import rbq.wtf.lycoris.agent.asm.Opcodes;
+import rbq.wtf.lycoris.agent.asm.Type;
+import rbq.wtf.lycoris.agent.asm.tree.*;
 import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.event.Event;
 import rbq.wtf.lycoris.client.event.EventManager;
@@ -29,7 +28,7 @@ public class NetworkManagerTransformer extends ClassTransformer {
         ClassNode classNode = new ClassNode();
         cr.accept(classNode, 0);
         for (MethodNode method : classNode.methods) {
-            if (method.name.equalsIgnoreCase(NetworkManager.sendPacket.getName())) {
+            if (method.name.equals(NetworkManager.sendPacket.getName())) {
                 InsnList insnList = new InsnList();
                 // {this, Packet} | {}
                 insnList.add(new TypeInsnNode(Opcodes.NEW, Type.getInternalName(PacketSendEvent.class)));
@@ -67,7 +66,7 @@ public class NetworkManagerTransformer extends ClassTransformer {
                 //继续
                 method.instructions.insert(insnList);
             }
-            if (method.name.equalsIgnoreCase(NetworkManager.channelRead0.getName())) {
+            if (method.name.equals(NetworkManager.channelRead0.getName())) {
                 InsnList insnList = new InsnList();
                 // {this, ChannelHandlerContext, Packet} | {}
                 insnList.add(new TypeInsnNode(Opcodes.NEW, Type.getInternalName(PacketReceiveEvent.class)));

@@ -1,10 +1,10 @@
 package rbq.wtf.lycoris.client.transformer.transformers;
 
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.*;
+import rbq.wtf.lycoris.agent.asm.ClassReader;
+import rbq.wtf.lycoris.agent.asm.ClassWriter;
+import rbq.wtf.lycoris.agent.asm.Opcodes;
+import rbq.wtf.lycoris.agent.asm.Type;
+import rbq.wtf.lycoris.agent.asm.tree.*;
 import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.event.Event;
 import rbq.wtf.lycoris.client.event.EventManager;

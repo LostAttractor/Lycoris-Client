@@ -1,11 +1,10 @@
 package rbq.wtf.lycoris.client.transformer.transformers;
 
-
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.*;
+import rbq.wtf.lycoris.agent.asm.ClassReader;
+import rbq.wtf.lycoris.agent.asm.ClassWriter;
+import rbq.wtf.lycoris.agent.asm.Opcodes;
+import rbq.wtf.lycoris.agent.asm.Type;
+import rbq.wtf.lycoris.agent.asm.tree.*;
 import rbq.wtf.lycoris.client.Client;
 import rbq.wtf.lycoris.client.event.Event;
 import rbq.wtf.lycoris.client.event.EventManager;
@@ -13,7 +12,6 @@ import rbq.wtf.lycoris.client.event.LoopEvent;
 import rbq.wtf.lycoris.client.event.TickEvent;
 import rbq.wtf.lycoris.client.transformer.ClassTransformer;
 import rbq.wtf.lycoris.client.wrapper.wrappers.Minecraft;
-
 
 public class MinecraftTransformer extends ClassTransformer {
     @Override
@@ -27,7 +25,7 @@ public class MinecraftTransformer extends ClassTransformer {
         ClassNode classNode = new ClassNode();
         cr.accept(classNode, 0);
         for (MethodNode method : classNode.methods) {
-            if (method.name.equalsIgnoreCase(Minecraft.runTick.getName())) {
+            if (method.name.equals(Minecraft.runTick.getName())) {
                 InsnList insnList = new InsnList();
                 // {this} | {}
                 insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client.class), "eventManager", "L" + Type.getInternalName(EventManager.class) + ";"));
@@ -45,9 +43,9 @@ public class MinecraftTransformer extends ClassTransformer {
                 insnList.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager.class), "callEvent", "(L" + Type.getInternalName(Event.class) + ";)V", false));
                 // 执行方法, 所有元素出栈
                 // {this} | {}
-                method.instructions.insert(insnList);
+                //method.instructions.insert(insnList);
             }
-            if (method.name.equalsIgnoreCase(Minecraft.runGameLoop.getName())) {
+            if (method.name.equals(Minecraft.runGameLoop.getName())) {
                 InsnList insnList = new InsnList();
                 // {this} | {}
                 insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client.class), "eventManager", "L" + Type.getInternalName(EventManager.class) + ";"));
@@ -65,12 +63,11 @@ public class MinecraftTransformer extends ClassTransformer {
                 insnList.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager.class), "callEvent", "(L" + Type.getInternalName(Event.class) + ";)V", false));
                 // 执行方法, 所有元素出栈
                 // {this} | {}
-                method.instructions.insert(insnList);
+                //method.instructions.insert(insnList);
             }
         }
         ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS + ClassWriter.COMPUTE_FRAMES);
         classNode.accept(cw);
         return cw.toByteArray();
     }
-
 }
