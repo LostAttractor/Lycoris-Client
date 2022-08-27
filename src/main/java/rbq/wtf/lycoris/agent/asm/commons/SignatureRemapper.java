@@ -28,9 +28,10 @@
 
 package rbq.wtf.lycoris.agent.asm.commons;
 
-import java.util.ArrayList;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
 import rbq.wtf.lycoris.agent.asm.signature.SignatureVisitor;
+
+import java.util.ArrayList;
 
 /**
  * A {@link SignatureVisitor} that remaps types with a {@link Remapper}.

@@ -28,12 +28,7 @@
 
 package rbq.wtf.lycoris.agent.asm.commons;
 
-import rbq.wtf.lycoris.agent.asm.ConstantDynamic;
-import rbq.wtf.lycoris.agent.asm.Handle;
-import rbq.wtf.lycoris.agent.asm.Label;
-import rbq.wtf.lycoris.agent.asm.MethodVisitor;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
-import rbq.wtf.lycoris.agent.asm.Type;
+import rbq.wtf.lycoris.agent.asm.*;
 
 /**
  * A {@link MethodVisitor} providing a more detailed API to generate and transform instructions.

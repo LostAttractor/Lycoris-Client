@@ -27,9 +27,10 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree.analysis;
 
-import java.util.List;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
 import rbq.wtf.lycoris.agent.asm.Type;
+
+import java.util.List;
 
 /**
  * An extended {@link BasicVerifier} that performs more precise verifications. This verifier

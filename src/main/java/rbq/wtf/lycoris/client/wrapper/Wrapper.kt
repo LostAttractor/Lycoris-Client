@@ -2,7 +2,6 @@ package rbq.wtf.lycoris.client.wrapper
 
 import rbq.wtf.lycoris.client.Client
 import rbq.wtf.lycoris.client.font.FontLoaders
-import rbq.wtf.lycoris.client.utils.FileUtils
 import rbq.wtf.lycoris.client.utils.Logger
 import rbq.wtf.lycoris.client.utils.Logger.debug
 import rbq.wtf.lycoris.client.utils.Logger.error
@@ -251,36 +250,50 @@ object Wrapper {
             for (declaredField in wrapper.declaredFields) {
                 try {
                     for (annotation in declaredField.declaredAnnotations) {
-                        if (annotation is WrapFields) {
-                            for (wrapField in annotation.value) {
-                                applyField(wrapperClass, wrapField, declaredField)
+                        when (annotation) {
+                            is WrapFields -> {
+                                for (wrapField in annotation.value) {
+                                    applyField(wrapperClass, wrapField, declaredField)
+                                }
                             }
-                        } else if (annotation is WrapField) {
-                            applyField(wrapperClass, annotation, declaredField)
-                        } else if (annotation is WrapMethods) {
-                            for (wrapMethod in annotation.value) {
-                                applyMethod(wrapperClass, wrapMethod, declaredField)
+                            is WrapField -> {
+                                applyField(wrapperClass, annotation, declaredField)
                             }
-                        } else if (annotation is WrapMethod) {
-                            applyMethod(wrapperClass, annotation, declaredField)
-                        } else if (annotation is WrapClasses) {
-                            for (wrapClass in annotation.value) {
-                                applyClass(wrapperClass, wrapClass, declaredField)
+                            is WrapMethods -> {
+                                for (wrapMethod in annotation.value) {
+                                    applyMethod(wrapperClass, wrapMethod, declaredField)
+                                }
                             }
-                        } else if (annotation is WrapClass) {
-                            applyClass(wrapperClass, annotation, declaredField)
-                        } else if (annotation is WrapEnums) {
-                            for (wrapEnum in annotation.value) {
-                                applyEnum(wrapperClass, wrapEnum, declaredField)
+                            is WrapMethod -> {
+                                applyMethod(wrapperClass, annotation, declaredField)
                             }
-                        } else if (annotation is WrapEnum) {
-                            applyEnum(wrapperClass, annotation, declaredField)
-                        } else if (annotation is WrapObjects) {
-                            for (wrapObject in annotation.value) {
-                                applyObject(wrapperClass, wrapObject, declaredField)
+                            is WrapClasses -> {
+                                for (wrapClass in annotation.value) {
+                                    applyClass(wrapperClass, wrapClass, declaredField)
+                                }
                             }
-                        } else if (annotation is WrapObject) {
-                            applyObject(wrapperClass, annotation, declaredField)
+                            is WrapClass -> {
+                                applyClass(wrapperClass, annotation, declaredField)
+                            }
+                            is WrapClassAuto -> {
+                                applyClassAuto(wrapperClass, declaredField)
+                            }
+                            is WrapEnums -> {
+                                for (wrapEnum in annotation.value) {
+                                    applyEnum(wrapperClass, wrapEnum, declaredField)
+                                }
+                            }
+                            is WrapEnum -> {
+                                applyEnum(wrapperClass, annotation, declaredField)
+                            }
+                            is WrapObjects -> {
+                                for (wrapObject in annotation.value) {
+                                    applyObject(wrapperClass, wrapObject, declaredField)
+                                }
+                            }
+                            is WrapObject -> {
+                                applyObject(wrapperClass, annotation, declaredField)
+                            }
                         }
                     }
                 } catch (e: Exception) {
@@ -398,6 +411,28 @@ object Wrapper {
                     e.printStackTrace()
                     error(
                         "Failed to Apply Field: " + wrapperClass.mcpName + " " + wrapField.mcpName + " -> " + mapNode.getName(
+                            useMapObf
+                        ),
+                        "Wrapper"
+                    )
+                }
+            }
+        }
+    }
+
+    private fun applyClassAuto(wrapperClass: WrapperClass, declaredField: Field) {
+        if (wrapperClass.targetMap == MapEnv) {
+            if (Modifier.isStatic(declaredField.modifiers)) {
+                //ReadMap
+                val mapNode = reader.getClass(wrapperClass.mcpName, false)
+                try {
+                    declaredField.isAccessible = true
+                    declaredField[null] = reflectClassByMap(mapNode)
+                    debug("Successful Apply Class: "  + wrapperClass.mcpName + " -> " + mapNode.getName(useMapObf), "Wrapper")
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    error(
+                        "Failed to Apply Class: " +  wrapperClass.mcpName + " -> " + mapNode.getName(
                             useMapObf
                         ),
                         "Wrapper"

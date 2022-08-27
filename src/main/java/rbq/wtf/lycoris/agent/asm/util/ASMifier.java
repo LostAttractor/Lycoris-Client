@@ -27,15 +27,11 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.util;
 
+import rbq.wtf.lycoris.agent.asm.*;
+
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import rbq.wtf.lycoris.agent.asm.*;
+import java.util.*;
 
 /**
  * A {@link Printer} that prints the ASM code to generate the classes if visits.

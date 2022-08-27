@@ -1,9 +1,9 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.util
 
+import rbq.wtf.lycoris.client.wrapper.IWrapper
 import rbq.wtf.lycoris.client.wrapper.MapEnum
 import rbq.wtf.lycoris.client.wrapper.annotation.*
 import rbq.wtf.lycoris.client.wrapper.utils.ReflectUtil
-import rbq.wtf.lycoris.client.wrapper.IWrapper
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.Method
@@ -21,9 +21,6 @@ class AxisAlignedBB(obj: Any) : IWrapper(obj) {
 
         @WrapConstructor(targetMap = MapEnum.VANILLA189, signature = [BlockPos::class, BlockPos::class])
         lateinit var AxisAlignedBB_Constructor_BlockPos: Constructor<*>
-
-        @WrapClass(mcpName = "net.minecraft.util.AxisAlignedBB", targetMap = MapEnum.VANILLA189)
-        lateinit var AxisAlignedBBClass: Class<*>
 
         @WrapField(mcpName = "minX", targetMap = MapEnum.VANILLA189)
         lateinit var minX: Field

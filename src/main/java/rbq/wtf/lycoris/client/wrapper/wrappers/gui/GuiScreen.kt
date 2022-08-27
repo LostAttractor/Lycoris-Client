@@ -1,7 +1,7 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.gui
 
 import rbq.wtf.lycoris.client.wrapper.MapEnum
-import rbq.wtf.lycoris.client.wrapper.annotation.WrapClass
+import rbq.wtf.lycoris.client.wrapper.annotation.WrapClassAuto
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapField
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapMethod
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapperClass
@@ -15,8 +15,8 @@ class IGuiScreen(obj: Any) : GuiScreen(obj)
 @WrapperClass(mcpName = "net.minecraft.client.gui.GuiScreen", targetMap = MapEnum.VANILLA189)
 open class GuiScreen(obj: Any) : Gui(obj) {
     companion object {
-        @WrapClass(mcpName = "net.minecraft.client.gui.GuiScreen", targetMap = MapEnum.VANILLA189)
-        lateinit var GuiScreenClass: Class<*>
+        @WrapClassAuto
+        lateinit var wrapClass: Class<*>;
 
         @WrapMethod(mcpName = "drawScreen", targetMap = MapEnum.VANILLA189)
         lateinit var drawScreen: Method

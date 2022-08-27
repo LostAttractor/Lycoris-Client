@@ -27,12 +27,12 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import rbq.wtf.lycoris.agent.asm.AnnotationVisitor;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
 import rbq.wtf.lycoris.agent.asm.Type;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A node that represents an annotation.

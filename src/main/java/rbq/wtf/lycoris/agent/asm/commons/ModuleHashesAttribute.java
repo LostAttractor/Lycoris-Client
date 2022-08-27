@@ -28,10 +28,10 @@
 
 package rbq.wtf.lycoris.agent.asm.commons;
 
+import rbq.wtf.lycoris.agent.asm.*;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import rbq.wtf.lycoris.agent.asm.*;
 
 /**
  * A ModuleHashes attribute. This attribute is specific to the OpenJDK and may change in the future.

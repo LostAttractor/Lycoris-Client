@@ -27,32 +27,16 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.util;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import rbq.wtf.lycoris.agent.asm.AnnotationVisitor;
-import rbq.wtf.lycoris.agent.asm.ClassWriter;
-import rbq.wtf.lycoris.agent.asm.ConstantDynamic;
-import rbq.wtf.lycoris.agent.asm.TypeReference;
-import rbq.wtf.lycoris.agent.asm.Attribute;
-import rbq.wtf.lycoris.agent.asm.Handle;
-import rbq.wtf.lycoris.agent.asm.Label;
-import rbq.wtf.lycoris.agent.asm.MethodVisitor;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
-import rbq.wtf.lycoris.agent.asm.Type;
-import rbq.wtf.lycoris.agent.asm.TypePath;
+import rbq.wtf.lycoris.agent.asm.*;
 import rbq.wtf.lycoris.agent.asm.tree.MethodNode;
 import rbq.wtf.lycoris.agent.asm.tree.analysis.Analyzer;
 import rbq.wtf.lycoris.agent.asm.tree.analysis.AnalyzerException;
 import rbq.wtf.lycoris.agent.asm.tree.analysis.BasicValue;
 import rbq.wtf.lycoris.agent.asm.tree.analysis.BasicVerifier;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.*;
 
 /**
  * A {@link MethodVisitor} that checks that its methods are properly used. More precisely this

@@ -21,9 +21,6 @@ open class EntityPlayer(obj: Any?) : EntityLivingBase(
         get() = invoke(Companion.isUsingItem) as Boolean
 
     companion object {
-        @WrapClass(mcpName = "net.minecraft.entity.player.EntityPlayer", targetMap = MapEnum.VANILLA189)
-        lateinit var EntityPlayerClass: Class<*>
-
         @WrapField(mcpName = "foodStats", targetMap = MapEnum.VANILLA189)
         lateinit var foodStats: Field
 

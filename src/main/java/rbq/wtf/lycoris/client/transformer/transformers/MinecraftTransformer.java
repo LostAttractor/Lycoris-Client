@@ -16,7 +16,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.Minecraft;
 public class MinecraftTransformer extends ClassTransformer {
     @Override
     public Class<?> getTargetClass() {
-        return Minecraft.MinecraftClass;
+        return Minecraft.wrapClass;
     }
 
     @Override

@@ -27,12 +27,12 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree;
 
-import java.util.List;
-import java.util.Map;
-
 import rbq.wtf.lycoris.agent.asm.Label;
 import rbq.wtf.lycoris.agent.asm.MethodVisitor;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * A node that represents a LOOKUPSWITCH instruction.

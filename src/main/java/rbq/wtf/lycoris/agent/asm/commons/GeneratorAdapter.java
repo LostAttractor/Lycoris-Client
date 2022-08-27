@@ -27,16 +27,11 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.commons;
 
+import rbq.wtf.lycoris.agent.asm.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import rbq.wtf.lycoris.agent.asm.ClassVisitor;
-import rbq.wtf.lycoris.agent.asm.ConstantDynamic;
-import rbq.wtf.lycoris.agent.asm.Handle;
-import rbq.wtf.lycoris.agent.asm.Label;
-import rbq.wtf.lycoris.agent.asm.MethodVisitor;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
-import rbq.wtf.lycoris.agent.asm.Type;
 
 /**
  * A {@link MethodVisitor} with convenient methods to generate code. For example, using this

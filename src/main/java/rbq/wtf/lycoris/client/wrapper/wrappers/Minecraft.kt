@@ -1,9 +1,8 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers
 
-import com.google.common.util.concurrent.ListenableFuture
 import rbq.wtf.lycoris.client.wrapper.IWrapper
 import rbq.wtf.lycoris.client.wrapper.MapEnum
-import rbq.wtf.lycoris.client.wrapper.annotation.WrapClass
+import rbq.wtf.lycoris.client.wrapper.annotation.WrapClassAuto
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapField
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapMethod
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapperClass
@@ -17,13 +16,44 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.resources.IResourceManager
 import rbq.wtf.lycoris.client.wrapper.wrappers.util.MovingObjectPosition
 import java.lang.reflect.Field
 import java.lang.reflect.Method
-import java.util.concurrent.Callable
 
 @WrapperClass(mcpName = "net.minecraft.client.Minecraft", targetMap = MapEnum.VANILLA189)
 class Minecraft(obj: Any) : IWrapper(obj) {
+    val displayHeight: Int
+        get() = getField(Companion.displayHeight) as Int
+    val displayWidth: Int
+        get() = getField(Companion.displayWidth) as Int
+    val player: EntityPlayerSP
+        get() = EntityPlayerSP(getField(Companion.player))
+    val world: WorldClient?
+        get() = getField(Companion.world)?.let { WorldClient(it) }
+    val playerController: PlayerControllerMP
+        get() = PlayerControllerMP(getField(Companion.playerController)!!)
+    val resourceManager: IResourceManager
+        get() = IResourceManager(invoke(getResourceManager)!!)
+    val gameSettings: GameSettings
+        get() = GameSettings(getField(Companion.gameSettings)!!)
+    val objectMouseOver: MovingObjectPosition?
+        get() = getField(Companion.objectMouseOver)?.let { MovingObjectPosition(it) }
+
+    val currentScreen: GuiScreen?
+        get() = getField(Companion.currentScreen)?.let { GuiScreen(it) }
+
+    fun displayGuiScreenBypass(screen: GuiScreen) {
+        setField(Companion.currentScreen, screen.wrapObject)
+        invoke(setIngameNotInFocus)
+        val scaledresolution = ScaledResolution(this)
+        val i = scaledresolution.scaledWidth
+        val j = scaledresolution.scaledHeight
+        this.currentScreen!!.setMc(this)
+        this.currentScreen!!.height = j
+        this.currentScreen!!.width = i
+        this.currentScreen!!.initGui()
+    }
+
     companion object {
-        @WrapClass(mcpName = "net.minecraft.client.Minecraft", targetMap = MapEnum.VANILLA189)
-        lateinit var MinecraftClass: Class<*>
+        @WrapClassAuto
+        lateinit var wrapClass: Class<*>;
 
         //    @WrapField(mcpName = "theMinecraft", targetMap = MapEnum.VANILLA189)
         //    public static Field theMinecraft;
@@ -139,42 +169,4 @@ class Minecraft(obj: Any) : IWrapper(obj) {
         val minecraft: Minecraft
             get() = Minecraft(ReflectUtil.invokeStatic(getMinecraft)!!)
     }
-
-    val displayHeight: Int
-        get() = getField(Companion.displayHeight) as Int
-    val displayWidth: Int
-        get() = getField(Companion.displayWidth) as Int
-    val player: EntityPlayerSP
-        get() = EntityPlayerSP(getField(Companion.player))
-    val world: WorldClient?
-        get() = getField(Companion.world)?.let { WorldClient(it) }
-    val playerController: PlayerControllerMP
-        get() = PlayerControllerMP(getField(Companion.playerController)!!)
-    val resourceManager: IResourceManager
-        get() = IResourceManager(invoke(getResourceManager)!!)
-
-    fun <V> addScheduledTask(p_addScheduledTask_1_: Callable<V>?): ListenableFuture<V> {
-        return invoke(addScheduledTask, p_addScheduledTask_1_) as ListenableFuture<V>
-    }
-
-    val gameSettings: GameSettings
-        get() = GameSettings(getField(Companion.gameSettings)!!)
-    val objectMouseOver: MovingObjectPosition?
-        get() = getField(Companion.objectMouseOver)?.let { MovingObjectPosition(it) }
-
-    fun displayGuiScreenBypass(screen: GuiScreen) {
-        setField(Companion.currentScreen, screen.wrapObject)
-        invoke(setIngameNotInFocus)
-        val scaledresolution = ScaledResolution(this)
-        val i = scaledresolution.scaledWidth
-        val j = scaledresolution.scaledHeight
-        this.currentScreen!!.setMc(this)
-        this.currentScreen!!.height = j
-        this.currentScreen!!.width = i
-        this.currentScreen!!.initGui()
-    }
-
-    val currentScreen: GuiScreen?
-        get() = getField(Companion.currentScreen)?.let { GuiScreen(it) }
-
 }

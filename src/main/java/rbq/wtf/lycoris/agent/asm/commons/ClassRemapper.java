@@ -28,16 +28,9 @@
 
 package rbq.wtf.lycoris.agent.asm.commons;
 
+import rbq.wtf.lycoris.agent.asm.*;
+
 import java.util.List;
-import rbq.wtf.lycoris.agent.asm.AnnotationVisitor;
-import rbq.wtf.lycoris.agent.asm.Attribute;
-import rbq.wtf.lycoris.agent.asm.ClassVisitor;
-import rbq.wtf.lycoris.agent.asm.FieldVisitor;
-import rbq.wtf.lycoris.agent.asm.MethodVisitor;
-import rbq.wtf.lycoris.agent.asm.ModuleVisitor;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
-import rbq.wtf.lycoris.agent.asm.RecordComponentVisitor;
-import rbq.wtf.lycoris.agent.asm.TypePath;
 
 /**
  * A {@link ClassVisitor} that remaps types with a {@link Remapper}.

@@ -27,12 +27,12 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import rbq.wtf.lycoris.agent.asm.ClassVisitor;
 import rbq.wtf.lycoris.agent.asm.ModuleVisitor;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A node that represents a module declaration.

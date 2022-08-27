@@ -1,11 +1,11 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.render
 
+import rbq.wtf.lycoris.client.wrapper.IWrapper
 import rbq.wtf.lycoris.client.wrapper.MapEnum
-import rbq.wtf.lycoris.client.wrapper.annotation.WrapClass
+import rbq.wtf.lycoris.client.wrapper.annotation.WrapClassAuto
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapField
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapMethod
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapperClass
-import rbq.wtf.lycoris.client.wrapper.IWrapper
 import rbq.wtf.lycoris.client.wrapper.wrappers.entity.Entity
 import java.lang.reflect.Field
 import java.lang.reflect.Method
@@ -14,9 +14,9 @@ import java.lang.reflect.Method
 class EntityRenderer(obj: Any) : IWrapper(obj) {
 
     companion object {
-        @WrapClass(mcpName = "net.minecraft.client.renderer.EntityRenderer", targetMap = MapEnum.VANILLA189)
-        lateinit var EntityRendererClass: Class<*>
-        
+        @WrapClassAuto
+        lateinit var wrapClass: Class<*>;
+
         @WrapMethod(mcpName = "renderWorldPass", targetMap = MapEnum.VANILLA189)
         lateinit var renderWorldPass: Method
 

@@ -27,10 +27,9 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree;
 
-import java.util.Map;
-
 import rbq.wtf.lycoris.agent.asm.*;
-import rbq.wtf.lycoris.agent.asm.ConstantDynamic;
+
+import java.util.Map;
 
 /**
  * A node that represents an LDC instruction.

@@ -27,11 +27,12 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.util;
 
+import rbq.wtf.lycoris.agent.asm.Opcodes;
+import rbq.wtf.lycoris.agent.asm.signature.SignatureVisitor;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
-import rbq.wtf.lycoris.agent.asm.signature.SignatureVisitor;
 
 /**
  * A {@link SignatureVisitor} that builds the Java generic type declaration corresponding to the

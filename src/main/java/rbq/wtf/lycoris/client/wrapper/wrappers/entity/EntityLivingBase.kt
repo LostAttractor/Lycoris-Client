@@ -1,7 +1,6 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.entity
 
 import rbq.wtf.lycoris.client.wrapper.MapEnum
-import rbq.wtf.lycoris.client.wrapper.annotation.WrapClass
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapField
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapMethod
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapperClass
@@ -21,9 +20,6 @@ open class EntityLivingBase(obj: Any) : Entity(obj) {
     }
 
     companion object {
-        @WrapClass(mcpName = "net.minecraft.entity.EntityLivingBase", targetMap = MapEnum.VANILLA189)
-        lateinit var EntityLivingBaseClass: Class<*>
-
         @WrapField(mcpName = "moveStrafing", targetMap = MapEnum.VANILLA189)
         lateinit var moveStrafing: Field
 

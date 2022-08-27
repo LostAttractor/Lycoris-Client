@@ -27,11 +27,7 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.util;
 
-import rbq.wtf.lycoris.agent.asm.AnnotationVisitor;
-import rbq.wtf.lycoris.agent.asm.FieldVisitor;
-import rbq.wtf.lycoris.agent.asm.Attribute;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
-import rbq.wtf.lycoris.agent.asm.TypePath;
+import rbq.wtf.lycoris.agent.asm.*;
 
 /**
  * A {@link FieldVisitor} that prints the fields it visits with a {@link Printer}.

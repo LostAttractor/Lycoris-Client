@@ -27,10 +27,10 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree;
 
-import java.util.List;
-
 import rbq.wtf.lycoris.agent.asm.ModuleVisitor;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
+
+import java.util.List;
 
 /**
  * A node that represents an exported package with its name and the module that can access to it.

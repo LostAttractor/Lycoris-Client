@@ -16,7 +16,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.gui.ScaledResolution;
 public class GuiIngameTransformer extends ClassTransformer {
     @Override
     public Class<?> getTargetClass() {
-        return GuiIngame.GuiIngameClass;
+        return GuiIngame.wrapClass;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class GuiIngameTransformer extends ClassTransformer {
         ClassNode classNode = new ClassNode();
         cr.accept(classNode, 0);
         for (MethodNode method : classNode.methods) {
-            if (method.name.equals(GuiIngame.renderTooltip.getName()) && method.desc.equalsIgnoreCase("(L" + Type.getInternalName(ScaledResolution.ScaledResolution) + ";F)V")) {
+            if (method.name.equals(GuiIngame.renderTooltip.getName()) && method.desc.equalsIgnoreCase("(L" + Type.getInternalName(ScaledResolution.wrapClass) + ";F)V")) {
                 InsnList insnList = new InsnList();
                 // {this, scaledResolution, partialTicks} | {}
                 insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client.class), "eventManager", "L" + Type.getInternalName(EventManager.class) + ";"));

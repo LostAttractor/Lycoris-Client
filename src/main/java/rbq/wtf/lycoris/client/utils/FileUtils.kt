@@ -1,11 +1,12 @@
 package rbq.wtf.lycoris.client.utils
 
-import java.io.*
-import java.nio.file.Files
-import java.nio.file.Path
-import java.util.stream.Collectors
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.IOException
+import java.io.InputStream
 
 object FileUtils {
+    @JvmStatic
     @Throws(IOException::class)
     fun readFileString(file: File): String {
         return String(readFileByte(file))
@@ -14,6 +15,7 @@ object FileUtils {
     }
 
     @Throws(IOException::class)
+    @JvmStatic
     fun readFileByte(file: File): ByteArray {
         val stream = file.inputStream()
         val byteStream = getByteArrayOutputStream(stream)
@@ -31,6 +33,7 @@ object FileUtils {
     }
 
     @Throws(IOException::class)
+    @JvmStatic
     fun writeFile(file: File, bytes: ByteArray) {
         val stream = file.outputStream()
         stream.write(bytes)
@@ -38,5 +41,6 @@ object FileUtils {
     }
 
     @Throws(IOException::class)
+    @JvmStatic
     fun checkFileHash(file: File, hash: String, hashAlgorithm: MathUtils.HashAlgorithm) = MathUtils.getHashCode(readFileByte(file), hashAlgorithm) == hash
 }

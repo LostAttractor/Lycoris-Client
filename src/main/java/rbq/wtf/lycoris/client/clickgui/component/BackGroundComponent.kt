@@ -1,8 +1,8 @@
 package rbq.wtf.lycoris.client.clickgui.component
 
-import rbq.wtf.lycoris.client.font.FontLoaders
 import rbq.wtf.lycoris.client.clickgui.ClickGUI
 import rbq.wtf.lycoris.client.clickgui.utils.RenderUtil
+import rbq.wtf.lycoris.client.font.FontLoaders
 import java.awt.Color
 
 class BackGroundComponent(

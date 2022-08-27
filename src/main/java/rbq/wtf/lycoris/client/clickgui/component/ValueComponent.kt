@@ -2,9 +2,9 @@ package rbq.wtf.lycoris.client.clickgui.component
 
 import org.lwjgl.input.Keyboard
 import org.lwjgl.input.Mouse
-import rbq.wtf.lycoris.client.font.FontLoaders
 import rbq.wtf.lycoris.client.clickgui.ClickGUI
 import rbq.wtf.lycoris.client.clickgui.utils.RenderUtil
+import rbq.wtf.lycoris.client.font.FontLoaders
 import rbq.wtf.lycoris.client.module.Module
 import rbq.wtf.lycoris.client.utils.MathUtils
 import rbq.wtf.lycoris.client.value.BooleanValue

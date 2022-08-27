@@ -27,10 +27,10 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree;
 
-import java.util.Map;
-
 import rbq.wtf.lycoris.agent.asm.MethodVisitor;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
+
+import java.util.Map;
 
 /**
  * A node that represents an IINC instruction.

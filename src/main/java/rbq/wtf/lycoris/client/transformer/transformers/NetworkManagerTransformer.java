@@ -18,7 +18,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.network.Packet;
 public class NetworkManagerTransformer extends ClassTransformer {
     @Override
     public Class<?> getTargetClass() {
-        return NetworkManager.NetworkManagerClass;
+        return NetworkManager.wrapClass;
     }
 
     @Override

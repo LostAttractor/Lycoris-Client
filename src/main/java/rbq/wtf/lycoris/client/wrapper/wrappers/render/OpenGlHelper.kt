@@ -1,19 +1,15 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.render
 
+import rbq.wtf.lycoris.client.wrapper.IWrapper
 import rbq.wtf.lycoris.client.wrapper.MapEnum
-import rbq.wtf.lycoris.client.wrapper.annotation.WrapClass
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapMethod
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapperClass
 import rbq.wtf.lycoris.client.wrapper.utils.ReflectUtil
-import rbq.wtf.lycoris.client.wrapper.IWrapper
 import java.lang.reflect.Method
 
 @WrapperClass(mcpName = "net.minecraft.client.renderer.OpenGlHelper", targetMap = MapEnum.VANILLA189)
 class OpenGlHelper(obj: Any) : IWrapper(obj) {
     companion object {
-        @WrapClass(mcpName = "net.minecraft.client.renderer.OpenGlHelper", targetMap = MapEnum.VANILLA189)
-        lateinit var OpenGlHelperClass: Class<*>
-
         @WrapMethod(mcpName = "glBlendFunc", targetMap = MapEnum.VANILLA189, signature = "(IIII)V")
         lateinit var glBlendFunc: Method
 

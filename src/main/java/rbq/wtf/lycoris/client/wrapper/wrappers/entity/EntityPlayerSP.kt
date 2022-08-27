@@ -1,10 +1,7 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.entity
 
 import rbq.wtf.lycoris.client.wrapper.MapEnum
-import rbq.wtf.lycoris.client.wrapper.annotation.WrapClass
-import rbq.wtf.lycoris.client.wrapper.annotation.WrapField
-import rbq.wtf.lycoris.client.wrapper.annotation.WrapMethod
-import rbq.wtf.lycoris.client.wrapper.annotation.WrapperClass
+import rbq.wtf.lycoris.client.wrapper.annotation.*
 import rbq.wtf.lycoris.client.wrapper.wrappers.util.MovementInput
 import java.lang.reflect.Field
 import java.lang.reflect.Method
@@ -26,8 +23,8 @@ class EntityPlayerSP(obj: Any?) : EntityPlayer(obj) {
         get() = invoke(Companion.isSneaking) as Boolean
 
     companion object {
-        @WrapClass(mcpName = "net.minecraft.client.entity.EntityPlayerSP", targetMap = MapEnum.VANILLA189)
-        lateinit var EntityPlayerSPClass: Class<*>
+        @WrapClassAuto
+        lateinit var wrapClass: Class<*>;
 
         @WrapField(mcpName = "sprintingTicksLeft", targetMap = MapEnum.VANILLA189)
         lateinit var sprintingTicksLeft: Field

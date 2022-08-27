@@ -1,6 +1,5 @@
 package rbq.wtf.lycoris.client.utils
 
-import java.io.File
 import java.io.IOException
 import java.math.BigDecimal
 import java.math.BigInteger

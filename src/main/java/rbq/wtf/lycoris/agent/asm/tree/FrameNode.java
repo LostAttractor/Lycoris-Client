@@ -27,12 +27,12 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree;
 
+import rbq.wtf.lycoris.agent.asm.MethodVisitor;
+import rbq.wtf.lycoris.agent.asm.Opcodes;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import rbq.wtf.lycoris.agent.asm.MethodVisitor;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
 
 /**
  * A node that represents a stack map frame. These nodes are pseudo instruction nodes in order to be

@@ -21,9 +21,10 @@
  */
 package rbq.wtf.lycoris.agent.asm.util;
 
-import java.util.Map;
-import rbq.wtf.lycoris.agent.asm.Label;
 import rbq.wtf.lycoris.agent.asm.Attribute;
+import rbq.wtf.lycoris.agent.asm.Label;
+
+import java.util.Map;
 
 /**
  * An {@link Attribute} that can generate the ASM code to create an equivalent

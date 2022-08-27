@@ -27,6 +27,11 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.commons;
 
+import rbq.wtf.lycoris.agent.asm.ClassVisitor;
+import rbq.wtf.lycoris.agent.asm.FieldVisitor;
+import rbq.wtf.lycoris.agent.asm.MethodVisitor;
+import rbq.wtf.lycoris.agent.asm.Opcodes;
+
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
@@ -36,10 +41,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import rbq.wtf.lycoris.agent.asm.ClassVisitor;
-import rbq.wtf.lycoris.agent.asm.FieldVisitor;
-import rbq.wtf.lycoris.agent.asm.MethodVisitor;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
 
 /**
  * A {@link ClassVisitor} that adds a serial version unique identifier to a class if missing. A

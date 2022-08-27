@@ -13,7 +13,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.entity.EntityPlayerSP;
 public class EntityPlayerSPTransformer extends ClassTransformer {
     @Override
     public Class<?> getTargetClass() {
-        return EntityPlayerSP.EntityPlayerSPClass;
+        return EntityPlayerSP.wrapClass;
     }
 
     @Override

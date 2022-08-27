@@ -27,12 +27,12 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree;
 
-import java.util.Map;
-
 import rbq.wtf.lycoris.agent.asm.Handle;
 import rbq.wtf.lycoris.agent.asm.MethodVisitor;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
 import rbq.wtf.lycoris.agent.asm.Type;
+
+import java.util.Map;
 
 /**
  * A node that represents an invokedynamic instruction.

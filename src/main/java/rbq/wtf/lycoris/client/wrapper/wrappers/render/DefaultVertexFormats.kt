@@ -1,9 +1,9 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.render
 
+import rbq.wtf.lycoris.client.wrapper.IWrapper
 import rbq.wtf.lycoris.client.wrapper.MapEnum
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapObject
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapperClass
-import rbq.wtf.lycoris.client.wrapper.IWrapper
 
 @WrapperClass(mcpName = "net.minecraft.client.renderer.vertex.DefaultVertexFormats", targetMap = MapEnum.VANILLA189)
 class DefaultVertexFormats(obj: Any) : IWrapper(obj) {

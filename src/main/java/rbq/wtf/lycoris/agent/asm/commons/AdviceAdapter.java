@@ -27,16 +27,12 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.commons;
 
+import rbq.wtf.lycoris.agent.asm.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import rbq.wtf.lycoris.agent.asm.ConstantDynamic;
-import rbq.wtf.lycoris.agent.asm.Handle;
-import rbq.wtf.lycoris.agent.asm.Label;
-import rbq.wtf.lycoris.agent.asm.MethodVisitor;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
-import rbq.wtf.lycoris.agent.asm.Type;
 
 /**
  * A {@link MethodVisitor} to insert before, after and around advices in methods and constructors.

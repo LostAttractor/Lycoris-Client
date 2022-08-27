@@ -1,9 +1,9 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.util.event.click
 
+import rbq.wtf.lycoris.client.wrapper.IWrapper
 import rbq.wtf.lycoris.client.wrapper.MapEnum
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapField
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapperClass
-import rbq.wtf.lycoris.client.wrapper.IWrapper
 import java.lang.reflect.Field
 
 @WrapperClass(mcpName = "net.minecraft.event.ClickEvent", targetMap = MapEnum.VANILLA189)

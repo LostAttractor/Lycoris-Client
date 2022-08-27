@@ -16,7 +16,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.KeyBinding;
 public class KeyBindingTransformer extends ClassTransformer {
     @Override
     public Class<?> getTargetClass() {
-        return KeyBinding.KeyBindingClass;
+        return KeyBinding.wrapClass;
     }
 
     @Override

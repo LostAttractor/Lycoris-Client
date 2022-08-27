@@ -27,8 +27,9 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree.analysis;
 
-import java.util.Set;
 import rbq.wtf.lycoris.agent.asm.tree.AbstractInsnNode;
+
+import java.util.Set;
 
 /**
  * A {@link Value} which keeps track of the bytecode instructions that can produce it.

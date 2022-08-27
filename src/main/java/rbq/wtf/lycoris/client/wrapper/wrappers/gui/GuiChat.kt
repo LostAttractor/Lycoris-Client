@@ -1,7 +1,7 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.gui
 
 import rbq.wtf.lycoris.client.wrapper.MapEnum
-import rbq.wtf.lycoris.client.wrapper.annotation.WrapClass
+import rbq.wtf.lycoris.client.wrapper.annotation.WrapClassAuto
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapField
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapperClass
 import java.lang.reflect.Field
@@ -19,8 +19,8 @@ class GuiChat(obj: Any) : GuiScreen(obj) {
     }
 
     companion object {
-        @WrapClass(mcpName = "net.minecraft.client.gui.GuiChat", targetMap = MapEnum.VANILLA189)
-        lateinit var GuiChatClass: Class<*>
+        @WrapClassAuto
+        lateinit var wrapClass: Class<*>;
 
         @WrapField(mcpName = "inputField", targetMap = MapEnum.VANILLA189)
         lateinit var inputField: Field
@@ -30,7 +30,7 @@ class GuiChat(obj: Any) : GuiScreen(obj) {
 
         @JvmStatic
         fun isGuiChat(guiScreen: GuiScreen): Boolean {
-            return GuiChatClass.isInstance(guiScreen.wrapObject)
+            return wrapClass.isInstance(guiScreen.wrapObject)
         }
     }
 }

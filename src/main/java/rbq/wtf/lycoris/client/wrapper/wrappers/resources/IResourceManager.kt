@@ -1,9 +1,9 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.resources
 
+import rbq.wtf.lycoris.client.wrapper.IWrapper
 import rbq.wtf.lycoris.client.wrapper.MapEnum
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapMethod
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapperClass
-import rbq.wtf.lycoris.client.wrapper.IWrapper
 import rbq.wtf.lycoris.client.wrapper.wrappers.util.ResourceLocation
 import java.io.IOException
 import java.lang.reflect.Method

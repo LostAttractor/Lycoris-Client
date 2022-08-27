@@ -27,6 +27,13 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.util;
 
+import rbq.wtf.lycoris.agent.asm.*;
+import rbq.wtf.lycoris.agent.asm.tree.ClassNode;
+import rbq.wtf.lycoris.agent.asm.tree.MethodNode;
+import rbq.wtf.lycoris.agent.asm.tree.TryCatchBlockNode;
+import rbq.wtf.lycoris.agent.asm.tree.analysis.Frame;
+import rbq.wtf.lycoris.agent.asm.tree.analysis.*;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,23 +42,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import rbq.wtf.lycoris.agent.asm.*;
-import rbq.wtf.lycoris.agent.asm.Attribute;
-import rbq.wtf.lycoris.agent.asm.Label;
-import rbq.wtf.lycoris.agent.asm.ModuleVisitor;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
-import rbq.wtf.lycoris.agent.asm.RecordComponentVisitor;
-import rbq.wtf.lycoris.agent.asm.Type;
-import rbq.wtf.lycoris.agent.asm.TypePath;
-import rbq.wtf.lycoris.agent.asm.tree.ClassNode;
-import rbq.wtf.lycoris.agent.asm.tree.MethodNode;
-import rbq.wtf.lycoris.agent.asm.tree.TryCatchBlockNode;
-import rbq.wtf.lycoris.agent.asm.tree.analysis.Analyzer;
-import rbq.wtf.lycoris.agent.asm.tree.analysis.AnalyzerException;
-import rbq.wtf.lycoris.agent.asm.tree.analysis.BasicValue;
-import rbq.wtf.lycoris.agent.asm.tree.analysis.Frame;
-import rbq.wtf.lycoris.agent.asm.tree.analysis.SimpleVerifier;
 
 /**
  * A {@link ClassVisitor} that checks that its methods are properly used. More precisely this class

@@ -27,9 +27,10 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.commons;
 
+import rbq.wtf.lycoris.agent.asm.Type;
+
 import java.util.HashMap;
 import java.util.Map;
-import rbq.wtf.lycoris.agent.asm.Type;
 
 /**
  * A named method descriptor.

@@ -9,7 +9,6 @@ import rbq.wtf.lycoris.client.transformer.TransformManager
 import rbq.wtf.lycoris.client.wrapper.bridge.BridgeUtil
 import rbq.wtf.lycoris.client.wrapper.wrappers.Minecraft
 import rbq.wtf.lycoris.client.wrapper.wrappers.gui.IGuiScreen
-import java.util.*
 
 @ModuleInfo(name = "Self-Destruct", description = "", category = ModuleCategory.Msic, saveState = false)
 class SelfDestruct : Module() {

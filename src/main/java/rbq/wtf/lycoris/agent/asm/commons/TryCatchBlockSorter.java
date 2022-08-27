@@ -28,13 +28,14 @@
 
 package rbq.wtf.lycoris.agent.asm.commons;
 
-import java.util.Collections;
-import java.util.Comparator;
 import rbq.wtf.lycoris.agent.asm.MethodVisitor;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
 import rbq.wtf.lycoris.agent.asm.Type;
 import rbq.wtf.lycoris.agent.asm.tree.MethodNode;
 import rbq.wtf.lycoris.agent.asm.tree.TryCatchBlockNode;
+
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * A {@link MethodVisitor} adapter to sort the exception handlers. The handlers are sorted in a

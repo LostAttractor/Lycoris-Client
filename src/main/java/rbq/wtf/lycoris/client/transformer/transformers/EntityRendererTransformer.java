@@ -15,7 +15,7 @@ import rbq.wtf.lycoris.client.wrapper.wrappers.render.EntityRenderer;
 public class EntityRendererTransformer extends ClassTransformer {
     @Override
     public Class<?> getTargetClass() {
-        return EntityRenderer.EntityRendererClass;
+        return EntityRenderer.wrapClass;
     }
 
     @Override

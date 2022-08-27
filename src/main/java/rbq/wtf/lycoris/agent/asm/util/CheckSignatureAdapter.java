@@ -27,9 +27,10 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.util;
 
-import java.util.EnumSet;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
 import rbq.wtf.lycoris.agent.asm.signature.SignatureVisitor;
+
+import java.util.EnumSet;
 
 /**
  * A {@link SignatureVisitor} that checks that its methods are properly used.

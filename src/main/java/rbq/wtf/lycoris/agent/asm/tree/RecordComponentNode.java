@@ -27,10 +27,9 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree;
 
-import java.util.List;
-
 import rbq.wtf.lycoris.agent.asm.*;
-import rbq.wtf.lycoris.agent.asm.RecordComponentVisitor;
+
+import java.util.List;
 
 /**
  * A node that represents a record component.

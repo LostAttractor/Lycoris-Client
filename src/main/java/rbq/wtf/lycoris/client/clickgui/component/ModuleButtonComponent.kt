@@ -1,9 +1,9 @@
 package rbq.wtf.lycoris.client.clickgui.component
 
 import rbq.wtf.lycoris.client.Client
-import rbq.wtf.lycoris.client.font.FontLoaders
 import rbq.wtf.lycoris.client.clickgui.ClickGUI
 import rbq.wtf.lycoris.client.clickgui.utils.RenderUtil
+import rbq.wtf.lycoris.client.font.FontLoaders
 import rbq.wtf.lycoris.client.module.Module
 import rbq.wtf.lycoris.client.module.ModuleCategory
 import java.awt.Color

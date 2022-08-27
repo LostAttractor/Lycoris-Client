@@ -27,12 +27,7 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.commons;
 
-import rbq.wtf.lycoris.agent.asm.AnnotationVisitor;
-import rbq.wtf.lycoris.agent.asm.Label;
-import rbq.wtf.lycoris.agent.asm.MethodVisitor;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
-import rbq.wtf.lycoris.agent.asm.Type;
-import rbq.wtf.lycoris.agent.asm.TypePath;
+import rbq.wtf.lycoris.agent.asm.*;
 
 /**
  * A {@link MethodVisitor} that renumbers local variables in their order of appearance. This adapter

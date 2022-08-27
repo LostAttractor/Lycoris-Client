@@ -17,9 +17,6 @@ class BlockPos(obj: Any) : Vec3i(obj) {
     constructor(vec: Vec3) : this(ReflectUtil.construction(BlockPos_Vec, vec.wrapObject))
 
     companion object {
-        @WrapClass(mcpName = "net.minecraft.util.BlockPos", targetMap = MapEnum.VANILLA189)
-        lateinit var BlockPosClass: Class<*>
-
         @WrapConstructor(targetMap = MapEnum.VANILLA189, signature = [Double::class, Double::class, Double::class])
         lateinit var BlockPos_DDD: Constructor<*>
 

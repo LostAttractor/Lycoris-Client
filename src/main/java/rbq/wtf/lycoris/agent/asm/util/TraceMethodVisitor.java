@@ -27,13 +27,7 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.util;
 
-import rbq.wtf.lycoris.agent.asm.AnnotationVisitor;
-import rbq.wtf.lycoris.agent.asm.Attribute;
-import rbq.wtf.lycoris.agent.asm.Handle;
-import rbq.wtf.lycoris.agent.asm.Label;
-import rbq.wtf.lycoris.agent.asm.MethodVisitor;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
-import rbq.wtf.lycoris.agent.asm.TypePath;
+import rbq.wtf.lycoris.agent.asm.*;
 
 /**
  * A {@link MethodVisitor} that prints the methods it visits with a {@link Printer}.

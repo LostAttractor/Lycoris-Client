@@ -76,11 +76,11 @@ public class BridgeUtil {
     }
 
     public static byte[] buildGuiChatBridge(String pkg) {
-        return buildGuiScreenBridge(GuiChat.GuiChatClass, pkg);
+        return buildGuiScreenBridge(GuiChat.wrapClass, pkg);
     }
 
     public static byte[] buildGuiScreenBridge(String pkg) {
-        return buildGuiScreenBridge(GuiScreen.GuiScreenClass, pkg);
+        return buildGuiScreenBridge(GuiScreen.wrapClass, pkg);
     }
 
     public static byte[] buildGuiScreenBridge(Class<?> superClass, String pkg) {

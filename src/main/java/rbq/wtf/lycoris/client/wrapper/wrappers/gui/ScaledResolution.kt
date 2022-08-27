@@ -1,17 +1,17 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.gui
 
+import rbq.wtf.lycoris.client.wrapper.IWrapper
 import rbq.wtf.lycoris.client.wrapper.MapEnum
-import rbq.wtf.lycoris.client.wrapper.annotation.WrapClass
+import rbq.wtf.lycoris.client.wrapper.annotation.WrapClassAuto
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapField
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapperClass
 import rbq.wtf.lycoris.client.wrapper.utils.ReflectUtil
-import rbq.wtf.lycoris.client.wrapper.IWrapper
 import rbq.wtf.lycoris.client.wrapper.wrappers.Minecraft
 import java.lang.reflect.Field
 
 @WrapperClass(mcpName = "net.minecraft.client.gui.ScaledResolution", targetMap = MapEnum.VANILLA189)
 class ScaledResolution(obj: Any) : IWrapper(obj) {
-    constructor(mc: Minecraft) : this(ReflectUtil.construction(ScaledResolution, mc.wrapObject))
+    constructor(mc: Minecraft) : this(ReflectUtil.construction(wrapClass, mc.wrapObject))
 
     val scaledWidth: Int
         get() = getField(Companion.scaledWidth) as Int
@@ -25,8 +25,8 @@ class ScaledResolution(obj: Any) : IWrapper(obj) {
         get() = getField(Companion.scaleFactor) as Int
 
     companion object {
-        @WrapClass(mcpName = "net.minecraft.client.gui.ScaledResolution", targetMap = MapEnum.VANILLA189)
-        lateinit var ScaledResolution: Class<*>
+        @WrapClassAuto
+        lateinit var wrapClass: Class<*>;
 
         @WrapField(mcpName = "scaledWidthD", targetMap = MapEnum.VANILLA189)
         lateinit var scaledWidthD: Field

@@ -27,9 +27,9 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree;
 
-import java.util.List;
-
 import rbq.wtf.lycoris.agent.asm.ModuleVisitor;
+
+import java.util.List;
 
 /**
  * A node that represents a service and its implementation provided by the current module.

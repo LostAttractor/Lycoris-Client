@@ -27,11 +27,11 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.util;
 
-import java.util.HashSet;
-
 import rbq.wtf.lycoris.agent.asm.ClassVisitor;
 import rbq.wtf.lycoris.agent.asm.ModuleVisitor;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
+
+import java.util.HashSet;
 
 /**
  * A {@link ModuleVisitor} that checks that its methods are properly used.

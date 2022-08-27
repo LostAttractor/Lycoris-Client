@@ -27,14 +27,14 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.util;
 
+import rbq.wtf.lycoris.agent.asm.*;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-
-import rbq.wtf.lycoris.agent.asm.*;
 
 /**
  * An abstract converter from visit events to text.

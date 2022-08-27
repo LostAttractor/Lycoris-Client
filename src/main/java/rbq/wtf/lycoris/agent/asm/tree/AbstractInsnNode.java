@@ -27,11 +27,11 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree;
 
+import rbq.wtf.lycoris.agent.asm.MethodVisitor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import rbq.wtf.lycoris.agent.asm.MethodVisitor;
 
 /**
  * A node that represents a bytecode instruction. <i>An instruction can appear at most once in at

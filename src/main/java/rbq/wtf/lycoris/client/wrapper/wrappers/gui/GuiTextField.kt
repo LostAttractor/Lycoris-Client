@@ -84,10 +84,6 @@ class GuiTextField(obj: Any) : Gui(obj) {
     }
 
     companion object {
-        @WrapClass(mcpName = "net.minecraft.client.gui.GuiTextField", targetMap = MapEnum.VANILLA189)
-        @WrapClass(mcpName = "net.minecraft.client.gui.GuiTextField", targetMap = MapEnum.VANILLA1122)
-        lateinit var GuiTextFieldClass: Class<*>
-
         @WrapField(mcpName = "text", targetMap = MapEnum.VANILLA189)
         @WrapField(mcpName = "text", targetMap = MapEnum.VANILLA1122)
         lateinit var text: Field

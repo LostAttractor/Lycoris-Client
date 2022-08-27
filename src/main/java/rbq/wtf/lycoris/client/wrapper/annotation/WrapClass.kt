@@ -10,3 +10,8 @@ import rbq.wtf.lycoris.client.wrapper.annotation.repeat.WrapClasses
     WrapClasses::class
 )
 annotation class WrapClass(val mcpName: String, val targetMap: MapEnum)
+
+@MustBeDocumented
+@Target(AnnotationTarget.FIELD)
+@Retention(AnnotationRetention.RUNTIME)
+annotation class WrapClassAuto

@@ -27,10 +27,10 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree;
 
-import java.util.Map;
-
 import rbq.wtf.lycoris.agent.asm.Label;
 import rbq.wtf.lycoris.agent.asm.MethodVisitor;
+
+import java.util.Map;
 
 /** An {@link AbstractInsnNode} that encapsulates a {@link Label}. */
 public class LabelNode extends AbstractInsnNode {

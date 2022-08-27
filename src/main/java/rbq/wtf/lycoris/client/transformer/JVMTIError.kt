@@ -1,6 +1,8 @@
-package rbq.wtf.lycoris.client.transformer;
+package rbq.wtf.lycoris.client.transformer
 
-public enum JVMTIError {
+import java.util.*
+
+enum class JVMTIError(val value: Int) {
     JVMTI_ERROR_NONE(0),
     JVMTI_ERROR_INVALID_THREAD(10),
     JVMTI_ERROR_INVALID_THREAD_GROUP(11),
@@ -52,38 +54,33 @@ public enum JVMTIError {
     JVMTI_ERROR_INVALID_ENVIRONMENT(116),
     JVMTI_ERROR_MAX(116);
 
-    private int value;
-
-    JVMTIError(int value) {
-        this.value = value;
+    override fun toString(): String {
+        return "$name : $value"
     }
 
-    public static String parse(int value) {
-        for (JVMTIError error : JVMTIError.values()) {
-            if (error.getValue() == value) {
-                return firstLetterString(error.name().replace("JVMTI_ERROR_NONE", "Successful").replaceAll("JVMTI_ERROR_", "").replaceAll("_", " ").toLowerCase()) + "(" + (value) + ")";
+    companion object {
+        @JvmStatic
+        fun parse(value: Int): String {
+            for (error in values()) {
+                if (error.value == value) {
+                    return firstLetterString(
+                        error.name.replace("JVMTI_ERROR_NONE", "Successful").replace("JVMTI_ERROR_".toRegex(), "")
+                            .replace("_", " ").lowercase(Locale.getDefault())
+                    ) + "(" + value + ")"
+                }
             }
+            return "Unknown error($value)"
         }
-        return "Unknown error(" + value + ")";
-    }
 
-    public static String firstLetterString(String s) {
-        String result = " ";
-        String[] value = s.split(" ");
-        for (String item : value) {
-            String firstLetter = item.substring(0, 1).toUpperCase();
-            String nextLetter = item.substring(1);
-            result = result.concat(firstLetter.concat(nextLetter) + " ");
+        private fun firstLetterString(s: String): String {
+            var result = " "
+            val value = s.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            for (item in value) {
+                val firstLetter = item.substring(0, 1).uppercase(Locale.getDefault())
+                val nextLetter = item.substring(1)
+                result = "$result$firstLetter$nextLetter "
+            }
+            return result.trim { it <= ' ' }
         }
-        return result.trim();
-    }
-
-    public int getValue() {
-        return this.value;
-    }
-
-    @Override
-    public String toString() {
-        return this.name() + " : " + value;
     }
 }

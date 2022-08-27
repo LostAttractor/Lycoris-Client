@@ -1,9 +1,9 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.util
 
+import rbq.wtf.lycoris.client.wrapper.IWrapper
 import rbq.wtf.lycoris.client.wrapper.MapEnum
 import rbq.wtf.lycoris.client.wrapper.annotation.*
 import rbq.wtf.lycoris.client.wrapper.utils.ReflectUtil
-import rbq.wtf.lycoris.client.wrapper.IWrapper
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.Method
@@ -14,9 +14,6 @@ class Vec3(obj: Any) : IWrapper(obj) {
     constructor(x: Double, y: Double, z: Double) : this(ReflectUtil.construction(Vec3_DDD, x, y, z)) {}
 
     companion object {
-        @WrapClass(mcpName = "net.minecraft.util.Vec3", targetMap = MapEnum.VANILLA189)
-        lateinit var Vec3Class: Class<*>
-
         @WrapConstructor(targetMap = MapEnum.VANILLA189, signature = [Double::class, Double::class, Double::class])
         lateinit var Vec3_DDD: Constructor<*>
 

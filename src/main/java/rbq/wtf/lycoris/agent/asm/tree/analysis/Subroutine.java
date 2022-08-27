@@ -27,10 +27,11 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree.analysis;
 
-import java.util.ArrayList;
-import java.util.List;
 import rbq.wtf.lycoris.agent.asm.tree.JumpInsnNode;
 import rbq.wtf.lycoris.agent.asm.tree.LabelNode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A method subroutine (corresponds to a JSR instruction).

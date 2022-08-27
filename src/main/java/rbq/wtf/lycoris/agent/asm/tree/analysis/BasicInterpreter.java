@@ -27,19 +27,13 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree.analysis;
 
-import java.util.List;
 import rbq.wtf.lycoris.agent.asm.ConstantDynamic;
 import rbq.wtf.lycoris.agent.asm.Handle;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
 import rbq.wtf.lycoris.agent.asm.Type;
-import rbq.wtf.lycoris.agent.asm.tree.AbstractInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.FieldInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.IntInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.InvokeDynamicInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.LdcInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.MethodInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.MultiANewArrayInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.TypeInsnNode;
+import rbq.wtf.lycoris.agent.asm.tree.*;
+
+import java.util.List;
 
 /**
  * An {@link Interpreter} for {@link BasicValue} values.

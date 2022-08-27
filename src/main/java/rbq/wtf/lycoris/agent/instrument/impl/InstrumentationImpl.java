@@ -4,8 +4,6 @@ package rbq.wtf.lycoris.agent.instrument.impl;
 import rbq.wtf.lycoris.agent.Access;
 import rbq.wtf.lycoris.agent.instrument.ClassTransformer;
 import rbq.wtf.lycoris.agent.instrument.Instrumentation;
-import rbq.wtf.lycoris.client.Client;
-import rbq.wtf.lycoris.client.utils.Logger;
 
 
 public class InstrumentationImpl implements Instrumentation {

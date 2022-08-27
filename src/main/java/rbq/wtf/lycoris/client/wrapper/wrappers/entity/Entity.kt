@@ -1,11 +1,10 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.entity
 
+import rbq.wtf.lycoris.client.wrapper.IWrapper
 import rbq.wtf.lycoris.client.wrapper.MapEnum
-import rbq.wtf.lycoris.client.wrapper.annotation.WrapClass
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapField
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapMethod
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapperClass
-import rbq.wtf.lycoris.client.wrapper.IWrapper
 import rbq.wtf.lycoris.client.wrapper.wrappers.util.AxisAlignedBB
 import rbq.wtf.lycoris.client.wrapper.wrappers.util.Vec3
 import java.lang.reflect.Field
@@ -225,9 +224,6 @@ open class Entity(obj: Any) : IWrapper(obj) {
 
         @WrapField(mcpName = "boundingBox", targetMap = MapEnum.VANILLA189)
         lateinit var boundingBox: Field
-
-        @WrapClass(mcpName = "net.minecraft.entity.Entity", targetMap = MapEnum.VANILLA189)
-        lateinit var EntityClass: Class<*>
 
         @WrapField(mcpName = "onGround", targetMap = MapEnum.VANILLA189)
         lateinit var onGround: Field

@@ -27,27 +27,12 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.commons;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import rbq.wtf.lycoris.agent.asm.Label;
 import rbq.wtf.lycoris.agent.asm.MethodVisitor;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
-import rbq.wtf.lycoris.agent.asm.tree.AbstractInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.InsnList;
-import rbq.wtf.lycoris.agent.asm.tree.InsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.JumpInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.LabelNode;
-import rbq.wtf.lycoris.agent.asm.tree.LocalVariableNode;
-import rbq.wtf.lycoris.agent.asm.tree.LookupSwitchInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.MethodNode;
-import rbq.wtf.lycoris.agent.asm.tree.TableSwitchInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.TryCatchBlockNode;
+import rbq.wtf.lycoris.agent.asm.tree.*;
+
+import java.util.*;
 
 /**
  * A {@link MethodVisitor} that removes JSR instructions and inlines the

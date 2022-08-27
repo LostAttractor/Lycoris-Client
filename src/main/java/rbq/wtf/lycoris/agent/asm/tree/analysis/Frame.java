@@ -27,18 +27,12 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.tree.analysis;
 
-import java.util.ArrayList;
-import java.util.List;
 import rbq.wtf.lycoris.agent.asm.Opcodes;
 import rbq.wtf.lycoris.agent.asm.Type;
-import rbq.wtf.lycoris.agent.asm.tree.AbstractInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.IincInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.InvokeDynamicInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.LabelNode;
-import rbq.wtf.lycoris.agent.asm.tree.MethodInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.MultiANewArrayInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.VarInsnNode;
-import rbq.wtf.lycoris.agent.asm.tree.MethodNode;
+import rbq.wtf.lycoris.agent.asm.tree.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A symbolic execution stack frame. A stack frame contains a set of local variable slots, and an

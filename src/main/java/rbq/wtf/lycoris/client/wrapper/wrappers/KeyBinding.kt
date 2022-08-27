@@ -2,7 +2,7 @@ package rbq.wtf.lycoris.client.wrapper.wrappers
 
 import rbq.wtf.lycoris.client.wrapper.IWrapper
 import rbq.wtf.lycoris.client.wrapper.MapEnum
-import rbq.wtf.lycoris.client.wrapper.annotation.WrapClass
+import rbq.wtf.lycoris.client.wrapper.annotation.WrapClassAuto
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapField
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapMethod
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapperClass
@@ -13,8 +13,8 @@ import java.lang.reflect.Method
 @WrapperClass(mcpName = "net.minecraft.client.settings.KeyBinding", targetMap = MapEnum.VANILLA189)
 class KeyBinding(obj: Any) : IWrapper(obj) {
     companion object {
-        @WrapClass(mcpName = "net.minecraft.client.settings.KeyBinding", targetMap = MapEnum.VANILLA189)
-        lateinit var KeyBindingClass: Class<*>
+        @WrapClassAuto
+        lateinit var wrapClass: Class<*>;
 
         @WrapField(mcpName = "pressed", targetMap = MapEnum.VANILLA189)
         lateinit var pressed: Field

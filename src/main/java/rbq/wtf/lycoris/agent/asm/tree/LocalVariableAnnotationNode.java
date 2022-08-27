@@ -28,9 +28,9 @@
 
 package rbq.wtf.lycoris.agent.asm.tree;
 
-import java.util.List;
-
 import rbq.wtf.lycoris.agent.asm.*;
+
+import java.util.List;
 
 /**
  * A node that represents a type annotation on a local or resource variable.

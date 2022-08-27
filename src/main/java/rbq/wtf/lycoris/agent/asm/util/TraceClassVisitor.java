@@ -27,14 +27,9 @@
 // THE POSSIBILITY OF SUCH DAMAGE.
 package rbq.wtf.lycoris.agent.asm.util;
 
-import java.io.PrintWriter;
-
 import rbq.wtf.lycoris.agent.asm.*;
-import rbq.wtf.lycoris.agent.asm.Attribute;
-import rbq.wtf.lycoris.agent.asm.ModuleVisitor;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
-import rbq.wtf.lycoris.agent.asm.RecordComponentVisitor;
-import rbq.wtf.lycoris.agent.asm.TypePath;
+
+import java.io.PrintWriter;
 
 /**
  * A {@link ClassVisitor} that prints the classes it visits with a {@link Printer}. This class

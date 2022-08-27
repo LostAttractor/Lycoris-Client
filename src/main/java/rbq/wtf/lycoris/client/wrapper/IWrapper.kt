@@ -5,7 +5,6 @@ import java.lang.reflect.Method
 import java.util.*
 
 open class IWrapper(val wrapObject: Any) {
-
     protected fun getField(targetField: Field): Any? {
         return try {
             targetField.get(wrapObject)
