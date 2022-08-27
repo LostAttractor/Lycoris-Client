@@ -11,7 +11,7 @@ import java.lang.reflect.Method
 class NetworkManager(obj: Any) : IWrapper(obj) {
     companion object {
         @WrapClassAuto
-        lateinit var wrapClass: Class<*>;
+        lateinit var wrapClass: Class<*>
 
         @WrapMethod(mcpName = "sendPacket", targetMap = MapEnum.VANILLA189)
         lateinit var sendPacket: Method

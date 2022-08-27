@@ -1,80 +1,78 @@
-package rbq.wtf.lycoris.client.transformer.transformers;
+package rbq.wtf.lycoris.client.transformer.transformers
 
-import rbq.wtf.lycoris.agent.asm.ClassReader;
-import rbq.wtf.lycoris.agent.asm.ClassWriter;
-import rbq.wtf.lycoris.agent.asm.Opcodes;
-import rbq.wtf.lycoris.agent.asm.Type;
-import rbq.wtf.lycoris.agent.asm.tree.*;
-import rbq.wtf.lycoris.client.Client;
-import rbq.wtf.lycoris.client.event.*;
-import rbq.wtf.lycoris.client.transformer.ClassTransformer;
-import rbq.wtf.lycoris.client.wrapper.wrappers.entity.EntityPlayerSP;
+import rbq.wtf.lycoris.agent.asm.ClassReader
+import rbq.wtf.lycoris.agent.asm.ClassWriter
+import rbq.wtf.lycoris.agent.asm.Opcodes
+import rbq.wtf.lycoris.agent.asm.Type
+import rbq.wtf.lycoris.agent.asm.tree.*
+import rbq.wtf.lycoris.client.Client
+import rbq.wtf.lycoris.client.event.*
+import rbq.wtf.lycoris.client.transformer.ClassTransformer
+import rbq.wtf.lycoris.client.wrapper.wrappers.entity.EntityPlayerSP
 
-public class EntityPlayerSPTransformer extends ClassTransformer {
-    @Override
-    public Class<?> getTargetClass() {
-        return EntityPlayerSP.wrapClass;
-    }
+class EntityPlayerSPTransformer : ClassTransformer() {
 
-    @Override
-    public byte[] transform(byte[] bytes) {
-        ClassReader cr = new ClassReader(bytes);
-        ClassNode classNode = new ClassNode();
-        cr.accept(classNode, 0);
-        for (MethodNode method : classNode.methods) {
-            if (method.name.equals(EntityPlayerSP.onUpdateWalkingPlayer.getName())) {
-                InsnList insnList = new InsnList();
+    override val targetClass: Class<*>
+        get() = EntityPlayerSP.wrapClass
+
+    override fun transform(bytes: ByteArray): ByteArray {
+        val cr = ClassReader(bytes)
+        val classNode = ClassNode()
+        cr.accept(classNode, 0)
+        for (method in classNode.methods) {
+            if (method.name == EntityPlayerSP.onUpdateWalkingPlayer.name) {
+                val insnList = InsnList()
                 // {this} | {}
-                insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client.class), "eventManager", "L" + Type.getInternalName(EventManager.class) + ";"));
+                insnList.add(FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client::class.java), "eventManager", "L${Type.getInternalName(EventManager::class.java)};"))
                 // {this} | {eventManager}
-                insnList.add(new TypeInsnNode(Opcodes.NEW, Type.getInternalName(MotionEvent.class)));
+                insnList.add(TypeInsnNode(Opcodes.NEW, Type.getInternalName(MotionEvent::class.java)))
                 // {this} | {eventManager, uninitialized_MotionEvent}
-                insnList.add(new InsnNode(Opcodes.DUP));
+                insnList.add(InsnNode(Opcodes.DUP))
                 // {this} | {eventManager, uninitialized_MotionEvent, uninitialized_MotionEvent}
-                insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(EventState.class), "PRE", "L" + Type.getInternalName(EventState.class) + ";"));
+                insnList.add(FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(EventState::class.java), "PRE", "L${Type.getInternalName(EventState::class.java)};"))
                 // {this} | {eventManager, uninitialized_MotionEvent, uninitialized_MotionEvent, EventState.PRE}
-                insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(MotionEvent.class), "<init>", "(L" + Type.getInternalName(EventState.class) + ";)V", false));
+                insnList.add(MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(MotionEvent::class.java), "<init>", "(L${Type.getInternalName(EventState::class.java)};)V", false))
                 // {this} | {eventManager, MotionEvent}
-                insnList.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager.class), "callEvent", "(L" + Type.getInternalName(Event.class) + ";)V", false));
+                insnList.add(MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager::class.java), "callEvent", "(L${Type.getInternalName(Event::class.java)};)V", false))
                 // {this} | {}
-                method.instructions.insert(insnList);
+                method.instructions.insert(insnList)
             }
-            if (method.name.equals(EntityPlayerSP.onUpdateWalkingPlayer.getName())) {
-                InsnList insnList = new InsnList();
+            if (method.name == EntityPlayerSP.onUpdateWalkingPlayer.name) {
+                val insnList = InsnList()
                 // {this} | {}
-                insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client.class), "eventManager", "L" + Type.getInternalName(EventManager.class) + ";"));
+                insnList.add(FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client::class.java), "eventManager", "L${Type.getInternalName(EventManager::class.java)};"))
                 // {this} | {eventManager}
-                insnList.add(new TypeInsnNode(Opcodes.NEW, Type.getInternalName(MotionEvent.class)));
+                insnList.add(TypeInsnNode(Opcodes.NEW, Type.getInternalName(MotionEvent::class.java)))
                 // {this} | {eventManager, uninitialized_MotionEvent}
-                insnList.add(new InsnNode(Opcodes.DUP));
+                insnList.add(InsnNode(Opcodes.DUP))
                 // {this} | {eventManager, uninitialized_MotionEvent, uninitialized_MotionEvent}
-                insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(EventState.class), "POST", "L" + Type.getInternalName(EventState.class) + ";"));
+                insnList.add(FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(EventState::class.java), "POST", "L${Type.getInternalName(EventState::class.java)};"))
                 // {this} | {eventManager, uninitialized_MotionEvent, uninitialized_MotionEvent, EventState.PRE}
-                insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(MotionEvent.class), "<init>", "(L" + Type.getInternalName(EventState.class) + ";)V", false));
+                insnList.add(MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(MotionEvent::class.java), "<init>", "(L${Type.getInternalName(EventState::class.java)};)V", false))
                 // {this} | {eventManager, MotionEvent}
-                insnList.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager.class), "callEvent", "(L" + Type.getInternalName(Event.class) + ";)V", false));
+                insnList.add(MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager::class.java), "callEvent", "(L${Type.getInternalName(Event::class.java)};)V", false))
                 // {this} | {}
-                method.instructions.add(insnList);
+                method.instructions.add(insnList)
             }
-            if (method.name.equalsIgnoreCase(EntityPlayerSP.onLivingUpdate.getName())) {
-                InsnList insnList = new InsnList();
+            if (method.name.equals(EntityPlayerSP.onLivingUpdate.name, ignoreCase = true)) {
+                val insnList = InsnList()
                 // {this} | {}
-                insnList.add(new FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client.class), "eventManager", "L" + Type.getInternalName(EventManager.class) + ";"));
+                insnList.add(FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client::class.java), "eventManager", "L${Type.getInternalName(EventManager::class.java)};"))
                 // {this} | {eventManager}
-                insnList.add(new TypeInsnNode(Opcodes.NEW, Type.getInternalName(UpdateEvent.class)));
+                insnList.add(TypeInsnNode(Opcodes.NEW, Type.getInternalName(UpdateEvent::class.java)))
                 // {this} | {eventManager, uninitialized_UpdateEvent}
-                insnList.add(new InsnNode(Opcodes.DUP));
+                insnList.add(InsnNode(Opcodes.DUP))
                 // {this} | {eventManager, uninitialized_UpdateEvent, uninitialized_UpdateEvent}
-                insnList.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(UpdateEvent.class), "<init>", "()V", false));
+                insnList.add(MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(UpdateEvent::class.java), "<init>", "()V", false))
                 // {this} | {eventManager, UpdateEvent}
-                insnList.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager.class), "callEvent", "(L" + Type.getInternalName(Event.class) + ";)V", false));
+                insnList.add(MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager::class.java), "callEvent", "(L${Type.getInternalName(Event::class.java)};)V", false))
                 // {this} | {}
-                method.instructions.insert(insnList);
+                method.instructions.insert(insnList)
             }
         }
-        ClassWriter cw = new ClassWriter(cr, ClassWriter.COMPUTE_MAXS + ClassWriter.COMPUTE_FRAMES);
-        classNode.accept(cw);
-        return cw.toByteArray();
+        val cw = ClassWriter(cr, ClassWriter.COMPUTE_MAXS + ClassWriter.COMPUTE_FRAMES)
+        classNode.accept(cw)
+        return cw.toByteArray()
     }
 
     /* 用于在EntityPlayerSP中加入moveEntity方法的asm transform
