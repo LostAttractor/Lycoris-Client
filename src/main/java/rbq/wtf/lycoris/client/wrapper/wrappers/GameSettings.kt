@@ -97,7 +97,7 @@ class GameSettings(obj: Any) : IWrapper(obj) {
         @WrapField(mcpName = "guiScale", targetMap = MapEnum.VANILLA189)
         lateinit var guiScale: Field
     }
-    
+
     val keyBindAttack: KeyBinding
         get() = getField(Companion.keyBindAttack)?.let { KeyBinding(it) }!!
     val keyBindUseItem: KeyBinding
@@ -132,7 +132,9 @@ class GameSettings(obj: Any) : IWrapper(obj) {
         get() = getField(Companion.forceUnicodeFont) as Boolean
     var viewBobbing: Boolean
         get() = getField(Companion.viewBobbing) as Boolean
-        set(b) { setField(Companion.viewBobbing, b) }
+        set(b) {
+            setField(Companion.viewBobbing, b)
+        }
 
     fun setThirdPersonView(view: Int) {
         setField(thirdPersonView, view)

@@ -1,7 +1,10 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.gui
 
 import rbq.wtf.lycoris.client.wrapper.MapEnum
-import rbq.wtf.lycoris.client.wrapper.annotation.*
+import rbq.wtf.lycoris.client.wrapper.annotation.WrapConstructor
+import rbq.wtf.lycoris.client.wrapper.annotation.WrapField
+import rbq.wtf.lycoris.client.wrapper.annotation.WrapMethod
+import rbq.wtf.lycoris.client.wrapper.annotation.WrapperClass
 import rbq.wtf.lycoris.client.wrapper.utils.ReflectUtil
 import rbq.wtf.lycoris.client.wrapper.wrappers.render.FontRenderer
 import java.lang.reflect.Constructor

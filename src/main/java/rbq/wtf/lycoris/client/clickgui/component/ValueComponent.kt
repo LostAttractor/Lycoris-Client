@@ -51,42 +51,44 @@ class ValueListComponent(
                     is BooleanValue -> {
                         addComponent(
                             BooleanValueComponent(
-                            offsetX,
-                            valueY,
-                            it,
-                            clickGUI
-                        )
+                                offsetX,
+                                valueY,
+                                it,
+                                clickGUI
+                            )
                         )
                     }
+
                     is NumberValue -> {
                         addComponent(
                             NumberValueComponent(
-                            offsetX,
-                            valueY,
-                            it,
-                            clickGUI
-                        )
+                                offsetX,
+                                valueY,
+                                it,
+                                clickGUI
+                            )
                         )
                     }
+
                     is ModeValue -> {
                         addComponent(
                             ModeValueComponent(
-                            offsetX,
-                            valueY,
-                            it,
-                            clickGUI
-                        )
+                                offsetX,
+                                valueY,
+                                it,
+                                clickGUI
+                            )
                         )
                     }
                 }
             }
             addComponent(
                 ModuleBindComponent(
-                offsetX,
-                valueY,
-                module!!,
-                clickGUI
-            )
+                    offsetX,
+                    valueY,
+                    module!!,
+                    clickGUI
+                )
             )
         }
     }
@@ -167,6 +169,7 @@ class BooleanValueComponent(
         const val BUTTON_CIRCLE_OFFSET_Y = HEIGHT / 2
         const val BUTTON_END_X = BUTTON_OFFSET_X + BUTTON_WEIGHT
     }
+
     constructor(offsetX: Float, offsetY: Float, value: BooleanValue, clickGUI: ClickGUI) :
             this(
                 offsetX, offsetY,
@@ -403,6 +406,7 @@ class ModeValueComponent(
                 HOVER_OFFSET_X,
                 HOVER_OFFSET_Y, value, clickGUI
             )
+
     override fun render(mouseX: Int, mouseY: Int, partialTicks: Float) {
         FontLoaders.default20.drawString(
             value.name,
@@ -442,7 +446,8 @@ class ModeValueComponent(
                 (y + BUTTON_END_Y).toInt(),
                 mouseX,
                 mouseY
-            )) {
+            )
+        ) {
             value.incrementSelection()
         }
     }

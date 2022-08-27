@@ -27,9 +27,11 @@ object Client {
     @JvmField
     var runPath: Path = Paths.get("").toAbsolutePath()
     val configPath: File = runPath.resolve("$CLIENT_NAME-$GAME_VERSION").toFile()
+
     @JvmField
     val runtimePath: File = configPath.resolve(".runtime")
     val mapsPath = runtimePath.resolve("maps")
+
     @JvmField
     val JVMTILoaderPath = runtimePath.resolve("Lycoris-Native-Loader.dll")
     lateinit var srgPath: File

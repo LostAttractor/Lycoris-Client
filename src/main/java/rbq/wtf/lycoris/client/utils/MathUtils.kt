@@ -23,7 +23,8 @@ object MathUtils {
     }
 
     @Throws(IOException::class)
-    fun checkContextHash(context: String, hash: String, hashAlgorithm: HashAlgorithm) = MathUtils.getHashCode(context, hashAlgorithm) == hash
+    fun checkContextHash(context: String, hash: String, hashAlgorithm: HashAlgorithm) =
+        MathUtils.getHashCode(context, hashAlgorithm) == hash
 
     fun getHashCode(input: String, mode: HashAlgorithm): String {
         val digest = MessageDigest.getInstance(mode.modeName)

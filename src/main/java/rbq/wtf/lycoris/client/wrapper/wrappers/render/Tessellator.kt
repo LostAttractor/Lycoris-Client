@@ -23,7 +23,7 @@ class Tessellator(obj: Any) : IWrapper(obj) {
         val instance: Tessellator
             get() = Tessellator(ReflectUtil.invokeStatic(getInstance)!!)
     }
-    
+
     val worldRenderer: WorldRenderer
         get() = WorldRenderer(getField(Companion.worldRenderer)!!)
 

@@ -5,6 +5,7 @@ abstract class MapNode(val nodeType: NodeType, val mcpName: String, val srgName:
 //    val useObf: Boolean
 //        get() = Wrapper.useMapObf
 }
+
 class ClassNode(
     nodeType: NodeType,
     mcpClassName: String,
@@ -64,7 +65,7 @@ class MethodNode(
     fun getSignature(obfuscation: Boolean) = if (obfuscation) srgSignature else mcpSignature
     fun getSignatureString(obfuscation: Boolean) = if (obfuscation) srgSignatureString else mcpSignatureString
 
-//    val className: String
+    //    val className: String
 //        get() = getClassName(useObf)
 //    val methodName: String
 //        get() = getMethodName(useObf)
@@ -72,7 +73,14 @@ class MethodNode(
 //        get() = getSignature(useObf)
 //    val signatureString: String
 //        get() = getSignatureString(useObf)
-    fun equals(otherClassName: String, otherMethodName: String, otherSignatureString: String?, obfuscation: Boolean): Boolean {
-        return getClassName(obfuscation) == otherClassName && getMethodName(obfuscation) == otherMethodName && (otherSignatureString == null || otherSignatureString == getSignatureString(obfuscation))
+    fun equals(
+        otherClassName: String,
+        otherMethodName: String,
+        otherSignatureString: String?,
+        obfuscation: Boolean
+    ): Boolean {
+        return getClassName(obfuscation) == otherClassName && getMethodName(obfuscation) == otherMethodName && (otherSignatureString == null || otherSignatureString == getSignatureString(
+            obfuscation
+        ))
     }
 }

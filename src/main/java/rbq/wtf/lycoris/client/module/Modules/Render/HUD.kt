@@ -49,7 +49,9 @@ class HUD : Module() {
             for (m in sorted) {
                 val color = if (rainbow.get()) ColorUtils.rainbow(rainbowOffset) else Color(0, 200, 100)
                 FontLoaders.default20.drawStringWithShadow(
-                    m.name, (sc.scaledWidth - FontLoaders.default20.getStringWidth(m.name) - 5).toDouble(), (posY + 5).toDouble(),
+                    m.name,
+                    (sc.scaledWidth - FontLoaders.default20.getStringWidth(m.name) - 5).toDouble(),
+                    (posY + 5).toDouble(),
                     color.rgb
                 )
                 posY += FontLoaders.default16.getStringHeight(m.name) + 4

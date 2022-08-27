@@ -38,7 +38,7 @@ class WorldRenderer(obj: Any) : IWrapper(obj) {
         @WrapMethod(mcpName = "tex", targetMap = MapEnum.VANILLA189)
         lateinit var tex: Method
     }
-    
+
     fun begin(glMode: Int, format: VertexFormat) {
         invoke(begin, glMode, format.wrapObject)
     }

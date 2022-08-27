@@ -23,7 +23,7 @@ class SRGReader(srgMap: File) {
             try {
                 val strings = s.split(" ")
                 if (strings.isNotEmpty()) {
-                    when(val type = getNodeType(strings[0])) {
+                    when (val type = getNodeType(strings[0])) {
                         NodeType.Class -> {
                             if (strings.size != 3) throw NullPointerException("Can't Parse SrgMap $s")
                             val mcpName = strings[1].replace("/", ".")
@@ -32,6 +32,7 @@ class SRGReader(srgMap: File) {
                                 ClassNode(type, mcpName, srgName)
                             )
                         }
+
                         NodeType.Field -> {
                             if (strings.size != 3) throw NullPointerException("Can't Parse SrgMap $s")
                             val mcpName = strings[1]
@@ -41,11 +42,22 @@ class SRGReader(srgMap: File) {
                             val mcpClassName = mcpName.replace("/", ".").replace(".$mcpFieldName", "")
                             val srgClassName = srgName.replace("/", ".").replace(".$srgFieldName", "")
                             mapNodes.add(
-                                FieldNode(type, mcpName, mcpClassName, mcpFieldName, srgName, srgClassName, srgFieldName)
+                                FieldNode(
+                                    type,
+                                    mcpName,
+                                    mcpClassName,
+                                    mcpFieldName,
+                                    srgName,
+                                    srgClassName,
+                                    srgFieldName
+                                )
                             )
                         }
+
                         NodeType.Method -> {
-                            if (strings.size != 5) {throw NullPointerException("Can't Parse SrgMap $s")}
+                            if (strings.size != 5) {
+                                throw NullPointerException("Can't Parse SrgMap $s")
+                            }
                             val mcpName = strings[1]
                             val srgName = strings[3]
                             val mcpMethodName = mcpName.split("/").last()
@@ -57,9 +69,22 @@ class SRGReader(srgMap: File) {
                             val mcpSignature = genSignature(mcpSignatureString)
                             val srgSignature = genSignature(srgSignatureString)
                             mapNodes.add(
-                                MethodNode(type, mcpName, mcpClassName, mcpMethodName, mcpSignature,mcpSignatureString, srgName, srgClassName, srgMethodName, srgSignature, srgSignatureString)
+                                MethodNode(
+                                    type,
+                                    mcpName,
+                                    mcpClassName,
+                                    mcpMethodName,
+                                    mcpSignature,
+                                    mcpSignatureString,
+                                    srgName,
+                                    srgClassName,
+                                    srgMethodName,
+                                    srgSignature,
+                                    srgSignatureString
+                                )
                             )
                         }
+
                         else -> throw NullPointerException("Can't Parse SrgMap $s")
                     }
                 }
@@ -174,7 +199,7 @@ class SRGReader(srgMap: File) {
     fun getMethod(className: String, method: String, customSignature: String?, obfuscation: Boolean): MethodNode {
         for (mapNode in mapNodes) {
             if (mapNode is MethodNode && mapNode.equals(className, method, customSignature, obfuscation)) {
-                    return mapNode
+                return mapNode
             }
         }
         throw NullPointerException("Failed to Get Method in SRGMap: Method: $method Class: $className Sig:$customSignature")

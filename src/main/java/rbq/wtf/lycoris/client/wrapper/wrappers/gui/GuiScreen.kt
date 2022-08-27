@@ -23,7 +23,7 @@ open class GuiScreen(obj: Any) : Gui(obj) {
 
         @WrapMethod(mcpName = "initGui", targetMap = MapEnum.VANILLA189)
         lateinit var initGui: Method
-        
+
         @WrapMethod(mcpName = "onGuiClosed", targetMap = MapEnum.VANILLA189)
         lateinit var onGuiClosed: Method
 
@@ -45,19 +45,19 @@ open class GuiScreen(obj: Any) : Gui(obj) {
         @WrapMethod(mcpName = "handleComponentHover", targetMap = MapEnum.VANILLA189)
         lateinit var handleComponentHover: Method
 
-        
+
         @WrapMethod(mcpName = "updateScreen", targetMap = MapEnum.VANILLA189)
         lateinit var updateScreen: Method
 
-        
+
         @WrapMethod(mcpName = "mouseClicked", targetMap = MapEnum.VANILLA189)
         lateinit var mouseClicked: Method
 
-        
+
         @WrapMethod(mcpName = "mouseReleased", targetMap = MapEnum.VANILLA189)
         lateinit var mouseReleased: Method
     }
-    
+
     fun setMc(mcIn: Minecraft) {
         setField(mc, mcIn.wrapObject)
     }

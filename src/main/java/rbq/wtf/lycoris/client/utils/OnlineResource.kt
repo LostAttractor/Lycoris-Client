@@ -14,6 +14,11 @@ class OnlineResource(val file: File) {
         if (file.exists()) {
             if (FileUtils.checkFileHash(file, hash, MathUtils.HashAlgorithm.MD5)) needDownload = false
         }
-        if (needDownload) WebUtils.downloadFileWithHashCheck("$resourceURL/${file.name}", file, hash, MathUtils.HashAlgorithm.MD5)
+        if (needDownload) WebUtils.downloadFileWithHashCheck(
+            "$resourceURL/${file.name}",
+            file,
+            hash,
+            MathUtils.HashAlgorithm.MD5
+        )
     }
 }

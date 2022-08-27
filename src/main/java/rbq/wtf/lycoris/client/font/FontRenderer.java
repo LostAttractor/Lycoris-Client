@@ -12,11 +12,13 @@ import java.util.List;
 
 
 public class FontRenderer extends CFont {
+    private final int[] colorCode = new int[32];
     protected CFont.CharData[] boldChars = new CFont.CharData[256];
     protected CFont.CharData[] italicChars = new CFont.CharData[256];
     protected CFont.CharData[] boldItalicChars = new CFont.CharData[256];
-
-    private final int[] colorCode = new int[32];
+    protected DynamicTexture texBold;
+    protected DynamicTexture texItalic;
+    protected DynamicTexture texItalicBold;
 
     /*
         CREDIT G0dwhitelight.
@@ -28,7 +30,7 @@ public class FontRenderer extends CFont {
     }
 
     public FontRenderer(String NameFontTTF, int size, int fonttype, boolean antiAlias, boolean fractionalMetrics, boolean unicode) {
-        super(FontUtil.getFontFromTTF(new ResourceLocation(Client.CLIENT_NAME + "/Fonts/" + NameFontTTF+".ttf"), size,fonttype), antiAlias, fractionalMetrics, unicode);
+        super(FontUtil.getFontFromTTF(new ResourceLocation(Client.CLIENT_NAME + "/Fonts/" + NameFontTTF + ".ttf"), size, fonttype), antiAlias, fractionalMetrics, unicode);
         setupMinecraftColorcodes();
         setupBoldItalicIDs();
     }
@@ -354,10 +356,6 @@ public class FontRenderer extends CFont {
         super.setFractionalMetrics(fractionalMetrics);
         setupBoldItalicIDs();
     }
-
-    protected DynamicTexture texBold;
-    protected DynamicTexture texItalic;
-    protected DynamicTexture texItalicBold;
 
     private void setupBoldItalicIDs() {
         if (unicode) {

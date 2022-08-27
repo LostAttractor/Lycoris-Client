@@ -14,6 +14,7 @@ open class IResourceManager(obj: Any) : IWrapper(obj) {
         @WrapMethod(mcpName = "getResource", targetMap = MapEnum.VANILLA189)
         lateinit var getResource: Method
     }
+
     @Throws(IOException::class)
     fun getResource(resourceLocation: ResourceLocation): IResource {
         return invoke(getResource, resourceLocation) as IResource

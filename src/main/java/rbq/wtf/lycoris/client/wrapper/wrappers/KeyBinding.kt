@@ -40,13 +40,17 @@ class KeyBinding(obj: Any) : IWrapper(obj) {
     }
 
     fun getKeyCode(): Int = invoke(getKeyCode) as Int
-    fun setKeyCode(keyCode: Int) { invoke(setKeyCode, keyCode) }
+    fun setKeyCode(keyCode: Int) {
+        invoke(setKeyCode, keyCode)
+    }
 
     fun isKeyDown(): Boolean = invoke(isKeyDown) as Boolean
 
     var isPressed: Boolean
         get() = getField(pressed) as Boolean
-        set(v) { setField(pressed, v) }
+        set(v) {
+            setField(pressed, v)
+        }
 //    val keyCode: Int
 //        get() = getField(Companion.keyCode) as Int
 }

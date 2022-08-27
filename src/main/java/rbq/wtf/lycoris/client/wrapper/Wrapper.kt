@@ -256,41 +256,51 @@ object Wrapper {
                                     applyField(wrapperClass, wrapField, declaredField)
                                 }
                             }
+
                             is WrapField -> {
                                 applyField(wrapperClass, annotation, declaredField)
                             }
+
                             is WrapMethods -> {
                                 for (wrapMethod in annotation.value) {
                                     applyMethod(wrapperClass, wrapMethod, declaredField)
                                 }
                             }
+
                             is WrapMethod -> {
                                 applyMethod(wrapperClass, annotation, declaredField)
                             }
+
                             is WrapClasses -> {
                                 for (wrapClass in annotation.value) {
                                     applyClass(wrapperClass, wrapClass, declaredField)
                                 }
                             }
+
                             is WrapClass -> {
                                 applyClass(wrapperClass, annotation, declaredField)
                             }
+
                             is WrapClassAuto -> {
                                 applyClassAuto(wrapperClass, declaredField)
                             }
+
                             is WrapEnums -> {
                                 for (wrapEnum in annotation.value) {
                                     applyEnum(wrapperClass, wrapEnum, declaredField)
                                 }
                             }
+
                             is WrapEnum -> {
                                 applyEnum(wrapperClass, annotation, declaredField)
                             }
+
                             is WrapObjects -> {
                                 for (wrapObject in annotation.value) {
                                     applyObject(wrapperClass, wrapObject, declaredField)
                                 }
                             }
+
                             is WrapObject -> {
                                 applyObject(wrapperClass, annotation, declaredField)
                             }
@@ -428,11 +438,14 @@ object Wrapper {
                 try {
                     declaredField.isAccessible = true
                     declaredField[null] = reflectClassByMap(mapNode)
-                    debug("Successful Apply Class: "  + wrapperClass.mcpName + " -> " + mapNode.getName(useMapObf), "Wrapper")
+                    debug(
+                        "Successful Apply Class: " + wrapperClass.mcpName + " -> " + mapNode.getName(useMapObf),
+                        "Wrapper"
+                    )
                 } catch (e: Exception) {
                     e.printStackTrace()
                     error(
-                        "Failed to Apply Class: " +  wrapperClass.mcpName + " -> " + mapNode.getName(
+                        "Failed to Apply Class: " + wrapperClass.mcpName + " -> " + mapNode.getName(
                             useMapObf
                         ),
                         "Wrapper"

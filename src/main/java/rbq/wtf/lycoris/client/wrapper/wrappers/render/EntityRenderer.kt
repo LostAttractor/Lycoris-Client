@@ -38,7 +38,7 @@ class EntityRenderer(obj: Any) : IWrapper(obj) {
         @WrapField(mcpName = "mc", targetMap = MapEnum.VANILLA189)
         lateinit var mc: Field
     }
-    
+
     fun enableLightmap() {
         invoke(enableLightmap)
     }

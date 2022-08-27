@@ -31,7 +31,7 @@ open class Vec3i(obj: Any) : IWrapper(obj) {
         @WrapMethod(mcpName = "distanceSq", targetMap = MapEnum.VANILLA1122, signature = "(DDD)D")
         lateinit var distanceSq: Method
     }
-    
+
     val x: Int
         get() = getField(Companion.x) as Int
     val y: Int

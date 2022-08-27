@@ -42,5 +42,6 @@ object FileUtils {
 
     @Throws(IOException::class)
     @JvmStatic
-    fun checkFileHash(file: File, hash: String, hashAlgorithm: MathUtils.HashAlgorithm) = MathUtils.getHashCode(readFileByte(file), hashAlgorithm) == hash
+    fun checkFileHash(file: File, hash: String, hashAlgorithm: MathUtils.HashAlgorithm) =
+        MathUtils.getHashCode(readFileByte(file), hashAlgorithm) == hash
 }

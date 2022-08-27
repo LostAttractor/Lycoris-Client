@@ -1,7 +1,6 @@
 package rbq.wtf.lycoris.client.wrapper.wrappers.render.texture
 
 import rbq.wtf.lycoris.client.wrapper.MapEnum
-import rbq.wtf.lycoris.client.wrapper.annotation.WrapClass
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapClassAuto
 import rbq.wtf.lycoris.client.wrapper.annotation.WrapperClass
 import rbq.wtf.lycoris.client.wrapper.utils.ReflectUtil
