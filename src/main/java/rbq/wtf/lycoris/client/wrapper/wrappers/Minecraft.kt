@@ -39,12 +39,12 @@ class Minecraft(obj: Any) : IWrapper(obj) {
     val currentScreen: GuiScreen?
         get() = getField(Companion.currentScreen)?.let { GuiScreen(it) }
 
-    fun displayGuiScreenBypass(screen: GuiScreen) {
+    fun displayGuiScreenBypass(screen: GuiScreen) { //不使用构造器
         setField(Companion.currentScreen, screen.wrapObject)
         invoke(setIngameNotInFocus)
-        val scaledresolution = ScaledResolution(this)
-        val i = scaledresolution.scaledWidth
-        val j = scaledresolution.scaledHeight
+        val scaledResolution = ScaledResolution(this)
+        val i = scaledResolution.scaledWidth
+        val j = scaledResolution.scaledHeight
         this.currentScreen!!.setMc(this)
         this.currentScreen!!.height = j
         this.currentScreen!!.width = i
