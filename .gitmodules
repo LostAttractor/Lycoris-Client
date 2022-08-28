@@ -7,3 +7,6 @@
 [submodule "SRGMaps"]
 	path = SRGMaps
 	url = https://github.com/LostAttractor/SRGMaps
+[submodule "Lycoris-Loader"]
+	path = Lycoris-Loader
+	url = https://github.com/LostAttractor/Lycoris-Loader.git
