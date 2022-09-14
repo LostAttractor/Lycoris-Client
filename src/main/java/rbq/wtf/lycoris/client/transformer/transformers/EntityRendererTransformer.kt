@@ -56,8 +56,7 @@ class EntityRendererTransformer : ClassTransformer() {
                 // {this, partialTicks} | {eventManager, MouseOverPostEvent}
                 insnList.add(MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager::class.java), "callEvent", "(L${Type.getInternalName(Event::class.java)};)V", false))
                 // {this, partialTicks} | {}
-                method.instructions.add(insnList)
-                Logger.debug("getMouseOver Hook ${method.name}")
+                method.instructions.insertBefore(method.instructions.last.previous, insnList)
             }
         }
         val cw = ClassWriter(cr, ClassWriter.COMPUTE_MAXS + ClassWriter.COMPUTE_FRAMES)

@@ -52,7 +52,7 @@ class EntityPlayerSPTransformer : ClassTransformer() {
                 // {this} | {eventManager, MotionEvent}
                 insnList.add(MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager::class.java), "callEvent", "(L${Type.getInternalName(Event::class.java)};)V", false))
                 // {this} | {}
-                method.instructions.add(insnList)
+                method.instructions.insertBefore(method.instructions.last.previous, insnList)
             }
             if (method.name == EntityPlayerSP.onLivingUpdate.name) {
                 val insnList = InsnList()
