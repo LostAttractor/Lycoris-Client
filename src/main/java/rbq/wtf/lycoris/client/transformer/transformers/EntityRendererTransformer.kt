@@ -8,8 +8,10 @@ import rbq.wtf.lycoris.agent.asm.tree.*
 import rbq.wtf.lycoris.client.Client
 import rbq.wtf.lycoris.client.event.Event
 import rbq.wtf.lycoris.client.event.EventManager
+import rbq.wtf.lycoris.client.event.MouseOverPostEvent
 import rbq.wtf.lycoris.client.event.Render3DEvent
 import rbq.wtf.lycoris.client.transformer.ClassTransformer
+import rbq.wtf.lycoris.client.utils.Logger
 import rbq.wtf.lycoris.client.wrapper.wrappers.render.EntityRenderer
 
 class EntityRendererTransformer : ClassTransformer() {
@@ -38,6 +40,24 @@ class EntityRendererTransformer : ClassTransformer() {
                 insnList.add(MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager::class.java), "callEvent", "(L${Type.getInternalName(Event::class.java)};)V", false))
                 // {this, scaledResolution, partialTicks} | {}
                 method.instructions.insert(insnList)
+            }
+            if (method.name == EntityRenderer.getMouseOver.name) {
+                val insnList = InsnList()
+                // {this, partialTicks} | {}
+                insnList.add(FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client::class.java), "eventManager", "L${Type.getInternalName(EventManager::class.java)};"))
+                // {this, partialTicks} | {eventManager}
+                insnList.add(TypeInsnNode(Opcodes.NEW, Type.getInternalName(MouseOverPostEvent::class.java)))
+                // {this, partialTicks} | {eventManager, uninitialized_MouseOverPostEvent}
+                insnList.add(InsnNode(Opcodes.DUP))
+                // {this, partialTicks} | {eventManager, uninitialized_MouseOverPostEvent, uninitialized_MouseOverPostEvent}
+                insnList.add(VarInsnNode(Opcodes.FLOAD, 1))
+                // {this, partialTicks} | {eventManager, uninitialized_MouseOverPostEvent, uninitialized_MouseOverPostEvent, float_partialTicks}
+                insnList.add(MethodInsnNode(Opcodes.INVOKESPECIAL, Type.getInternalName(MouseOverPostEvent::class.java), "<init>", "(F)V", false))
+                // {this, partialTicks} | {eventManager, MouseOverPostEvent}
+                insnList.add(MethodInsnNode(Opcodes.INVOKEVIRTUAL, Type.getInternalName(EventManager::class.java), "callEvent", "(L${Type.getInternalName(Event::class.java)};)V", false))
+                // {this, partialTicks} | {}
+                method.instructions.add(insnList)
+                Logger.debug("getMouseOver Hook ${method.name}")
             }
         }
         val cw = ClassWriter(cr, ClassWriter.COMPUTE_MAXS + ClassWriter.COMPUTE_FRAMES)

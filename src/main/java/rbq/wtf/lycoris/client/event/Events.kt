@@ -67,6 +67,11 @@ class Render3DEvent(val partialTicks: Float) : Event()
 class KeyEvent(val key: Int) : Event()
 
 /**
+ * Called when getMouseOver called
+ */
+class MouseOverPostEvent(val partialTicks: Float) : Event()
+
+/**
  * Called when send a packet
  */
 class PacketSendEvent(val packet: Packet) : CancellableEvent()
