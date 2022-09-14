@@ -54,7 +54,7 @@ class EntityPlayerSPTransformer : ClassTransformer() {
                 // {this} | {}
                 method.instructions.add(insnList)
             }
-            if (method.name.equals(EntityPlayerSP.onLivingUpdate.name, ignoreCase = true)) {
+            if (method.name == EntityPlayerSP.onLivingUpdate.name) {
                 val insnList = InsnList()
                 // {this} | {}
                 insnList.add(FieldInsnNode(Opcodes.GETSTATIC, Type.getInternalName(Client::class.java), "eventManager", "L${Type.getInternalName(EventManager::class.java)};"))
