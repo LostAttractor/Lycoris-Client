@@ -4,7 +4,7 @@ import java.io.File
 
 class OnlineResource(val file: File) {
     companion object {
-        //const val resourceURL = "https://srgmaps.vercel.app"
+        //const val resourceURL = "http://lycorisresource.lostattractor.net"
         const val resourceURL = "https://raw.githubusercontent.com/LostAttractor/SRGMaps/main"
     }
 
