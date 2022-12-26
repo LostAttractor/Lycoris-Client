@@ -1,7 +1,8 @@
 # Lycrois Injection Client
 ## A Minecraft Hacked Client Use Hot Swap
 
-目前实现了通过JNI、JVMTI和反射来动态注入客户端，客户端功能的部分还只写了最基础的
+目前实现了通过JNI、JVMTI和反射来动态注入客户端，客户端功能的部分还只写了最基础的  
+该项目使用由我魔改的ForgeGradle以支持Gradle 7+，但由于ForgeGradle用了Pack200等在新版本JDK被删除的功能，目前请继续使用JDK1.8，否则可能启动失败
 
 ### 基本原理
 
