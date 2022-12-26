@@ -3,10 +3,9 @@
 .idea
 run
 build
-debug
-output
+debug/*
+!.gitkeep
 # 项目忽略文件
-gradle.properties
 Lycoris.api.iml
 Lycoris.main.iml
 Lycoris.test.iml
