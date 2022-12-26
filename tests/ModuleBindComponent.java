@@ -1,10 +1,10 @@
-package rbq.wtf.lycoris.client.gui.clickgui.component;
+package rbq.lycoris.client.gui.clickgui.component;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import rbq.wtf.lycoris.client.gui.clickgui.ClickGUI;
-import rbq.wtf.lycoris.client.font.FontLoaders;
-import rbq.wtf.lycoris.client.module.Module;
+import rbq.lycoris.client.gui.clickgui.ClickGUI;
+import rbq.lycoris.client.font.FontLoaders;
+import rbq.lycoris.client.module.Module;
 
 public class ModuleBindComponent extends Component {
     Module module;

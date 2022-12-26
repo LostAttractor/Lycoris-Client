@@ -4,10 +4,10 @@
  * Could not load the following classes:
  *  org.lwjgl.opengl.GL11
  */
-package rbq.wtf.lycoris.client.gui.Font;
+package rbq.lycoris.client.gui.Font;
 
 import org.lwjgl.opengl.GL11;
-import rbq.wtf.lycoris.client.wrapper.wrappers.render.texture.DynamicTexture;
+import rbq.lycoris.client.wrapper.wrappers.render.texture.DynamicTexture;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

@@ -1,11 +1,11 @@
-package rbq.wtf.lycoris.client.gui.clickgui.component;
+package rbq.lycoris.client.gui.clickgui.component;
 
 import org.lwjgl.input.Keyboard;
-import rbq.wtf.lycoris.client.gui.clickgui.ClickGUI;
-import rbq.wtf.lycoris.client.gui.clickgui.utils.RenderUtil;
-import rbq.wtf.lycoris.client.font.FontLoaders;
-import rbq.wtf.lycoris.client.value.TextValue;
-import rbq.wtf.lycoris.client.wrapper.wrappers.util.ChatAllowedCharacters;
+import rbq.lycoris.client.gui.clickgui.ClickGUI;
+import rbq.lycoris.client.gui.clickgui.utils.RenderUtil;
+import rbq.lycoris.client.font.FontLoaders;
+import rbq.lycoris.client.value.TextValue;
+import rbq.lycoris.client.wrapper.wrappers.util.ChatAllowedCharacters;
 
 import java.awt.*;
 

@@ -16,3 +16,7 @@
 Native-Transform的基本原理通过JNI来Hook Java代码中定义的ClassTransformer类中的方法，方法实现了对传入的字节码进行修改(使用ASM)并返回修改后的字节码，随后通过JVMTI对方法进行调用，调用后再通过JNI把返回的字节码应用到MC中，实现动态更改Class的效果
 
 ### 由于Kotlin实在过于好用，本项目除Native相关部分外客户端所有代码均由Kotlin编写
+
+### JNI 头文件生成
+```javac -sourcepath C:\Users\losta\Documents\GitHub\Lycoris-Client\src\main\java .\InstrumentationImpl.java```  
+```javah -jni rbq.lycoris.agent.instrument.impl.InstrumentationImpl```

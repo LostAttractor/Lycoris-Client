@@ -1,4 +1,4 @@
-import rbq.wtf.lycoris.client.Client
+import rbq.lycoris.client.Client
 import javax.swing.JOptionPane
 
 class Loader {

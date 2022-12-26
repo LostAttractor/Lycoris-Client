@@ -1,6 +1,6 @@
-package rbq.wtf.lycoris.client
+package rbq.lycoris.client
 
-import rbq.wtf.lycoris.client.event.EventManager
+import rbq.lycoris.client.event.EventManager
 
 class Client {
     companion object {

@@ -1,5 +1,5 @@
 import net.minecraftforge.fml.common.Mod
-import rbq.wtf.lycoris.client.Client
+import rbq.lycoris.client.Client
 import javax.swing.JOptionPane
 
 @Mod(modid = "Lycoris Client")

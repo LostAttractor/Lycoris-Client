@@ -1,9 +1,9 @@
-package rbq.wtf.lycoris.client.gui.clickgui.component;
+package rbq.lycoris.client.gui.clickgui.component;
 
-import rbq.wtf.lycoris.client.gui.clickgui.ClickGUI;
-import rbq.wtf.lycoris.client.gui.clickgui.utils.RenderUtil;
-import rbq.wtf.lycoris.client.font.FontLoaders;
-import rbq.wtf.lycoris.client.value.ModeValue;
+import rbq.lycoris.client.gui.clickgui.ClickGUI;
+import rbq.lycoris.client.gui.clickgui.utils.RenderUtil;
+import rbq.lycoris.client.font.FontLoaders;
+import rbq.lycoris.client.value.ModeValue;
 
 import java.awt.*;
 

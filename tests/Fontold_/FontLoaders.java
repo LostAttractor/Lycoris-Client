@@ -1,7 +1,7 @@
 /*
  * Decompiled with CFR 0_132.
  */
-package rbq.wtf.lycoris.client.gui.Font;
+package rbq.lycoris.client.gui.Font;
 
 import java.awt.*;
 

@@ -1,4 +1,4 @@
-package rbq.wtf.lycoris.client.gui.Font;
+package rbq.lycoris.client.gui.Font;
 
 public class SpecialFonts {
     //Notifi

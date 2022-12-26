@@ -1,10 +1,10 @@
-package rbq.wtf.lycoris.client.gui.clickgui.component;
+package rbq.lycoris.client.gui.clickgui.component;
 
 import org.lwjgl.input.Mouse;
-import rbq.wtf.lycoris.client.gui.clickgui.ClickGUI;
-import rbq.wtf.lycoris.client.gui.clickgui.utils.RenderUtil;
-import rbq.wtf.lycoris.client.font.FontLoaders;
-import rbq.wtf.lycoris.client.value.NumberValue;
+import rbq.lycoris.client.gui.clickgui.ClickGUI;
+import rbq.lycoris.client.gui.clickgui.utils.RenderUtil;
+import rbq.lycoris.client.font.FontLoaders;
+import rbq.lycoris.client.value.NumberValue;
 
 import java.awt.*;
 import java.math.BigDecimal;

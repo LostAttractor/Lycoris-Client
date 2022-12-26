@@ -1,15 +1,15 @@
-package rbq.wtf.lycoris.client.gui.clickgui.component;
+package rbq.lycoris.client.gui.clickgui.component;
 
 
 import org.lwjgl.opengl.GL11;
-import rbq.wtf.lycoris.client.gui.clickgui.ClickGUI;
-import rbq.wtf.lycoris.client.gui.clickgui.utils.RenderUtil;
-import rbq.wtf.lycoris.client.font.FontLoaders;
-import rbq.wtf.lycoris.client.value.ColorValue;
-import rbq.wtf.lycoris.client.wrapper.wrappers.render.DefaultVertexFormats;
-import rbq.wtf.lycoris.client.wrapper.wrappers.render.GlStateManager;
-import rbq.wtf.lycoris.client.wrapper.wrappers.render.Tessellator;
-import rbq.wtf.lycoris.client.wrapper.wrappers.render.WorldRenderer;
+import rbq.lycoris.client.gui.clickgui.ClickGUI;
+import rbq.lycoris.client.gui.clickgui.utils.RenderUtil;
+import rbq.lycoris.client.font.FontLoaders;
+import rbq.lycoris.client.value.ColorValue;
+import rbq.lycoris.client.wrapper.wrappers.render.DefaultVertexFormats;
+import rbq.lycoris.client.wrapper.wrappers.render.GlStateManager;
+import rbq.lycoris.client.wrapper.wrappers.render.Tessellator;
+import rbq.lycoris.client.wrapper.wrappers.render.WorldRenderer;
 
 import java.awt.*;
 
