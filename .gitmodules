@@ -4,6 +4,6 @@
 [submodule "Lycoris-Native-Loader"]
 	path = Lycoris-Native-Loader
 	url = https://github.com/LostAttractor/Lycoris-Native-Loader.git
-[submodule "SRGMaps"]
-	path = SRGMaps
-	url = https://github.com/LostAttractor/SRGMaps
+[submodule "Lycoris-Resource"]
+	path = Lycoris-Resource
+	url = https://github.com/LostAttractor/Lycoris-Resource.git
