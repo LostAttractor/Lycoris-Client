@@ -20,7 +20,7 @@ object Client {
     const val GAME_VERSION = "1.8.9"
     const val enabledLog = true
     const val showDebugLevelLog = true
-    const val developEnv = false
+    const val developEnv = true
     var isVanilla = true
     var isStarting = false
     var isLoaded = false
