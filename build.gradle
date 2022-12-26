@@ -17,19 +17,10 @@ repositories {
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+sourceCompatibility = targetCompatibility = \
+ compileJava.sourceCompatibility = compileJava.targetCompatibility = \
+ compileKotlin.kotlinOptions.jvmTarget = compileTestKotlin.kotlinOptions.jvmTarget = '1.8'
 compileJava.options.encoding = "UTF-8"
-
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
 
 minecraft {
     version = "1.8.9-11.15.1.2318-1.8.9"
@@ -54,11 +45,6 @@ configurations {
 //}
 
 dependencies {
-//    include 'org.projectlombok:lombok:1.18.24'
-//    annotationProcessor 'org.projectlombok:lombok:1.18.24'
-//    includeTest 'org.projectlombok:lombok:1.18.24'
-//    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
-
     include "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
 //    include 'org.ow2.asm:asm:9.3'
