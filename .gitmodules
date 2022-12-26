@@ -1,12 +1,9 @@
-[submodule "Lycoris-Native-Loader"]
-	path = Lycoris-Native-Loader
-	url = https://github.com/LostAttractor/Lycoris-Native-Loader.git
-[submodule "ForgeGradle"]
-	path = ForgeGradle
-	url = https://github.com/LostAttractor/ForgeGradle.git
-[submodule "SRGMaps"]
-	path = SRGMaps
-	url = https://github.com/LostAttractor/SRGMaps
 [submodule "Lycoris-Loader"]
 	path = Lycoris-Loader
 	url = https://github.com/LostAttractor/Lycoris-Loader.git
+[submodule "Lycoris-Native-Loader"]
+	path = Lycoris-Native-Loader
+	url = https://github.com/LostAttractor/Lycoris-Native-Loader.git
+[submodule "SRGMaps"]
+	path = SRGMaps
+	url = https://github.com/LostAttractor/SRGMaps
