@@ -14,7 +14,7 @@ import rbq.lycoris.client.transformer.ClassTransformer
 import rbq.lycoris.client.wrapper.wrappers.network.NetworkManager
 import rbq.lycoris.client.wrapper.wrappers.network.Packet
 
-class NetworkManagerTransformer() : ClassTransformer() {
+class NetworkManagerTransformer : ClassTransformer() {
 
     override val targetClass: Class<*>
         get() = NetworkManager.wrapClass
