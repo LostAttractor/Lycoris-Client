@@ -5,14 +5,20 @@ import rbq.lycoris.client.wrapper.annotation.WrapConstructor
 import rbq.lycoris.client.wrapper.annotation.WrapField
 import rbq.lycoris.client.wrapper.annotation.WrapMethod
 import rbq.lycoris.client.wrapper.annotation.WrapperClass
+import rbq.lycoris.client.wrapper.annotation.repeat.WrapConstructors
+import rbq.lycoris.client.wrapper.annotation.repeat.WrapFields
+import rbq.lycoris.client.wrapper.annotation.repeat.WrapMethods
+import rbq.lycoris.client.wrapper.annotation.repeat.WrapperClasses
 import rbq.lycoris.client.wrapper.utils.ReflectUtil
 import rbq.lycoris.client.wrapper.wrappers.render.FontRenderer
 import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 
-@WrapperClass(mcpName = "net.minecraft.client.gui.GuiTextField", targetMap = MapEnum.VANILLA189)
-@WrapperClass(mcpName = "net.minecraft.client.gui.GuiTextField", targetMap = MapEnum.VANILLA1122)
+@WrapperClasses(
+    WrapperClass(mcpName = "net.minecraft.client.gui.GuiTextField", targetMap = MapEnum.VANILLA189),
+    WrapperClass(mcpName = "net.minecraft.client.gui.GuiTextField", targetMap = MapEnum.VANILLA1122)
+)
 class GuiTextField(obj: Any) : Gui(obj) {
     constructor(
         componentId: Int,
@@ -87,70 +93,100 @@ class GuiTextField(obj: Any) : Gui(obj) {
     }
 
     companion object {
-        @WrapField(mcpName = "text", targetMap = MapEnum.VANILLA189)
-        @WrapField(mcpName = "text", targetMap = MapEnum.VANILLA1122)
-        lateinit var text: Field
-
-        @WrapConstructor(
-            targetMap = MapEnum.VANILLA189,
-            signature = [Int::class, FontRenderer::class, Int::class, Int::class, Int::class, Int::class]
-        )
-        @WrapConstructor(
-            targetMap = MapEnum.VANILLA1122,
-            signature = [Int::class, FontRenderer::class, Int::class, Int::class, Int::class, Int::class]
+        @WrapConstructors(
+            WrapConstructor(
+                targetMap = MapEnum.VANILLA189,
+                signature = [Int::class, FontRenderer::class, Int::class, Int::class, Int::class, Int::class]
+            ),
+            WrapConstructor(
+                targetMap = MapEnum.VANILLA1122,
+                signature = [Int::class, FontRenderer::class, Int::class, Int::class, Int::class, Int::class]
+            )
         )
         lateinit var GuiTextField_I_FontRenderer_IIII: Constructor<*>
 
-        @WrapField(mcpName = "maxStringLength", targetMap = MapEnum.VANILLA189)
-        @WrapField(mcpName = "maxStringLength", targetMap = MapEnum.VANILLA1122)
+        @WrapFields(
+            WrapField(mcpName = "text", targetMap = MapEnum.VANILLA189),
+            WrapField(mcpName = "text", targetMap = MapEnum.VANILLA1122)
+        )
+        lateinit var text: Field
+
+        @WrapFields(
+            WrapField(mcpName = "maxStringLength", targetMap = MapEnum.VANILLA189),
+            WrapField(mcpName = "maxStringLength", targetMap = MapEnum.VANILLA1122)
+        )
         lateinit var maxStringLength: Field
 
-        @WrapField(mcpName = "enableBackgroundDrawing", targetMap = MapEnum.VANILLA189)
-        @WrapField(mcpName = "enableBackgroundDrawing", targetMap = MapEnum.VANILLA1122)
+        @WrapFields(
+            WrapField(mcpName = "enableBackgroundDrawing", targetMap = MapEnum.VANILLA189),
+            WrapField(mcpName = "enableBackgroundDrawing", targetMap = MapEnum.VANILLA1122)
+        )
         lateinit var enableBackgroundDrawing: Field
 
-        @WrapMethod(mcpName = "setFocused", targetMap = MapEnum.VANILLA189)
-        @WrapMethod(mcpName = "setFocused", targetMap = MapEnum.VANILLA1122)
+        @WrapMethods(
+            WrapMethod(mcpName = "setFocused", targetMap = MapEnum.VANILLA189),
+            WrapMethod(mcpName = "setFocused", targetMap = MapEnum.VANILLA1122)
+        )
         lateinit var setFocused: Method
 
-        @WrapField(mcpName = "canLoseFocus", targetMap = MapEnum.VANILLA189)
-        @WrapField(mcpName = "canLoseFocus", targetMap = MapEnum.VANILLA1122)
+        @WrapFields(
+            WrapField(mcpName = "canLoseFocus", targetMap = MapEnum.VANILLA189),
+            WrapField(mcpName = "canLoseFocus", targetMap = MapEnum.VANILLA1122)
+        )
         lateinit var canLoseFocus: Field
 
-        @WrapMethod(mcpName = "drawTextBox", targetMap = MapEnum.VANILLA189)
-        @WrapMethod(mcpName = "drawTextBox", targetMap = MapEnum.VANILLA1122)
+        @WrapMethods(
+            WrapMethod(mcpName = "drawTextBox", targetMap = MapEnum.VANILLA189),
+            WrapMethod(mcpName = "drawTextBox", targetMap = MapEnum.VANILLA1122)
+        )
         lateinit var drawTextBox: Method
 
-        @WrapMethod(mcpName = "func_146197_a", targetMap = MapEnum.VANILLA189)
-        @WrapMethod(mcpName = "getNthWordFromPosWS", targetMap = MapEnum.VANILLA1122)
+        @WrapMethods(
+            WrapMethod(mcpName = "func_146197_a", targetMap = MapEnum.VANILLA189),
+            WrapMethod(mcpName = "getNthWordFromPosWS", targetMap = MapEnum.VANILLA1122)
+        )
         lateinit var func_146197_a: Method
 
-        @WrapMethod(mcpName = "deleteFromCursor", targetMap = MapEnum.VANILLA189)
-        @WrapMethod(mcpName = "deleteFromCursor", targetMap = MapEnum.VANILLA1122)
+        @WrapMethods(
+            WrapMethod(mcpName = "deleteFromCursor", targetMap = MapEnum.VANILLA189),
+            WrapMethod(mcpName = "deleteFromCursor", targetMap = MapEnum.VANILLA1122)
+        )
         lateinit var deleteFromCursor: Method
 
-        @WrapField(mcpName = "cursorPosition", targetMap = MapEnum.VANILLA189)
-        @WrapField(mcpName = "cursorPosition", targetMap = MapEnum.VANILLA1122)
+        @WrapFields(
+            WrapField(mcpName = "cursorPosition", targetMap = MapEnum.VANILLA189),
+            WrapField(mcpName = "cursorPosition", targetMap = MapEnum.VANILLA1122)
+        )
         lateinit var cursorPosition: Field
 
-        @WrapMethod(mcpName = "writeText", targetMap = MapEnum.VANILLA189)
-        @WrapMethod(mcpName = "writeText", targetMap = MapEnum.VANILLA1122)
+        @WrapMethods(
+            WrapMethod(mcpName = "writeText", targetMap = MapEnum.VANILLA189),
+            WrapMethod(mcpName = "writeText", targetMap = MapEnum.VANILLA1122)
+        )
         lateinit var writeText: Method
 
-        @WrapMethod(mcpName = "setText", targetMap = MapEnum.VANILLA189)
-        @WrapMethod(mcpName = "setText", targetMap = MapEnum.VANILLA1122)
+        @WrapMethods(
+            WrapMethod(mcpName = "setText", targetMap = MapEnum.VANILLA189),
+            WrapMethod(mcpName = "setText", targetMap = MapEnum.VANILLA1122)
+        )
         lateinit var setText: Method
 
-        @WrapMethod(mcpName = "textboxKeyTyped", targetMap = MapEnum.VANILLA189)
-        @WrapMethod(mcpName = "textboxKeyTyped", targetMap = MapEnum.VANILLA1122)
+        @WrapMethods(
+            WrapMethod(mcpName = "textboxKeyTyped", targetMap = MapEnum.VANILLA189),
+            WrapMethod(mcpName = "textboxKeyTyped", targetMap = MapEnum.VANILLA1122)
+        )
         lateinit var textboxKeyTyped: Method
 
-        @WrapMethod(mcpName = "updateCursorCounter", targetMap = MapEnum.VANILLA189)
-        @WrapMethod(mcpName = "updateCursorCounter", targetMap = MapEnum.VANILLA1122)
+        @WrapMethods(
+            WrapMethod(mcpName = "updateCursorCounter", targetMap = MapEnum.VANILLA189),
+            WrapMethod(mcpName = "updateCursorCounter", targetMap = MapEnum.VANILLA1122)
+        )
         lateinit var updateCursorCounter: Method
 
-        @WrapMethod(mcpName = "mouseClicked", targetMap = MapEnum.VANILLA189)
-        @WrapMethod(mcpName = "mouseClicked", targetMap = MapEnum.VANILLA1122)
+        @WrapMethods(
+            WrapMethod(mcpName = "mouseClicked", targetMap = MapEnum.VANILLA189),
+            WrapMethod(mcpName = "mouseClicked", targetMap = MapEnum.VANILLA1122)
+        )
         lateinit var mouseClicked: Method
     }
 }
