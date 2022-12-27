@@ -4,7 +4,7 @@ plugins {
     id "org.jetbrains.kotlin.jvm"
     id "com.github.johnrengelman.shadow" version "6.1.0"
     id "net.minecraftforge.gradle.forge"
-    id "com.gorylenko.gradle-git-properties" version "2.4.0"
+    id "com.gorylenko.gradle-git-properties" version "2.4.1"
 }
 
 repositories {
