@@ -4,7 +4,7 @@ import rbq.lycoris.client.wrapper.annotation.WrapField
 
 @MustBeDocumented
 @Target(AnnotationTarget.FIELD)
-@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
+@Retention(AnnotationRetention.RUNTIME)
 /**
  * Auto setup field
  */
