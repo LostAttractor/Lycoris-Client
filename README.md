@@ -40,7 +40,11 @@ rm ./Lycoris-Loader/Lycoris-Loader/classes.h
 
 ### Tips:
 #### JNI 头文件生成
-```javac -sourcepath C:\Users\losta\Documents\GitHub\Lycoris-Client\src\main\java .\InstrumentationImpl.java```  
-```javah -jni rbq.lycoris.agent.instrument.impl.InstrumentationImpl```
+```sh
+javac -sourcepath .\src\main\java .\src\main\java\rbq\lycoris\agent\instrument\impl\InstrumentationImpl.java
+```
+```sh
+javah -jni -sourcepath .\src\main\java rbq.lycoris.agent.instrument.impl.InstrumentationImpl
+```
 
 #### 由于Kotlin实在过于好用，本项目除Native相关部分外客户端所有代码均由Kotlin编写
