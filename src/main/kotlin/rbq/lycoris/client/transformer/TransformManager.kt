@@ -1,6 +1,5 @@
 package rbq.lycoris.client.transformer
 
-import rbq.lycoris.agent.LycorisAgent
 import rbq.lycoris.agent.instrument.impl.InstrumentationImpl
 import rbq.lycoris.client.Client
 import rbq.lycoris.client.transformer.transformers.*
@@ -9,6 +8,8 @@ import rbq.lycoris.client.utils.Logger
 import java.io.IOException
 
 object TransformManager {
+    val instrumentationImpl = InstrumentationImpl()
+
     var transformers: MutableList<ClassTransformer> = ArrayList()
     var backTransformers: MutableList<BackTransformer> = ArrayList()
     var transformed = false
@@ -37,13 +38,20 @@ object TransformManager {
         //Load Native to use JVMTI to call onTransform
         Logger.info("Start Initialize Native", "Native")
         Logger.info("Load Native: " + Client.JVMTILib.file.name, "Native")
+        /**
+         * Native-Transformer
+         *
+         * 该Native库加载时会通过Windows API获得允许reTransform类的JVMTI实例并声明InstrumentationImpl中的一些Method
+         * 在其中的reTransformClasses这个Method被运行时，会重载传入的类并添加Hook修改类的加载行为
+         * 该Hook会通过下方的transform方法对期望加载的类进行修改并替换加载内容
+        **/
         System.load(Client.JVMTILib.file.toString())
         Logger.info("Native Initialized Successful", "Native")
         //re-transform Class
         if (!transformed) {
             for (classTransformer in transformers) {
                 Logger.info("Start Transformer " + classTransformer.targetClass.canonicalName, "Transformer")
-                val error = LycorisAgent.retransformclass(InstrumentationImpl(), classTransformer.targetClass)
+                val error = instrumentationImpl.reTransformClasses(arrayOf(classTransformer.targetClass))
                 Logger.info(
                     "Transformed Class " + classTransformer.targetClass.canonicalName + " " + JVMTIError.parse(error),
                     "Transformer"
@@ -53,7 +61,7 @@ object TransformManager {
         } else {
             for (classTransformer in backTransformers) {
                 Logger.info("Start Transformer " + classTransformer.targetClass.canonicalName, "TransformBack")
-                val error = LycorisAgent.retransformclass(InstrumentationImpl(), classTransformer.targetClass)
+                val error = instrumentationImpl.reTransformClasses(arrayOf(classTransformer.targetClass))
                 Logger.info(
                     "Transformed Class " + classTransformer.targetClass.canonicalName + " " + JVMTIError.parse(error),
                     "TransformBack"
@@ -64,8 +72,15 @@ object TransformManager {
         }
     }
 
+    /**
+     * Called in Native-Transformer
+     *
+     * @param clazz Class Target
+     * @param original_class_bytes Original Class Bytes
+     * @return Transformed Class Bytes
+     */
     @JvmStatic
-    fun onTransform(clazz: Class<*>?, original_class_bytes: ByteArray?): ByteArray? {
+    fun transform(clazz: Class<*>?, original_class_bytes: ByteArray?): ByteArray? {
         if (clazz == null || clazz.canonicalName == "null") {
             Logger.warning("NULL Class", "Transformer")
             return original_class_bytes

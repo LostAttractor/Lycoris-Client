@@ -12,14 +12,30 @@ public class InstrumentationImpl implements Instrumentation {
         return Access.getTransformersAsArray();
     }
 
+    /**
+     * Impl by JNI
+     * @return All Loaded Classes
+     */
     @Override
     public native Class<?>[] getAllLoadedClasses();
 
+    /**
+     * Impl by JNI
+     *
+     * @param classLoader classloader
+     * @return Loaded Classes by classloader
+     */
     @Override
-    public native int retransformClasses(Class<?>[] classes);
+    public native Class<?>[] getLoadedClasses(ClassLoader classLoader); //由Native实现
 
+    /**
+     * Impl by JNI
+     *
+     * @param classes classes need been transform
+     * @return error code
+     */
     @Override
-    public native Class<?>[] getLoadedClasses(ClassLoader classLoader);
+    public native int reTransformClasses(Class<?>[] classes);
 
     @Override
     public void addTransformer(final ClassTransformer classTransformer) {

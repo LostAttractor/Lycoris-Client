@@ -6,7 +6,7 @@ public interface Instrumentation {
 
     ClassTransformer[] getTransformers();
 
-    int retransformClasses(final Class<?>[] classes);
+    int reTransformClasses(final Class<?>[] classes);
 
     Class<?>[] getLoadedClasses(final ClassLoader classLoader);
 
