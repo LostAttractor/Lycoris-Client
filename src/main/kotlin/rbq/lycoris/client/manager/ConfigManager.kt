@@ -16,6 +16,9 @@ class ConfigManager : MinecraftInstance() {
     val modulesConfig: FileConfig = ModulesConfig(Client.configPath.resolve("modules.json"))
     val valuesConfig: FileConfig = ValuesConfig(Client.configPath.resolve("values.json"))
 
+    // TODO: 将按键绑定配置分离出来
+    // TODO: 将Config抽象化，使得可以通过解析json替换配置文件，支持多配置文件系统
+
     //val clickGuiConfig: FileConfig = ClickGuiConfig(File(dir, "clickgui.json"))
     //val accountsConfig: AccountsConfig = AccountsConfig(File(dir, "accounts.json"))
     //val friendsConfig: FriendsConfig = FriendsConfig(File(dir, "friends.json"))
@@ -74,8 +77,8 @@ class ConfigManager : MinecraftInstance() {
      * @param config to load
      */
     fun loadConfig(config: FileConfig) {
-        if (!config.hasConfig()) {
-            Logger.info("Skipped loading config: " + config.file.name + ".", "ConfigManager")
+        if (!config.hasConfig()) { // Save a default config if config file not exist
+            Logger.info("Init config: " + config.file.name + ".", "ConfigManager")
             saveConfig(config, true)
             return
         }
