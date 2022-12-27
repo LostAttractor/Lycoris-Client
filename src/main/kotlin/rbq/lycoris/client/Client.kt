@@ -25,22 +25,19 @@ object Client {
     var isStarting = false
     var isLoaded = false
 
-    @JvmField
-    var runPath: Path = Paths.get("").toAbsolutePath()
+    val runPath: Path = Paths.get("").toAbsolutePath()
     val configPath: File = runPath.resolve("$CLIENT_NAME-$GAME_VERSION").toFile()
-
-    @JvmField
     val runtimePath: File = configPath.resolve(".runtime")
     val mapsPath = runtimePath.resolve("maps")
-
-    @JvmField
     val JVMTILoaderPath = runtimePath.resolve("Lycoris-Native-Loader.dll")
+
     lateinit var srgPath: File
+
     lateinit var srgMap: OnlineResource
     lateinit var JVMTILib: OnlineResource
 
-    @JvmField
-    var eventManager: EventManager = EventManager()
+//    @JvmField
+    lateinit var eventManager: EventManager
     lateinit var moduleManager: ModuleManager
     lateinit var configManager: ConfigManager
     lateinit var commandManager: CommandManager
@@ -49,27 +46,30 @@ object Client {
     fun start() {
         Logger.info("Start Initialize Client")
         Logger.info("Running in .minecraft Path: $runPath")
-        if (isLoaded) {
-            if (!TransformManager.transformed) {
-                Logger.info("Re-Transforming Class...")
-                TransformManager.doTransform()
-                Logger.info("Client Initialized Successful")
+
+        if (isLoaded) { // Re-Inject
+            if (!TransformManager.transformed) { //Self Destructed
+                TransformManager.reTransform()
             }
             return
         }
+
         isStarting = true
-        RuntimeManager.init() // 加载/检测运行环境状态，补全运行时
+
+        RuntimeManager.init() // 加载/检测运行环境状态，补全运行时 (Native)
         Wrapper.init() // Load Wrappers
-        BridgeUtil.init()
-        TransformManager.init() // Load Transformers
+        BridgeUtil.init() // Load Margele Bridge
+
+        eventManager = EventManager()
         configManager = ConfigManager()
         moduleManager = ModuleManager()
         commandManager = CommandManager()
+        clickGUI = ClickGUI()
 
         // Load configs
         configManager.loadConfigs(configManager.modulesConfig, configManager.valuesConfig)
 
-        clickGUI = ClickGUI()
+        TransformManager.init() // Load Transformers
 
         isStarting = false
         isLoaded = true

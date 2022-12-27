@@ -26,6 +26,13 @@ object TransformManager {
         Logger.info("Transforms Initialized Successful", "Transformer")
     }
 
+    fun reTransform() {
+        if (transformed) throw RuntimeException("Classes has been transformed")
+        Logger.info("Re-Transforming Class...")
+        doTransform()
+        Logger.info("Client Initialized Successful")
+    }
+
     fun doTransform() {
         //Load Native to use JVMTI to call onTransform
         Logger.info("Start Initialize Native", "Native")
